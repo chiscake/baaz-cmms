@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.CrudWorkbench.CrudEditorPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             MinWidth="0">
+
+    <Grid Background="{ThemeResource LayerFillColorDefaultBrush}"
+          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+          BorderThickness="1,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0"
+                Padding="16,12"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="{x:Bind Title, Mode=OneWay}"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           TextTrimming="CharacterEllipsis" />
+
+                <Button Grid.Column="1"
+                        Style="{ThemeResource DateTimePickerFlyoutButtonStyle}"
+                        Click="CloseButton_Click"
+                        ToolTipService.ToolTip="Закрыть">
+                    <FontIcon Glyph="&#xE8BB;" FontSize="12" />
+                </Button>
+            </Grid>
+        </Border>
+
+        <!-- Form content (provided by page via FormContent property) -->
+        <ScrollViewer Grid.Row="1"
+                      Padding="16,12"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Spacing="12" MinWidth="0">
+                <!-- Validation error -->
+                <InfoBar x:Name="ErrorBar"
+                         IsOpen="{x:Bind HasError, Mode=OneWay}"
+                         Severity="Error"
+                         Message="{x:Bind ErrorMessage, Mode=OneWay}"
+                         IsClosable="False"
+                         Margin="0,0,0,4" />
+
+                <!-- Page-specific form fields -->
+                <ContentPresenter Content="{x:Bind FormContent, Mode=OneWay}" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer: Save / Cancel -->
+        <Border Grid.Row="2"
+                Padding="16,10"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal"
+                        Spacing="8"
+                        HorizontalAlignment="Right">
+                <Button x:Name="CancelBtn"
+                        Content="{x:Bind CancelLabel, Mode=OneWay}"
+                        Click="CancelBtn_Click" />
+                <Button x:Name="SaveBtn"
+                        Style="{ThemeResource AccentButtonStyle}"
+                        IsEnabled="{x:Bind IsNotBusy, Mode=OneWay}"
+                        Click="SaveBtn_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <ProgressRing Width="16" Height="16"
+                                      IsActive="{x:Bind IsBusy, Mode=OneWay}"
+                                      Visibility="{x:Bind IsBusy, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                        <TextBlock Text="{x:Bind SaveLabel, Mode=OneWay}" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

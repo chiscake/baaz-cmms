@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Pages.Dispatcher.MaintenanceSchedule.MaintenanceScheduleCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:badge="using:BAAZ.CMMS.App.Controls.StatusBadge"
+             xmlns:local="using:BAAZ.CMMS.App.Pages.Dispatcher.MaintenanceSchedule"
+             x:DataType="local:MaintenanceScheduleRow"
+             mc:Ignorable="d">
+
+    <Border x:Name="CardBorder"
+            Padding="12,10"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="4"
+            Margin="0,0,0,8">
+        <Grid>
+            <Grid x:Name="CompactLayout"
+                  RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0"
+                      ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Ellipse x:Name="CompactStatusDot"
+                             Grid.Column="0"
+                             Width="10"
+                             Height="10"
+                             VerticalAlignment="Top"
+                             Margin="0,6,0,0" />
+
+                    <StackPanel Grid.Column="1"
+                                Spacing="4">
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding AssetName, Mode=OneWay}"
+                                       Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                       TextTrimming="CharacterEllipsis" />
+                            <badge:StatusBadge Grid.Column="1"
+                                               VerticalAlignment="Top"
+                                               Label="{Binding StatusLabel, Mode=OneWay}"
+                                               BackgroundKey="{Binding StatusBadgeBackgroundKey, Mode=OneWay}"
+                                               ForegroundKey="{Binding StatusBadgeForegroundKey, Mode=OneWay}" />
+                        </Grid>
+                        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                            <Run Text="{Binding AssetNumber, Mode=OneWay}" />
+                            <Run Text=" • " />
+                            <Run Text="{Binding MaintenanceTypeLabel, Mode=OneWay}" />
+                            <Run Text=" • " />
+                            <Run Text="{Binding PlannedDateText, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding MaintenanceDatesLine, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="{Binding DepartmentsLine, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="{Binding ReportsProgressText, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Visibility="{Binding ShowReportsProgress, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <Button x:Name="PrimaryActionButton" />
+                    <DropDownButton x:Name="MoreActionsButton">
+                        <FontIcon Glyph="&#xE712;"
+                                  FontSize="19" />
+                    </DropDownButton>
+                </StackPanel>
+            </Grid>
+
+            <Grid x:Name="ExpandedLayout"
+                  ColumnSpacing="12"
+                  Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0"
+                      ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Ellipse x:Name="ExpandedStatusDot"
+                             Grid.Column="0"
+                             Width="10"
+                             Height="10"
+                             VerticalAlignment="Top"
+                             Margin="0,6,0,0" />
+
+                    <StackPanel Grid.Column="1"
+                                Spacing="4">
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="8">
+                            <TextBlock Text="{Binding AssetName, Mode=OneWay}"
+                                       Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                       TextTrimming="CharacterEllipsis" />
+                            <badge:StatusBadge Label="{Binding StatusLabel, Mode=OneWay}"
+                                               BackgroundKey="{Binding StatusBadgeBackgroundKey, Mode=OneWay}"
+                                               ForegroundKey="{Binding StatusBadgeForegroundKey, Mode=OneWay}" />
+                        </StackPanel>
+                        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                            <Run Text="{Binding AssetNumber, Mode=OneWay}" />
+                            <Run Text=" • " />
+                            <Run Text="{Binding MaintenanceTypeLabel, Mode=OneWay}" />
+                            <Run Text=" • " />
+                            <Run Text="{Binding PlannedDateText, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding MaintenanceDatesLine, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="{Binding DepartmentsLine, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="{Binding ReportsProgressText, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   Visibility="{Binding ShowReportsProgress, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            VerticalAlignment="Center">
+                    <Button Content="{Binding Page.ActionSubmitWorkReport, Mode=OneWay}"
+                            Command="{Binding Page.SubmitWorkReportCommand}"
+                            CommandParameter="{Binding}"
+                            Visibility="{Binding CanSubmitWorkReport, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="{Binding Page.ActionDetails, Mode=OneWay}"
+                            Command="{Binding Page.ShowDetailsCommand}"
+                            CommandParameter="{Binding}" />
+                    <Button Content="{Binding Page.ActionMarkOverdue, Mode=OneWay}"
+                            Command="{Binding Page.MarkOverdueCommand}"
+                            CommandParameter="{Binding}"
+                            Visibility="{Binding CanMarkOverdue, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="{Binding Page.ActionCancel, Mode=OneWay}"
+                            Command="{Binding Page.CancelCommand}"
+                            CommandParameter="{Binding}"
+                            Visibility="{Binding CanCancel, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="{Binding Page.ActionNorms, Mode=OneWay}"
+                            Command="{Binding Page.OpenNormsCommand}"
+                            CommandParameter="{Binding}"
+                            Visibility="{Binding Page.IsAdmin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

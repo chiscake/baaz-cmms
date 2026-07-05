@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Dispatcher.MaintenanceSchedule.MaintenanceSchedulePage"
+      x:Name="Root"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:local="using:BAAZ.CMMS.App.Pages.Dispatcher.MaintenanceSchedule"
+      mc:Ignorable="d">
+
+    <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                       State="{x:Bind ViewModel.InfoBanner, Mode=OneWay}"
+                       VerticalScrollMode="Disabled">
+        <Grid VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
+                            Spacing="12"
+                            Margin="0,0,0,12">
+                    <Button Command="{x:Bind ViewModel.RefreshCommand}">
+                        <SymbolIcon Symbol="Refresh" />
+                    </Button>
+                    <Button Content="{x:Bind ViewModel.ActionAdd, Mode=OneWay}"
+                            Command="{x:Bind ViewModel.CreateCommand}"
+                            Visibility="{x:Bind ViewModel.CanCreate, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="{x:Bind ViewModel.ActionGenerate, Mode=OneWay}"
+                            Command="{x:Bind ViewModel.GeneratePprCommand}"
+                            Visibility="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="{x:Bind ViewModel.ActionCancelAll, Mode=OneWay}"
+                            Command="{x:Bind ViewModel.CancelAllOpenCommand}"
+                            Visibility="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                </StackPanel>
+                <Border Grid.Column="1"
+                        Width="Auto" />
+                <StackPanel Grid.Column="2">
+                    <SelectorBar x:Name="ViewSelector"
+                                 Style="{StaticResource TokenViewSelectorBarStyle}"
+                                 SelectionChanged="ViewSelector_SelectionChanged">
+                        <SelectorBarItem Text="{x:Bind ViewModel.ViewListLabel, Mode=OneWay}" />
+                        <SelectorBarItem Text="{x:Bind ViewModel.ViewChartLabel, Mode=OneWay}" />
+                    </SelectorBar>
+                </StackPanel>
+            </Grid>
+
+            <local:MaintenanceScheduleFilterBar Grid.Row="1"
+                                                DataContext="{x:Bind ViewModel}" />
+
+            <Grid Grid.Row="2"
+                  VerticalAlignment="Stretch">
+                <local:MaintenanceScheduleListView DataContext="{x:Bind ViewModel}"
+                                                   Visibility="{x:Bind ViewModel.IsListView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <local:MaintenanceScheduleChartView DataContext="{x:Bind ViewModel}"
+                                                    Visibility="{x:Bind ViewModel.IsChartView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </Grid>
+        </Grid>
+    </layout:PageLayout>
+</Page>

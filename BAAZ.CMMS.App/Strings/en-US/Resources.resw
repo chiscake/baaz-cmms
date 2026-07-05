@@ -1,0 +1,2550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="App_Title" xml:space="preserve">
+    <value>BAAZ CMMS</value>
+  </data>
+  <data name="App_TitleBar" xml:space="preserve">
+    <value>BAAZ CMMS</value>
+  </data>
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Nav_Equipment" xml:space="preserve">
+    <value>Asset registry</value>
+  </data>
+  <data name="Nav_Personnel" xml:space="preserve">
+    <value>Personnel management</value>
+  </data>
+  <data name="Nav_Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Nav_MaintenanceSchedule" xml:space="preserve">
+    <value>Maintenance schedule</value>
+  </data>
+  <data name="Nav_IncomingRequests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="Nav_WorkReports" xml:space="preserve">
+    <value>Work reports</value>
+  </data>
+  <data name="Nav_NewRequest" xml:space="preserve">
+    <value>New request</value>
+  </data>
+  <data name="Nav_MyRequests" xml:space="preserve">
+    <value>My requests</value>
+  </data>
+  <data name="Nav_AllRequests" xml:space="preserve">
+    <value>All requests</value>
+  </data>
+  <data name="Nav_RequestHistory" xml:space="preserve">
+    <value>Request history</value>
+  </data>
+  <data name="Nav_RequesterAssets" xml:space="preserve">
+    <value>Equipment</value>
+  </data>
+  <data name="RequesterAssets_Search_Placeholder" xml:space="preserve">
+    <value>Search by number, name, or location</value>
+  </data>
+  <data name="RequesterAssets_Empty_List" xml:space="preserve">
+    <value>No active equipment available.</value>
+  </data>
+  <data name="RequesterAssets_Empty_Filter" xml:space="preserve">
+    <value>No matches. Try a different search.</value>
+  </data>
+  <data name="Nav_Locations" xml:space="preserve">
+    <value>Locations</value>
+  </data>
+  <data name="Nav_RepairDepartments" xml:space="preserve">
+    <value>Repair departments</value>
+  </data>
+  <data name="Nav_MaintenanceNorms" xml:space="preserve">
+    <value>Maintenance norms</value>
+  </data>
+  <data name="Nav_MaterialRequisition" xml:space="preserve">
+    <value>Consumables requisition</value>
+  </data>
+  <data name="Nav_ToolRequisition" xml:space="preserve">
+    <value>Tool requisition</value>
+  </data>
+  <data name="Nav_Group_Dispatcher" xml:space="preserve">
+    <value>Dispatcher</value>
+  </data>
+  <data name="Nav_Group_Requester" xml:space="preserve">
+    <value>Requester</value>
+  </data>
+  <!-- Stub page descriptions -->
+  <data name="Stub_MyRequests_Planned" xml:space="preserve">
+    <value>List of requests created by the current user, with filtering by status, date and type. Available actions: view details, cancel (UC-R2, UC-R3).</value>
+  </data>
+  <data name="Stub_IncomingRequests_Planned" xml:space="preserve">
+    <value>All incoming requests from requesters and ToolTracker, with filtering and sorting. Dispatcher can accept, reject, or assign a technician (UC-D1, UC-D2).</value>
+  </data>
+  <data name="IncomingRequests_Tab_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="IncomingRequests_Tab_Active" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="IncomingRequests_Tab_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="IncomingRequests_Column_Accepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="IncomingRequests_Column_InProgress" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="IncomingRequests_Column_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="IncomingRequests_Column_Empty" xml:space="preserve">
+    <value>No requests.</value>
+  </data>
+  <data name="IncomingRequests_Action_Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="IncomingRequests_Action_Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="IncomingRequests_Action_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="IncomingRequests_Empty" xml:space="preserve">
+    <value>No requests in this tab.</value>
+  </data>
+  <data name="IncomingRequests_Error_Action" xml:space="preserve">
+    <value>Failed to perform the action. Please try again.</value>
+  </data>
+  <data name="IncomingRequests_Confirm_Reject_Title" xml:space="preserve">
+    <value>Reject request</value>
+  </data>
+  <data name="IncomingRequests_Confirm_Reject_Placeholder" xml:space="preserve">
+    <value>Enter a reason for rejection</value>
+  </data>
+  <data name="Request_Assignee_None" xml:space="preserve">
+    <value>No technician assigned</value>
+  </data>
+  <data name="Stub_RequestDetail_Title" xml:space="preserve">
+    <value>Request details</value>
+  </data>
+  <data name="Stub_RequestDetail_Planned" xml:space="preserve">
+    <value>Full request info: status, assignee, status history log. Role-based actions: cancel (requester), assign/start (dispatcher), accept (requester/dispatcher), view log (UC-R3, UC-R4, UC-D2, UC-D6).</value>
+  </data>
+  <data name="RequestDetail_Title" xml:space="preserve">
+    <value>Request</value>
+  </data>
+  <data name="RequestDetail_Label_Requester" xml:space="preserve">
+    <value>Requester</value>
+  </data>
+  <data name="RequestDetail_Section_Departments" xml:space="preserve">
+    <value>Involved departments</value>
+  </data>
+  <data name="RequestDetail_Section_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="RequestDetail_Section_WorkReports" xml:space="preserve">
+    <value>Work reports</value>
+  </data>
+  <data name="RequestDetail_Action_AssignTechnician" xml:space="preserve">
+    <value>Assign technician</value>
+  </data>
+  <data name="RequestDetail_Action_StartWork" xml:space="preserve">
+    <value>Start work</value>
+  </data>
+  <data name="RequestDetail_Action_ChangeZone" xml:space="preserve">
+    <value>Repair zone</value>
+  </data>
+  <data name="RequestDetail_Action_Apply" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="RequestDetail_Action_TransferDepartment" xml:space="preserve">
+    <value>Transfer to another department</value>
+  </data>
+  <data name="RequestDetail_Action_AddDepartment" xml:space="preserve">
+    <value>Add department</value>
+  </data>
+  <data name="RequestDetail_Action_SubmitWorkReport" xml:space="preserve">
+    <value>Submit work report</value>
+  </data>
+  <data name="RequestDetail_Action_CloseRequest" xml:space="preserve">
+    <value>Close request</value>
+  </data>
+  <data name="RequestDetail_ContractorName_Placeholder" xml:space="preserve">
+    <value>Acme Repair LLC, tax ID…</value>
+  </data>
+  <data name="RequestDetail_WorkPerformed_Label" xml:space="preserve">
+    <value>Work performed</value>
+  </data>
+  <data name="RequestDetail_WorkPerformed_Placeholder" xml:space="preserve">
+    <value>Describe work done, replaced components, and operations…</value>
+  </data>
+  <data name="RequestDetail_Duration_Label" xml:space="preserve">
+    <value>Duration, hours</value>
+  </data>
+  <data name="RequestDetail_PartsUsed_Label" xml:space="preserve">
+    <value>Parts used</value>
+  </data>
+  <data name="RequestDetail_PartsUsed_Placeholder" xml:space="preserve">
+    <value>List items separated by commas or on new lines</value>
+  </data>
+  <data name="RequestDetail_DefectsFound_Label" xml:space="preserve">
+    <value>Defects found</value>
+  </data>
+  <data name="RequestDetail_DefectsFound_Placeholder" xml:space="preserve">
+    <value>Leave empty if no defects were found</value>
+  </data>
+  <data name="RequestDetail_Notes_Label" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="RequestDetail_Notes_Placeholder" xml:space="preserve">
+    <value>Additional information for records</value>
+  </data>
+  <data name="RequestDetail_AssignedTechnician_Label" xml:space="preserve">
+    <value>Technician</value>
+  </data>
+  <data name="RequestDetail_WorkReport_Department_Label" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="RequestDetail_WorkReports_Empty" xml:space="preserve">
+    <value>No work reports yet.</value>
+  </data>
+  <data name="RequestDetail_Error_Action" xml:space="preserve">
+    <value>Failed to perform the action. Please try again.</value>
+  </data>
+  <data name="RequestDetail_Error_RepairZoneRequired" xml:space="preserve">
+    <value>Select a repair zone.</value>
+  </data>
+  <data name="RequestDetail_Error_NotInPreparation" xml:space="preserve">
+    <value>This action is only available during preparation (status Accepted).</value>
+  </data>
+  <data name="RequestDetail_Error_DepartmentAlreadyReported" xml:space="preserve">
+    <value>This department has already submitted a work report — changes are not allowed.</value>
+  </data>
+  <data name="RequestDetail_Error_NotAccepted" xml:space="preserve">
+    <value>Work can only be started for an accepted request.</value>
+  </data>
+  <data name="RequestDetail_Error_AllDepartmentsNeedAssignee" xml:space="preserve">
+    <value>Assign a technician in every involved department before starting work.</value>
+  </data>
+  <data name="RequestDetail_Error_NotAssignable" xml:space="preserve">
+    <value>This action is not available in the current request status.</value>
+  </data>
+  <data name="RequestDetail_Banner_DepartmentReported" xml:space="preserve">
+    <value>Your department's work report has been submitted. Wait for completion or close the request when status is Completed.</value>
+  </data>
+  <data name="RequestDetail_Actions_Empty" xml:space="preserve">
+    <value>No actions available for the current status.</value>
+  </data>
+  <data name="RequestDetail_Confirm_Transfer_Title" xml:space="preserve">
+    <value>Transfer the request to another department?</value>
+  </data>
+  <data name="RequestDetail_Confirm_Transfer_Message" xml:space="preserve">
+    <value>Your department will lose access to this request. This action cannot be undone.</value>
+  </data>
+  <data name="Stub_MaintenanceSchedule_Planned" xml:space="preserve">
+    <value>Planned maintenance schedule: list of items per asset with TO-1, TO-2, KR dates. Dispatcher views overdue and upcoming items, can cancel or reschedule (UC-D3, UC-D5).</value>
+  </data>
+  <data name="Stub_WorkReports_Planned" xml:space="preserve">
+    <value>Work report registry: list of reports with actual duration, technician, and link to request or PPM item. Dispatcher creates a report after completing work (UC-D4).</value>
+  </data>
+  <data name="Stub_MaintenanceNorms_Planned" xml:space="preserve">
+    <value>Maintenance interval configuration: TO-1, TO-2, KR norms per asset. Admin sets intervals in days, used to calculate the next maintenance date (UC-A5).</value>
+  </data>
+  <data name="Stub_Locations_Planned" xml:space="preserve">
+    <value>Location directory: hierarchy of shops, sections, and installation sites. Admin creates and edits the enterprise structure (UC-A1).</value>
+  </data>
+  <data name="Locations_Column_FullPath" xml:space="preserve">
+    <value>Full path</value>
+  </data>
+  <data name="Locations_Column_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Locations_Column_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Locations_Column_Parent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="Locations_Column_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Locations_Column_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Locations_Column_UpdatedAt" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Locations_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Locations_Toolbar_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Locations_Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="Locations_Toolbar_Archive" xml:space="preserve">
+    <value>Archive branch ({0})</value>
+  </data>
+  <data name="Locations_Toolbar_Restore" xml:space="preserve">
+    <value>Restore branch ({0})</value>
+  </data>
+  <data name="Locations_Toolbar_HardDelete" xml:space="preserve">
+    <value>Delete permanently ({0})</value>
+  </data>
+  <data name="Locations_Filter_Placeholder" xml:space="preserve">
+    <value>Search by name, code, or path…</value>
+  </data>
+  <data name="Locations_ShowInactive" xml:space="preserve">
+    <value>Show archived</value>
+  </data>
+  <data name="LocationPicker_OpenDialog" xml:space="preserve">
+    <value>Open picker…</value>
+  </data>
+  <data name="LocationPicker_DialogTitle" xml:space="preserve">
+    <value>Select location</value>
+  </data>
+  <data name="LocationScopePicker_DialogTitle" xml:space="preserve">
+    <value>Select request zones</value>
+  </data>
+  <data name="LocationPicker_SearchPlaceholder" xml:space="preserve">
+    <value>Search by name…</value>
+  </data>
+  <data name="LocationPicker_SearchNoResults" xml:space="preserve">
+    <value>No matches found</value>
+  </data>
+  <data name="LocationPicker_ClearSearch" xml:space="preserve">
+    <value>Clear search</value>
+  </data>
+  <data name="LocationPicker_DialogApply" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="LocationPicker_DialogCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="LocationPicker_NotSelected" xml:space="preserve">
+    <value>Not selected</value>
+  </data>
+  <data name="Locations_Editor_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Locations_Editor_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Locations_Editor_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Locations_Editor_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Locations_Editor_Parent" xml:space="preserve">
+    <value>Parent location</value>
+  </data>
+  <data name="Locations_Editor_ClearParent" xml:space="preserve">
+    <value>No parent (root node)</value>
+  </data>
+  <data name="Locations_Editor_Title_New" xml:space="preserve">
+    <value>New location</value>
+  </data>
+  <data name="Locations_Editor_Title_Edit" xml:space="preserve">
+    <value>Edit location</value>
+  </data>
+  <data name="Locations_Context_ArchiveBranch" xml:space="preserve">
+    <value>Archive branch</value>
+  </data>
+  <data name="Locations_Context_RestoreBranch" xml:space="preserve">
+    <value>Restore branch</value>
+  </data>
+  <data name="Locations_Archive_Title" xml:space="preserve">
+    <value>Archive branch?</value>
+  </data>
+  <data name="Locations_Archive_Message" xml:space="preserve">
+    <value>Location "{0}" and all its child nodes will be archived.</value>
+  </data>
+  <data name="Locations_Restore_Title" xml:space="preserve">
+    <value>Restore branch?</value>
+  </data>
+  <data name="Locations_Restore_Message" xml:space="preserve">
+    <value>Location "{0}" and all its child nodes will be restored.</value>
+  </data>
+  <data name="Locations_ArchiveBulk_Title" xml:space="preserve">
+    <value>Archive selected branches?</value>
+  </data>
+  <data name="Locations_ArchiveBulk_Message" xml:space="preserve">
+    <value>Branches to archive: {0}.</value>
+  </data>
+  <data name="Locations_RestoreBulk_Title" xml:space="preserve">
+    <value>Restore selected branches?</value>
+  </data>
+  <data name="Locations_RestoreBulk_Message" xml:space="preserve">
+    <value>Branches to restore: {0}.</value>
+  </data>
+  <data name="Locations_Delete_Title" xml:space="preserve">
+    <value>Delete branch permanently?</value>
+  </data>
+  <data name="Locations_Delete_Message" xml:space="preserve">
+    <value>Location "{0}" and all its child nodes will be permanently deleted. This cannot be undone.</value>
+  </data>
+  <data name="Locations_DeleteBulk_Title" xml:space="preserve">
+    <value>Delete selected branches permanently?</value>
+  </data>
+  <data name="Locations_DeleteBulk_Message" xml:space="preserve">
+    <value>Branches to delete: {0}. This cannot be undone.</value>
+  </data>
+  <data name="Locations_Error_HasProfiles" xml:space="preserve">
+    <value>Cannot complete: users are assigned to this location or its child nodes.</value>
+  </data>
+  <data name="Locations_Error_HasAssets" xml:space="preserve">
+    <value>Cannot complete: non-decommissioned assets exist in this location or its child nodes.</value>
+  </data>
+  <data name="Locations_Validation_NameRequired" xml:space="preserve">
+    <value>Enter a location name.</value>
+  </data>
+  <data name="Locations_Validation_Cycle" xml:space="preserve">
+    <value>A location cannot be its own parent or a descendant of itself.</value>
+  </data>
+  <data name="Locations_Validation_CodeDuplicate" xml:space="preserve">
+    <value>A location with this code already exists.</value>
+  </data>
+  <data name="RepairDepartments_Column_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="RepairDepartments_Column_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="RepairDepartments_Column_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="RepairDepartments_Column_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="RepairDepartments_Column_UpdatedAt" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Archive" xml:space="preserve">
+    <value>Archive ({0})</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Restore" xml:space="preserve">
+    <value>Restore ({0})</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_HardDelete" xml:space="preserve">
+    <value>Delete permanently ({0})</value>
+  </data>
+  <data name="RepairDepartments_Filter_Placeholder" xml:space="preserve">
+    <value>Search by name or code…</value>
+  </data>
+  <data name="RepairDepartments_ShowInactive" xml:space="preserve">
+    <value>Show archived</value>
+  </data>
+  <data name="RepairDepartments_Editor_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="RepairDepartments_Editor_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RepairDepartments_Editor_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="RepairDepartments_Editor_Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="RepairDepartments_Editor_Title_New" xml:space="preserve">
+    <value>New repair department</value>
+  </data>
+  <data name="RepairDepartments_Editor_Title_Edit" xml:space="preserve">
+    <value>Edit repair department</value>
+  </data>
+  <data name="RepairDepartments_Context_Archive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="RepairDepartments_Context_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="RepairDepartments_Archive_Title" xml:space="preserve">
+    <value>Archive department?</value>
+  </data>
+  <data name="RepairDepartments_Archive_Message" xml:space="preserve">
+    <value>Department "{0}" will be hidden from selection lists. Existing links will be kept.</value>
+  </data>
+  <data name="RepairDepartments_Restore_Title" xml:space="preserve">
+    <value>Restore department?</value>
+  </data>
+  <data name="RepairDepartments_Restore_Message" xml:space="preserve">
+    <value>Department "{0}" will be available for selection again.</value>
+  </data>
+  <data name="RepairDepartments_ArchiveBulk_Title" xml:space="preserve">
+    <value>Archive selected departments?</value>
+  </data>
+  <data name="RepairDepartments_ArchiveBulk_Message" xml:space="preserve">
+    <value>Departments to archive: {0}.</value>
+  </data>
+  <data name="RepairDepartments_RestoreBulk_Title" xml:space="preserve">
+    <value>Restore selected departments?</value>
+  </data>
+  <data name="RepairDepartments_RestoreBulk_Message" xml:space="preserve">
+    <value>Departments to restore: {0}.</value>
+  </data>
+  <data name="RepairDepartments_Delete_Title" xml:space="preserve">
+    <value>Delete department permanently?</value>
+  </data>
+  <data name="RepairDepartments_Delete_Message" xml:space="preserve">
+    <value>Department "{0}" will be permanently deleted. This cannot be undone.</value>
+  </data>
+  <data name="RepairDepartments_DeleteBulk_Title" xml:space="preserve">
+    <value>Delete selected departments permanently?</value>
+  </data>
+  <data name="RepairDepartments_DeleteBulk_Message" xml:space="preserve">
+    <value>Departments to delete: {0}. This cannot be undone.</value>
+  </data>
+  <data name="RepairDepartments_Error_DuplicateCode" xml:space="preserve">
+    <value>A department with this code already exists.</value>
+  </data>
+  <data name="RepairDepartments_Error_InUse" xml:space="preserve">
+    <value>Cannot delete department: it is referenced by requests, work reports, maintenance schedule, or dispatchers.</value>
+  </data>
+  <data name="RepairDepartments_Error_HasDispatchers" xml:space="preserve">
+    <value>Cannot archive department: dispatchers are assigned to it.</value>
+  </data>
+  <data name="RepairDepartments_Error_HasActiveRequests" xml:space="preserve">
+    <value>Cannot archive department: there are active requests routed to it.</value>
+  </data>
+  <data name="RepairDepartments_Validation_NameRequired" xml:space="preserve">
+    <value>Enter the department name.</value>
+  </data>
+  <data name="Stub_Users_Planned" xml:space="preserve">
+    <value>User account registry: list of users with roles (admin, dispatcher, requester). Admin changes roles and profile data (UC-A2).</value>
+  </data>
+  <data name="Stub_MaterialRequisition_Planned" xml:space="preserve">
+    <value>Consumables and spare parts requisition form: link to request or PPM item, technician, line items. Sent to warehouse system (UC-D7).</value>
+  </data>
+  <data name="DocumentSave_PickerTitle" xml:space="preserve">
+    <value>Save material requisition</value>
+  </data>
+  <data name="DocumentSave_FileTypeLabel" xml:space="preserve">
+    <value>Word document</value>
+  </data>
+  <data name="MaterialRequisition_Section_WorkOrder" xml:space="preserve">
+    <value>Work order</value>
+  </data>
+  <data name="MaterialRequisition_Section_Warehouse" xml:space="preserve">
+    <value>Issuing warehouse</value>
+  </data>
+  <data name="MaterialRequisition_Section_Lines" xml:space="preserve">
+    <value>Line items</value>
+  </data>
+  <data name="MaterialRequisition_Section_Lines_Hint" xml:space="preserve">
+    <value>Enter a name and quantity for each line. SKU and line note are optional.</value>
+  </data>
+  <data name="MaterialRequisition_Section_Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="MaterialRequisition_Label_WorkOrderKind" xml:space="preserve">
+    <value>Work order type</value>
+  </data>
+  <data name="MaterialRequisition_Label_WorkOrder" xml:space="preserve">
+    <value>Work order</value>
+  </data>
+  <data name="MaterialRequisition_Label_Technician" xml:space="preserve">
+    <value>Technician</value>
+  </data>
+  <data name="MaterialRequisition_Label_WarehouseName" xml:space="preserve">
+    <value>Warehouse name</value>
+  </data>
+  <data name="MaterialRequisition_Line_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="MaterialRequisition_Line_Sku" xml:space="preserve">
+    <value>SKU / code</value>
+  </data>
+  <data name="MaterialRequisition_Line_Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="MaterialRequisition_Line_Unit" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="MaterialRequisition_Line_LineNote" xml:space="preserve">
+    <value>Line note</value>
+  </data>
+  <data name="MaterialRequisition_Line_ItemTitle" xml:space="preserve">
+    <value>Item </value>
+  </data>
+  <data name="MaterialRequisition_Line_Name_Placeholder" xml:space="preserve">
+    <value>e.g. engine oil 5W-40</value>
+  </data>
+  <data name="MaterialRequisition_Line_Sku_Placeholder" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="MaterialRequisition_Line_Unit_Placeholder" xml:space="preserve">
+    <value>pcs, kg, L…</value>
+  </data>
+  <data name="MaterialRequisition_Line_LineNote_Placeholder" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="MaterialRequisition_Action_AddLine" xml:space="preserve">
+    <value>Add line</value>
+  </data>
+  <data name="MaterialRequisition_Action_RemoveLine" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="MaterialRequisition_Notes_Placeholder" xml:space="preserve">
+    <value>Additional notes for the warehouse (optional)</value>
+  </data>
+  <data name="MaterialRequisition_Default_WarehouseName" xml:space="preserve">
+    <value>Central warehouse</value>
+  </data>
+  <data name="MaterialRequisition_Kind_Request" xml:space="preserve">
+    <value>Repair request</value>
+  </data>
+  <data name="MaterialRequisition_Kind_Schedule" xml:space="preserve">
+    <value>Planned maintenance (PPM)</value>
+  </data>
+  <data name="MaterialRequisition_Context_Request" xml:space="preserve">
+    <value>Request: {0}. Assigned technician: {1}.</value>
+  </data>
+  <data name="MaterialRequisition_Submit_Success_Title" xml:space="preserve">
+    <value>Requisition created</value>
+  </data>
+  <data name="MaterialRequisition_Submit_Success_Message" xml:space="preserve">
+    <value>File saved:&#x0a;{0}&#x0a;&#x0a;Open the document?</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoWorkOrder" xml:space="preserve">
+    <value>Select a work order (request or PPM entry).</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoTechnician" xml:space="preserve">
+    <value>Select a technician.</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoWarehouse" xml:space="preserve">
+    <value>Enter the issuing warehouse.</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoLines" xml:space="preserve">
+    <value>Add at least one line item.</value>
+  </data>
+  <data name="MaterialRequisition_Error_InvalidQuantity" xml:space="preserve">
+    <value>Enter a name and quantity greater than zero for each line.</value>
+  </data>
+  <data name="MaterialRequisition_Error_WorkOrderNotFound" xml:space="preserve">
+    <value>Work order not found or not accessible.</value>
+  </data>
+  <data name="MaterialRequisition_Error_WorkOrderStatus" xml:space="preserve">
+    <value>Material requisition is only available for an accepted (preparation) or in-progress work order.</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoTargetPath" xml:space="preserve">
+    <value>Choose a file path to save the document.</value>
+  </data>
+  <data name="MaterialRequisition_Error_SaveFailed" xml:space="preserve">
+    <value>Could not save the requisition document.</value>
+  </data>
+  <data name="RequestDetail_Action_MaterialRequisition" xml:space="preserve">
+    <value>Material requisition</value>
+  </data>
+  <data name="RequestDetail_Action_ToolRequisition" xml:space="preserve">
+    <value>Tool requisition</value>
+  </data>
+  <data name="RequestDetail_Section_ToolRequisitions" xml:space="preserve">
+    <value>Tool requisitions (TMS)</value>
+  </data>
+  <data name="ToolRequisition_Section_Channel" xml:space="preserve">
+    <value>Submission method</value>
+  </data>
+  <data name="ToolRequisition_Mode_Docx" xml:space="preserve">
+    <value>Print form (DOCX)</value>
+  </data>
+  <data name="ToolRequisition_Mode_Tms" xml:space="preserve">
+    <value>Electronic requisition</value>
+  </data>
+  <data name="ToolRequisition_Section_WorkOrder" xml:space="preserve">
+    <value>Work order</value>
+  </data>
+  <data name="ToolRequisition_Section_Warehouse" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="ToolRequisition_Section_WarehouseTms" xml:space="preserve">
+    <value>TMS warehouse</value>
+  </data>
+  <data name="ToolRequisition_Section_Lines" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="ToolRequisition_Section_Lines_Hint_Docx" xml:space="preserve">
+    <value>Enter the tool name and optionally an inventory number. The document is saved to disk for the warehouse.</value>
+  </data>
+  <data name="ToolRequisition_Section_Lines_Hint_Tms" xml:space="preserve">
+    <value>Select a TMS warehouse and a catalog item, or type the name manually. The requisition is sent to the tool issuance system.</value>
+  </data>
+  <data name="ToolRequisition_Section_Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="ToolRequisition_Section_TmsLinks" xml:space="preserve">
+    <value>Already sent to TMS</value>
+  </data>
+  <data name="ToolRequisition_Label_WorkOrderKind" xml:space="preserve">
+    <value>Work order type</value>
+  </data>
+  <data name="ToolRequisition_Label_WorkOrder" xml:space="preserve">
+    <value>Work order</value>
+  </data>
+  <data name="ToolRequisition_Label_Technician" xml:space="preserve">
+    <value>Technician</value>
+  </data>
+  <data name="ToolRequisition_Label_WarehouseName" xml:space="preserve">
+    <value>Warehouse name</value>
+  </data>
+  <data name="ToolRequisition_Label_TmsWarehouse" xml:space="preserve">
+    <value>TMS warehouse</value>
+  </data>
+  <data name="ToolRequisition_TmsWarehouse_Placeholder" xml:space="preserve">
+    <value>Select warehouse</value>
+  </data>
+  <data name="ToolRequisition_Line_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ToolRequisition_Line_Inventory" xml:space="preserve">
+    <value>Inv. no. / code</value>
+  </data>
+  <data name="ToolRequisition_Line_Quantity" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="ToolRequisition_Line_LineNote" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="ToolRequisition_Line_Catalog" xml:space="preserve">
+    <value>From TMS catalog</value>
+  </data>
+  <data name="ToolRequisition_Line_ItemTitle" xml:space="preserve">
+    <value>Line</value>
+  </data>
+  <data name="ToolRequisition_Line_Name_Placeholder" xml:space="preserve">
+    <value>Tool name</value>
+  </data>
+  <data name="ToolRequisition_Line_Inventory_Placeholder" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="ToolRequisition_Line_Catalog_Placeholder" xml:space="preserve">
+    <value>Select from catalog or type manually</value>
+  </data>
+  <data name="ToolRequisition_Line_LineNote_Placeholder" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="ToolRequisition_Action_AddLine" xml:space="preserve">
+    <value>Add line</value>
+  </data>
+  <data name="ToolRequisition_Action_RemoveLine" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="ToolRequisition_Action_SubmitTms" xml:space="preserve">
+    <value>Send to TMS</value>
+  </data>
+  <data name="ToolRequisition_Notes_Placeholder" xml:space="preserve">
+    <value>Additional notes for the storekeeper</value>
+  </data>
+  <data name="ToolRequisition_Default_WarehouseName" xml:space="preserve">
+    <value>Central tool warehouse</value>
+  </data>
+  <data name="ToolRequisition_Kind_Request" xml:space="preserve">
+    <value>Repair request</value>
+  </data>
+  <data name="ToolRequisition_Kind_Schedule" xml:space="preserve">
+    <value>PPM schedule item</value>
+  </data>
+  <data name="ToolRequisition_Context_Request" xml:space="preserve">
+    <value>{0}. Technician: {1}</value>
+  </data>
+  <data name="ToolRequisition_SubmitDocx_Success_Title" xml:space="preserve">
+    <value>Requisition created</value>
+  </data>
+  <data name="ToolRequisition_SubmitDocx_Success_Message" xml:space="preserve">
+    <value>Document saved: {0}. Open file?</value>
+  </data>
+  <data name="ToolRequisition_SubmitTms_Success_Title" xml:space="preserve">
+    <value>Sent to TMS</value>
+  </data>
+  <data name="ToolRequisition_SubmitTms_Success_Message" xml:space="preserve">
+    <value>TMS requisition {0} created (status: {1}).</value>
+  </data>
+  <data name="ToolRequisition_Error_NoWorkOrder" xml:space="preserve">
+    <value>Select a work order.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoTechnician" xml:space="preserve">
+    <value>Select a technician.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoWarehouse" xml:space="preserve">
+    <value>Enter a warehouse.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoWarehouseId" xml:space="preserve">
+    <value>Select a TMS warehouse.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoLines" xml:space="preserve">
+    <value>Add at least one tool line.</value>
+  </data>
+  <data name="ToolRequisition_Error_InvalidQuantity" xml:space="preserve">
+    <value>Enter a name and quantity greater than zero for each line.</value>
+  </data>
+  <data name="ToolRequisition_Error_WorkOrderNotFound" xml:space="preserve">
+    <value>Work order not found.</value>
+  </data>
+  <data name="ToolRequisition_Error_WorkOrderStatus" xml:space="preserve">
+    <value>Tool requisition is only available for an accepted (preparation) or in-progress work order.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoTargetPath" xml:space="preserve">
+    <value>Choose a file path to save the document.</value>
+  </data>
+  <data name="ToolRequisition_Error_SaveFailed" xml:space="preserve">
+    <value>Could not save the requisition document.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsFailed" xml:space="preserve">
+    <value>Could not send the requisition to TMS.</value>
+  </data>
+  <data name="ToolRequisition_Error_NotAuthenticated" xml:space="preserve">
+    <value>Sign in required.</value>
+  </data>
+  <data name="ToolRequisition_Error_LoadTechnicians" xml:space="preserve">
+    <value>Could not load technicians.</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_PartiallyReserved" xml:space="preserve">
+    <value>Partially reserved</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_ReadyForIssue" xml:space="preserve">
+    <value>Ready for issue</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_Issued" xml:space="preserve">
+    <value>Issued</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_PartiallyReturned" xml:space="preserve">
+    <value>Partially returned</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_Returned" xml:space="preserve">
+    <value>Returned</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_ToolRequisition" xml:space="preserve">
+    <value>Tool requisition</value>
+  </data>
+  <data name="NewRequest_Error_ContractorRequired" xml:space="preserve">
+    <value>Enter contractor name for external repair zone.</value>
+  </data>
+  <!-- Pending features (shown in red) -->
+  <data name="Pending_NewRequest_AssetOrLocation" xml:space="preserve">
+    <value>⚠ Validation not implemented: asset_id or location_description must be provided.</value>
+  </data>
+  <data name="Pending_NewRequest_NavigateAfterCreate" xml:space="preserve">
+    <value>⚠ Navigation to the created request detail is not implemented.</value>
+  </data>
+  <data name="Pending_Personnel_Create" xml:space="preserve">
+    <value>⚠ Adding a new technician is not implemented.</value>
+  </data>
+  <data name="Pending_Personnel_Archive" xml:space="preserve">
+    <value>⚠ Archiving a technician (is_active = false) is not implemented.</value>
+  </data>
+  <data name="Personnel_Column_FullName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="Personnel_Column_Specialty" xml:space="preserve">
+    <value>Specialty</value>
+  </data>
+  <data name="Personnel_Column_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Personnel_Empty" xml:space="preserve">
+    <value>Personnel directory is empty.</value>
+  </data>
+  <data name="Personnel_Column_Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="Personnel_Column_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Personnel_Column_UpdatedAt" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Personnel_Delete_Title" xml:space="preserve">
+    <value>Delete technician?</value>
+  </data>
+  <data name="Personnel_Delete_Message" xml:space="preserve">
+    <value>Record "{0}" will be permanently deleted. Continue?</value>
+  </data>
+  <data name="Personnel_Delete_Referenced" xml:space="preserve">
+    <value>Cannot delete: this technician is referenced by work reports or other records.</value>
+  </data>
+  <data name="Personnel_Editor_Title_New" xml:space="preserve">
+    <value>New technician</value>
+  </data>
+  <data name="Personnel_Editor_Title_Edit" xml:space="preserve">
+    <value>Edit record</value>
+  </data>
+  <data name="Personnel_Editor_FullName" xml:space="preserve">
+    <value>Full name *</value>
+  </data>
+  <data name="Personnel_Editor_Specialty" xml:space="preserve">
+    <value>Specialty</value>
+  </data>
+  <data name="Personnel_Editor_Department" xml:space="preserve">
+    <value>Repair department *</value>
+  </data>
+  <data name="Personnel_Editor_IsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Personnel_Editor_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Personnel_Editor_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Personnel_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Personnel_Toolbar_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Personnel_Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="Personnel_Toolbar_Delete" xml:space="preserve">
+    <value>Archive ({0})</value>
+  </data>
+  <data name="Personnel_Toolbar_HardDelete" xml:space="preserve">
+    <value>Delete permanently ({0})</value>
+  </data>
+  <data name="Personnel_DeleteBulk_Title" xml:space="preserve">
+    <value>Delete selected records?</value>
+  </data>
+  <data name="Personnel_DeleteBulk_Message" xml:space="preserve">
+    <value>{0} record(s) will be permanently deleted. Continue?</value>
+  </data>
+  <data name="Personnel_Context_EditRow" xml:space="preserve">
+    <value>Edit record</value>
+  </data>
+  <data name="Personnel_Context_ArchiveRow" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="Personnel_Context_RestoreRow" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="Personnel_Context_CopyCell" xml:space="preserve">
+    <value>Copy cell</value>
+  </data>
+  <data name="Personnel_Context_CopyRow" xml:space="preserve">
+    <value>Copy row</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Title" xml:space="preserve">
+    <value>Confirm archive</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Message" xml:space="preserve">
+    <value>Selected technicians ({0}) will be marked as inactive. Continue?</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Ok" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Personnel_Validation_FullNameRequired" xml:space="preserve">
+    <value>Full name is required.</value>
+  </data>
+  <data name="Personnel_Validation_DepartmentRequired" xml:space="preserve">
+    <value>Repair department must be selected.</value>
+  </data>
+  <data name="Personnel_Saved" xml:space="preserve">
+    <value>Record saved.</value>
+  </data>
+  <data name="Personnel_Archived" xml:space="preserve">
+    <value>Technicians archived: {0}.</value>
+  </data>
+  <data name="Personnel_Filter_Placeholder" xml:space="preserve">
+    <value>Search by name, specialty, or department…</value>
+  </data>
+  <data name="Personnel_ShowInactive" xml:space="preserve">
+    <value>Show inactive</value>
+  </data>
+  <data name="Users_Column_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Users_Column_FullName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="Users_Column_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Users_Column_Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Users_Column_Location" xml:space="preserve">
+    <value>Workplace</value>
+  </data>
+  <data name="Users_Column_Department" xml:space="preserve">
+    <value>Repair department</value>
+  </data>
+  <data name="Users_Column_Banned" xml:space="preserve">
+    <value>Banned</value>
+  </data>
+  <data name="Users_Column_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Users_Column_UpdatedAt" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Users_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Users_Toolbar_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Users_Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="Users_Toolbar_Ban" xml:space="preserve">
+    <value>Ban ({0})</value>
+  </data>
+  <data name="Users_Toolbar_Unban" xml:space="preserve">
+    <value>Unban ({0})</value>
+  </data>
+  <data name="Users_Toolbar_HardDelete" xml:space="preserve">
+    <value>Delete permanently ({0})</value>
+  </data>
+  <data name="Users_Filter_Placeholder" xml:space="preserve">
+    <value>Search by email, name, role…</value>
+  </data>
+  <data name="Users_ShowBanned" xml:space="preserve">
+    <value>Show banned</value>
+  </data>
+  <data name="Users_Editor_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Users_Editor_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Users_Editor_Title_New" xml:space="preserve">
+    <value>New user</value>
+  </data>
+  <data name="Users_Editor_Title_Edit" xml:space="preserve">
+    <value>Edit user</value>
+  </data>
+  <data name="Users_Editor_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Users_Editor_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Users_Editor_GeneratePassword" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="Users_Editor_FullName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="Users_Editor_Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Users_Editor_Location" xml:space="preserve">
+    <value>Workplace</value>
+  </data>
+  <data name="Users_Editor_LocationScopes" xml:space="preserve">
+    <value>Request scopes</value>
+  </data>
+  <data name="Users_Column_LocationScopes" xml:space="preserve">
+    <value>Request scopes</value>
+  </data>
+  <data name="Users_Editor_Department" xml:space="preserve">
+    <value>Repair department</value>
+  </data>
+  <data name="Users_Editor_Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Users_Role_Admin" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="Users_Role_Dispatcher" xml:space="preserve">
+    <value>Dispatcher</value>
+  </data>
+  <data name="Users_Role_Requester" xml:space="preserve">
+    <value>Requester</value>
+  </data>
+  <data name="Users_Context_Ban" xml:space="preserve">
+    <value>Ban</value>
+  </data>
+  <data name="Users_Context_Unban" xml:space="preserve">
+    <value>Unban</value>
+  </data>
+  <data name="Users_BanBulk_Title" xml:space="preserve">
+    <value>Ban selected users?</value>
+  </data>
+  <data name="Users_BanBulk_Message" xml:space="preserve">
+    <value>{0} user(s) will be banned. Continue?</value>
+  </data>
+  <data name="Users_UnbanBulk_Title" xml:space="preserve">
+    <value>Unban selected users?</value>
+  </data>
+  <data name="Users_UnbanBulk_Message" xml:space="preserve">
+    <value>{0} user(s) will be unbanned. Continue?</value>
+  </data>
+  <data name="Users_Delete_Title" xml:space="preserve">
+    <value>Delete user?</value>
+  </data>
+  <data name="Users_Delete_Message" xml:space="preserve">
+    <value>Account «{0}» will be permanently deleted. Continue?</value>
+  </data>
+  <data name="Users_DeleteBulk_Title" xml:space="preserve">
+    <value>Delete selected users?</value>
+  </data>
+  <data name="Users_DeleteBulk_Message" xml:space="preserve">
+    <value>{0} user(s) will be permanently deleted. Continue?</value>
+  </data>
+  <data name="Users_Validation_EmailRequired" xml:space="preserve">
+    <value>Email is required.</value>
+  </data>
+  <data name="Users_Validation_PasswordTooShort" xml:space="preserve">
+    <value>Password must be at least 6 characters.</value>
+  </data>
+  <data name="Users_Validation_FullNameRequired" xml:space="preserve">
+    <value>Full name is required.</value>
+  </data>
+  <data name="Users_Validation_DepartmentRequired" xml:space="preserve">
+    <value>Repair department is required for dispatchers.</value>
+  </data>
+  <data name="Users_Validation_LocationRequired" xml:space="preserve">
+    <value>Workplace is required.</value>
+  </data>
+  <data name="Users_Validation_AdminRoleForbidden" xml:space="preserve">
+    <value>Administrator role cannot be assigned from the application.</value>
+  </data>
+  <data name="Users_Validation_SelfActionForbidden" xml:space="preserve">
+    <value>You cannot perform this action on your own account.</value>
+  </data>
+  <data name="Users_Error_EdgeFunctionUnavailable" xml:space="preserve">
+    <value>User management service is unavailable. After a DB reset, run: pnpm fn:ensure</value>
+  </data>
+  <data name="DataError_Network" xml:space="preserve">
+    <value>Network error. Please check server connection.</value>
+  </data>
+  <data name="DataError_Unauthorized" xml:space="preserve">
+    <value>Insufficient permissions for this operation.</value>
+  </data>
+  <data name="DataError_Unknown" xml:space="preserve">
+    <value>A database error occurred.</value>
+  </data>
+  <data name="Assets_Column_Number" xml:space="preserve">
+    <value>Asset #</value>
+  </data>
+  <data name="Assets_Column_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Assets_Column_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Assets_Column_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Assets_Column_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Assets_Empty" xml:space="preserve">
+    <value>Asset registry is empty.</value>
+  </data>
+  <data name="Assets_Column_Manufacturer" xml:space="preserve">
+    <value>Manufacturer</value>
+  </data>
+  <data name="Assets_Column_Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="Assets_Column_SerialNumber" xml:space="preserve">
+    <value>Serial #</value>
+  </data>
+  <data name="Assets_Column_CommissioningDate" xml:space="preserve">
+    <value>Commissioned</value>
+  </data>
+  <data name="Assets_Column_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Assets_Column_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Assets_Column_UpdatedAt" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Assets_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Assets_Toolbar_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Assets_Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="Assets_Toolbar_Decommission" xml:space="preserve">
+    <value>Decommission ({0})</value>
+  </data>
+  <data name="Assets_Toolbar_Restore" xml:space="preserve">
+    <value>Restore ({0})</value>
+  </data>
+  <data name="Assets_Toolbar_HardDelete" xml:space="preserve">
+    <value>Delete permanently ({0})</value>
+  </data>
+  <data name="Assets_Filter_Placeholder" xml:space="preserve">
+    <value>Search by number, name, location…</value>
+  </data>
+  <data name="Assets_ShowDecommissioned" xml:space="preserve">
+    <value>Show decommissioned</value>
+  </data>
+  <data name="Assets_Editor_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Assets_Editor_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Assets_Editor_AssetNumber" xml:space="preserve">
+    <value>Asset number</value>
+  </data>
+  <data name="Assets_Editor_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Assets_Editor_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Assets_Editor_Category" xml:space="preserve">
+    <value>Equipment category</value>
+  </data>
+  <data name="Assets_Category_None" xml:space="preserve">
+    <value>No category</value>
+  </data>
+  <data name="Assets_Editor_Manufacturer" xml:space="preserve">
+    <value>Manufacturer</value>
+  </data>
+  <data name="Assets_Editor_Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="Assets_Editor_SerialNumber" xml:space="preserve">
+    <value>Serial number</value>
+  </data>
+  <data name="Assets_Editor_CommissioningDate" xml:space="preserve">
+    <value>Commissioning date</value>
+  </data>
+  <data name="Assets_Editor_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Assets_Editor_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Assets_Editor_Title_New" xml:space="preserve">
+    <value>New asset</value>
+  </data>
+  <data name="Assets_Editor_Title_Edit" xml:space="preserve">
+    <value>Edit asset</value>
+  </data>
+  <data name="Assets_Context_Decommission" xml:space="preserve">
+    <value>Decommission</value>
+  </data>
+  <data name="Assets_Context_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="Assets_Decommission_Title" xml:space="preserve">
+    <value>Decommission asset?</value>
+  </data>
+  <data name="Assets_Decommission_Message" xml:space="preserve">
+    <value>Asset "{0}" will be decommissioned.</value>
+  </data>
+  <data name="Assets_Restore_Title" xml:space="preserve">
+    <value>Restore asset?</value>
+  </data>
+  <data name="Assets_Restore_Message" xml:space="preserve">
+    <value>Asset "{0}" will be restored to active status.</value>
+  </data>
+  <data name="Assets_DecommissionBulk_Title" xml:space="preserve">
+    <value>Decommission selected assets?</value>
+  </data>
+  <data name="Assets_DecommissionBulk_Message" xml:space="preserve">
+    <value>{0} asset(s) will be decommissioned.</value>
+  </data>
+  <data name="Assets_RestoreBulk_Title" xml:space="preserve">
+    <value>Restore selected assets?</value>
+  </data>
+  <data name="Assets_RestoreBulk_Message" xml:space="preserve">
+    <value>{0} asset(s) will be restored.</value>
+  </data>
+  <data name="Assets_Delete_Title" xml:space="preserve">
+    <value>Delete asset?</value>
+  </data>
+  <data name="Assets_Delete_Message" xml:space="preserve">
+    <value>Asset "{0}" will be permanently deleted.</value>
+  </data>
+  <data name="Assets_DeleteBulk_Title" xml:space="preserve">
+    <value>Delete selected assets?</value>
+  </data>
+  <data name="Assets_DeleteBulk_Message" xml:space="preserve">
+    <value>{0} asset(s) will be permanently deleted.</value>
+  </data>
+  <data name="Assets_Validation_AssetNumberRequired" xml:space="preserve">
+    <value>Asset number is required.</value>
+  </data>
+  <data name="Assets_Validation_NameRequired" xml:space="preserve">
+    <value>Name is required.</value>
+  </data>
+  <data name="Assets_Validation_LocationRequired" xml:space="preserve">
+    <value>Location is required.</value>
+  </data>
+  <data name="Assets_Validation_InvalidStatus" xml:space="preserve">
+    <value>Invalid asset status.</value>
+  </data>
+  <data name="Assets_Validation_TextTooLong" xml:space="preserve">
+    <value>Value is too long.</value>
+  </data>
+  <data name="Assets_Error_DuplicateNumber" xml:space="preserve">
+    <value>An asset with this number already exists.</value>
+  </data>
+  <data name="Assets_Error_HasRequests" xml:space="preserve">
+    <value>Cannot delete: this asset is referenced by requests.</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Common_LoadError" xml:space="preserve">
+    <value>Failed to load data.</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_Action_GenerateDocx" xml:space="preserve">
+    <value>Generate DOCX</value>
+  </data>
+  <data name="Common_None" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="Common_SelectTechnician" xml:space="preserve">
+    <value>Select a technician</value>
+  </data>
+  <data name="Common_SelectDepartment" xml:space="preserve">
+    <value>Select a department</value>
+  </data>
+  <data name="Common_SelectWorkOrder" xml:space="preserve">
+    <value>Select a work order (request or PPM entry)</value>
+  </data>
+  <data name="Common_SelectWorkOrderKind" xml:space="preserve">
+    <value>Select work order type</value>
+  </data>
+  <data name="Common_SelectRepairZone" xml:space="preserve">
+    <value>Select repair zone</value>
+  </data>
+  <data name="Common_NotSpecified" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="NewRequest_Label_Type" xml:space="preserve">
+    <value>Request type</value>
+  </data>
+  <data name="NewRequest_Label_Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="NewRequest_Label_RepairDepartment" xml:space="preserve">
+    <value>Repair department</value>
+  </data>
+  <data name="NewRequest_Error_RepairDepartment" xml:space="preserve">
+    <value>Select a repair department.</value>
+  </data>
+  <data name="NewRequest_RepairDepartment_Placeholder" xml:space="preserve">
+    <value>Select a repair department</value>
+  </data>
+  <data name="NewRequest_Label_Asset" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="NewRequest_Label_Title" xml:space="preserve">
+    <value>Short summary</value>
+  </data>
+  <data name="NewRequest_Label_Description" xml:space="preserve">
+    <value>Detailed description</value>
+  </data>
+  <data name="NewRequest_Label_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="NewRequest_Subject_Label" xml:space="preserve">
+    <value>Request subject</value>
+  </data>
+  <data name="NewRequest_Subject_Location" xml:space="preserve">
+    <value>Infrastructure</value>
+  </data>
+  <data name="NewRequest_Location_Placeholder" xml:space="preserve">
+    <value>Describe the place or item without an asset number</value>
+  </data>
+  <data name="NewRequest_Asset_None" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="NewRequest_Asset_Placeholder" xml:space="preserve">
+    <value>Asset number or name</value>
+  </data>
+  <data name="NewRequest_Submit" xml:space="preserve">
+    <value>Create request</value>
+  </data>
+  <data name="NewRequest_Success" xml:space="preserve">
+    <value>Request {0} was created successfully.</value>
+  </data>
+  <data name="NewRequest_Error_Validation" xml:space="preserve">
+    <value>Fill in the short summary.</value>
+  </data>
+  <data name="NewRequest_Error_Submit" xml:space="preserve">
+    <value>Failed to create the request. Please try again.</value>
+  </data>
+  <data name="NewRequest_Error_NotAuthenticated" xml:space="preserve">
+    <value>Sign-in is required.</value>
+  </data>
+  <data name="RequestType_Breakdown" xml:space="preserve">
+    <value>Breakdown</value>
+  </data>
+  <data name="RequestType_Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="RequestType_Inspection" xml:space="preserve">
+    <value>Inspection</value>
+  </data>
+  <data name="RequestPriority_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="RequestPriority_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="RequestPriority_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="RequestPriority_Critical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="RepairZone_OnSite" xml:space="preserve">
+    <value>On-site</value>
+  </data>
+  <data name="RepairZone_Workshop" xml:space="preserve">
+    <value>Repair workshop</value>
+  </data>
+  <data name="RepairZone_External" xml:space="preserve">
+    <value>External contractor</value>
+  </data>
+  <data name="AssetStatus_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="AssetStatus_Maintenance" xml:space="preserve">
+    <value>Under maintenance</value>
+  </data>
+  <data name="AssetStatus_Decommissioned" xml:space="preserve">
+    <value>Decommissioned</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_Section_Appearance" xml:space="preserve">
+    <value>Appearance and behavior</value>
+  </data>
+  <data name="Settings_Theme_Header" xml:space="preserve">
+    <value>App theme</value>
+  </data>
+  <data name="Settings_Theme_Description" xml:space="preserve">
+    <value>Choose the app theme</value>
+  </data>
+  <data name="Settings_Theme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_Theme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_Theme_Default" xml:space="preserve">
+    <value>System default</value>
+  </data>
+  <data name="Settings_Navigation_Header" xml:space="preserve">
+    <value>Navigation style</value>
+  </data>
+  <data name="Settings_Navigation_Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Settings_Navigation_Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="Settings_Language_Header" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Language_Description" xml:space="preserve">
+    <value>Choose the app language. The app will restart.</value>
+  </data>
+  <data name="Settings_Language_System" xml:space="preserve">
+    <value>System default</value>
+  </data>
+  <data name="Settings_Language_Russian" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="Settings_Language_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Settings_Section_Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Settings_Reset_Header" xml:space="preserve">
+    <value>Reset settings</value>
+  </data>
+  <data name="Settings_Reset_Description" xml:space="preserve">
+    <value>Restore all settings to their defaults. The app will restart.</value>
+  </data>
+  <data name="Settings_Reset_Button" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings_Supabase_Header" xml:space="preserve">
+    <value>Supabase</value>
+  </data>
+  <data name="Settings_Supabase_Description" xml:space="preserve">
+    <value>Override URL and publishable key for Supabase connection.</value>
+  </data>
+  <data name="Settings_Supabase_Url" xml:space="preserve">
+    <value>Supabase URL</value>
+  </data>
+  <data name="Settings_Supabase_Key" xml:space="preserve">
+    <value>Publishable key</value>
+  </data>
+  <data name="Settings_Supabase_Save" xml:space="preserve">
+    <value>Save and reconnect</value>
+  </data>
+  <data name="Home_RoleBadge_Admin" xml:space="preserve">
+    <value>ADMINISTRATOR</value>
+  </data>
+  <data name="Home_RoleBadge_Dispatcher" xml:space="preserve">
+    <value>DISPATCHER</value>
+  </data>
+  <data name="Home_RoleBadge_Requester" xml:space="preserve">
+    <value>REQUESTER</value>
+  </data>
+  <data name="Home_Heading_Admin" xml:space="preserve">
+    <value>System management panel</value>
+  </data>
+  <data name="Home_Heading_Dispatcher" xml:space="preserve">
+    <value>Requests and maintenance schedule</value>
+  </data>
+  <data name="Home_Heading_Requester" xml:space="preserve">
+    <value>My requests</value>
+  </data>
+  <data name="Home_Title" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Home_Section_Admin" xml:space="preserve">
+    <value>Administrator dashboard</value>
+  </data>
+  <data name="Home_Section_Dispatcher" xml:space="preserve">
+    <value>Dispatcher dashboard</value>
+  </data>
+  <data name="Home_Section_Requester" xml:space="preserve">
+    <value>Requester dashboard</value>
+  </data>
+  <data name="Home_LoadError" xml:space="preserve">
+    <value>Failed to load dashboard data</value>
+  </data>
+  <data name="Home_Stat_ActiveRequests" xml:space="preserve">
+    <value>Active requests</value>
+  </data>
+  <data name="Home_Stat_AwaitingAcceptance" xml:space="preserve">
+    <value>Awaiting acceptance</value>
+  </data>
+  <data name="Home_Stat_ScopedAssets" xml:space="preserve">
+    <value>Assets in scope</value>
+  </data>
+  <data name="Home_Stat_StatusUpdates" xml:space="preserve">
+    <value>Status updates</value>
+  </data>
+  <data name="Home_Stat_IncomingNew" xml:space="preserve">
+    <value>New requests</value>
+  </data>
+  <data name="Home_Stat_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Home_Row_Requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="Home_Row_PlannedMaintenance" xml:space="preserve">
+    <value>Planned maintenance</value>
+  </data>
+  <data name="Home_Stat_AcceptedRequests" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="Home_Stat_InProgressRequests" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="Home_Stat_ScheduleAttention" xml:space="preserve">
+    <value>Maintenance schedule</value>
+  </data>
+  <data name="Home_Stat_ScheduleOverdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="Home_Stat_ScheduleToday" xml:space="preserve">
+    <value>Scheduled for today</value>
+  </data>
+  <data name="Home_Stat_ScheduleInProgress" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="Home_Stat_ActiveTechnicians" xml:space="preserve">
+    <value>Active technicians</value>
+  </data>
+  <data name="Home_Stat_UsersTotal" xml:space="preserve">
+    <value>Total users</value>
+  </data>
+  <data name="Home_Stat_UsersActive" xml:space="preserve">
+    <value>Active users</value>
+  </data>
+  <data name="Home_Stat_AssetsActive" xml:space="preserve">
+    <value>Active assets</value>
+  </data>
+  <data name="Home_Stat_AssetsMaintenance" xml:space="preserve">
+    <value>Under maintenance</value>
+  </data>
+  <data name="Home_Stat_Locations" xml:space="preserve">
+    <value>Locations</value>
+  </data>
+  <data name="Home_Stat_RepairDepartments" xml:space="preserve">
+    <value>Repair departments</value>
+  </data>
+  <data name="Home_Stat_MaintenanceNorms" xml:space="preserve">
+    <value>Maintenance norms</value>
+  </data>
+  <data name="Home_Stat_RequestsNew" xml:space="preserve">
+    <value>Requests (new)</value>
+  </data>
+  <data name="Home_Stat_RequestsInProgress" xml:space="preserve">
+    <value>Requests (in progress)</value>
+  </data>
+  <data name="Home_Stat_RequestsCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Home_Title_Admin" xml:space="preserve">
+    <value>Admin home</value>
+  </data>
+  <data name="Home_Title_Dispatcher" xml:space="preserve">
+    <value>Dispatcher home</value>
+  </data>
+  <data name="Home_Title_Requester" xml:space="preserve">
+    <value>Requester home</value>
+  </data>
+  <data name="Home_Role_Admin" xml:space="preserve">
+    <value>Role: admin</value>
+  </data>
+  <data name="Home_Role_Dispatcher" xml:space="preserve">
+    <value>Role: dispatcher</value>
+  </data>
+  <data name="Home_Role_Requester" xml:space="preserve">
+    <value>Role: requester</value>
+  </data>
+  <data name="Auth_Window_Title" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Auth_Subtitle" xml:space="preserve">
+    <value>Sign in to BAAZ CMMS</value>
+  </data>
+  <data name="Auth_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Auth_Email_Placeholder" xml:space="preserve">
+    <value>username@baaz.by</value>
+  </data>
+  <data name="Auth_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Auth_SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Auth_SignOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="Auth_Error_Required" xml:space="preserve">
+    <value>Enter email and password.</value>
+  </data>
+  <data name="Auth_InvalidCredentials" xml:space="preserve">
+    <value>Invalid email or password.</value>
+  </data>
+  <data name="Auth_ProfileNotFound" xml:space="preserve">
+    <value>User profile was not found.</value>
+  </data>
+  <data name="TitleBar_Profile_Format" xml:space="preserve">
+    <value>{0} | {1} | {2}</value>
+  </data>
+  <data name="TitleBar_Profile_Empty" xml:space="preserve">
+    <value>No profile loaded</value>
+  </data>
+  <data name="TitleBar_Profile_Dispatcher_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="Connection_Window_Title" xml:space="preserve">
+    <value>Connection error</value>
+  </data>
+  <data name="Connection_Error_Title" xml:space="preserve">
+    <value>No connection to server</value>
+  </data>
+  <data name="Connection_Error_Message" xml:space="preserve">
+    <value>The database server is unreachable. Check connection and retry.</value>
+  </data>
+  <data name="Connection_Retry" xml:space="preserve">
+    <value>Reconnect</value>
+  </data>
+  <data name="Startup_Window_Title" xml:space="preserve">
+    <value>Starting</value>
+  </data>
+  <data name="Startup_Status" xml:space="preserve">
+    <value>Connecting to server…</value>
+  </data>
+  <data name="Status_Connected" xml:space="preserve">
+    <value>Connection: online</value>
+  </data>
+  <data name="Status_Disconnected" xml:space="preserve">
+    <value>Connection: offline</value>
+  </data>
+  <data name="App_Exception_Title" xml:space="preserve">
+    <value>An exception was thrown.</value>
+  </data>
+  <data name="App_Exception_Type" xml:space="preserve">
+    <value>Type: {0}</value>
+  </data>
+  <data name="App_Exception_Message" xml:space="preserve">
+    <value>Message: {0}
+HResult: {1}</value>
+  </data>
+  <data name="CrudWorkbench_RemoteConflictWarning" xml:space="preserve">
+    <value>This record was modified on the server. Save or cancel your changes, then refresh.</value>
+  </data>
+  <data name="CrudWorkbench_RefreshAvailable" xml:space="preserve">
+    <value>Data was updated on the server. Click Refresh to load the latest changes.</value>
+  </data>
+  <data name="CrudWorkbench_DeletedRemotely" xml:space="preserve">
+    <value>This record was deleted in another session.</value>
+  </data>
+  <data name="CrudGrid_Column_Id" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="CrudGrid_ColumnBadge_PrimaryKey" xml:space="preserve">
+    <value>Primary key</value>
+  </data>
+  <data name="CrudGrid_ColumnBadge_Unique" xml:space="preserve">
+    <value>Unique</value>
+  </data>
+  <data name="CrudGrid_SortAscending" xml:space="preserve">
+    <value>Sort ascending</value>
+  </data>
+  <data name="CrudGrid_SortDescending" xml:space="preserve">
+    <value>Sort descending</value>
+  </data>
+  <data name="CrudGrid_ClearSort" xml:space="preserve">
+    <value>Clear sort</value>
+  </data>
+  <data name="CrudGrid_CopyColumnName" xml:space="preserve">
+    <value>Copy column name</value>
+  </data>
+  <data name="CrudGrid_HideColumn" xml:space="preserve">
+    <value>Hide column</value>
+  </data>
+  <data name="CrudGrid_ResetColumns" xml:space="preserve">
+    <value>Reset to default</value>
+  </data>
+  <data name="CrudGrid_CopyCell" xml:space="preserve">
+    <value>Copy cell</value>
+  </data>
+  <data name="CrudGrid_CopyRow" xml:space="preserve">
+    <value>Copy row</value>
+  </data>
+  <data name="CrudGrid_FilterByValue" xml:space="preserve">
+    <value>Filter by value</value>
+  </data>
+  <data name="CrudGrid_EditRow" xml:space="preserve">
+    <value>Edit record</value>
+  </data>
+  <data name="CrudGrid_EditCell" xml:space="preserve">
+    <value>Edit cell</value>
+  </data>
+  <data name="CrudGrid_ArchiveRow" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="CrudGrid_RestoreRow" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="CrudGrid_DeleteRow" xml:space="preserve">
+    <value>Delete permanently</value>
+  </data>
+  <data name="CrudGrid_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="CrudGrid_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CrudGrid_ClearDate" xml:space="preserve">
+    <value>Clear date</value>
+  </data>
+  <data name="CrudGrid_ExpandRow" xml:space="preserve">
+    <value>Open record</value>
+  </data>
+  <data name="CrudGrid_EditHint" xml:space="preserve">
+    <value>Enter — save · Esc — cancel</value>
+  </data>
+  <data name="CrudGrid_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="CrudFilter_AddFilter" xml:space="preserve">
+    <value>Add filter…</value>
+  </data>
+  <data name="CrudFilter_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="CrudFilter_EnterValue" xml:space="preserve">
+    <value>Enter value</value>
+  </data>
+  <data name="CrudFilter_True" xml:space="preserve">
+    <value>TRUE</value>
+  </data>
+  <data name="CrudFilter_False" xml:space="preserve">
+    <value>FALSE</value>
+  </data>
+  <data name="CrudFilter_Remove" xml:space="preserve">
+    <value>Remove filter</value>
+  </data>
+  <data name="CrudGrid_Pagination_Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="CrudGrid_Pagination_Of" xml:space="preserve">
+    <value>of {0}</value>
+  </data>
+  <data name="CrudGrid_Pagination_Records" xml:space="preserve">
+    <value>{0} records</value>
+  </data>
+  <data name="CrudGrid_Pagination_RowsFormat" xml:space="preserve">
+    <value>{0} rows</value>
+  </data>
+  <data name="CrudGrid_PickRow" xml:space="preserve">
+    <value>Open in list</value>
+  </data>
+  <data name="NewRequest_Error_AssetOrLocation" xml:space="preserve">
+    <value>Specify an asset or a location description.</value>
+  </data>
+  <data name="RequestStatus_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="RequestStatus_Accepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="RequestStatus_InProgress" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="RequestStatus_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="RequestStatus_Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="RequestStatus_Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="RequestStatus_Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="MyRequests_NewRequest" xml:space="preserve">
+    <value>New request</value>
+  </data>
+  <data name="MyRequests_OpenInTable" xml:space="preserve">
+    <value>Open in table…</value>
+  </data>
+  <data name="MyRequests_BackToList" xml:space="preserve">
+    <value>Back to list</value>
+  </data>
+  <data name="MyRequests_Search_Placeholder" xml:space="preserve">
+    <value>Search by title or number</value>
+  </data>
+  <data name="MyRequests_Filter_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MyRequests_Filter_Status_All" xml:space="preserve">
+    <value>All statuses</value>
+  </data>
+  <data name="MyRequests_Empty_List" xml:space="preserve">
+    <value>You have no requests yet. Create one with «New request».</value>
+  </data>
+  <data name="MyRequests_Empty_Selection" xml:space="preserve">
+    <value>Select a request in the list on the left.</value>
+  </data>
+  <data name="MyRequests_Empty_Filter" xml:space="preserve">
+    <value>No requests match the filter.</value>
+  </data>
+  <data name="MyRequests_History_Title" xml:space="preserve">
+    <value>Status history</value>
+  </data>
+  <data name="MyRequests_History_Empty" xml:space="preserve">
+    <value>No status changes yet.</value>
+  </data>
+  <data name="RequestHistory_RepairZoneChanged" xml:space="preserve">
+    <value>Repair zone changed: </value>
+  </data>
+  <data name="MyRequests_Action_Cancel" xml:space="preserve">
+    <value>Cancel request</value>
+  </data>
+  <data name="MyRequests_Action_Close" xml:space="preserve">
+    <value>Accept work</value>
+  </data>
+  <data name="MyRequests_Confirm_Cancel_Title" xml:space="preserve">
+    <value>Cancel request?</value>
+  </data>
+  <data name="MyRequests_Confirm_Cancel_Message" xml:space="preserve">
+    <value>The request will be marked as cancelled. Continue?</value>
+  </data>
+  <data name="MyRequests_Confirm_Close_Title" xml:space="preserve">
+    <value>Accept completed work?</value>
+  </data>
+  <data name="MyRequests_Confirm_Close_Message" xml:space="preserve">
+    <value>The request will be closed. Continue?</value>
+  </data>
+  <data name="MyRequests_Error_Action" xml:space="preserve">
+    <value>Action failed. Check the request status and try again.</value>
+  </data>
+  <data name="MyRequests_Detail_Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="MyRequests_Detail_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="MyRequests_Detail_Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="MyRequests_Detail_RepairZone" xml:space="preserve">
+    <value>Repair zone</value>
+  </data>
+  <data name="MyRequests_Detail_Asset" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="MyRequests_Detail_Asset_None" xml:space="preserve">
+    <value>Not specified</value>
+  </data>
+  <data name="MyRequests_Detail_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="MyRequests_Detail_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MyRequests_Detail_Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="MyRequests_Detail_Departments" xml:space="preserve">
+    <value>Departments and assignees</value>
+  </data>
+  <data name="RequestDepartment_TargetPending" xml:space="preserve">
+    <value>Pending acceptance</value>
+  </data>
+  <data name="MyRequests_Detail_ContractorName" xml:space="preserve">
+    <value>Contractor</value>
+  </data>
+  <data name="MyRequests_Detail_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="MyRequests_Detail_UpdatedAt" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="MyRequests_Column_Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="MyRequests_Column_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="MyRequests_Column_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MyRequests_Column_Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="MyRequests_Column_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="MyRequests_Column_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="MyRequests_Column_Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="MyRequests_Table_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="MyRequests_Table_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="MyRequests_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AllRequests_Column_RequestNumber" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="AllRequests_Column_Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="AllRequests_Column_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="AllRequests_Column_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="AllRequests_Column_Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="AllRequests_Column_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="AllRequests_Column_Requester" xml:space="preserve">
+    <value>Requester</value>
+  </data>
+  <data name="AllRequests_Column_Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="AllRequests_Column_CreatedAt" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="AllRequests_Column_UpdatedAt" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="AllRequests_Column_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="AllRequests_Column_Asset" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="AllRequests_Column_RepairZone" xml:space="preserve">
+    <value>Repair zone</value>
+  </data>
+  <data name="AllRequests_Column_ContractorName" xml:space="preserve">
+    <value>Contractor</value>
+  </data>
+  <data name="AllRequests_Column_TargetDepartment" xml:space="preserve">
+    <value>Target department</value>
+  </data>
+  <data name="AllRequests_Editor_Title" xml:space="preserve">
+    <value>Request {0}</value>
+  </data>
+  <data name="AllRequests_Error_Save" xml:space="preserve">
+    <value>Could not save request changes.</value>
+  </data>
+  <data name="AllRequests_Error_DuplicateNumber" xml:space="preserve">
+    <value>A request with this number already exists.</value>
+  </data>
+  <data name="AllRequests_Validation_RequestNumberRequired" xml:space="preserve">
+    <value>Enter a request number.</value>
+  </data>
+  <data name="AllRequests_Validation_TitleRequired" xml:space="preserve">
+    <value>Enter a request title.</value>
+  </data>
+  <data name="AllRequests_Toolbar_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AllRequests_Toolbar_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="AllRequests_Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
+  <data name="AllRequests_Filter_Placeholder" xml:space="preserve">
+    <value>Search by number or title</value>
+  </data>
+  <data name="AllRequests_Context_Archive" xml:space="preserve">
+    <value>Archive</value>
+  </data>
+  <data name="AllRequests_Context_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="RequestHistory_Empty_List" xml:space="preserve">
+    <value>No requests yet.</value>
+  </data>
+  <data name="MaintenanceType_To1" xml:space="preserve">
+    <value>MO-1</value>
+  </data>
+  <data name="MaintenanceType_To2" xml:space="preserve">
+    <value>MO-2</value>
+  </data>
+  <data name="MaintenanceType_Kr" xml:space="preserve">
+    <value>Overhaul</value>
+  </data>
+  <data name="ScheduleStatus_Scheduled" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
+  <data name="ScheduleStatus_Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="ScheduleStatus_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="ScheduleStatus_Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="ScheduleStatus_InProgress" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_InProgress" xml:space="preserve">
+    <value>In progress</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_StartWork" xml:space="preserve">
+    <value>Start work</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_StartWork" xml:space="preserve">
+    <value>Could not start scheduled maintenance work.</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_MaterialRequisition" xml:space="preserve">
+    <value>Material requisition</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleNotInProgress" xml:space="preserve">
+    <value>Work report is only available when the schedule item is in progress.</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_All" xml:space="preserve">
+    <value>All statuses</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Scheduled" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_MarkOverdue" xml:space="preserve">
+    <value>Mark overdue</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Norms" xml:space="preserve">
+    <value>Norms</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Generate" xml:space="preserve">
+    <value>Refresh schedule</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_CancelAll" xml:space="preserve">
+    <value>Cancel all</value>
+  </data>
+  <data name="MaintenanceSchedule_Empty" xml:space="preserve">
+    <value>No entries match the filters.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_Action" xml:space="preserve">
+    <value>Could not complete the action.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_Generate" xml:space="preserve">
+    <value>Could not generate the maintenance schedule.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_NoAssets" xml:space="preserve">
+    <value>No equipment available to create a schedule entry.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_PendingExists" xml:space="preserve">
+    <value>An open schedule entry (scheduled or overdue) already exists for this equipment and maintenance type.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_AssetUnavailable" xml:space="preserve">
+    <value>Equipment is unavailable or decommissioned.</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Cancel_Title" xml:space="preserve">
+    <value>Cancel entry?</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Cancel_Message" xml:space="preserve">
+    <value>The schedule entry will be cancelled. This cannot be undone.</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Overdue_Title" xml:space="preserve">
+    <value>Mark as overdue?</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Overdue_Message" xml:space="preserve">
+    <value>The entry status will be changed to Overdue.</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_CancelAll_Title" xml:space="preserve">
+    <value>Cancel all open entries?</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_CancelAll_Message" xml:space="preserve">
+    <value>{0} open schedule entries will be cancelled. This action cannot be undone.</value>
+  </data>
+  <data name="MaintenanceSchedule_CancelAll_Success" xml:space="preserve">
+    <value>Cancelled entries: {0}</value>
+  </data>
+  <data name="MaintenanceSchedule_CancelAll_None" xml:space="preserve">
+    <value>No open schedule entries to cancel.</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Title" xml:space="preserve">
+    <value>New schedule entry</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Asset" xml:space="preserve">
+    <value>Equipment</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Type" xml:space="preserve">
+    <value>Maintenance type</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Date" xml:space="preserve">
+    <value>Planned date</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Department_Label" xml:space="preserve">
+    <value>Repair department(s)</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_DepartmentRequired" xml:space="preserve">
+    <value>Select at least one repair department.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_NoDepartments" xml:space="preserve">
+    <value>No repair departments are available to select.</value>
+  </data>
+  <data name="MaintenanceSchedule_Generate_Success" xml:space="preserve">
+    <value>Entries created: {0}</value>
+  </data>
+  <data name="MaintenanceSchedule_Column_LastMaintenance" xml:space="preserve">
+    <value>Last maintenance:</value>
+  </data>
+  <data name="MaintenanceSchedule_Column_NextMaintenance" xml:space="preserve">
+    <value>Next maintenance:</value>
+  </data>
+  <data name="MaintenanceSchedule_Column_Departments" xml:space="preserve">
+    <value>Departments:</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Title" xml:space="preserve">
+    <value>Maintenance details</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Asset" xml:space="preserve">
+    <value>Equipment</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Type" xml:space="preserve">
+    <value>Maintenance type</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_PlannedDate" xml:space="preserve">
+    <value>Planned date</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Interval" xml:space="preserve">
+    <value>Interval</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Departments" xml:space="preserve">
+    <value>Departments</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Source" xml:space="preserve">
+    <value>Norm source</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Source_Preset" xml:space="preserve">
+    <value>Category template</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Source_Override" xml:space="preserve">
+    <value>Individual override</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Description_Empty" xml:space="preserve">
+    <value>No description provided.</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Interval_NotSet" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_LoadError" xml:space="preserve">
+    <value>Could not load norm details.</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_SubmitWorkReport" xml:space="preserve">
+    <value>Submit report</value>
+  </data>
+  <data name="MaintenanceSchedule_SubmitWorkReport_Title" xml:space="preserve">
+    <value>Work report (PPM)</value>
+  </data>
+  <data name="MaintenanceSchedule_SubmitWorkReport_Success" xml:space="preserve">
+    <value>Report saved.</value>
+  </data>
+  <data name="MaintenanceSchedule_Reports_Progress" xml:space="preserve">
+    <value>Department reports: {0}/{1}</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_ReportsProgress" xml:space="preserve">
+    <value>Report progress</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Asset" xml:space="preserve">
+    <value>Equipment</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Type" xml:space="preserve">
+    <value>Maintenance type</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Department" xml:space="preserve">
+    <value>Repair department</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Search_Placeholder" xml:space="preserve">
+    <value>Search by name or inventory number…</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_Label" xml:space="preserve">
+    <value>Sort by</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_PlannedDateAsc" xml:space="preserve">
+    <value>Planned date (earliest)</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_PlannedDateDesc" xml:space="preserve">
+    <value>Planned date (latest)</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_AssetName" xml:space="preserve">
+    <value>Asset name</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_AssetNumber" xml:space="preserve">
+    <value>Inventory number</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_MaintenanceType" xml:space="preserve">
+    <value>Maintenance type</value>
+  </data>
+  <data name="MaintenanceSchedule_View_List" xml:space="preserve">
+    <value>List</value>
+  </data>
+  <data name="MaintenanceSchedule_View_Chart" xml:space="preserve">
+    <value>Chart</value>
+  </data>
+  <data name="MaintenanceSchedule_View_Chart_Stub" xml:space="preserve">
+    <value>Chart view coming soon</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Nav_Prev" xml:space="preserve">
+    <value>← Prev</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Nav_Next" xml:space="preserve">
+    <value>Next →</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Nav_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Range_Format" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Zoom_Week" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Zoom_Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Zoom_Quarter" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_EmptyRange" xml:space="preserve">
+    <value>No planned maintenance in this period</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_EmptyDb" xml:space="preserve">
+    <value>Schedule is empty — set maintenance norms or regenerate the schedule.</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_LoadError" xml:space="preserve">
+    <value>Failed to load data for this period.</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_LaneHeader" xml:space="preserve">
+    <value>Asset</value>
+  </data>
+  <data name="WorkReport_Error_DepartmentNotRouted" xml:space="preserve">
+    <value>Department is not assigned to this request or PPM item.</value>
+  </data>
+  <data name="WorkReport_Error_Duplicate" xml:space="preserve">
+    <value>This department has already submitted a report.</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleRequired" xml:space="preserve">
+    <value>PPM schedule item is required.</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleNotFound" xml:space="preserve">
+    <value>Schedule item not found.</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleNotOpen" xml:space="preserve">
+    <value>Reports can only be submitted for scheduled or overdue items.</value>
+  </data>
+  <data name="WorkReport_Error_NoDepartments" xml:space="preserve">
+    <value>No repair departments assigned to this item.</value>
+  </data>
+  <data name="WorkReport_Error_DepartmentRequired" xml:space="preserve">
+    <value>Select a repair department.</value>
+  </data>
+  <data name="WorkReport_Error_DepartmentNotAssigned" xml:space="preserve">
+    <value>Selected department is not assigned to this PPM item.</value>
+  </data>
+  <data name="WorkReport_Error_InvalidDuration" xml:space="preserve">
+    <value>Enter hours spent as a number greater than zero.</value>
+  </data>
+  <data name="WorkReport_Validation_TechnicianNotAssigned" xml:space="preserve">
+    <value>Assign a technician to the request before submitting a work report.</value>
+  </data>
+  <data name="WorkReport_Validation_TechnicianRequired" xml:space="preserve">
+    <value>Select a technician.</value>
+  </data>
+  <data name="WorkReport_Validation_WorkPerformedRequired" xml:space="preserve">
+    <value>Describe the work performed.</value>
+  </data>
+  <data name="WorkReport_Validation_DurationRequired" xml:space="preserve">
+    <value>Enter hours spent.</value>
+  </data>
+  <data name="WorkReport_Validation_DurationPositive" xml:space="preserve">
+    <value>Hours spent must be a number greater than zero.</value>
+  </data>
+  <data name="WorkReports_Tab_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="WorkReports_Tab_Requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="WorkReports_Tab_Schedule" xml:space="preserve">
+    <value>PPM</value>
+  </data>
+  <data name="WorkReports_Filter_Placeholder" xml:space="preserve">
+    <value>Filter…</value>
+  </data>
+  <data name="WorkReports_Empty" xml:space="preserve">
+    <value>No work reports.</value>
+  </data>
+  <data name="WorkReports_Action_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="WorkReports_Source_Request" xml:space="preserve">
+    <value>Request {0}</value>
+  </data>
+  <data name="WorkReports_Source_Schedule" xml:space="preserve">
+    <value>PPM: {0} ({1}) • {2}</value>
+  </data>
+  <data name="RequestDetail_MaintenanceType_Label" xml:space="preserve">
+    <value>Maintenance types</value>
+  </data>
+  <data name="RequestDetail_MaintenanceType_None" xml:space="preserve">
+    <value>— not specified —</value>
+  </data>
+  <data name="RequestDetail_MaintenanceType_Hint" xml:space="preserve">
+    <value>If the repair fulfills a planned maintenance type, select it — the date counts after the request is closed.</value>
+  </data>
+  <data name="MaintenanceNorms_Tab_Assets" xml:space="preserve">
+    <value>By Equipment</value>
+  </data>
+  <data name="MaintenanceNorms_Tab_Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="MaintenanceNorms_Tab_Audit" xml:space="preserve">
+    <value>All Norms</value>
+  </data>
+  <data name="MaintenanceNorms_Asset_SearchPlaceholder" xml:space="preserve">
+    <value>Search equipment…</value>
+  </data>
+  <data name="MaintenanceNorms_Asset_NoCategory" xml:space="preserve">
+    <value>No category</value>
+  </data>
+  <data name="MaintenanceNorms_SelectFromList" xml:space="preserve">
+    <value>Select a record from the list</value>
+  </data>
+  <data name="MaintenanceNorms_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="MaintenanceNorms_Saved" xml:space="preserve">
+    <value>Changes saved.</value>
+  </data>
+  <data name="MaintenanceNorms_Validation_IntervalRequired" xml:space="preserve">
+    <value>Enter an interval in days (greater than 0) for the enabled norm.</value>
+  </data>
+  <data name="MaintenanceNorms_Preset_NotSet" xml:space="preserve">
+    <value>No template — the norm is available only via an individual override.</value>
+  </data>
+  <data name="MaintenanceNorms_Preset_Summary" xml:space="preserve">
+    <value>From category template: {0} days</value>
+  </data>
+  <data name="MaintenanceNorms_Status_Never" xml:space="preserve">
+    <value>not performed yet</value>
+  </data>
+  <data name="MaintenanceNorms_Status_Summary" xml:space="preserve">
+    <value>Last service: {0}. Next: {1}.</value>
+  </data>
+  <data name="MaintenanceNorms_PendingSchedule_Tooltip" xml:space="preserve">
+    <value>There is an open maintenance schedule entry on {0} ({1}). Saving an interval change will require choosing how to update the schedule.</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_Title" xml:space="preserve">
+    <value>Interval change: {0}</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_RecalculatePending" xml:space="preserve">
+    <value>Recalculate the date of the open entry</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_NextCycleOnly" xml:space="preserve">
+    <value>Keep the open entry; new interval applies from the next cycle</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_NormOnly" xml:space="preserve">
+    <value>Only save the norm, do not change the schedule</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Override" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_OverrideDepartments" xml:space="preserve">
+    <value>Override departments</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Interval" xml:space="preserve">
+    <value>Interval (days)</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_ResetToPreset" xml:space="preserve">
+    <value>Reset to template</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="MaintenanceNorms_Audit_IntervalOverridden" xml:space="preserve">
+    <value>{0} days (individual)</value>
+  </data>
+  <data name="MaintenanceNorms_Audit_IntervalPreset" xml:space="preserve">
+    <value>{0} days (template)</value>
+  </data>
+  <data name="EquipmentCategory_Add" xml:space="preserve">
+    <value>Add category</value>
+  </data>
+  <data name="EquipmentCategory_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="EquipmentCategory_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="EquipmentCategory_Validation_NameRequired" xml:space="preserve">
+    <value>Enter a category name.</value>
+  </data>
+  <data name="EquipmentCategory_Validation_IntervalRequired" xml:space="preserve">
+    <value>Enter an interval in days for each enabled maintenance type.</value>
+  </data>
+  <data name="Toast_Request_New" xml:space="preserve">
+    <value>New request</value>
+  </data>
+  <data name="Toast_Request_New_Body" xml:space="preserve">
+    <value>Request {0} is awaiting acceptance</value>
+  </data>
+  <data name="Toast_Request_StatusChanged" xml:space="preserve">
+    <value>Request status changed</value>
+  </data>
+  <data name="Toast_Request_StatusChanged_Body" xml:space="preserve">
+    <value>Request {0}: {1}</value>
+  </data>
+  <data name="Toast_Request_RoutingChanged" xml:space="preserve">
+    <value>Request routing updated</value>
+  </data>
+  <data name="Toast_Request_RoutingChanged_Body" xml:space="preserve">
+    <value>Departments or assignees were updated</value>
+  </data>
+  <data name="Toast_WorkReport_Added" xml:space="preserve">
+    <value>New work report</value>
+  </data>
+  <data name="Toast_WorkReport_Added_Body" xml:space="preserve">
+    <value>Work report added for request {0}</value>
+  </data>
+  <data name="Toast_Schedule_StatusChanged" xml:space="preserve">
+    <value>Maintenance schedule updated</value>
+  </data>
+  <data name="Toast_Schedule_StatusChanged_Body" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
+</root>

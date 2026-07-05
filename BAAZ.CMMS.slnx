@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x86" />
+    <Platform Name="x64" />
+    <Platform Name="ARM64" />
+  </Configurations>
+  <Project Path="BAAZ.CMMS.App/BAAZ.CMMS.App.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
+  <Project Path="BAAZ.CMMS.Core/BAAZ.CMMS.Core.csproj" />
+  <Project Path="libs/WinUI.UtilsLibrary/WinUI.UtilsLibrary/WinUI.UtilsLibrary.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>

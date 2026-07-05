@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.CrudWorkbench.CrudColumnFilterBar"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Border Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="4"
+            MinHeight="36"
+            Padding="4,2">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Disabled"
+                      HorizontalScrollMode="Enabled">
+            <StackPanel x:Name="RootPanel"
+                        Orientation="Horizontal"
+                        Spacing="6"
+                        VerticalAlignment="Center"
+                        Padding="2,4">
+                <FontIcon Glyph="&#xE721;"
+                          FontSize="12"
+                          Opacity="0.55"
+                          VerticalAlignment="Center"
+                          Margin="4,0,0,0" />
+
+                <StackPanel x:Name="BadgesPanel"
+                            Orientation="Horizontal"
+                            Spacing="6"
+                            VerticalAlignment="Center" />
+
+                <Button x:Name="AddFilterButton"
+                        Content="{x:Bind AddFilterLabel, Mode=OneWay}"
+                        FontSize="12"
+                        Padding="8,4"
+                        MinHeight="28"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        VerticalAlignment="Center"
+                        Click="AddFilterButton_Click" />
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

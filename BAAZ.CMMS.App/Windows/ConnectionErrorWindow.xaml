@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="BAAZ.CMMS.App.Windows.ConnectionErrorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="rootGrid"
+          Loaded="RootGrid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TitleBar x:Name="titleBar"
+                  Title="{Binding WindowTitleText, Mode=OneWay}"
+                  IsBackButtonVisible="False"
+                  IsPaneToggleButtonVisible="False" />
+
+        <Grid Grid.Row="1"
+              Padding="28,16,28,24">
+            <Border Style="{StaticResource AuthCardStyle}"
+                    VerticalAlignment="Center">
+                <StackPanel Spacing="16">
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Grid.Column="0"
+                                  VerticalAlignment="Top"
+                                  AutomationProperties.AccessibilityView="Raw"
+                                  FontSize="28"
+                                  Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                  Glyph="&#xE7BA;" />
+
+                        <StackPanel Grid.Column="1"
+                                    Spacing="4"
+                                    VerticalAlignment="Center">
+                            <TextBlock FontWeight="SemiBold"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Text="{Binding TitleText, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                       Text="{Binding MessageText, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Click="RetryButton_Click"
+                            Content="{Binding RetryButtonText, Mode=OneWay}"
+                            Style="{ThemeResource AccentButtonStyle}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

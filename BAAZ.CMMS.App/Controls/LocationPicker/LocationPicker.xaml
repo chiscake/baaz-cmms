@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.LocationPicker.LocationPicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:tree="using:BAAZ.CMMS.App.Controls.LocationTree"
+             HorizontalAlignment="Stretch"
+             mc:Ignorable="d">
+
+    <StackPanel Spacing="8">
+
+        <!-- Сводка + кнопка «Открыть диалог» -->
+        <StackPanel Spacing="4"
+                    Visibility="{x:Bind ShowSummaryPanel, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock Text="{x:Bind SelectedLocationDisplay, Mode=OneWay}"
+                       Style="{ThemeResource BodyTextBlockStyle}"
+                       TextTrimming="CharacterEllipsis"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+            <!-- Кнопка «Открыть выбор»; кольцо — внутри, на фоне accent -->
+            <Button x:Name="OpenDialogButton"
+                    Click="OpenDialogButton_Click"
+                    Style="{ThemeResource AccentButtonStyle}"
+                    IsEnabled="{x:Bind IsDialogButtonEnabled, Mode=OneWay}"
+                    HorizontalAlignment="Left"
+                    Visibility="{x:Bind ShowDialogButton, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <ProgressRing Width="16"
+                                  Height="16"
+                                  IsActive="{x:Bind IsDialogLoading, Mode=OneWay}"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                  Visibility="{x:Bind IsDialogLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <TextBlock Text="{x:Bind DialogButtonLabel, Mode=OneWay}"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <!-- Ссылка «Очистить» -->
+        <HyperlinkButton Content="{x:Bind ClearParentLabel, Mode=OneWay}"
+                         Click="ClearParent_Click"
+                         HorizontalAlignment="Left"
+                         Padding="0,4"
+                         Visibility="{x:Bind ShowClearButton, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+        <!-- Дерево + ProgressRing пока оно строится -->
+        <Grid x:Name="InlineTreeGrid">
+            <tree:LocationTreePanel x:Name="TreePanel"
+                                    TreeItems="{x:Bind TreeItems, Mode=OneWay}"
+                                    LocationPaths="{x:Bind LocationPaths, Mode=OneWay}"
+                                    ShowSearchBox="True"
+                                    SearchPlaceholder="{x:Bind SearchPlaceholder, Mode=OneWay}"
+                                    ClearSearchLabel="{x:Bind ClearSearchLabel, Mode=OneWay}"
+                                    NoResultsMessage="{x:Bind NoResultsMessage, Mode=OneWay}"
+                                    TreeMinHeight="{x:Bind InlineTreeMinHeight, Mode=OneWay}"
+                                    TreeMaxHeight="{x:Bind InlineTreeMaxHeight, Mode=OneWay}"
+                                    FilteredTreeChanged="TreePanel_FilteredTreeChanged" />
+
+            <!-- Полупрозрачный оверлей с кольцом пока дерево строится -->
+            <Grid Background="{ThemeResource LayerFillColorDefaultBrush}"
+                  CornerRadius="4"
+                  Opacity="0.85"
+                  Visibility="{x:Bind IsTreeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ProgressRing IsActive="{x:Bind IsTreeLoading, Mode=OneWay}"
+                              Width="32" Height="32"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+    </StackPanel>
+</UserControl>

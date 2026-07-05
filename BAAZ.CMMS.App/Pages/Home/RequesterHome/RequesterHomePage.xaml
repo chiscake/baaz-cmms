@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Home.RequesterHome.RequesterHomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:home="using:BAAZ.CMMS.App.Controls.Home"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                       MaxContentWidth="Large1024"
+                       State="{x:Bind ViewModel.InfoBanner, Mode=OneWay}">
+        <home:HomeDashboardSection DataContext="{x:Bind ViewModel.RequesterSection, Mode=OneWay}" />
+    </layout:PageLayout>
+</Page>

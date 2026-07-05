@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.CrudWorkbench.CrudWorkbenchControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:crud="using:BAAZ.CMMS.App.Controls.CrudWorkbench"
+             MinHeight="0"
+             VerticalAlignment="Stretch"
+             mc:Ignorable="d">
+
+    <Grid x:Name="RootGrid"
+          MinHeight="0"
+          VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" MinHeight="0" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <CommandBar Grid.Row="0"
+                    x:Name="ToolbarBar"
+                    DefaultLabelPosition="Right"
+                    Background="Transparent"
+                    HorizontalContentAlignment="Left"
+                    IsOpen="False"
+                    Margin="0,0,0,4">
+            <AppBarButton x:Name="AddButton"
+                          Icon="Add"
+                          Label="{x:Bind AddLabel, Mode=OneWay}"
+                          IsEnabled="{x:Bind CanCreate, Mode=OneWay}"
+                          Click="AddButton_Click" />
+            <AppBarSeparator />
+            <AppBarButton x:Name="RefreshButton"
+                          Icon="Refresh"
+                          Label="{x:Bind RefreshLabel, Mode=OneWay}"
+                          Click="RefreshButton_Click" />
+            <AppBarButton x:Name="ArchiveButton"
+                          Label="{x:Bind ArchiveLabel, Mode=OneWay}"
+                          Visibility="{x:Bind ShowArchiveButton, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                          IsEnabled="{x:Bind CanArchive, Mode=OneWay}"
+                          Click="ArchiveButton_Click">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE74D;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarButton x:Name="HardDeleteButton"
+                          Label="{x:Bind HardDeleteLabel, Mode=OneWay}"
+                          Visibility="{x:Bind ShowHardDeleteButton, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                          IsEnabled="{x:Bind CanHardDelete, Mode=OneWay}"
+                          Click="HardDeleteButton_Click">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE74D;" Foreground="{ThemeResource SystemFillColorCriticalBrush}" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+            <AppBarSeparator Visibility="{x:Bind ShowSelectionActionsSeparator, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <AppBarButton x:Name="ColumnsButton"
+                          Label="{x:Bind ColumnsLabel, Mode=OneWay}"
+                          Click="ColumnsButton_Click">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE71D;" />
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+
+        <!-- Filter row -->
+        <Grid Grid.Row="1"
+              x:Name="FilterRow"
+              Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="360" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+                     x:Name="FilterBox"
+                     PlaceholderText="{x:Bind FilterPlaceholder, Mode=OneWay}"
+                     Text="{x:Bind FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     KeyDown="FilterBox_KeyDown"
+                     Margin="0,0,8,0" />
+
+            <Button Grid.Column="1"
+                    x:Name="SearchButton"
+                    ToolTipService.ToolTip="{x:Bind SearchLabel, Mode=OneWay}"
+                    Click="SearchButton_Click"
+                    Margin="0,0,12,0"
+                    VerticalAlignment="Stretch"
+                    Style="{ThemeResource AccentButtonStyle}">
+                <FontIcon Glyph="&#xE721;" />
+            </Button>
+
+            <ToggleButton Grid.Column="2"
+                          x:Name="ShowInactiveToggle"
+                          Content="{x:Bind ShowInactiveLabel, Mode=OneWay}"
+                          IsChecked="{x:Bind ShowInactive, Mode=TwoWay}"
+                          Visibility="{x:Bind HasShowInactive, Converter={StaticResource BoolToVisibilityConverter}}" />
+        </Grid>
+
+        <!-- Column filters (Supabase-style badges) -->
+        <crud:CrudColumnFilterBar Grid.Row="2"
+                                  x:Name="ColumnFilterBar"
+                                  Margin="0,0,0,8"
+                                  ActiveFilters="{x:Bind ColumnFilters, Mode=OneWay}"
+                                  FilterColumns="{x:Bind FilterColumns, Mode=OneWay}"
+                                  Visibility="{x:Bind HasColumnFilters, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                  FiltersChanged="ColumnFilterBar_FiltersChanged" />
+
+        <!-- Table content (provided by page) -->
+        <Border Grid.Row="3"
+                x:Name="TableHost"
+                MinHeight="0"
+                VerticalAlignment="Stretch">
+            <ContentPresenter x:Name="TableContentPresenter"
+                              Content="{x:Bind TableContent, Mode=OneWay}"
+                              MinHeight="0"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch" />
+        </Border>
+
+        <!-- Pagination -->
+        <crud:CrudPaginatorControl Grid.Row="4"
+                                   x:Name="Paginator"
+                                   Margin="0,8,0,0"
+                                   VerticalAlignment="Center" />
+    </Grid>
+</UserControl>

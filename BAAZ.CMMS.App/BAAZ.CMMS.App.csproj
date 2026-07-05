@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>BAAZ.CMMS.App</RootNamespace>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Platforms>x86;x64;ARM64</Platforms>
+		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+		<_PublishProfileSuffix Condition="'$(Platform)' == 'x86'">x86</_PublishProfileSuffix>
+		<_PublishProfileSuffix Condition="'$(Platform)' == 'ARM64'">arm64</_PublishProfileSuffix>
+		<_PublishProfileSuffix Condition="'$(_PublishProfileSuffix)' == ''">x64</_PublishProfileSuffix>
+		<PublishProfile>win-$(_PublishProfileSuffix).pubxml</PublishProfile>
+		<UseWinUI>true</UseWinUI>
+		<WinUISDKReferences>false</WinUISDKReferences>
+		<EnableMsixTooling>false</EnableMsixTooling>
+		<Nullable>enable</Nullable>
+		<LangVersion>preview</LangVersion>
+		<DefaultLanguage>ru-RU</DefaultLanguage>
+		<LaunchProfileName>BAAZ.CMMS.App</LaunchProfileName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Manifest Include="$(ApplicationManifest)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.Primitives" Version="8.2.251219" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.Sizers" Version="8.2.251219" />
+		<PackageReference Include="DevWinUI" Version="10.0.0" />
+		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1839" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="2.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\BAAZ.CMMS.Core\BAAZ.CMMS.Core.csproj" />
+	  <ProjectReference Include="..\libs\WinUI.UtilsLibrary\WinUI.UtilsLibrary\WinUI.UtilsLibrary.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Assets\baaz-logo.ico">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<!-- Publish Properties -->
+	<PropertyGroup>
+		<PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
+		<PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
+		<PublishTrimmed>false</PublishTrimmed>
+		<WindowsPackageType>None</WindowsPackageType>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ApplicationIcon>Assets\baaz-logo.ico</ApplicationIcon>
+	</PropertyGroup>
+</Project>

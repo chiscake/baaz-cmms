@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Requester.NewRequest.NewRequestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:local="using:BAAZ.CMMS.App.Pages.Requester.NewRequest"
+      mc:Ignorable="d">
+
+    <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                       State="{x:Bind ViewModel.InfoBanner, Mode=OneWay}"
+                       MaxContentWidth="Small640">
+        <StackPanel Spacing="16">
+            <ComboBox Header="{x:Bind ViewModel.LabelType, Mode=OneWay}"
+                      ItemsSource="{x:Bind ViewModel.TypeLabels, Mode=OneWay}"
+                      SelectedIndex="{x:Bind ViewModel.SelectedTypeIndex, Mode=TwoWay}" />
+
+            <ComboBox Header="{x:Bind ViewModel.LabelPriority, Mode=OneWay}"
+                      ItemsSource="{x:Bind ViewModel.PriorityLabels, Mode=OneWay}"
+                      SelectedIndex="{x:Bind ViewModel.SelectedPriorityIndex, Mode=TwoWay}" />
+
+            <ComboBox Header="{x:Bind ViewModel.LabelRepairDepartment, Mode=OneWay}"
+                      PlaceholderText="{x:Bind ViewModel.RepairDepartmentPlaceholder, Mode=OneWay}"
+                      ItemsSource="{x:Bind ViewModel.RepairDepartmentLabels, Mode=OneWay}"
+                      SelectedIndex="{x:Bind ViewModel.SelectedRepairDepartmentIndex, Mode=TwoWay}" />
+
+            <StackPanel Spacing="8">
+                <TextBlock Text="{x:Bind ViewModel.LabelSubject, Mode=OneWay}"
+                           Style="{ThemeResource BodyStrongTextBlockStyle}" />
+
+                <SelectorBar x:Name="SubjectSelector"
+                             Style="{StaticResource TokenViewSelectorBarStyle}"
+                             SelectionChanged="SubjectSelector_SelectionChanged">
+                    <SelectorBarItem Text="{x:Bind ViewModel.SubjectModeAssetLabel, Mode=OneWay}"
+                                     IsSelected="True" />
+                    <SelectorBarItem Text="{x:Bind ViewModel.SubjectModeLocationLabel, Mode=OneWay}" />
+                </SelectorBar>
+
+                <AutoSuggestBox x:Name="AssetSuggestBox"
+                                PlaceholderText="{x:Bind ViewModel.AssetSearchPlaceholder, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.AssetSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{x:Bind ViewModel.AssetSuggestions, Mode=OneWay}"
+                                TextMemberPath="DisplayName"
+                                TextChanged="AssetSuggest_TextChanged"
+                                SuggestionChosen="AssetSuggest_SuggestionChosen"
+                                QuerySubmitted="AssetSuggest_QuerySubmitted"
+                                Visibility="{x:Bind ViewModel.IsAssetSubjectMode, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="{x:Bind ViewModel.SelectedAssetLocationPath, Mode=OneWay}" />
+                    </ToolTipService.ToolTip>
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="local:AssetPickerRow">
+                            <TextBlock Text="{x:Bind DisplayName}"
+                                       TextTrimming="CharacterEllipsis">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip Content="{x:Bind LocationPath}" />
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+
+                <TextBox PlaceholderText="{x:Bind ViewModel.LocationPlaceholder, Mode=OneWay}"
+                         Text="{x:Bind ViewModel.LocationDescription, Mode=TwoWay}"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         MinHeight="72"
+                         Visibility="{x:Bind ViewModel.IsLocationSubjectMode, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </StackPanel>
+
+            <TextBox Header="{x:Bind ViewModel.LabelTitle, Mode=OneWay}"
+                     Text="{x:Bind ViewModel.Title, Mode=TwoWay}" />
+
+            <TextBox Header="{x:Bind ViewModel.LabelDescription, Mode=OneWay}"
+                     Text="{x:Bind ViewModel.Description, Mode=TwoWay}"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     MinHeight="120" />
+
+            <StackPanel Spacing="8"
+                        Visibility="{x:Bind ViewModel.ShowRepairZoneSection, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ComboBox Header="{x:Bind ViewModel.LabelRepairZone, Mode=OneWay}"
+                          PlaceholderText="{x:Bind ViewModel.RepairZonePickerPlaceholder, Mode=OneWay}"
+                          ItemsSource="{x:Bind ViewModel.RepairZoneLabels, Mode=OneWay}"
+                          SelectedIndex="{x:Bind ViewModel.SelectedRepairZoneIndex, Mode=TwoWay}" />
+                <TextBox Header="{x:Bind ViewModel.LabelContractorName, Mode=OneWay}"
+                         PlaceholderText="{x:Bind ViewModel.ContractorNamePlaceholder, Mode=OneWay}"
+                         Text="{x:Bind ViewModel.ContractorNameText, Mode=TwoWay}"
+                         Visibility="{x:Bind ViewModel.IsRepairZoneExternal, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </StackPanel>
+
+            <Button HorizontalAlignment="Left"
+                    Command="{x:Bind ViewModel.SubmitCommand}"
+                    Content="{x:Bind ViewModel.SubmitButtonText, Mode=OneWay}" />
+        </StackPanel>
+    </layout:PageLayout>
+</Page>

@@ -1,0 +1,3 @@
+[submodule "libs/WinUI.UtilsLibrary"]
+	path = libs/WinUI.UtilsLibrary
+	url = https://github.com/chiscake/WinUI.UtilsLibrary.git

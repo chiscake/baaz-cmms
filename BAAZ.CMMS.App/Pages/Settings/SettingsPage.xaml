@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Settings.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:BAAZ.CMMS.App.Pages.Settings"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <x:Double x:Key="SettingsCardSpacing">4</x:Double>
+
+        <Style x:Key="SettingsSectionHeaderTextBlockStyle"
+               BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+               TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Margin"
+                        Value="1,30,0,6" />
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+
+    <layout:PageLayout Header="{Binding PageTitle, Mode=OneWay}"
+                       State="{Binding InfoBanner, Mode=OneWay}">
+        <StackPanel MaxWidth="1064"
+                    Spacing="{StaticResource SettingsCardSpacing}">
+            <StackPanel.ChildrenTransitions>
+                <RepositionThemeTransition />
+            </StackPanel.ChildrenTransitions>
+
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                       Text="{Binding SectionAppearance, Mode=OneWay}" />
+            <toolkit:SettingsCard Description="{Binding ThemeDescription, Mode=OneWay}"
+                                  Header="{Binding ThemeHeader, Mode=OneWay}">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE790;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ComboBox x:Name="themeMode"
+                          AutomationProperties.AutomationId="themeModeComboBox"
+                          ItemsSource="{Binding ThemeOptionLabels, Mode=OneWay}"
+                          SelectedIndex="{Binding SelectedThemeIndex, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard Header="{Binding NavigationHeader, Mode=OneWay}">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xF594;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ComboBox x:Name="navigationLocation"
+                          ItemsSource="{Binding NavigationOptionLabels, Mode=OneWay}"
+                          SelectedIndex="{Binding SelectedNavigationLocationIndex, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard Description="{Binding LanguageDescription, Mode=OneWay}"
+                                  Header="{Binding LanguageHeader, Mode=OneWay}">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xF2B7;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <ComboBox x:Name="languageMode"
+                          AutomationProperties.AutomationId="languageModeComboBox"
+                          ItemsSource="{Binding LanguageOptionLabels, Mode=OneWay}"
+                          SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}" />
+            </toolkit:SettingsCard>
+
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                       Text="{Binding SectionData, Mode=OneWay}" />
+            <toolkit:SettingsCard Description="{Binding ResetSettingsDescription, Mode=OneWay}"
+                                  Header="{Binding ResetSettingsHeader, Mode=OneWay}">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE777;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <Button AutomationProperties.AutomationId="resetSettingsButton"
+                        Command="{Binding ResetSettingsCommand}"
+                        Content="{Binding ResetSettingsButtonText, Mode=OneWay}" />
+            </toolkit:SettingsCard>
+
+            <toolkit:SettingsCard Description="{Binding SupabaseSettingsDescription, Mode=OneWay}"
+                                  Header="{Binding SupabaseSettingsHeader, Mode=OneWay}">
+                <toolkit:SettingsCard.HeaderIcon>
+                    <FontIcon Glyph="&#xE774;" />
+                </toolkit:SettingsCard.HeaderIcon>
+                <StackPanel Spacing="8"
+                            MinWidth="420">
+                    <TextBlock Text="{Binding SupabaseUrlLabel, Mode=OneWay}" />
+                    <TextBox Text="{Binding SupabaseUrl, Mode=TwoWay}" />
+
+                    <TextBlock Text="{Binding SupabaseKeyLabel, Mode=OneWay}" />
+                    <TextBox Text="{Binding SupabaseAnonKey, Mode=TwoWay}" />
+
+                    <Button HorizontalAlignment="Left"
+                            Command="{Binding SaveSupabaseSettingsCommand}"
+                            Content="{Binding SupabaseSaveButtonText, Mode=OneWay}" />
+                </StackPanel>
+            </toolkit:SettingsCard>
+        </StackPanel>
+    </layout:PageLayout>
+</Page>

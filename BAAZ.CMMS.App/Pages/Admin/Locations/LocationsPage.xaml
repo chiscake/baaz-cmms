@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Admin.Locations.LocationsPage"
+      x:Name="RootPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:crud="using:BAAZ.CMMS.App.Controls.CrudWorkbench"
+      xmlns:picker="using:BAAZ.CMMS.App.Controls.LocationPicker"
+      mc:Ignorable="d">
+
+    <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                       State="{x:Bind ViewModel.InfoBanner, Mode=OneWay}"
+                       VerticalScrollMode="Disabled">
+
+        <crud:CrudWorkbenchPage x:Name="Workbench"
+                                VerticalAlignment="Stretch"
+                                DataContext="{x:Bind ViewModel}">
+            <crud:CrudWorkbenchPage.EditorContent>
+                <StackPanel Spacing="16">
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Bind ViewModel.EditorLabelName, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBox Text="{x:Bind ViewModel.EditorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="{x:Bind ViewModel.EditorNameMaxLength, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Bind ViewModel.EditorLabelCode, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBox Text="{x:Bind ViewModel.EditorCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="{x:Bind ViewModel.EditorCodeMaxLength, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Bind ViewModel.EditorLabelParent, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <picker:LocationPicker x:Name="EditorParentPicker"
+                                                     Loaded="EditorParentPicker_Loaded"
+                                                     LocationPaths="{x:Bind ViewModel.ParentLocationFullPaths, Mode=OneWay}"
+                                                     DisabledNodeIds="{x:Bind ViewModel.DisabledParentIds, Mode=OneWay}"
+                                                     ShowDialogButton="True"
+                                                     ClearParentLabel="{x:Bind ViewModel.EditorClearParent, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
+            </crud:CrudWorkbenchPage.EditorContent>
+        </crud:CrudWorkbenchPage>
+    </layout:PageLayout>
+</Page>

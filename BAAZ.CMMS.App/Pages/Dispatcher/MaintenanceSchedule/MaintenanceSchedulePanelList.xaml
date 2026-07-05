@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Pages.Dispatcher.MaintenanceSchedule.MaintenanceSchedulePanelList"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:badge="using:BAAZ.CMMS.App.Controls.StatusBadge"
+             xmlns:local="using:BAAZ.CMMS.App.Pages.Dispatcher.MaintenanceSchedule"
+             mc:Ignorable="d">
+
+    <Grid>
+        <TextBlock Text="{Binding ChartEmptyRangeText, Mode=OneWay}"
+                   Visibility="{Binding ShowChartEmptyRange, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   MaxWidth="320"
+                   Style="{ThemeResource BodyTextBlockStyle}" />
+
+        <TextBlock Text="{Binding ChartEmptyDbText, Mode=OneWay}"
+                   Visibility="{Binding ShowChartEmptyDb, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   MaxWidth="320"
+                   Style="{ThemeResource BodyTextBlockStyle}" />
+
+        <ListView x:Name="PanelList"
+                  ItemsSource="{Binding PanelRows, Mode=OneWay}"
+                  SelectionMode="None"
+                  Visibility="{Binding ShowChartPanelList, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                  Padding="0,0,16,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Grid Padding="0,4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Grid.ColumnSpan="2"
+                                            Background="{TemplateBinding Background}"
+                                            IsHitTestVisible="False" />
+
+                                    <Border x:Name="HighlightStrip"
+                                            Grid.Column="0"
+                                            Width="3"
+                                            Background="Transparent"
+                                            CornerRadius="1"
+                                            VerticalAlignment="Stretch"
+                                            IsHitTestVisible="False" />
+
+                                    <ContentPresenter Grid.Column="1"
+                                                      Content="{TemplateBinding Content}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:MaintenanceScheduleRow">
+                    <local:MaintenanceScheduleCard />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

@@ -1,0 +1,2 @@
+-- Seed data split into supabase/seeds/*.sql (see config.toml sql_paths).
+-- Regenerate: node scripts/generate-seed-catalog.mjs

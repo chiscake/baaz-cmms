@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Admin.AllRequests.AllRequestsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:crud="using:BAAZ.CMMS.App.Controls.CrudWorkbench"
+      mc:Ignorable="d">
+
+    <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                       State="{x:Bind ViewModel.InfoBanner, Mode=OneWay}"
+                       VerticalScrollMode="Disabled">
+
+        <crud:CrudWorkbenchPage x:Name="Workbench"
+                                  VerticalAlignment="Stretch"
+                                  HasShowInactive="False"
+                                  DataContext="{x:Bind ViewModel}">
+            <crud:CrudWorkbenchPage.EditorContent>
+                <StackPanel Spacing="16">
+                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                            <Run Text="{x:Bind ViewModel.EditorLabelStatus, Mode=OneWay}" />
+                            <Run Text=": " />
+                            <Run Text="{x:Bind ViewModel.EditorStatusLabel, Mode=OneWay}" />
+                    </TextBlock>
+                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                            <Run Text="{x:Bind ViewModel.EditorLabelRequester, Mode=OneWay}" />
+                            <Run Text=": " />
+                            <Run Text="{x:Bind ViewModel.EditorRequesterName, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Bind ViewModel.EditorLabelRequestNumber, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBox Text="{x:Bind ViewModel.EditorRequestNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 MaxLength="{x:Bind ViewModel.EditorRequestNumberMaxLength, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Bind ViewModel.EditorLabelTitle, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBox Text="{x:Bind ViewModel.EditorRequestTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="4">
+                        <TextBlock Text="{x:Bind ViewModel.EditorLabelDescription, Mode=OneWay}"
+                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBox Text="{x:Bind ViewModel.EditorDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="120" />
+                    </StackPanel>
+
+                    <ComboBox Header="{x:Bind ViewModel.EditorLabelType, Mode=OneWay}"
+                              ItemsSource="{x:Bind ViewModel.TypeLabels, Mode=OneWay}"
+                              SelectedIndex="{x:Bind ViewModel.EditorTypeIndex, Mode=TwoWay}" />
+
+                    <ComboBox Header="{x:Bind ViewModel.EditorLabelPriority, Mode=OneWay}"
+                              ItemsSource="{x:Bind ViewModel.PriorityLabels, Mode=OneWay}"
+                              SelectedIndex="{x:Bind ViewModel.EditorPriorityIndex, Mode=TwoWay}" />
+                </StackPanel>
+            </crud:CrudWorkbenchPage.EditorContent>
+        </crud:CrudWorkbenchPage>
+    </layout:PageLayout>
+</Page>

@@ -1,0 +1,2550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="App_Title" xml:space="preserve">
+    <value>БААЗ АС ТОиР</value>
+  </data>
+  <data name="App_TitleBar" xml:space="preserve">
+    <value>БААЗ АС ТОиР</value>
+  </data>
+  <data name="Nav_Home" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Nav_Equipment" xml:space="preserve">
+    <value>Реестр объектов</value>
+  </data>
+  <data name="Nav_Personnel" xml:space="preserve">
+    <value>Управление персоналом</value>
+  </data>
+  <data name="Nav_Users" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="Nav_MaintenanceSchedule" xml:space="preserve">
+    <value>График ТО</value>
+  </data>
+  <data name="Nav_IncomingRequests" xml:space="preserve">
+    <value>Заявки</value>
+  </data>
+  <data name="Nav_WorkReports" xml:space="preserve">
+    <value>Отчёты о работах</value>
+  </data>
+  <data name="Nav_NewRequest" xml:space="preserve">
+    <value>Новая заявка</value>
+  </data>
+  <data name="Nav_MyRequests" xml:space="preserve">
+    <value>Мои заявки</value>
+  </data>
+  <data name="Nav_AllRequests" xml:space="preserve">
+    <value>Все заявки</value>
+  </data>
+  <data name="Nav_RequestHistory" xml:space="preserve">
+    <value>История заявок</value>
+  </data>
+  <data name="Nav_RequesterAssets" xml:space="preserve">
+    <value>Оборудование</value>
+  </data>
+  <data name="RequesterAssets_Search_Placeholder" xml:space="preserve">
+    <value>Поиск по номеру, названию или месту</value>
+  </data>
+  <data name="RequesterAssets_Empty_List" xml:space="preserve">
+    <value>Нет доступного оборудования в эксплуатации.</value>
+  </data>
+  <data name="RequesterAssets_Empty_Filter" xml:space="preserve">
+    <value>Ничего не найдено. Измените поисковый запрос.</value>
+  </data>
+  <data name="Nav_Locations" xml:space="preserve">
+    <value>Локации</value>
+  </data>
+  <data name="Nav_RepairDepartments" xml:space="preserve">
+    <value>Отделы ремонта</value>
+  </data>
+  <data name="Nav_MaintenanceNorms" xml:space="preserve">
+    <value>Нормативы ТО</value>
+  </data>
+  <data name="Nav_MaterialRequisition" xml:space="preserve">
+    <value>Заявка на расходники</value>
+  </data>
+  <data name="Nav_ToolRequisition" xml:space="preserve">
+    <value>Заявка на инструмент</value>
+  </data>
+  <data name="Nav_Group_Dispatcher" xml:space="preserve">
+    <value>Диспетчер</value>
+  </data>
+  <data name="Nav_Group_Requester" xml:space="preserve">
+    <value>Заявитель</value>
+  </data>
+  <!-- Stub page descriptions -->
+  <data name="Stub_MyRequests_Planned" xml:space="preserve">
+    <value>Здесь будет список заявок, созданных текущим пользователем, с фильтрацией по статусу, дате и типу. Доступны действия: просмотр детали, отмена заявки (UC-R2, UC-R3).</value>
+  </data>
+  <data name="Stub_IncomingRequests_Planned" xml:space="preserve">
+    <value>Здесь будет список всех входящих заявок от заявителей и ToolTracker с фильтрацией и сортировкой. Диспетчер может принять, отклонить или назначить исполнителя (UC-D1, UC-D2).</value>
+  </data>
+  <data name="IncomingRequests_Tab_New" xml:space="preserve">
+    <value>Новые</value>
+  </data>
+  <data name="IncomingRequests_Tab_Active" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="IncomingRequests_Tab_Completed" xml:space="preserve">
+    <value>Завершённые</value>
+  </data>
+  <data name="IncomingRequests_Column_Accepted" xml:space="preserve">
+    <value>Принятые</value>
+  </data>
+  <data name="IncomingRequests_Column_InProgress" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="IncomingRequests_Column_Completed" xml:space="preserve">
+    <value>Выполнены</value>
+  </data>
+  <data name="IncomingRequests_Column_Empty" xml:space="preserve">
+    <value>Нет заявок.</value>
+  </data>
+  <data name="IncomingRequests_Action_Accept" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="IncomingRequests_Action_Reject" xml:space="preserve">
+    <value>Отклонить</value>
+  </data>
+  <data name="IncomingRequests_Action_Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="IncomingRequests_Empty" xml:space="preserve">
+    <value>Нет заявок в этой вкладке.</value>
+  </data>
+  <data name="IncomingRequests_Error_Action" xml:space="preserve">
+    <value>Не удалось выполнить действие. Попробуйте ещё раз.</value>
+  </data>
+  <data name="IncomingRequests_Confirm_Reject_Title" xml:space="preserve">
+    <value>Отклонить заявку</value>
+  </data>
+  <data name="IncomingRequests_Confirm_Reject_Placeholder" xml:space="preserve">
+    <value>Укажите причину отклонения</value>
+  </data>
+  <data name="Request_Assignee_None" xml:space="preserve">
+    <value>Техник не назначен</value>
+  </data>
+  <data name="Stub_RequestDetail_Title" xml:space="preserve">
+    <value>Детали заявки</value>
+  </data>
+  <data name="Stub_RequestDetail_Planned" xml:space="preserve">
+    <value>Полная информация о заявке: статус, исполнитель, история изменений. Доступны действия в зависимости от роли: отмена (заявитель), назначение/запуск (диспетчер), приёмка (заявитель/диспетчер), просмотр лога (UC-R3, UC-R4, UC-D2, UC-D6).</value>
+  </data>
+  <data name="RequestDetail_Title" xml:space="preserve">
+    <value>Заявка</value>
+  </data>
+  <data name="RequestDetail_Label_Requester" xml:space="preserve">
+    <value>Заявитель</value>
+  </data>
+  <data name="RequestDetail_Section_Departments" xml:space="preserve">
+    <value>Задействованные отделы</value>
+  </data>
+  <data name="RequestDetail_Section_Actions" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="RequestDetail_Section_WorkReports" xml:space="preserve">
+    <value>Отчёты о работах</value>
+  </data>
+  <data name="RequestDetail_Action_AssignTechnician" xml:space="preserve">
+    <value>Назначить техника</value>
+  </data>
+  <data name="RequestDetail_Action_StartWork" xml:space="preserve">
+    <value>Начать работы</value>
+  </data>
+  <data name="RequestDetail_Action_ChangeZone" xml:space="preserve">
+    <value>Зона ремонта</value>
+  </data>
+  <data name="RequestDetail_Action_Apply" xml:space="preserve">
+    <value>Сменить</value>
+  </data>
+  <data name="RequestDetail_Action_TransferDepartment" xml:space="preserve">
+    <value>Передать в другой отдел</value>
+  </data>
+  <data name="RequestDetail_Action_AddDepartment" xml:space="preserve">
+    <value>Подключить отдел</value>
+  </data>
+  <data name="RequestDetail_Action_SubmitWorkReport" xml:space="preserve">
+    <value>Внести отчёт о работах</value>
+  </data>
+  <data name="RequestDetail_Action_CloseRequest" xml:space="preserve">
+    <value>Закрыть заявку</value>
+  </data>
+  <data name="RequestDetail_ContractorName_Placeholder" xml:space="preserve">
+    <value>ООО «Ремонт», ИНН…</value>
+  </data>
+  <data name="RequestDetail_WorkPerformed_Label" xml:space="preserve">
+    <value>Выполненные работы</value>
+  </data>
+  <data name="RequestDetail_WorkPerformed_Placeholder" xml:space="preserve">
+    <value>Опишите выполненные работы, заменённые узлы и операции…</value>
+  </data>
+  <data name="RequestDetail_Duration_Label" xml:space="preserve">
+    <value>Затраченное время, ч</value>
+  </data>
+  <data name="RequestDetail_PartsUsed_Label" xml:space="preserve">
+    <value>Использованные запчасти</value>
+  </data>
+  <data name="RequestDetail_PartsUsed_Placeholder" xml:space="preserve">
+    <value>Перечень через запятую или с новой строки</value>
+  </data>
+  <data name="RequestDetail_DefectsFound_Label" xml:space="preserve">
+    <value>Обнаруженные дефекты</value>
+  </data>
+  <data name="RequestDetail_DefectsFound_Placeholder" xml:space="preserve">
+    <value>Если дефектов нет — оставьте пустым</value>
+  </data>
+  <data name="RequestDetail_Notes_Label" xml:space="preserve">
+    <value>Примечания</value>
+  </data>
+  <data name="RequestDetail_Notes_Placeholder" xml:space="preserve">
+    <value>Дополнительная информация для учёта</value>
+  </data>
+  <data name="RequestDetail_AssignedTechnician_Label" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
+  <data name="RequestDetail_WorkReport_Department_Label" xml:space="preserve">
+    <value>Отдел</value>
+  </data>
+  <data name="RequestDetail_WorkReports_Empty" xml:space="preserve">
+    <value>Отчётов о работах пока нет.</value>
+  </data>
+  <data name="RequestDetail_Error_Action" xml:space="preserve">
+    <value>Не удалось выполнить действие. Попробуйте ещё раз.</value>
+  </data>
+  <data name="RequestDetail_Error_RepairZoneRequired" xml:space="preserve">
+    <value>Выберите зону ремонта.</value>
+  </data>
+  <data name="RequestDetail_Error_NotInPreparation" xml:space="preserve">
+    <value>Действие доступно только на этапе подготовки (статус «Принята»).</value>
+  </data>
+  <data name="RequestDetail_Error_DepartmentAlreadyReported" xml:space="preserve">
+    <value>Отдел уже сдал отчёт о работах — изменения недоступны.</value>
+  </data>
+  <data name="RequestDetail_Error_NotAccepted" xml:space="preserve">
+    <value>Начать работы можно только для принятой заявки.</value>
+  </data>
+  <data name="RequestDetail_Error_AllDepartmentsNeedAssignee" xml:space="preserve">
+    <value>Назначьте исполнителя в каждом подключённом отделе перед запуском работ.</value>
+  </data>
+  <data name="RequestDetail_Error_NotAssignable" xml:space="preserve">
+    <value>Действие недоступно в текущем статусе заявки.</value>
+  </data>
+  <data name="RequestDetail_Banner_DepartmentReported" xml:space="preserve">
+    <value>Отчёт по вашему отделу сдан. Ожидайте завершения заявки или закройте её после статуса «Выполнена».</value>
+  </data>
+  <data name="RequestDetail_Actions_Empty" xml:space="preserve">
+    <value>Нет доступных действий для текущего статуса.</value>
+  </data>
+  <data name="RequestDetail_Confirm_Transfer_Title" xml:space="preserve">
+    <value>Передать заявку в другой отдел?</value>
+  </data>
+  <data name="RequestDetail_Confirm_Transfer_Message" xml:space="preserve">
+    <value>Ваш отдел потеряет доступ к заявке. Действие нельзя отменить.</value>
+  </data>
+  <data name="Stub_MaintenanceSchedule_Planned" xml:space="preserve">
+    <value>График планово-предупредительных ремонтов: список позиций по оборудованию с датами ТО-1, ТО-2, КР. Диспетчер видит просроченные и предстоящие позиции, может отменить или перенести (UC-D3, UC-D5).</value>
+  </data>
+  <data name="Stub_WorkReports_Planned" xml:space="preserve">
+    <value>Реестр отчётов о выполненных работах: список отчётов с фактическим временем, исполнителем и привязкой к заявке или позиции ППР. Диспетчер создаёт отчёт после завершения работ (UC-D4).</value>
+  </data>
+  <data name="Stub_MaintenanceNorms_Planned" xml:space="preserve">
+    <value>Настройка межремонтных интервалов: таблица норм ТО-1, ТО-2, КР для каждого объекта. Администратор задаёт интервалы в днях, на основе которых рассчитывается следующая дата ТО (UC-A5).</value>
+  </data>
+  <data name="Stub_Locations_Planned" xml:space="preserve">
+    <value>Справочник локаций и мест установки оборудования: иерархия цех — участок — место. Администратор создаёт и редактирует структуру предприятия (UC-A1).</value>
+  </data>
+  <data name="Locations_Column_FullPath" xml:space="preserve">
+    <value>Полный путь</value>
+  </data>
+  <data name="Locations_Column_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="Locations_Column_Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="Locations_Column_Parent" xml:space="preserve">
+    <value>Родитель</value>
+  </data>
+  <data name="Locations_Column_Active" xml:space="preserve">
+    <value>Активна</value>
+  </data>
+  <data name="Locations_Column_CreatedAt" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="Locations_Column_UpdatedAt" xml:space="preserve">
+    <value>Обновлено</value>
+  </data>
+  <data name="Locations_Toolbar_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Locations_Toolbar_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Locations_Toolbar_Columns" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
+  <data name="Locations_Toolbar_Archive" xml:space="preserve">
+    <value>Архивировать ветку ({0})</value>
+  </data>
+  <data name="Locations_Toolbar_Restore" xml:space="preserve">
+    <value>Восстановить ветку ({0})</value>
+  </data>
+  <data name="Locations_Toolbar_HardDelete" xml:space="preserve">
+    <value>Удалить навсегда ({0})</value>
+  </data>
+  <data name="Locations_Filter_Placeholder" xml:space="preserve">
+    <value>Поиск по названию, коду или пути…</value>
+  </data>
+  <data name="Locations_ShowInactive" xml:space="preserve">
+    <value>Показывать архивные</value>
+  </data>
+  <data name="LocationPicker_OpenDialog" xml:space="preserve">
+    <value>Открыть выбор…</value>
+  </data>
+  <data name="LocationPicker_DialogTitle" xml:space="preserve">
+    <value>Выбор локации</value>
+  </data>
+  <data name="LocationScopePicker_DialogTitle" xml:space="preserve">
+    <value>Выбор зон заявок</value>
+  </data>
+  <data name="LocationPicker_SearchPlaceholder" xml:space="preserve">
+    <value>Поиск по названию…</value>
+  </data>
+  <data name="LocationPicker_SearchNoResults" xml:space="preserve">
+    <value>Ничего не найдено</value>
+  </data>
+  <data name="LocationPicker_ClearSearch" xml:space="preserve">
+    <value>Очистить поиск</value>
+  </data>
+  <data name="LocationPicker_DialogApply" xml:space="preserve">
+    <value>Выбрать</value>
+  </data>
+  <data name="LocationPicker_DialogCancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="LocationPicker_NotSelected" xml:space="preserve">
+    <value>Не выбрано</value>
+  </data>
+  <data name="Locations_Editor_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Locations_Editor_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Locations_Editor_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="Locations_Editor_Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="Locations_Editor_Parent" xml:space="preserve">
+    <value>Родительская локация</value>
+  </data>
+  <data name="Locations_Editor_ClearParent" xml:space="preserve">
+    <value>Без родителя (корневой узел)</value>
+  </data>
+  <data name="Locations_Editor_Title_New" xml:space="preserve">
+    <value>Новая локация</value>
+  </data>
+  <data name="Locations_Editor_Title_Edit" xml:space="preserve">
+    <value>Редактирование локации</value>
+  </data>
+  <data name="Locations_Context_ArchiveBranch" xml:space="preserve">
+    <value>Архивировать ветку</value>
+  </data>
+  <data name="Locations_Context_RestoreBranch" xml:space="preserve">
+    <value>Восстановить ветку</value>
+  </data>
+  <data name="Locations_Archive_Title" xml:space="preserve">
+    <value>Архивировать ветку?</value>
+  </data>
+  <data name="Locations_Archive_Message" xml:space="preserve">
+    <value>Будет архивирована локация «{0}» и все её дочерние узлы.</value>
+  </data>
+  <data name="Locations_Restore_Title" xml:space="preserve">
+    <value>Восстановить ветку?</value>
+  </data>
+  <data name="Locations_Restore_Message" xml:space="preserve">
+    <value>Будет восстановлена локация «{0}» и все её дочерние узлы.</value>
+  </data>
+  <data name="Locations_ArchiveBulk_Title" xml:space="preserve">
+    <value>Архивировать выбранные ветки?</value>
+  </data>
+  <data name="Locations_ArchiveBulk_Message" xml:space="preserve">
+    <value>Будет архивировано веток: {0}.</value>
+  </data>
+  <data name="Locations_RestoreBulk_Title" xml:space="preserve">
+    <value>Восстановить выбранные ветки?</value>
+  </data>
+  <data name="Locations_RestoreBulk_Message" xml:space="preserve">
+    <value>Будет восстановлено веток: {0}.</value>
+  </data>
+  <data name="Locations_Delete_Title" xml:space="preserve">
+    <value>Удалить ветку навсегда?</value>
+  </data>
+  <data name="Locations_Delete_Message" xml:space="preserve">
+    <value>Будет безвозвратно удалена локация «{0}» и все её дочерние узлы. Это действие нельзя отменить.</value>
+  </data>
+  <data name="Locations_DeleteBulk_Title" xml:space="preserve">
+    <value>Удалить выбранные ветки навсегда?</value>
+  </data>
+  <data name="Locations_DeleteBulk_Message" xml:space="preserve">
+    <value>Будет безвозвратно удалено веток: {0}. Это действие нельзя отменить.</value>
+  </data>
+  <data name="Locations_Error_HasProfiles" xml:space="preserve">
+    <value>Невозможно выполнить операцию: к локации или её дочерним узлам привязаны пользователи.</value>
+  </data>
+  <data name="Locations_Error_HasAssets" xml:space="preserve">
+    <value>Невозможно выполнить операцию: в локации или её дочерних узлах есть не списанное оборудование.</value>
+  </data>
+  <data name="Locations_Validation_NameRequired" xml:space="preserve">
+    <value>Укажите наименование локации.</value>
+  </data>
+  <data name="Locations_Validation_Cycle" xml:space="preserve">
+    <value>Нельзя назначить родителем саму локацию или её дочерний узел.</value>
+  </data>
+  <data name="Locations_Validation_CodeDuplicate" xml:space="preserve">
+    <value>Локация с таким кодом уже существует.</value>
+  </data>
+  <data name="RepairDepartments_Column_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="RepairDepartments_Column_Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="RepairDepartments_Column_Active" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="RepairDepartments_Column_CreatedAt" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="RepairDepartments_Column_UpdatedAt" xml:space="preserve">
+    <value>Обновлён</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Columns" xml:space="preserve">
+    <value>Колонки</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Archive" xml:space="preserve">
+    <value>Архивировать ({0})</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_Restore" xml:space="preserve">
+    <value>Восстановить ({0})</value>
+  </data>
+  <data name="RepairDepartments_Toolbar_HardDelete" xml:space="preserve">
+    <value>Удалить навсегда ({0})</value>
+  </data>
+  <data name="RepairDepartments_Filter_Placeholder" xml:space="preserve">
+    <value>Поиск по названию или коду…</value>
+  </data>
+  <data name="RepairDepartments_ShowInactive" xml:space="preserve">
+    <value>Показывать архивные</value>
+  </data>
+  <data name="RepairDepartments_Editor_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="RepairDepartments_Editor_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="RepairDepartments_Editor_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="RepairDepartments_Editor_Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="RepairDepartments_Editor_Title_New" xml:space="preserve">
+    <value>Новый отдел ремонта</value>
+  </data>
+  <data name="RepairDepartments_Editor_Title_Edit" xml:space="preserve">
+    <value>Редактирование отдела ремонта</value>
+  </data>
+  <data name="RepairDepartments_Context_Archive" xml:space="preserve">
+    <value>Архивировать</value>
+  </data>
+  <data name="RepairDepartments_Context_Restore" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="RepairDepartments_Archive_Title" xml:space="preserve">
+    <value>Архивировать отдел?</value>
+  </data>
+  <data name="RepairDepartments_Archive_Message" xml:space="preserve">
+    <value>Отдел «{0}» будет скрыт из списков выбора. Существующие привязки сохранятся.</value>
+  </data>
+  <data name="RepairDepartments_Restore_Title" xml:space="preserve">
+    <value>Восстановить отдел?</value>
+  </data>
+  <data name="RepairDepartments_Restore_Message" xml:space="preserve">
+    <value>Отдел «{0}» снова станет доступен для выбора.</value>
+  </data>
+  <data name="RepairDepartments_ArchiveBulk_Title" xml:space="preserve">
+    <value>Архивировать выбранные отделы?</value>
+  </data>
+  <data name="RepairDepartments_ArchiveBulk_Message" xml:space="preserve">
+    <value>Будет архивировано отделов: {0}.</value>
+  </data>
+  <data name="RepairDepartments_RestoreBulk_Title" xml:space="preserve">
+    <value>Восстановить выбранные отделы?</value>
+  </data>
+  <data name="RepairDepartments_RestoreBulk_Message" xml:space="preserve">
+    <value>Будет восстановлено отделов: {0}.</value>
+  </data>
+  <data name="RepairDepartments_Delete_Title" xml:space="preserve">
+    <value>Удалить отдел навсегда?</value>
+  </data>
+  <data name="RepairDepartments_Delete_Message" xml:space="preserve">
+    <value>Будет безвозвратно удалён отдел «{0}». Это действие нельзя отменить.</value>
+  </data>
+  <data name="RepairDepartments_DeleteBulk_Title" xml:space="preserve">
+    <value>Удалить выбранные отделы навсегда?</value>
+  </data>
+  <data name="RepairDepartments_DeleteBulk_Message" xml:space="preserve">
+    <value>Будет безвозвратно удалено отделов: {0}. Это действие нельзя отменить.</value>
+  </data>
+  <data name="RepairDepartments_Error_DuplicateCode" xml:space="preserve">
+    <value>Отдел с таким кодом уже существует.</value>
+  </data>
+  <data name="RepairDepartments_Error_InUse" xml:space="preserve">
+    <value>Невозможно удалить отдел: он используется в заявках, отчётах, графике ТО или привязан к диспетчеру.</value>
+  </data>
+  <data name="RepairDepartments_Error_HasDispatchers" xml:space="preserve">
+    <value>Невозможно архивировать отдел: к нему привязаны диспетчеры.</value>
+  </data>
+  <data name="RepairDepartments_Error_HasActiveRequests" xml:space="preserve">
+    <value>Невозможно архивировать отдел: есть активные заявки с этим отделом в маршрутизации.</value>
+  </data>
+  <data name="RepairDepartments_Validation_NameRequired" xml:space="preserve">
+    <value>Укажите наименование отдела.</value>
+  </data>
+  <data name="Stub_Users_Planned" xml:space="preserve">
+    <value>Реестр учётных записей: список пользователей с ролями (admin, dispatcher, requester). Администратор изменяет роли и данные профилей (UC-A2).</value>
+  </data>
+  <data name="Stub_MaterialRequisition_Planned" xml:space="preserve">
+    <value>Форма заявки на выдачу расходных материалов и запчастей со склада: привязка к заявке или ППР, исполнитель, перечень позиций. Передаётся в складскую систему (UC-D7).</value>
+  </data>
+  <data name="DocumentSave_PickerTitle" xml:space="preserve">
+    <value>Сохранить заявку на ТМЦ</value>
+  </data>
+  <data name="DocumentSave_FileTypeLabel" xml:space="preserve">
+    <value>Документ Word</value>
+  </data>
+  <data name="MaterialRequisition_Section_WorkOrder" xml:space="preserve">
+    <value>Наряд</value>
+  </data>
+  <data name="MaterialRequisition_Section_Warehouse" xml:space="preserve">
+    <value>Склад-отправитель</value>
+  </data>
+  <data name="MaterialRequisition_Section_Lines" xml:space="preserve">
+    <value>Позиции</value>
+  </data>
+  <data name="MaterialRequisition_Section_Lines_Hint" xml:space="preserve">
+    <value>Укажите наименование и количество для каждой позиции. Артикул и примечание — по желанию.</value>
+  </data>
+  <data name="MaterialRequisition_Section_Notes" xml:space="preserve">
+    <value>Примечания</value>
+  </data>
+  <data name="MaterialRequisition_Label_WorkOrderKind" xml:space="preserve">
+    <value>Тип наряда</value>
+  </data>
+  <data name="MaterialRequisition_Label_WorkOrder" xml:space="preserve">
+    <value>Наряд</value>
+  </data>
+  <data name="MaterialRequisition_Label_Technician" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
+  <data name="MaterialRequisition_Label_WarehouseName" xml:space="preserve">
+    <value>Наименование склада</value>
+  </data>
+  <data name="MaterialRequisition_Line_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="MaterialRequisition_Line_Sku" xml:space="preserve">
+    <value>Артикул / код</value>
+  </data>
+  <data name="MaterialRequisition_Line_Quantity" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="MaterialRequisition_Line_Unit" xml:space="preserve">
+    <value>Ед. изм.</value>
+  </data>
+  <data name="MaterialRequisition_Line_LineNote" xml:space="preserve">
+    <value>Примечание к позиции</value>
+  </data>
+  <data name="MaterialRequisition_Line_ItemTitle" xml:space="preserve">
+    <value>Позиция </value>
+  </data>
+  <data name="MaterialRequisition_Line_Name_Placeholder" xml:space="preserve">
+    <value>Например: масло моторное 5W-40</value>
+  </data>
+  <data name="MaterialRequisition_Line_Sku_Placeholder" xml:space="preserve">
+    <value>Необязательно</value>
+  </data>
+  <data name="MaterialRequisition_Line_Unit_Placeholder" xml:space="preserve">
+    <value>шт, кг, л…</value>
+  </data>
+  <data name="MaterialRequisition_Line_LineNote_Placeholder" xml:space="preserve">
+    <value>Необязательно</value>
+  </data>
+  <data name="MaterialRequisition_Action_AddLine" xml:space="preserve">
+    <value>Добавить позицию</value>
+  </data>
+  <data name="MaterialRequisition_Action_RemoveLine" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="MaterialRequisition_Notes_Placeholder" xml:space="preserve">
+    <value>Дополнительные сведения для склада (необязательно)</value>
+  </data>
+  <data name="MaterialRequisition_Default_WarehouseName" xml:space="preserve">
+    <value>Центральный склад</value>
+  </data>
+  <data name="MaterialRequisition_Kind_Request" xml:space="preserve">
+    <value>Заявка на ремонт</value>
+  </data>
+  <data name="MaterialRequisition_Kind_Schedule" xml:space="preserve">
+    <value>Плановое ТО (ППР)</value>
+  </data>
+  <data name="MaterialRequisition_Context_Request" xml:space="preserve">
+    <value>Заявка: {0}. Исполнитель по наряду: {1}.</value>
+  </data>
+  <data name="MaterialRequisition_Submit_Success_Title" xml:space="preserve">
+    <value>Заявка сформирована</value>
+  </data>
+  <data name="MaterialRequisition_Submit_Success_Message" xml:space="preserve">
+    <value>Файл сохранён:&#x0a;{0}&#x0a;&#x0a;Открыть документ?</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoWorkOrder" xml:space="preserve">
+    <value>Выберите наряд (заявку или ППР).</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoTechnician" xml:space="preserve">
+    <value>Выберите исполнителя.</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoWarehouse" xml:space="preserve">
+    <value>Укажите склад-отправитель.</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoLines" xml:space="preserve">
+    <value>Добавьте хотя бы одну позицию.</value>
+  </data>
+  <data name="MaterialRequisition_Error_InvalidQuantity" xml:space="preserve">
+    <value>Укажите наименование и количество больше нуля для каждой позиции.</value>
+  </data>
+  <data name="MaterialRequisition_Error_WorkOrderNotFound" xml:space="preserve">
+    <value>Наряд не найден или недоступен.</value>
+  </data>
+  <data name="MaterialRequisition_Error_WorkOrderStatus" xml:space="preserve">
+    <value>Заявка на ТМЦ доступна только для принятого наряда (подготовка) или наряда в работе.</value>
+  </data>
+  <data name="MaterialRequisition_Error_NoTargetPath" xml:space="preserve">
+    <value>Укажите путь для сохранения файла.</value>
+  </data>
+  <data name="MaterialRequisition_Error_SaveFailed" xml:space="preserve">
+    <value>Не удалось сохранить документ заявки.</value>
+  </data>
+  <data name="RequestDetail_Action_MaterialRequisition" xml:space="preserve">
+    <value>Заявка на расходники</value>
+  </data>
+  <data name="RequestDetail_Action_ToolRequisition" xml:space="preserve">
+    <value>Заявка на инструмент</value>
+  </data>
+  <data name="RequestDetail_Section_ToolRequisitions" xml:space="preserve">
+    <value>Заявки на инструмент (TMS)</value>
+  </data>
+  <data name="ToolRequisition_Section_Channel" xml:space="preserve">
+    <value>Способ оформления</value>
+  </data>
+  <data name="ToolRequisition_Mode_Docx" xml:space="preserve">
+    <value>Печатная форма (DOCX)</value>
+  </data>
+  <data name="ToolRequisition_Mode_Tms" xml:space="preserve">
+    <value>Электронная заявка</value>
+  </data>
+  <data name="ToolRequisition_Section_WorkOrder" xml:space="preserve">
+    <value>Наряд</value>
+  </data>
+  <data name="ToolRequisition_Section_Warehouse" xml:space="preserve">
+    <value>Склад</value>
+  </data>
+  <data name="ToolRequisition_Section_WarehouseTms" xml:space="preserve">
+    <value>Склад TMS</value>
+  </data>
+  <data name="ToolRequisition_Section_Lines" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="ToolRequisition_Section_Lines_Hint_Docx" xml:space="preserve">
+    <value>Укажите наименование инструмента, при необходимости — инвентарный номер. Документ сохраняется на диск для передачи на склад.</value>
+  </data>
+  <data name="ToolRequisition_Section_Lines_Hint_Tms" xml:space="preserve">
+    <value>Выберите склад TMS и позицию из каталога или введите наименование вручную. Заявка отправляется в систему выдачи инструмента.</value>
+  </data>
+  <data name="ToolRequisition_Section_Notes" xml:space="preserve">
+    <value>Примечание</value>
+  </data>
+  <data name="ToolRequisition_Section_TmsLinks" xml:space="preserve">
+    <value>Уже отправлено в TMS</value>
+  </data>
+  <data name="ToolRequisition_Label_WorkOrderKind" xml:space="preserve">
+    <value>Тип наряда</value>
+  </data>
+  <data name="ToolRequisition_Label_WorkOrder" xml:space="preserve">
+    <value>Наряд</value>
+  </data>
+  <data name="ToolRequisition_Label_Technician" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
+  <data name="ToolRequisition_Label_WarehouseName" xml:space="preserve">
+    <value>Наименование склада</value>
+  </data>
+  <data name="ToolRequisition_Label_TmsWarehouse" xml:space="preserve">
+    <value>Склад TMS</value>
+  </data>
+  <data name="ToolRequisition_TmsWarehouse_Placeholder" xml:space="preserve">
+    <value>Выберите склад</value>
+  </data>
+  <data name="ToolRequisition_Line_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="ToolRequisition_Line_Inventory" xml:space="preserve">
+    <value>Инв. № / код</value>
+  </data>
+  <data name="ToolRequisition_Line_Quantity" xml:space="preserve">
+    <value>Кол-во</value>
+  </data>
+  <data name="ToolRequisition_Line_LineNote" xml:space="preserve">
+    <value>Примечание</value>
+  </data>
+  <data name="ToolRequisition_Line_Catalog" xml:space="preserve">
+    <value>Из каталога TMS</value>
+  </data>
+  <data name="ToolRequisition_Line_ItemTitle" xml:space="preserve">
+    <value>Позиция</value>
+  </data>
+  <data name="ToolRequisition_Line_Name_Placeholder" xml:space="preserve">
+    <value>Наименование инструмента</value>
+  </data>
+  <data name="ToolRequisition_Line_Inventory_Placeholder" xml:space="preserve">
+    <value>Необязательно</value>
+  </data>
+  <data name="ToolRequisition_Line_Catalog_Placeholder" xml:space="preserve">
+    <value>Выберите из каталога или введите вручную</value>
+  </data>
+  <data name="ToolRequisition_Line_LineNote_Placeholder" xml:space="preserve">
+    <value>Необязательно</value>
+  </data>
+  <data name="ToolRequisition_Action_AddLine" xml:space="preserve">
+    <value>Добавить позицию</value>
+  </data>
+  <data name="ToolRequisition_Action_RemoveLine" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ToolRequisition_Action_SubmitTms" xml:space="preserve">
+    <value>Отправить в TMS</value>
+  </data>
+  <data name="ToolRequisition_Notes_Placeholder" xml:space="preserve">
+    <value>Дополнительные сведения для кладовщика</value>
+  </data>
+  <data name="ToolRequisition_Default_WarehouseName" xml:space="preserve">
+    <value>Центральный склад инструмента</value>
+  </data>
+  <data name="ToolRequisition_Kind_Request" xml:space="preserve">
+    <value>Заявка на ремонт</value>
+  </data>
+  <data name="ToolRequisition_Kind_Schedule" xml:space="preserve">
+    <value>Позиция графика ППР</value>
+  </data>
+  <data name="ToolRequisition_Context_Request" xml:space="preserve">
+    <value>{0}. Исполнитель: {1}</value>
+  </data>
+  <data name="ToolRequisition_SubmitDocx_Success_Title" xml:space="preserve">
+    <value>Заявка сформирована</value>
+  </data>
+  <data name="ToolRequisition_SubmitDocx_Success_Message" xml:space="preserve">
+    <value>Документ сохранён: {0}. Открыть файл?</value>
+  </data>
+  <data name="ToolRequisition_SubmitTms_Success_Title" xml:space="preserve">
+    <value>Отправлено в TMS</value>
+  </data>
+  <data name="ToolRequisition_SubmitTms_Success_Message" xml:space="preserve">
+    <value>Заявка TMS {0} создана (статус: {1}).</value>
+  </data>
+  <data name="ToolRequisition_Error_NoWorkOrder" xml:space="preserve">
+    <value>Выберите наряд.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoTechnician" xml:space="preserve">
+    <value>Выберите исполнителя.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoWarehouse" xml:space="preserve">
+    <value>Укажите склад.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoWarehouseId" xml:space="preserve">
+    <value>Выберите склад TMS.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoLines" xml:space="preserve">
+    <value>Добавьте хотя бы одну позицию инструмента.</value>
+  </data>
+  <data name="ToolRequisition_Error_InvalidQuantity" xml:space="preserve">
+    <value>Укажите наименование и количество больше нуля для каждой позиции.</value>
+  </data>
+  <data name="ToolRequisition_Error_WorkOrderNotFound" xml:space="preserve">
+    <value>Наряд не найден.</value>
+  </data>
+  <data name="ToolRequisition_Error_WorkOrderStatus" xml:space="preserve">
+    <value>Заявка на инструмент доступна только для принятого наряда (подготовка) или наряда в работе.</value>
+  </data>
+  <data name="ToolRequisition_Error_NoTargetPath" xml:space="preserve">
+    <value>Укажите путь для сохранения файла.</value>
+  </data>
+  <data name="ToolRequisition_Error_SaveFailed" xml:space="preserve">
+    <value>Не удалось сохранить документ заявки.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsFailed" xml:space="preserve">
+    <value>Не удалось отправить заявку в TMS.</value>
+  </data>
+  <data name="ToolRequisition_Error_NotAuthenticated" xml:space="preserve">
+    <value>Требуется вход в систему.</value>
+  </data>
+  <data name="ToolRequisition_Error_LoadTechnicians" xml:space="preserve">
+    <value>Не удалось загрузить список исполнителей.</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_New" xml:space="preserve">
+    <value>Новая</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_PartiallyReserved" xml:space="preserve">
+    <value>Частично зарезервирована</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_ReadyForIssue" xml:space="preserve">
+    <value>Готова к выдаче</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_Issued" xml:space="preserve">
+    <value>Выдана</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_PartiallyReturned" xml:space="preserve">
+    <value>Частично возвращена</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_Returned" xml:space="preserve">
+    <value>Возвращена</value>
+  </data>
+  <data name="ToolRequisition_TmsStatus_Cancelled" xml:space="preserve">
+    <value>Отменена</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_ToolRequisition" xml:space="preserve">
+    <value>Заявка на инструмент</value>
+  </data>
+  <data name="NewRequest_Error_ContractorRequired" xml:space="preserve">
+    <value>Укажите наименование подрядчика для внешнего ремонта.</value>
+  </data>
+  <!-- Pending features (красным) -->
+  <data name="Pending_NewRequest_AssetOrLocation" xml:space="preserve">
+    <value>⚠ Не реализована валидация: обязательно указать объект ОС или описание места (asset_id или location_description).</value>
+  </data>
+  <data name="Pending_NewRequest_NavigateAfterCreate" xml:space="preserve">
+    <value>⚠ После создания заявки не выполняется переход к её детальной странице.</value>
+  </data>
+  <data name="Pending_Personnel_Create" xml:space="preserve">
+    <value>⚠ Добавление нового исполнителя не реализовано.</value>
+  </data>
+  <data name="Pending_Personnel_Archive" xml:space="preserve">
+    <value>⚠ Архивация исполнителя (is_active = false) не реализована.</value>
+  </data>
+  <data name="Personnel_Column_FullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
+  <data name="Personnel_Column_Specialty" xml:space="preserve">
+    <value>Специализация</value>
+  </data>
+  <data name="Personnel_Column_Active" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="Personnel_Empty" xml:space="preserve">
+    <value>Справочник персонала пуст.</value>
+  </data>
+  <data name="Personnel_Column_Department" xml:space="preserve">
+    <value>Отдел</value>
+  </data>
+  <data name="Personnel_Column_CreatedAt" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="Personnel_Column_UpdatedAt" xml:space="preserve">
+    <value>Изменён</value>
+  </data>
+  <data name="Personnel_Delete_Title" xml:space="preserve">
+    <value>Удалить исполнителя?</value>
+  </data>
+  <data name="Personnel_Delete_Message" xml:space="preserve">
+    <value>Запись «{0}» будет удалена без возможности восстановления. Продолжить?</value>
+  </data>
+  <data name="Personnel_Delete_Referenced" xml:space="preserve">
+    <value>Невозможно удалить: на исполнителя ссылаются отчёты о работах или другие записи.</value>
+  </data>
+  <data name="Personnel_Editor_Title_New" xml:space="preserve">
+    <value>Новый исполнитель</value>
+  </data>
+  <data name="Personnel_Editor_Title_Edit" xml:space="preserve">
+    <value>Редактирование</value>
+  </data>
+  <data name="Personnel_Editor_FullName" xml:space="preserve">
+    <value>ФИО *</value>
+  </data>
+  <data name="Personnel_Editor_Specialty" xml:space="preserve">
+    <value>Специализация</value>
+  </data>
+  <data name="Personnel_Editor_Department" xml:space="preserve">
+    <value>Отдел ремонта *</value>
+  </data>
+  <data name="Personnel_Editor_IsActive" xml:space="preserve">
+    <value>Активен</value>
+  </data>
+  <data name="Personnel_Editor_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Personnel_Editor_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Personnel_Toolbar_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Personnel_Toolbar_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Personnel_Toolbar_Columns" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
+  <data name="Personnel_Toolbar_Delete" xml:space="preserve">
+    <value>Архивировать ({0})</value>
+  </data>
+  <data name="Personnel_Toolbar_HardDelete" xml:space="preserve">
+    <value>Удалить навсегда ({0})</value>
+  </data>
+  <data name="Personnel_DeleteBulk_Title" xml:space="preserve">
+    <value>Удалить выбранные записи?</value>
+  </data>
+  <data name="Personnel_DeleteBulk_Message" xml:space="preserve">
+    <value>Будет безвозвратно удалено записей: {0}. Продолжить?</value>
+  </data>
+  <data name="Personnel_Context_EditRow" xml:space="preserve">
+    <value>Редактировать запись</value>
+  </data>
+  <data name="Personnel_Context_ArchiveRow" xml:space="preserve">
+    <value>Архивировать</value>
+  </data>
+  <data name="Personnel_Context_RestoreRow" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="Personnel_Context_CopyCell" xml:space="preserve">
+    <value>Копировать ячейку</value>
+  </data>
+  <data name="Personnel_Context_CopyRow" xml:space="preserve">
+    <value>Копировать строку</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Title" xml:space="preserve">
+    <value>Подтвердите архивацию</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Message" xml:space="preserve">
+    <value>Выбранные исполнители ({0}) будут помечены как неактивные. Продолжить?</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Ok" xml:space="preserve">
+    <value>Архивировать</value>
+  </data>
+  <data name="Personnel_Archive_Confirm_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Personnel_Validation_FullNameRequired" xml:space="preserve">
+    <value>ФИО обязательно для заполнения.</value>
+  </data>
+  <data name="Personnel_Validation_DepartmentRequired" xml:space="preserve">
+    <value>Необходимо выбрать отдел ремонта.</value>
+  </data>
+  <data name="Personnel_Saved" xml:space="preserve">
+    <value>Запись сохранена.</value>
+  </data>
+  <data name="Personnel_Archived" xml:space="preserve">
+    <value>Исполнители архивированы: {0}.</value>
+  </data>
+  <data name="Personnel_Filter_Placeholder" xml:space="preserve">
+    <value>Поиск по ФИО, специализации или отделу…</value>
+  </data>
+  <data name="Personnel_ShowInactive" xml:space="preserve">
+    <value>Показывать неактивных</value>
+  </data>
+  <data name="Users_Column_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Users_Column_FullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
+  <data name="Users_Column_Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Users_Column_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Users_Column_Location" xml:space="preserve">
+    <value>Место работы</value>
+  </data>
+  <data name="Users_Column_Department" xml:space="preserve">
+    <value>Отдел ремонта</value>
+  </data>
+  <data name="Users_Column_Banned" xml:space="preserve">
+    <value>Заблокирован</value>
+  </data>
+  <data name="Users_Column_CreatedAt" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="Users_Column_UpdatedAt" xml:space="preserve">
+    <value>Обновлён</value>
+  </data>
+  <data name="Users_Toolbar_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Users_Toolbar_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Users_Toolbar_Columns" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
+  <data name="Users_Toolbar_Ban" xml:space="preserve">
+    <value>Заблокировать ({0})</value>
+  </data>
+  <data name="Users_Toolbar_Unban" xml:space="preserve">
+    <value>Разблокировать ({0})</value>
+  </data>
+  <data name="Users_Toolbar_HardDelete" xml:space="preserve">
+    <value>Удалить навсегда ({0})</value>
+  </data>
+  <data name="Users_Filter_Placeholder" xml:space="preserve">
+    <value>Поиск по email, ФИО, роли…</value>
+  </data>
+  <data name="Users_ShowBanned" xml:space="preserve">
+    <value>Показывать заблокированных</value>
+  </data>
+  <data name="Users_Editor_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Users_Editor_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Users_Editor_Title_New" xml:space="preserve">
+    <value>Новый пользователь</value>
+  </data>
+  <data name="Users_Editor_Title_Edit" xml:space="preserve">
+    <value>Редактирование пользователя</value>
+  </data>
+  <data name="Users_Editor_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Users_Editor_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Users_Editor_GeneratePassword" xml:space="preserve">
+    <value>Сгенерировать</value>
+  </data>
+  <data name="Users_Editor_FullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
+  <data name="Users_Editor_Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Users_Editor_Location" xml:space="preserve">
+    <value>Место работы</value>
+  </data>
+  <data name="Users_Editor_LocationScopes" xml:space="preserve">
+    <value>Зоны заявок</value>
+  </data>
+  <data name="Users_Column_LocationScopes" xml:space="preserve">
+    <value>Зоны заявок</value>
+  </data>
+  <data name="Users_Editor_Department" xml:space="preserve">
+    <value>Отдел ремонта</value>
+  </data>
+  <data name="Users_Editor_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Users_Role_Admin" xml:space="preserve">
+    <value>Администратор</value>
+  </data>
+  <data name="Users_Role_Dispatcher" xml:space="preserve">
+    <value>Диспетчер</value>
+  </data>
+  <data name="Users_Role_Requester" xml:space="preserve">
+    <value>Заявитель</value>
+  </data>
+  <data name="Users_Context_Ban" xml:space="preserve">
+    <value>Заблокировать</value>
+  </data>
+  <data name="Users_Context_Unban" xml:space="preserve">
+    <value>Разблокировать</value>
+  </data>
+  <data name="Users_BanBulk_Title" xml:space="preserve">
+    <value>Заблокировать выбранных?</value>
+  </data>
+  <data name="Users_BanBulk_Message" xml:space="preserve">
+    <value>Будет заблокировано пользователей: {0}. Продолжить?</value>
+  </data>
+  <data name="Users_UnbanBulk_Title" xml:space="preserve">
+    <value>Разблокировать выбранных?</value>
+  </data>
+  <data name="Users_UnbanBulk_Message" xml:space="preserve">
+    <value>Будет разблокировано пользователей: {0}. Продолжить?</value>
+  </data>
+  <data name="Users_Delete_Title" xml:space="preserve">
+    <value>Удалить пользователя?</value>
+  </data>
+  <data name="Users_Delete_Message" xml:space="preserve">
+    <value>Учётная запись «{0}» будет удалена безвозвратно. Продолжить?</value>
+  </data>
+  <data name="Users_DeleteBulk_Title" xml:space="preserve">
+    <value>Удалить выбранных пользователей?</value>
+  </data>
+  <data name="Users_DeleteBulk_Message" xml:space="preserve">
+    <value>Будет безвозвратно удалено пользователей: {0}. Продолжить?</value>
+  </data>
+  <data name="Users_Validation_EmailRequired" xml:space="preserve">
+    <value>Укажите email.</value>
+  </data>
+  <data name="Users_Validation_PasswordTooShort" xml:space="preserve">
+    <value>Пароль должен содержать не менее 6 символов.</value>
+  </data>
+  <data name="Users_Validation_FullNameRequired" xml:space="preserve">
+    <value>ФИО обязательно для заполнения.</value>
+  </data>
+  <data name="Users_Validation_DepartmentRequired" xml:space="preserve">
+    <value>Для диспетчера необходимо выбрать отдел ремонта.</value>
+  </data>
+  <data name="Users_Validation_LocationRequired" xml:space="preserve">
+    <value>Необходимо выбрать место работы.</value>
+  </data>
+  <data name="Users_Validation_AdminRoleForbidden" xml:space="preserve">
+    <value>Нельзя создавать или назначать роль администратора из приложения.</value>
+  </data>
+  <data name="Users_Validation_SelfActionForbidden" xml:space="preserve">
+    <value>Нельзя выполнить это действие над собственной учётной записью.</value>
+  </data>
+  <data name="Users_Error_EdgeFunctionUnavailable" xml:space="preserve">
+    <value>Сервис управления пользователями недоступен. После сброса БД выполните: pnpm fn:ensure</value>
+  </data>
+  <data name="DataError_Network" xml:space="preserve">
+    <value>Ошибка сети. Проверьте подключение к серверу.</value>
+  </data>
+  <data name="DataError_Unauthorized" xml:space="preserve">
+    <value>Недостаточно прав для выполнения операции.</value>
+  </data>
+  <data name="DataError_Unknown" xml:space="preserve">
+    <value>Произошла ошибка при работе с базой данных.</value>
+  </data>
+  <data name="Assets_Column_Number" xml:space="preserve">
+    <value>Инв. №</value>
+  </data>
+  <data name="Assets_Column_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="Assets_Column_Location" xml:space="preserve">
+    <value>Локация</value>
+  </data>
+  <data name="Assets_Column_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Assets_Column_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Assets_Empty" xml:space="preserve">
+    <value>Реестр объектов пуст.</value>
+  </data>
+  <data name="Assets_Column_Manufacturer" xml:space="preserve">
+    <value>Производитель</value>
+  </data>
+  <data name="Assets_Column_Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="Assets_Column_SerialNumber" xml:space="preserve">
+    <value>Серийный №</value>
+  </data>
+  <data name="Assets_Column_CommissioningDate" xml:space="preserve">
+    <value>Дата ввода</value>
+  </data>
+  <data name="Assets_Column_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Assets_Column_CreatedAt" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="Assets_Column_UpdatedAt" xml:space="preserve">
+    <value>Обновлено</value>
+  </data>
+  <data name="Assets_Toolbar_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Assets_Toolbar_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Assets_Toolbar_Columns" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
+  <data name="Assets_Toolbar_Decommission" xml:space="preserve">
+    <value>Снять с эксплуатации ({0})</value>
+  </data>
+  <data name="Assets_Toolbar_Restore" xml:space="preserve">
+    <value>Вернуть в эксплуатацию ({0})</value>
+  </data>
+  <data name="Assets_Toolbar_HardDelete" xml:space="preserve">
+    <value>Удалить навсегда ({0})</value>
+  </data>
+  <data name="Assets_Filter_Placeholder" xml:space="preserve">
+    <value>Поиск по номеру, названию, локации…</value>
+  </data>
+  <data name="Assets_ShowDecommissioned" xml:space="preserve">
+    <value>Показывать снятые с эксплуатации</value>
+  </data>
+  <data name="Assets_Editor_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Assets_Editor_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Assets_Editor_AssetNumber" xml:space="preserve">
+    <value>Инвентарный номер</value>
+  </data>
+  <data name="Assets_Editor_Name" xml:space="preserve">
+    <value>Наименование</value>
+  </data>
+  <data name="Assets_Editor_Location" xml:space="preserve">
+    <value>Локация</value>
+  </data>
+  <data name="Assets_Editor_Category" xml:space="preserve">
+    <value>Категория оборудования</value>
+  </data>
+  <data name="Assets_Category_None" xml:space="preserve">
+    <value>Без категории</value>
+  </data>
+  <data name="Assets_Editor_Manufacturer" xml:space="preserve">
+    <value>Производитель</value>
+  </data>
+  <data name="Assets_Editor_Model" xml:space="preserve">
+    <value>Модель</value>
+  </data>
+  <data name="Assets_Editor_SerialNumber" xml:space="preserve">
+    <value>Серийный номер</value>
+  </data>
+  <data name="Assets_Editor_CommissioningDate" xml:space="preserve">
+    <value>Дата ввода в эксплуатацию</value>
+  </data>
+  <data name="Assets_Editor_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Assets_Editor_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Assets_Editor_Title_New" xml:space="preserve">
+    <value>Новый объект</value>
+  </data>
+  <data name="Assets_Editor_Title_Edit" xml:space="preserve">
+    <value>Редактирование объекта</value>
+  </data>
+  <data name="Assets_Context_Decommission" xml:space="preserve">
+    <value>Снять с эксплуатации</value>
+  </data>
+  <data name="Assets_Context_Restore" xml:space="preserve">
+    <value>Вернуть в эксплуатацию</value>
+  </data>
+  <data name="Assets_Decommission_Title" xml:space="preserve">
+    <value>Снять с эксплуатации?</value>
+  </data>
+  <data name="Assets_Decommission_Message" xml:space="preserve">
+    <value>Объект «{0}» будет снят с эксплуатации.</value>
+  </data>
+  <data name="Assets_Restore_Title" xml:space="preserve">
+    <value>Вернуть в эксплуатацию?</value>
+  </data>
+  <data name="Assets_Restore_Message" xml:space="preserve">
+    <value>Объект «{0}» будет возвращён в эксплуатацию (статус active).</value>
+  </data>
+  <data name="Assets_DecommissionBulk_Title" xml:space="preserve">
+    <value>Снять выбранные объекты с эксплуатации?</value>
+  </data>
+  <data name="Assets_DecommissionBulk_Message" xml:space="preserve">
+    <value>Будет снято с эксплуатации объектов: {0}.</value>
+  </data>
+  <data name="Assets_RestoreBulk_Title" xml:space="preserve">
+    <value>Вернуть выбранные объекты в эксплуатацию?</value>
+  </data>
+  <data name="Assets_RestoreBulk_Message" xml:space="preserve">
+    <value>Будет возвращено в эксплуатацию объектов: {0}.</value>
+  </data>
+  <data name="Assets_Delete_Title" xml:space="preserve">
+    <value>Удалить объект?</value>
+  </data>
+  <data name="Assets_Delete_Message" xml:space="preserve">
+    <value>Объект «{0}» будет удалён без возможности восстановления.</value>
+  </data>
+  <data name="Assets_DeleteBulk_Title" xml:space="preserve">
+    <value>Удалить выбранные объекты?</value>
+  </data>
+  <data name="Assets_DeleteBulk_Message" xml:space="preserve">
+    <value>Будет удалено объектов: {0}. Операция необратима.</value>
+  </data>
+  <data name="Assets_Validation_AssetNumberRequired" xml:space="preserve">
+    <value>Укажите инвентарный номер.</value>
+  </data>
+  <data name="Assets_Validation_NameRequired" xml:space="preserve">
+    <value>Укажите наименование.</value>
+  </data>
+  <data name="Assets_Validation_LocationRequired" xml:space="preserve">
+    <value>Выберите локацию.</value>
+  </data>
+  <data name="Assets_Validation_InvalidStatus" xml:space="preserve">
+    <value>Недопустимый статус объекта.</value>
+  </data>
+  <data name="Assets_Validation_TextTooLong" xml:space="preserve">
+    <value>Слишком длинное значение.</value>
+  </data>
+  <data name="Assets_Error_DuplicateNumber" xml:space="preserve">
+    <value>Объект с таким инвентарным номером уже существует.</value>
+  </data>
+  <data name="Assets_Error_HasRequests" xml:space="preserve">
+    <value>Нельзя удалить объект: на него ссылаются заявки.</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Common_LoadError" xml:space="preserve">
+    <value>Не удалось загрузить данные.</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Common_Action_GenerateDocx" xml:space="preserve">
+    <value>Сформировать DOCX</value>
+  </data>
+  <data name="Common_None" xml:space="preserve">
+    <value>—</value>
+  </data>
+  <data name="Common_SelectTechnician" xml:space="preserve">
+    <value>Выберите исполнителя</value>
+  </data>
+  <data name="Common_SelectDepartment" xml:space="preserve">
+    <value>Выберите отдел</value>
+  </data>
+  <data name="Common_SelectWorkOrder" xml:space="preserve">
+    <value>Выберите наряд (заявку или ППР)</value>
+  </data>
+  <data name="Common_SelectWorkOrderKind" xml:space="preserve">
+    <value>Выберите тип наряда</value>
+  </data>
+  <data name="Common_SelectRepairZone" xml:space="preserve">
+    <value>Выберите зону ремонта</value>
+  </data>
+  <data name="Common_NotSpecified" xml:space="preserve">
+    <value>Не указано</value>
+  </data>
+  <data name="NewRequest_Label_Type" xml:space="preserve">
+    <value>Тип заявки</value>
+  </data>
+  <data name="NewRequest_Label_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="NewRequest_Label_RepairDepartment" xml:space="preserve">
+    <value>Отдел ремонта</value>
+  </data>
+  <data name="NewRequest_Error_RepairDepartment" xml:space="preserve">
+    <value>Выберите отдел ремонта.</value>
+  </data>
+  <data name="NewRequest_RepairDepartment_Placeholder" xml:space="preserve">
+    <value>Выберите отдел ремонта</value>
+  </data>
+  <data name="NewRequest_Label_Asset" xml:space="preserve">
+    <value>Оборудование</value>
+  </data>
+  <data name="NewRequest_Label_Title" xml:space="preserve">
+    <value>Краткое описание</value>
+  </data>
+  <data name="NewRequest_Label_Description" xml:space="preserve">
+    <value>Подробное описание</value>
+  </data>
+  <data name="NewRequest_Label_Location" xml:space="preserve">
+    <value>Место возникновения</value>
+  </data>
+  <data name="NewRequest_Subject_Label" xml:space="preserve">
+    <value>Объект заявки</value>
+  </data>
+  <data name="NewRequest_Subject_Location" xml:space="preserve">
+    <value>Инфраструктура</value>
+  </data>
+  <data name="NewRequest_Location_Placeholder" xml:space="preserve">
+    <value>Опишите место или объект без инвентарного номера</value>
+  </data>
+  <data name="NewRequest_Asset_None" xml:space="preserve">
+    <value>Не указано</value>
+  </data>
+  <data name="NewRequest_Asset_Placeholder" xml:space="preserve">
+    <value>Номер или название оборудования</value>
+  </data>
+  <data name="NewRequest_Submit" xml:space="preserve">
+    <value>Создать заявку</value>
+  </data>
+  <data name="NewRequest_Success" xml:space="preserve">
+    <value>Заявка {0} успешно создана.</value>
+  </data>
+  <data name="NewRequest_Error_Validation" xml:space="preserve">
+    <value>Заполните краткое описание.</value>
+  </data>
+  <data name="NewRequest_Error_Submit" xml:space="preserve">
+    <value>Не удалось создать заявку. Повторите попытку.</value>
+  </data>
+  <data name="NewRequest_Error_NotAuthenticated" xml:space="preserve">
+    <value>Требуется вход в систему.</value>
+  </data>
+  <data name="RequestType_Breakdown" xml:space="preserve">
+    <value>Поломка</value>
+  </data>
+  <data name="RequestType_Service" xml:space="preserve">
+    <value>Обслуживание</value>
+  </data>
+  <data name="RequestType_Inspection" xml:space="preserve">
+    <value>Осмотр</value>
+  </data>
+  <data name="RequestPriority_Low" xml:space="preserve">
+    <value>Низкий</value>
+  </data>
+  <data name="RequestPriority_Normal" xml:space="preserve">
+    <value>Обычный</value>
+  </data>
+  <data name="RequestPriority_High" xml:space="preserve">
+    <value>Высокий</value>
+  </data>
+  <data name="RequestPriority_Critical" xml:space="preserve">
+    <value>Критический</value>
+  </data>
+  <data name="RepairZone_OnSite" xml:space="preserve">
+    <value>На месте</value>
+  </data>
+  <data name="RepairZone_Workshop" xml:space="preserve">
+    <value>В ремонтном цехе</value>
+  </data>
+  <data name="RepairZone_External" xml:space="preserve">
+    <value>У внешнего подрядчика</value>
+  </data>
+  <data name="AssetStatus_Active" xml:space="preserve">
+    <value>В эксплуатации</value>
+  </data>
+  <data name="AssetStatus_Maintenance" xml:space="preserve">
+    <value>На обслуживании</value>
+  </data>
+  <data name="AssetStatus_Decommissioned" xml:space="preserve">
+    <value>Снято с эксплуатации</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Settings_Section_Appearance" xml:space="preserve">
+    <value>Внешний вид и поведение</value>
+  </data>
+  <data name="Settings_Theme_Header" xml:space="preserve">
+    <value>Тема приложения</value>
+  </data>
+  <data name="Settings_Theme_Description" xml:space="preserve">
+    <value>Выберите тему приложения</value>
+  </data>
+  <data name="Settings_Theme_Light" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="Settings_Theme_Dark" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="Settings_Theme_Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Settings_Navigation_Header" xml:space="preserve">
+    <value>Стиль навигации</value>
+  </data>
+  <data name="Settings_Navigation_Left" xml:space="preserve">
+    <value>Слева</value>
+  </data>
+  <data name="Settings_Navigation_Top" xml:space="preserve">
+    <value>Сверху</value>
+  </data>
+  <data name="Settings_Language_Header" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Settings_Language_Description" xml:space="preserve">
+    <value>Выберите язык приложения. Приложение будет перезапущено.</value>
+  </data>
+  <data name="Settings_Language_System" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Settings_Language_Russian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="Settings_Language_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Settings_Section_Data" xml:space="preserve">
+    <value>Данные</value>
+  </data>
+  <data name="Settings_Reset_Header" xml:space="preserve">
+    <value>Сброс настроек</value>
+  </data>
+  <data name="Settings_Reset_Description" xml:space="preserve">
+    <value>Восстановить все настройки по умолчанию. Приложение перезапустится.</value>
+  </data>
+  <data name="Settings_Reset_Button" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="Settings_Supabase_Header" xml:space="preserve">
+    <value>Supabase</value>
+  </data>
+  <data name="Settings_Supabase_Description" xml:space="preserve">
+    <value>Переопределение URL и publishable key для подключения к Supabase.</value>
+  </data>
+  <data name="Settings_Supabase_Url" xml:space="preserve">
+    <value>Supabase URL</value>
+  </data>
+  <data name="Settings_Supabase_Key" xml:space="preserve">
+    <value>Publishable key</value>
+  </data>
+  <data name="Settings_Supabase_Save" xml:space="preserve">
+    <value>Сохранить и переподключиться</value>
+  </data>
+  <data name="Home_RoleBadge_Admin" xml:space="preserve">
+    <value>АДМИНИСТРАТОР</value>
+  </data>
+  <data name="Home_RoleBadge_Dispatcher" xml:space="preserve">
+    <value>ДИСПЕТЧЕР</value>
+  </data>
+  <data name="Home_RoleBadge_Requester" xml:space="preserve">
+    <value>ЗАЯВИТЕЛЬ</value>
+  </data>
+  <data name="Home_Heading_Admin" xml:space="preserve">
+    <value>Панель управления системой</value>
+  </data>
+  <data name="Home_Heading_Dispatcher" xml:space="preserve">
+    <value>Заявки и график ТО</value>
+  </data>
+  <data name="Home_Heading_Requester" xml:space="preserve">
+    <value>Мои заявки</value>
+  </data>
+  <data name="Home_Title" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Home_Section_Admin" xml:space="preserve">
+    <value>Дашборд администратора</value>
+  </data>
+  <data name="Home_Section_Dispatcher" xml:space="preserve">
+    <value>Дашборд диспетчера</value>
+  </data>
+  <data name="Home_Section_Requester" xml:space="preserve">
+    <value>Дашборд заявителя</value>
+  </data>
+  <data name="Home_LoadError" xml:space="preserve">
+    <value>Не удалось загрузить данные дашборда</value>
+  </data>
+  <data name="Home_Stat_ActiveRequests" xml:space="preserve">
+    <value>Активные заявки</value>
+  </data>
+  <data name="Home_Stat_AwaitingAcceptance" xml:space="preserve">
+    <value>Ожидают принятия</value>
+  </data>
+  <data name="Home_Stat_ScopedAssets" xml:space="preserve">
+    <value>Активы в зоне</value>
+  </data>
+  <data name="Home_Stat_StatusUpdates" xml:space="preserve">
+    <value>Обновления статуса</value>
+  </data>
+  <data name="Home_Stat_IncomingNew" xml:space="preserve">
+    <value>Новые заявки</value>
+  </data>
+  <data name="Home_Stat_New" xml:space="preserve">
+    <value>Новые</value>
+  </data>
+  <data name="Home_Row_Requests" xml:space="preserve">
+    <value>Заявки</value>
+  </data>
+  <data name="Home_Row_PlannedMaintenance" xml:space="preserve">
+    <value>Плановое ТО</value>
+  </data>
+  <data name="Home_Stat_AcceptedRequests" xml:space="preserve">
+    <value>Принятые</value>
+  </data>
+  <data name="Home_Stat_InProgressRequests" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="Home_Stat_ScheduleAttention" xml:space="preserve">
+    <value>График ППР</value>
+  </data>
+  <data name="Home_Stat_ScheduleOverdue" xml:space="preserve">
+    <value>Просроченные</value>
+  </data>
+  <data name="Home_Stat_ScheduleToday" xml:space="preserve">
+    <value>Запланировано на сегодня</value>
+  </data>
+  <data name="Home_Stat_ScheduleInProgress" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="Home_Stat_ActiveTechnicians" xml:space="preserve">
+    <value>Активные техники</value>
+  </data>
+  <data name="Home_Stat_UsersTotal" xml:space="preserve">
+    <value>Всего пользователей</value>
+  </data>
+  <data name="Home_Stat_UsersActive" xml:space="preserve">
+    <value>Активных пользователей</value>
+  </data>
+  <data name="Home_Stat_AssetsActive" xml:space="preserve">
+    <value>Активное оборудование</value>
+  </data>
+  <data name="Home_Stat_AssetsMaintenance" xml:space="preserve">
+    <value>На обслуживании</value>
+  </data>
+  <data name="Home_Stat_Locations" xml:space="preserve">
+    <value>Локаций</value>
+  </data>
+  <data name="Home_Stat_RepairDepartments" xml:space="preserve">
+    <value>Ремонтных отделов</value>
+  </data>
+  <data name="Home_Stat_MaintenanceNorms" xml:space="preserve">
+    <value>Нормативов ППР</value>
+  </data>
+  <data name="Home_Stat_RequestsNew" xml:space="preserve">
+    <value>Заявок (новые)</value>
+  </data>
+  <data name="Home_Stat_RequestsInProgress" xml:space="preserve">
+    <value>Заявок (в работе)</value>
+  </data>
+  <data name="Home_Stat_RequestsCompleted" xml:space="preserve">
+    <value>Выполнены</value>
+  </data>
+  <data name="Home_Title_Admin" xml:space="preserve">
+    <value>Домашняя страница администратора</value>
+  </data>
+  <data name="Home_Title_Dispatcher" xml:space="preserve">
+    <value>Домашняя страница диспетчера</value>
+  </data>
+  <data name="Home_Title_Requester" xml:space="preserve">
+    <value>Домашняя страница заявителя</value>
+  </data>
+  <data name="Home_Role_Admin" xml:space="preserve">
+    <value>Роль: admin</value>
+  </data>
+  <data name="Home_Role_Dispatcher" xml:space="preserve">
+    <value>Роль: dispatcher</value>
+  </data>
+  <data name="Home_Role_Requester" xml:space="preserve">
+    <value>Роль: requester</value>
+  </data>
+  <data name="Auth_Window_Title" xml:space="preserve">
+    <value>Авторизация</value>
+  </data>
+  <data name="Auth_Subtitle" xml:space="preserve">
+    <value>Войдите в систему учёта и планирования ТОиР БААЗ</value>
+  </data>
+  <data name="Auth_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Auth_Email_Placeholder" xml:space="preserve">
+    <value>username@baaz.by</value>
+  </data>
+  <data name="Auth_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Auth_SignIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Auth_SignOut" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Auth_Error_Required" xml:space="preserve">
+    <value>Введите email и пароль.</value>
+  </data>
+  <data name="Auth_InvalidCredentials" xml:space="preserve">
+    <value>Неверный email или пароль.</value>
+  </data>
+  <data name="Auth_ProfileNotFound" xml:space="preserve">
+    <value>Профиль пользователя не найден.</value>
+  </data>
+  <data name="TitleBar_Profile_Format" xml:space="preserve">
+    <value>{0} | {1} | {2}</value>
+  </data>
+  <data name="TitleBar_Profile_Empty" xml:space="preserve">
+    <value>Профиль не загружен</value>
+  </data>
+  <data name="TitleBar_Profile_Dispatcher_Format" xml:space="preserve">
+    <value>{0} ({1})</value>
+  </data>
+  <data name="Connection_Window_Title" xml:space="preserve">
+    <value>Ошибка подключения</value>
+  </data>
+  <data name="Connection_Error_Title" xml:space="preserve">
+    <value>Нет подключения к серверу</value>
+  </data>
+  <data name="Connection_Error_Message" xml:space="preserve">
+    <value>Сервер базы данных недоступен. Проверьте подключение и повторите попытку.</value>
+  </data>
+  <data name="Connection_Retry" xml:space="preserve">
+    <value>Переподключиться</value>
+  </data>
+  <data name="Startup_Window_Title" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="Startup_Status" xml:space="preserve">
+    <value>Подключение к серверу…</value>
+  </data>
+  <data name="Status_Connected" xml:space="preserve">
+    <value>Подключение: активно</value>
+  </data>
+  <data name="Status_Disconnected" xml:space="preserve">
+    <value>Подключение: нет связи</value>
+  </data>
+  <data name="App_Exception_Title" xml:space="preserve">
+    <value>Произошло необработанное исключение.</value>
+  </data>
+  <data name="App_Exception_Type" xml:space="preserve">
+    <value>Тип: {0}</value>
+  </data>
+  <data name="App_Exception_Message" xml:space="preserve">
+    <value>Сообщение: {0}
+HResult: {1}</value>
+  </data>
+  <data name="CrudWorkbench_RemoteConflictWarning" xml:space="preserve">
+    <value>Запись была изменена на сервере. Сохраните или отмените изменения, затем обновите страницу.</value>
+  </data>
+  <data name="CrudWorkbench_RefreshAvailable" xml:space="preserve">
+    <value>Данные обновлены на сервере. Нажмите «Обновить» для загрузки последних изменений.</value>
+  </data>
+  <data name="CrudWorkbench_DeletedRemotely" xml:space="preserve">
+    <value>Запись была удалена на другом сеансе.</value>
+  </data>
+  <data name="CrudGrid_Column_Id" xml:space="preserve">
+    <value>Идентификатор</value>
+  </data>
+  <data name="CrudGrid_ColumnBadge_PrimaryKey" xml:space="preserve">
+    <value>Идентификатор</value>
+  </data>
+  <data name="CrudGrid_ColumnBadge_Unique" xml:space="preserve">
+    <value>Уникальное значение</value>
+  </data>
+  <data name="CrudGrid_SortAscending" xml:space="preserve">
+    <value>Сортировать по возрастанию</value>
+  </data>
+  <data name="CrudGrid_SortDescending" xml:space="preserve">
+    <value>Сортировать по убыванию</value>
+  </data>
+  <data name="CrudGrid_ClearSort" xml:space="preserve">
+    <value>Сбросить сортировку</value>
+  </data>
+  <data name="CrudGrid_CopyColumnName" xml:space="preserve">
+    <value>Копировать название колонки</value>
+  </data>
+  <data name="CrudGrid_HideColumn" xml:space="preserve">
+    <value>Скрыть колонку</value>
+  </data>
+  <data name="CrudGrid_ResetColumns" xml:space="preserve">
+    <value>Сбросить к умолчанию</value>
+  </data>
+  <data name="CrudGrid_CopyCell" xml:space="preserve">
+    <value>Копировать ячейку</value>
+  </data>
+  <data name="CrudGrid_CopyRow" xml:space="preserve">
+    <value>Копировать строку</value>
+  </data>
+  <data name="CrudGrid_FilterByValue" xml:space="preserve">
+    <value>Фильтровать по значению</value>
+  </data>
+  <data name="CrudGrid_EditRow" xml:space="preserve">
+    <value>Редактировать запись</value>
+  </data>
+  <data name="CrudGrid_EditCell" xml:space="preserve">
+    <value>Редактировать ячейку</value>
+  </data>
+  <data name="CrudGrid_ArchiveRow" xml:space="preserve">
+    <value>Архивировать</value>
+  </data>
+  <data name="CrudGrid_RestoreRow" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="CrudGrid_DeleteRow" xml:space="preserve">
+    <value>Удалить навсегда</value>
+  </data>
+  <data name="CrudGrid_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="CrudGrid_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="CrudGrid_ClearDate" xml:space="preserve">
+    <value>Очистить дату</value>
+  </data>
+  <data name="CrudGrid_ExpandRow" xml:space="preserve">
+    <value>Открыть запись</value>
+  </data>
+  <data name="CrudGrid_EditHint" xml:space="preserve">
+    <value>Enter — сохранить · Esc — отмена</value>
+  </data>
+  <data name="CrudGrid_Search" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="CrudFilter_AddFilter" xml:space="preserve">
+    <value>Добавить фильтр…</value>
+  </data>
+  <data name="CrudFilter_Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="CrudFilter_EnterValue" xml:space="preserve">
+    <value>Введите значение</value>
+  </data>
+  <data name="CrudFilter_True" xml:space="preserve">
+    <value>ИСТИНА</value>
+  </data>
+  <data name="CrudFilter_False" xml:space="preserve">
+    <value>ЛОЖЬ</value>
+  </data>
+  <data name="CrudFilter_Remove" xml:space="preserve">
+    <value>Удалить фильтр</value>
+  </data>
+  <data name="CrudGrid_Pagination_Page" xml:space="preserve">
+    <value>Страница</value>
+  </data>
+  <data name="CrudGrid_Pagination_Of" xml:space="preserve">
+    <value>из {0}</value>
+  </data>
+  <data name="CrudGrid_Pagination_Records" xml:space="preserve">
+    <value>{0} записей</value>
+  </data>
+  <data name="CrudGrid_Pagination_RowsFormat" xml:space="preserve">
+    <value>{0} строк</value>
+  </data>
+  <data name="CrudGrid_PickRow" xml:space="preserve">
+    <value>Открыть в списке</value>
+  </data>
+  <data name="NewRequest_Error_AssetOrLocation" xml:space="preserve">
+    <value>Укажите объект ОС или описание места возникновения.</value>
+  </data>
+  <data name="RequestStatus_New" xml:space="preserve">
+    <value>Новая</value>
+  </data>
+  <data name="RequestStatus_Accepted" xml:space="preserve">
+    <value>Принята</value>
+  </data>
+  <data name="RequestStatus_InProgress" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="RequestStatus_Completed" xml:space="preserve">
+    <value>Выполнена</value>
+  </data>
+  <data name="RequestStatus_Closed" xml:space="preserve">
+    <value>Закрыта</value>
+  </data>
+  <data name="RequestStatus_Rejected" xml:space="preserve">
+    <value>Отклонена</value>
+  </data>
+  <data name="RequestStatus_Cancelled" xml:space="preserve">
+    <value>Отменена</value>
+  </data>
+  <data name="MyRequests_NewRequest" xml:space="preserve">
+    <value>Новая заявка</value>
+  </data>
+  <data name="MyRequests_OpenInTable" xml:space="preserve">
+    <value>Открыть в таблице…</value>
+  </data>
+  <data name="MyRequests_BackToList" xml:space="preserve">
+    <value>К списку</value>
+  </data>
+  <data name="MyRequests_Search_Placeholder" xml:space="preserve">
+    <value>Поиск по названию или номеру</value>
+  </data>
+  <data name="MyRequests_Filter_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="MyRequests_Filter_Status_All" xml:space="preserve">
+    <value>Все статусы</value>
+  </data>
+  <data name="MyRequests_Empty_List" xml:space="preserve">
+    <value>У вас пока нет заявок. Создайте первую с помощью кнопки «Новая заявка».</value>
+  </data>
+  <data name="MyRequests_Empty_Selection" xml:space="preserve">
+    <value>Выберите заявку в списке слева.</value>
+  </data>
+  <data name="MyRequests_Empty_Filter" xml:space="preserve">
+    <value>Нет заявок, подходящих под фильтр.</value>
+  </data>
+  <data name="MyRequests_History_Title" xml:space="preserve">
+    <value>История статусов</value>
+  </data>
+  <data name="MyRequests_History_Empty" xml:space="preserve">
+    <value>Изменений статуса пока нет.</value>
+  </data>
+  <data name="RequestHistory_RepairZoneChanged" xml:space="preserve">
+    <value>Изменена зона ремонта: </value>
+  </data>
+  <data name="MyRequests_Action_Cancel" xml:space="preserve">
+    <value>Отменить заявку</value>
+  </data>
+  <data name="MyRequests_Action_Close" xml:space="preserve">
+    <value>Принять работы</value>
+  </data>
+  <data name="MyRequests_Confirm_Cancel_Title" xml:space="preserve">
+    <value>Отменить заявку?</value>
+  </data>
+  <data name="MyRequests_Confirm_Cancel_Message" xml:space="preserve">
+    <value>Заявка будет переведена в статус «Отменена». Продолжить?</value>
+  </data>
+  <data name="MyRequests_Confirm_Close_Title" xml:space="preserve">
+    <value>Принять выполненные работы?</value>
+  </data>
+  <data name="MyRequests_Confirm_Close_Message" xml:space="preserve">
+    <value>Заявка будет закрыта. Продолжить?</value>
+  </data>
+  <data name="MyRequests_Error_Action" xml:space="preserve">
+    <value>Не удалось выполнить действие. Проверьте статус заявки и повторите попытку.</value>
+  </data>
+  <data name="MyRequests_Detail_Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="MyRequests_Detail_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="MyRequests_Detail_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="MyRequests_Detail_RepairZone" xml:space="preserve">
+    <value>Зона ремонта</value>
+  </data>
+  <data name="MyRequests_Detail_Asset" xml:space="preserve">
+    <value>Объект ОС</value>
+  </data>
+  <data name="MyRequests_Detail_Asset_None" xml:space="preserve">
+    <value>Не указан</value>
+  </data>
+  <data name="MyRequests_Detail_Location" xml:space="preserve">
+    <value>Место</value>
+  </data>
+  <data name="MyRequests_Detail_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="MyRequests_Detail_Assignee" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
+  <data name="MyRequests_Detail_Departments" xml:space="preserve">
+    <value>Отделы и исполнители</value>
+  </data>
+  <data name="RequestDepartment_TargetPending" xml:space="preserve">
+    <value>Ожидает принятия</value>
+  </data>
+  <data name="MyRequests_Detail_ContractorName" xml:space="preserve">
+    <value>Подрядчик</value>
+  </data>
+  <data name="MyRequests_Detail_CreatedAt" xml:space="preserve">
+    <value>Создана</value>
+  </data>
+  <data name="MyRequests_Detail_UpdatedAt" xml:space="preserve">
+    <value>Обновлена</value>
+  </data>
+  <data name="MyRequests_Column_Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="MyRequests_Column_Title" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="MyRequests_Column_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="MyRequests_Column_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="MyRequests_Column_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="MyRequests_Column_CreatedAt" xml:space="preserve">
+    <value>Создана</value>
+  </data>
+  <data name="MyRequests_Column_Assignee" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
+  <data name="MyRequests_Table_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="MyRequests_Table_Columns" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
+  <data name="MyRequests_Toolbar_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AllRequests_Column_RequestNumber" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="AllRequests_Column_Title" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="AllRequests_Column_Description" xml:space="preserve">
+    <value>Подробное описание</value>
+  </data>
+  <data name="AllRequests_Column_Type" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="AllRequests_Column_Priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="AllRequests_Column_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="AllRequests_Column_Requester" xml:space="preserve">
+    <value>Заявитель</value>
+  </data>
+  <data name="AllRequests_Column_Assignee" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
+  <data name="AllRequests_Column_CreatedAt" xml:space="preserve">
+    <value>Создана</value>
+  </data>
+  <data name="AllRequests_Column_UpdatedAt" xml:space="preserve">
+    <value>Обновлена</value>
+  </data>
+  <data name="AllRequests_Column_Location" xml:space="preserve">
+    <value>Место</value>
+  </data>
+  <data name="AllRequests_Column_Asset" xml:space="preserve">
+    <value>Объект ОС</value>
+  </data>
+  <data name="AllRequests_Column_RepairZone" xml:space="preserve">
+    <value>Зона ремонта</value>
+  </data>
+  <data name="AllRequests_Column_ContractorName" xml:space="preserve">
+    <value>Подрядчик</value>
+  </data>
+  <data name="AllRequests_Column_TargetDepartment" xml:space="preserve">
+    <value>Целевой отдел</value>
+  </data>
+  <data name="AllRequests_Editor_Title" xml:space="preserve">
+    <value>Заявка {0}</value>
+  </data>
+  <data name="AllRequests_Error_Save" xml:space="preserve">
+    <value>Не удалось сохранить изменения заявки.</value>
+  </data>
+  <data name="AllRequests_Error_DuplicateNumber" xml:space="preserve">
+    <value>Заявка с таким номером уже существует.</value>
+  </data>
+  <data name="AllRequests_Validation_RequestNumberRequired" xml:space="preserve">
+    <value>Укажите номер заявки.</value>
+  </data>
+  <data name="AllRequests_Validation_TitleRequired" xml:space="preserve">
+    <value>Укажите название заявки.</value>
+  </data>
+  <data name="AllRequests_Toolbar_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="AllRequests_Toolbar_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="AllRequests_Toolbar_Columns" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
+  <data name="AllRequests_Filter_Placeholder" xml:space="preserve">
+    <value>Поиск по номеру или теме</value>
+  </data>
+  <data name="AllRequests_Context_Archive" xml:space="preserve">
+    <value>Архивировать</value>
+  </data>
+  <data name="AllRequests_Context_Restore" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="RequestHistory_Empty_List" xml:space="preserve">
+    <value>Заявок пока нет.</value>
+  </data>
+  <data name="MaintenanceType_To1" xml:space="preserve">
+    <value>ТО-1</value>
+  </data>
+  <data name="MaintenanceType_To2" xml:space="preserve">
+    <value>ТО-2</value>
+  </data>
+  <data name="MaintenanceType_Kr" xml:space="preserve">
+    <value>КР</value>
+  </data>
+  <data name="ScheduleStatus_Scheduled" xml:space="preserve">
+    <value>Запланировано</value>
+  </data>
+  <data name="ScheduleStatus_Overdue" xml:space="preserve">
+    <value>Просрочено</value>
+  </data>
+  <data name="ScheduleStatus_Completed" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="ScheduleStatus_Cancelled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="ScheduleStatus_InProgress" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_InProgress" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_StartWork" xml:space="preserve">
+    <value>Начать работы</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_StartWork" xml:space="preserve">
+    <value>Не удалось начать работы по ППР.</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_MaterialRequisition" xml:space="preserve">
+    <value>Заявка на расходники</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleNotInProgress" xml:space="preserve">
+    <value>Отчёт можно сдать только для ППР в статусе «В работе».</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_All" xml:space="preserve">
+    <value>Все статусы</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Scheduled" xml:space="preserve">
+    <value>Запланировано</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Overdue" xml:space="preserve">
+    <value>Просрочено</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Completed" xml:space="preserve">
+    <value>Выполнено</value>
+  </data>
+  <data name="MaintenanceSchedule_Tab_Cancelled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Cancel" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_MarkOverdue" xml:space="preserve">
+    <value>Пометить просроченным</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Details" xml:space="preserve">
+    <value>Детали</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Norms" xml:space="preserve">
+    <value>Нормативы</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_Generate" xml:space="preserve">
+    <value>Обновить график</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_CancelAll" xml:space="preserve">
+    <value>Отменить все</value>
+  </data>
+  <data name="MaintenanceSchedule_Empty" xml:space="preserve">
+    <value>Нет позиций по выбранным фильтрам.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_Action" xml:space="preserve">
+    <value>Не удалось выполнить действие.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_Generate" xml:space="preserve">
+    <value>Не удалось сгенерировать график ППР.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_NoAssets" xml:space="preserve">
+    <value>Нет доступного оборудования для создания позиции.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_PendingExists" xml:space="preserve">
+    <value>Для этого оборудования и выбранного вида ТО уже есть открытая позиция графика (запланировано или просрочено).</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_AssetUnavailable" xml:space="preserve">
+    <value>Оборудование недоступно или выведено из эксплуатации.</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Cancel_Title" xml:space="preserve">
+    <value>Отменить позицию?</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Cancel_Message" xml:space="preserve">
+    <value>Позиция графика будет отменена. Это действие нельзя отменить.</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Overdue_Title" xml:space="preserve">
+    <value>Пометить просроченной?</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_Overdue_Message" xml:space="preserve">
+    <value>Статус позиции будет изменён на «Просрочено».</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_CancelAll_Title" xml:space="preserve">
+    <value>Отменить все открытые позиции?</value>
+  </data>
+  <data name="MaintenanceSchedule_Confirm_CancelAll_Message" xml:space="preserve">
+    <value>Будет отменено позиций: {0}. Это действие нельзя отменить.</value>
+  </data>
+  <data name="MaintenanceSchedule_CancelAll_Success" xml:space="preserve">
+    <value>Отменено позиций: {0}</value>
+  </data>
+  <data name="MaintenanceSchedule_CancelAll_None" xml:space="preserve">
+    <value>Нет открытых позиций графика для отмены.</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Title" xml:space="preserve">
+    <value>Новая позиция графика</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Asset" xml:space="preserve">
+    <value>Оборудование</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Type" xml:space="preserve">
+    <value>Вид ТО</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Date" xml:space="preserve">
+    <value>Плановая дата</value>
+  </data>
+  <data name="MaintenanceSchedule_Create_Department_Label" xml:space="preserve">
+    <value>Отделы ремонта</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_DepartmentRequired" xml:space="preserve">
+    <value>Выберите хотя бы один отдел ремонта.</value>
+  </data>
+  <data name="MaintenanceSchedule_Error_NoDepartments" xml:space="preserve">
+    <value>Нет доступных отделов ремонта для выбора.</value>
+  </data>
+  <data name="MaintenanceSchedule_Generate_Success" xml:space="preserve">
+    <value>Создано позиций: {0}</value>
+  </data>
+  <data name="MaintenanceSchedule_Column_LastMaintenance" xml:space="preserve">
+    <value>Последнее ТО:</value>
+  </data>
+  <data name="MaintenanceSchedule_Column_NextMaintenance" xml:space="preserve">
+    <value>Следующее ТО:</value>
+  </data>
+  <data name="MaintenanceSchedule_Column_Departments" xml:space="preserve">
+    <value>Отделы:</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Title" xml:space="preserve">
+    <value>Детали ТО</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Asset" xml:space="preserve">
+    <value>Оборудование</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Type" xml:space="preserve">
+    <value>Вид ТО</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_PlannedDate" xml:space="preserve">
+    <value>Плановая дата</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Interval" xml:space="preserve">
+    <value>Интервал</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Departments" xml:space="preserve">
+    <value>Отделы</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Source" xml:space="preserve">
+    <value>Источник норматива</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Source_Preset" xml:space="preserve">
+    <value>Шаблон категории</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Source_Override" xml:space="preserve">
+    <value>Индивидуальный норматив</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Description_Empty" xml:space="preserve">
+    <value>Описание не задано.</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_Interval_NotSet" xml:space="preserve">
+    <value>Не задан</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_LoadError" xml:space="preserve">
+    <value>Не удалось загрузить детали норматива.</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_SubmitWorkReport" xml:space="preserve">
+    <value>Сдать отчёт</value>
+  </data>
+  <data name="MaintenanceSchedule_SubmitWorkReport_Title" xml:space="preserve">
+    <value>Отчёт о выполненных работах (ППР)</value>
+  </data>
+  <data name="MaintenanceSchedule_SubmitWorkReport_Success" xml:space="preserve">
+    <value>Отчёт сохранён.</value>
+  </data>
+  <data name="MaintenanceSchedule_Reports_Progress" xml:space="preserve">
+    <value>Отчёты отделов: {0}/{1}</value>
+  </data>
+  <data name="MaintenanceSchedule_Details_ReportsProgress" xml:space="preserve">
+    <value>Прогресс отчётов</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Asset" xml:space="preserve">
+    <value>Оборудование</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Type" xml:space="preserve">
+    <value>Вид ТО</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Department" xml:space="preserve">
+    <value>Ремонтный отдел</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="MaintenanceSchedule_Filter_Search_Placeholder" xml:space="preserve">
+    <value>Поиск по названию или инв. номеру…</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_Label" xml:space="preserve">
+    <value>Сортировка</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_PlannedDateAsc" xml:space="preserve">
+    <value>По дате (раньше)</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_PlannedDateDesc" xml:space="preserve">
+    <value>По дате (позже)</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_AssetName" xml:space="preserve">
+    <value>По названию оборудования</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_AssetNumber" xml:space="preserve">
+    <value>По инв. номеру</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_Status" xml:space="preserve">
+    <value>По статусу</value>
+  </data>
+  <data name="MaintenanceSchedule_Sort_MaintenanceType" xml:space="preserve">
+    <value>По виду ТО</value>
+  </data>
+  <data name="MaintenanceSchedule_View_List" xml:space="preserve">
+    <value>Список</value>
+  </data>
+  <data name="MaintenanceSchedule_View_Chart" xml:space="preserve">
+    <value>График</value>
+  </data>
+  <data name="MaintenanceSchedule_View_Chart_Stub" xml:space="preserve">
+    <value>Вид «График» в разработке</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Nav_Prev" xml:space="preserve">
+    <value>← Пред.</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Nav_Next" xml:space="preserve">
+    <value>След. →</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Nav_Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Range_Format" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Zoom_Week" xml:space="preserve">
+    <value>Неделя</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Zoom_Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Zoom_Quarter" xml:space="preserve">
+    <value>Квартал</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_EmptyRange" xml:space="preserve">
+    <value>В этом периоде нет плановых ТО</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_EmptyDb" xml:space="preserve">
+    <value>График пуст — нормативы ТО не заданы или не пересчитаны.</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_LoadError" xml:space="preserve">
+    <value>Не удалось загрузить данные за этот период.</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_Today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="MaintenanceSchedule_Chart_LaneHeader" xml:space="preserve">
+    <value>Объект</value>
+  </data>
+  <data name="WorkReport_Error_DepartmentNotRouted" xml:space="preserve">
+    <value>Отдел не участвует в этой заявке или позиции ППР.</value>
+  </data>
+  <data name="WorkReport_Error_Duplicate" xml:space="preserve">
+    <value>Отчёт от этого отдела уже сдан.</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleRequired" xml:space="preserve">
+    <value>Не указана позиция графика ППР.</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleNotFound" xml:space="preserve">
+    <value>Позиция графика не найдена.</value>
+  </data>
+  <data name="WorkReport_Error_ScheduleNotOpen" xml:space="preserve">
+    <value>Отчёт можно сдать только для запланированной или просроченной позиции.</value>
+  </data>
+  <data name="WorkReport_Error_NoDepartments" xml:space="preserve">
+    <value>К позиции не назначены отделы ремонта.</value>
+  </data>
+  <data name="WorkReport_Error_DepartmentRequired" xml:space="preserve">
+    <value>Выберите отдел ремонта.</value>
+  </data>
+  <data name="WorkReport_Error_DepartmentNotAssigned" xml:space="preserve">
+    <value>Выбранный отдел не назначен на эту позицию ППР.</value>
+  </data>
+  <data name="WorkReport_Error_InvalidDuration" xml:space="preserve">
+    <value>Укажите затраченное время числом больше нуля.</value>
+  </data>
+  <data name="WorkReport_Validation_TechnicianNotAssigned" xml:space="preserve">
+    <value>Назначьте исполнителя в заявке перед сдачей отчёта.</value>
+  </data>
+  <data name="WorkReport_Validation_TechnicianRequired" xml:space="preserve">
+    <value>Выберите исполнителя.</value>
+  </data>
+  <data name="WorkReport_Validation_WorkPerformedRequired" xml:space="preserve">
+    <value>Опишите выполненные работы.</value>
+  </data>
+  <data name="WorkReport_Validation_DurationRequired" xml:space="preserve">
+    <value>Укажите затраченное время.</value>
+  </data>
+  <data name="WorkReport_Validation_DurationPositive" xml:space="preserve">
+    <value>Затраченное время должно быть числом больше нуля.</value>
+  </data>
+  <data name="WorkReports_Tab_All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="WorkReports_Tab_Requests" xml:space="preserve">
+    <value>По заявкам</value>
+  </data>
+  <data name="WorkReports_Tab_Schedule" xml:space="preserve">
+    <value>По ППР</value>
+  </data>
+  <data name="WorkReports_Filter_Placeholder" xml:space="preserve">
+    <value>Фильтр…</value>
+  </data>
+  <data name="WorkReports_Empty" xml:space="preserve">
+    <value>Нет отчётов о работах.</value>
+  </data>
+  <data name="WorkReports_Action_Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="WorkReports_Source_Request" xml:space="preserve">
+    <value>Заявка {0}</value>
+  </data>
+  <data name="WorkReports_Source_Schedule" xml:space="preserve">
+    <value>ППР: {0} ({1}) • {2}</value>
+  </data>
+  <data name="RequestDetail_MaintenanceType_Label" xml:space="preserve">
+    <value>Виды ТО</value>
+  </data>
+  <data name="RequestDetail_MaintenanceType_None" xml:space="preserve">
+    <value>— не указан —</value>
+  </data>
+  <data name="RequestDetail_MaintenanceType_Hint" xml:space="preserve">
+    <value>Если ремонт закрывает плановый вид ТО, укажите тип — дата учтётся после закрытия заявки.</value>
+  </data>
+  <data name="MaintenanceNorms_Tab_Assets" xml:space="preserve">
+    <value>По оборудованию</value>
+  </data>
+  <data name="MaintenanceNorms_Tab_Categories" xml:space="preserve">
+    <value>Категории</value>
+  </data>
+  <data name="MaintenanceNorms_Tab_Audit" xml:space="preserve">
+    <value>Все нормативы</value>
+  </data>
+  <data name="MaintenanceNorms_Asset_SearchPlaceholder" xml:space="preserve">
+    <value>Поиск оборудования…</value>
+  </data>
+  <data name="MaintenanceNorms_Asset_NoCategory" xml:space="preserve">
+    <value>Без категории</value>
+  </data>
+  <data name="MaintenanceNorms_SelectFromList" xml:space="preserve">
+    <value>Выберите запись из списка</value>
+  </data>
+  <data name="MaintenanceNorms_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="MaintenanceNorms_Saved" xml:space="preserve">
+    <value>Изменения сохранены.</value>
+  </data>
+  <data name="MaintenanceNorms_Validation_IntervalRequired" xml:space="preserve">
+    <value>Укажите интервал в днях (больше 0) для включённого норматива.</value>
+  </data>
+  <data name="MaintenanceNorms_Preset_NotSet" xml:space="preserve">
+    <value>Шаблон не задан — норматив только через индивидуальное значение.</value>
+  </data>
+  <data name="MaintenanceNorms_Preset_Summary" xml:space="preserve">
+    <value>Из шаблона категории: {0} дн.</value>
+  </data>
+  <data name="MaintenanceNorms_Status_Never" xml:space="preserve">
+    <value>ещё не выполнялось</value>
+  </data>
+  <data name="MaintenanceNorms_Status_Summary" xml:space="preserve">
+    <value>Последнее ТО: {0}. Следующее: {1}.</value>
+  </data>
+  <data name="MaintenanceNorms_PendingSchedule_Tooltip" xml:space="preserve">
+    <value>В графике ППР есть открытая позиция на {0} ({1}). При сохранении изменения интервала потребуется выбрать, как обновить график.</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_Title" xml:space="preserve">
+    <value>Изменение интервала: {0}</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_RecalculatePending" xml:space="preserve">
+    <value>Пересчитать дату открытой позиции</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_NextCycleOnly" xml:space="preserve">
+    <value>Оставить позицию; новый интервал — со следующего цикла</value>
+  </data>
+  <data name="MaintenanceNorms_Policy_NormOnly" xml:space="preserve">
+    <value>Только сохранить норматив, график не менять</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Override" xml:space="preserve">
+    <value>Переопределить</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_OverrideDepartments" xml:space="preserve">
+    <value>Переопределить отделы</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Interval" xml:space="preserve">
+    <value>Интервал (дней)</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_ResetToPreset" xml:space="preserve">
+    <value>Сбросить к шаблону</value>
+  </data>
+  <data name="MaintenanceNorms_Slot_Enabled" xml:space="preserve">
+    <value>Включён</value>
+  </data>
+  <data name="MaintenanceNorms_Audit_IntervalOverridden" xml:space="preserve">
+    <value>{0} дн. (индивидуально)</value>
+  </data>
+  <data name="MaintenanceNorms_Audit_IntervalPreset" xml:space="preserve">
+    <value>{0} дн. (шаблон)</value>
+  </data>
+  <data name="EquipmentCategory_Add" xml:space="preserve">
+    <value>Добавить категорию</value>
+  </data>
+  <data name="EquipmentCategory_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="EquipmentCategory_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="EquipmentCategory_Validation_NameRequired" xml:space="preserve">
+    <value>Укажите название категории.</value>
+  </data>
+  <data name="EquipmentCategory_Validation_IntervalRequired" xml:space="preserve">
+    <value>Укажите интервал в днях для каждого включённого вида ТО.</value>
+  </data>
+  <data name="Toast_Request_New" xml:space="preserve">
+    <value>Новая заявка</value>
+  </data>
+  <data name="Toast_Request_New_Body" xml:space="preserve">
+    <value>Заявка {0} ожидает принятия</value>
+  </data>
+  <data name="Toast_Request_StatusChanged" xml:space="preserve">
+    <value>Статус заявки изменён</value>
+  </data>
+  <data name="Toast_Request_StatusChanged_Body" xml:space="preserve">
+    <value>Заявка {0}: {1}</value>
+  </data>
+  <data name="Toast_Request_RoutingChanged" xml:space="preserve">
+    <value>Маршрутизация заявки</value>
+  </data>
+  <data name="Toast_Request_RoutingChanged_Body" xml:space="preserve">
+    <value>Обновлены отделы или исполнители по заявке</value>
+  </data>
+  <data name="Toast_WorkReport_Added" xml:space="preserve">
+    <value>Новый отчёт о работах</value>
+  </data>
+  <data name="Toast_WorkReport_Added_Body" xml:space="preserve">
+    <value>Добавлен отчёт по заявке {0}</value>
+  </data>
+  <data name="Toast_Schedule_StatusChanged" xml:space="preserve">
+    <value>График ППР обновлён</value>
+  </data>
+  <data name="Toast_Schedule_StatusChanged_Body" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
+</root>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.LocationScopePicker.LocationScopePicker"
+             x:Name="RootScopePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="using:BAAZ.CMMS.App.Controls.LocationScopePicker"
+             xmlns:tree="using:BAAZ.CMMS.App.Controls.LocationTree"
+             HorizontalAlignment="Stretch"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <!--
+            CheckBox здесь — только визуальный индикатор.
+            IsHitTestVisible=False и IsTabStop=False: клики обрабатываются
+            через TreeView.ItemInvoked на родительском TreeViewItem.
+            CheckedState (bool?) привязан OneWay — меняется только из кода.
+        -->
+        <DataTemplate x:Key="ScopeTreeItemTemplate" x:DataType="local:LocationScopeNode">
+            <TreeViewItem ItemsSource="{x:Bind Children}">
+                <CheckBox Content="{x:Bind Name}"
+                          IsEnabled="{x:Bind IsEnabled}"
+                          IsChecked="{x:Bind CheckedState, Mode=OneWay}"
+                          IsThreeState="True"
+                          IsHitTestVisible="False"
+                          IsTabStop="False" />
+            </TreeViewItem>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid RowSpacing="8"
+          HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Сводка + кнопка «Открыть диалог» (только когда ShowDialogButton=True и не IsDialogHost) -->
+        <StackPanel Grid.Row="0"
+                    Spacing="4"
+                    Visibility="{x:Bind ShowSummaryPanel, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock Text="{Binding SelectionSummary, ElementName=RootScopePicker, Mode=OneWay}"
+                       Style="{ThemeResource BodyTextBlockStyle}"
+                       TextWrapping="Wrap"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+            <Button x:Name="OpenDialogButton"
+                    Click="OpenDialogButton_Click"
+                    Style="{ThemeResource AccentButtonStyle}"
+                    IsEnabled="{x:Bind IsDialogButtonEnabled, Mode=OneWay}"
+                    HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <ProgressRing Width="16"
+                                  Height="16"
+                                  IsActive="{x:Bind IsDialogLoading, Mode=OneWay}"
+                                  Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                  Visibility="{x:Bind IsDialogLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <TextBlock Text="{x:Bind DialogButtonLabel, Mode=OneWay}"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <!-- Дерево с поиском + ProgressRing оверлей -->
+        <Grid Grid.Row="1"
+              Visibility="{x:Bind ShowInlineTree, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <tree:LocationTreePanel x:Name="TreePanel"
+                                    TreeItems="{x:Bind TreeItems, Mode=OneWay}"
+                                    LocationPaths="{x:Bind LocationPaths, Mode=OneWay}"
+                                    ItemTemplate="{StaticResource ScopeTreeItemTemplate}"
+                                    AutoApplyItemsSource="False"
+                                    ShowSearchBox="True"
+                                    SearchPlaceholder="{x:Bind SearchPlaceholder, Mode=OneWay}"
+                                    ClearSearchLabel="{x:Bind ClearSearchLabel, Mode=OneWay}"
+                                    NoResultsMessage="{x:Bind NoResultsMessage, Mode=OneWay}"
+                                    TreeMinHeight="{x:Bind InlineTreeMinHeight, Mode=OneWay}"
+                                    TreeMaxHeight="{x:Bind InlineTreeMaxHeight, Mode=OneWay}"
+                                    FilteredTreeChanged="TreePanel_FilteredTreeChanged" />
+
+            <Grid Background="{ThemeResource LayerFillColorDefaultBrush}"
+                  CornerRadius="4"
+                  Opacity="0.85"
+                  Visibility="{x:Bind IsTreeLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <ProgressRing IsActive="{x:Bind IsTreeLoading, Mode=OneWay}"
+                              Width="32" Height="32"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center" />
+            </Grid>
+        </Grid>
+
+        <!-- Сводка выбора (flyout / модальный диалог) -->
+        <Border Grid.Row="2"
+                Padding="8"
+                HorizontalAlignment="Stretch"
+                CornerRadius="4"
+                BorderThickness="1"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                Visibility="{x:Bind ShowSelectionDetails, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+            <ScrollViewer x:Name="SelectionDetailsScrollViewer"
+                          MaxHeight="{x:Bind SelectionDetailsMaxHeight, Mode=OneWay}"
+                          VerticalScrollBarVisibility="{x:Bind SelectionDetailsScrollBarVisibility, Mode=OneWay}"
+                          VerticalScrollMode="Enabled"
+                          HorizontalScrollBarVisibility="Auto"
+                          HorizontalScrollMode="Enabled"
+                          HorizontalAlignment="Stretch"
+                          ZoomMode="Disabled">
+                <TextBlock Text="{Binding SelectionSummary, ElementName=RootScopePicker, Mode=OneWay}"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           TextWrapping="NoWrap"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

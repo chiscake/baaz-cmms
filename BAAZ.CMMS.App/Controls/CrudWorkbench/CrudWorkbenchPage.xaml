@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.CrudWorkbench.CrudWorkbenchPage"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:crud="using:BAAZ.CMMS.App.Controls.CrudWorkbench"
+             xmlns:sizers="using:CommunityToolkit.WinUI.Controls"
+             MinHeight="0"
+             VerticalAlignment="Stretch"
+             mc:Ignorable="d">
+
+    <Grid MinWidth="640"
+          MinHeight="0"
+          VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="400" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition x:Name="EditorColumnDefinition"
+                              Width="380"
+                              MinWidth="280" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left: toolbar + filter + table -->
+        <crud:CrudWorkbenchControl Grid.Column="0"
+                                     x:Name="Workbench"
+                                     MinHeight="0"
+                                     VerticalAlignment="Stretch"
+                                     Margin="0,0,0,0"
+                                     HasShowInactive="{x:Bind HasShowInactive, Mode=OneWay}"
+                                     AddLabel="{Binding ToolbarAdd, Mode=OneWay}"
+                                     RefreshLabel="{Binding ToolbarRefresh, Mode=OneWay}"
+                                     ArchiveLabel="{Binding ToolbarDeleteLabel, Mode=OneWay}"
+                                     HardDeleteLabel="{Binding ToolbarHardDeleteLabel, Mode=OneWay}"
+                                     ShowHardDeleteButton="{Binding ShowHardDeleteToolbarButton, Mode=OneWay}"
+                                     CanHardDelete="{Binding HasSelectableSelection, Mode=OneWay}"
+                                     ColumnsLabel="{Binding ToolbarColumns, Mode=OneWay}"
+                                     FilterPlaceholder="{Binding FilterPlaceholder, Mode=OneWay}"
+                                     SearchLabel="{Binding FilterSearchLabel, Mode=OneWay}"
+                                     ShowInactiveLabel="{Binding ShowInactiveLabel, Mode=OneWay}"
+                                     FilterText="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     ShowInactive="{Binding ShowInactive, Mode=TwoWay}"
+                                     ColumnFilters="{Binding ColumnFilters, Mode=OneWay}"
+                                     FilterColumns="{Binding Columns, Mode=OneWay}"
+                                     HasColumnFilters="{Binding HasColumnFilters, Mode=OneWay}"
+                                     CanCreate="{Binding Permissions.CanCreate, Mode=OneWay}"
+                                     ShowArchiveButton="{Binding ShowArchiveToolbarButton, Mode=OneWay}"
+                                     CanArchive="{Binding HasSelectableSelection, Mode=OneWay}"
+                                     ColumnsSource="{Binding Columns, Mode=OneWay}"
+                                     AddClicked="Workbench_AddClicked"
+                                     RefreshClicked="Workbench_RefreshClicked"
+                                     ArchiveClicked="Workbench_ArchiveClicked"
+                                     HardDeleteClicked="Workbench_HardDeleteClicked"
+                                     ColumnsChanged="Workbench_ColumnsChanged"
+                                     ColumnsResetRequested="Workbench_ColumnsResetRequested"
+                                     SearchClicked="Workbench_SearchClicked"
+                                     FiltersChanged="Workbench_FiltersChanged">
+            <crud:CrudWorkbenchControl.TableContent>
+                <crud:CrudDataGrid x:Name="DataGrid"
+                                   MinHeight="0"
+                                   VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch"
+                                   IsLoading="{Binding IsLoading, Mode=OneWay}"
+                                   ExpandRowToolTip="{Binding ExpandRowToolTip, Mode=OneWay}"
+                                   ItemsSource="{Binding FilteredRows, Mode=OneWay}"
+                                   Columns="{Binding Columns, Mode=OneWay}"
+                                   SortColumnKey="{Binding SortColumnKey, Mode=OneWay}"
+                                   SortDirection="{Binding SortDirection, Mode=OneWay}"
+                                   SelectAllClicked="DataGrid_SelectAllClicked"
+                                   RowExpandRequested="DataGrid_RowExpandRequested"
+                                   RowDoubleTapped="DataGrid_RowDoubleTapped"
+                                   CellInlineEditRequested="DataGrid_CellInlineEditRequested"
+                                   CellContextRequested="DataGrid_CellContextRequested"
+                                   HeaderContextRequested="DataGrid_HeaderContextRequested"
+                                   CellEditCommitted="DataGrid_CellEditCommitted"
+                                   RowSelectionChanged="DataGrid_RowSelectionChanged" />
+            </crud:CrudWorkbenchControl.TableContent>
+        </crud:CrudWorkbenchControl>
+
+        <!-- Splitter -->
+        <sizers:GridSplitter Grid.Column="1"
+                             x:Name="EditorSplitter"
+                             Width="8"
+                             HorizontalAlignment="Stretch"
+                             ResizeBehavior="PreviousAndNext"
+                             ResizeDirection="Columns"
+                             Visibility="Collapsed" />
+
+        <!-- Right: editor -->
+        <crud:CrudEditorPanel Grid.Column="2"
+                              x:Name="EditorPanel"
+                              Title="{Binding EditorTitle, Mode=OneWay}"
+                              SaveLabel="{Binding EditorSave, Mode=OneWay}"
+                              CancelLabel="{Binding EditorCancel, Mode=OneWay}"
+                              IsBusy="{Binding IsBusy, Mode=OneWay}"
+                              HasError="{Binding HasEditorError, Mode=OneWay}"
+                              ErrorMessage="{Binding EditorError, Mode=OneWay}"
+                              FormContent="{x:Bind EditorContent, Mode=OneWay}"
+                              Visibility="Collapsed"
+                              SaveClicked="EditorPanel_SaveClicked"
+                              CancelClicked="EditorPanel_CancelClicked" />
+    </Grid>
+</UserControl>

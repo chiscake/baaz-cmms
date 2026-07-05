@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.Home.HomeQuickActionButton"
+             x:Name="Root"
+             HorizontalAlignment="Stretch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Button x:Name="ActionButton"
+            MinHeight="52"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            Command="{Binding NavigateCommand, Mode=OneWay}"
+            CommandParameter="{Binding Mode=OneWay}">
+        <Grid ColumnDefinitions="Auto,*,Auto"
+              ColumnSpacing="10">
+            <FontIcon x:Name="ActionIcon"
+                      Grid.Column="0"
+                      FontSize="16"
+                      VerticalAlignment="Center" />
+            <TextBlock x:Name="ActionTitle"
+                       Grid.Column="1"
+                       Style="{StaticResource HomeQuickAccessTitleStyle}"
+                       VerticalAlignment="Center" />
+            <FontIcon x:Name="ActionChevron"
+                      Grid.Column="2"
+                      Glyph="&#xE76C;"
+                      FontSize="12"
+                      VerticalAlignment="Center" />
+        </Grid>
+    </Button>
+</UserControl>

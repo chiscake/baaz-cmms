@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="BAAZ.CMMS.App.Controls.Home.HomeStatTile"
+             x:Name="Root"
+             HorizontalAlignment="Stretch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Border x:Name="TileBorder"
+            HorizontalAlignment="Stretch"
+            MinHeight="112"
+            Style="{StaticResource HomeStatTileStyle}">
+        <Grid RowDefinitions="Auto,*,Auto"
+              RowSpacing="8">
+            <FontIcon x:Name="IconGlyph"
+                      Grid.Row="0"
+                      FontSize="16"
+                      HorizontalAlignment="Left" />
+            <TextBlock x:Name="ValueText"
+                       Grid.Row="1"
+                       Style="{ThemeResource TitleLargeTextBlockStyle}"
+                       VerticalAlignment="Center" />
+            <TextBlock x:Name="LabelText"
+                       Grid.Row="2"
+                       MaxLines="2"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       LineHeight="16"
+                       Style="{ThemeResource CaptionTextBlockStyle}"
+                       TextWrapping="WrapWholeWords" />
+        </Grid>
+    </Border>
+</UserControl>

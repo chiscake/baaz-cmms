@@ -1,0 +1,26 @@
+{
+  "name": "baaz-cmms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:reset": "supabase db reset && pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/post-db-reset.ps1 && pnpm db:seed && pnpm fn:serve:ps1:ensure",
+    "fn:serve:ps1:ensure": "pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/serve-edge-functions.ps1 -EnsureOnly",
+    "db:seed:generate": "node scripts/generate-seed-catalog.mjs",
+    "db:seed": "node --env-file=.env scripts/seed-test-users.mjs",
+    "db:reset:cloud": "supabase db reset --linked && pnpm db:seed:cloud",
+    "db:seed:cloud": "node --env-file=.env.cloud scripts/seed-test-users.mjs",
+    "fn:serve": "supabase functions serve",
+    "fn:serve:ps1": "pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/serve-edge-functions.ps1",
+    "fn:deploy": "supabase functions deploy admin-users",
+    "fn:logs": "supabase functions logs admin-users",
+    "debug:panel": "pnpm dlx serve scripts/debug -p 5173"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@11.9.0",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.2"
+  }
+}
