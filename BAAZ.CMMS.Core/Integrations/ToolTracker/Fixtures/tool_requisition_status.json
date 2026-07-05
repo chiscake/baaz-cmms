@@ -1,0 +1,20 @@
+{
+  "workOrder": null,
+  "requisitions": [
+    {
+      "requisitionId": "e2000000-0000-4000-8000-000000000001",
+      "warehouseId": "a1000000-0000-4000-8000-000000000001",
+      "warehouseName": "ИРК-1 (Мехцех)",
+      "status": "new",
+      "linesSummary": {
+        "total": 1,
+        "pending": 1,
+        "reserved": 0,
+        "issued": 0,
+        "returned": 0
+      }
+    }
+  ],
+  "eTag": null,
+  "notModified": false
+}

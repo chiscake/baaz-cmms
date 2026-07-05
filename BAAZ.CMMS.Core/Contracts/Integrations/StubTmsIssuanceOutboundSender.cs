@@ -35,6 +35,7 @@ public sealed class StubTmsIssuanceOutboundSender : ITmsIssuanceOutboundSender
         var result = new ToolRequisitionCreateResult
         {
             RequisitionId = requisitionId,
+            RequisitionNumber = TmsRequisitionDisplayNumber.Format(requisitionId),
             ClientReferenceId = input.ClientReferenceId,
             WarehouseId = input.WarehouseId,
             WarehouseName = null,

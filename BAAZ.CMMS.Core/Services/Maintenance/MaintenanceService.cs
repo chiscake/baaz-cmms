@@ -5,6 +5,7 @@ using BAAZ.CMMS.Core.Data.Models;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Repositories;
 using BAAZ.CMMS.Core.Repositories.Junction;
+using BAAZ.CMMS.Core.Services.Integrations;
 
 namespace BAAZ.CMMS.Core.Services;
 
@@ -22,6 +23,7 @@ public sealed class MaintenanceService : IMaintenanceService
     private readonly IAssetRepository _assetRepo;
     private readonly ISupabaseClientProvider _clientProvider;
     private readonly IAuthService _authService;
+    private readonly IRequestIntegrationHooks _integrationHooks;
 
     private ScheduleReferenceData? _referenceData;
 
@@ -46,7 +48,8 @@ public sealed class MaintenanceService : IMaintenanceService
         IRepairDepartmentRepository deptRepo,
         IAssetRepository assetRepo,
         ISupabaseClientProvider clientProvider,
-        IAuthService authService)
+        IAuthService authService,
+        IRequestIntegrationHooks integrationHooks)
     {
         _categoryRepo = categoryRepo;
         _categoryNormRepo = categoryNormRepo;
@@ -60,6 +63,7 @@ public sealed class MaintenanceService : IMaintenanceService
         _assetRepo = assetRepo;
         _clientProvider = clientProvider;
         _authService = authService;
+        _integrationHooks = integrationHooks;
     }
 
     public async Task<IReadOnlyList<MaintenanceScheduleItem>> GetScheduleAsync(
@@ -230,6 +234,8 @@ public sealed class MaintenanceService : IMaintenanceService
         Guid scheduleId, string? comment = null, CancellationToken cancellationToken = default)
     {
         var result = await _scheduleRepo.UpdateStatusAsync(scheduleId, "cancelled", cancellationToken);
+        if (result.IsSuccess)
+            await _integrationHooks.AfterScheduleCancelledAsync(scheduleId, cancellationToken);
         return result.IsSuccess;
     }
 
@@ -275,7 +281,10 @@ public sealed class MaintenanceService : IMaintenanceService
         {
             var result = await _scheduleRepo.UpdateStatusAsync(id, "cancelled", cancellationToken);
             if (result.IsSuccess)
+            {
                 cancelled++;
+                await _integrationHooks.AfterScheduleCancelledAsync(id, cancellationToken);
+            }
         }
 
         if (cancelled == 0)

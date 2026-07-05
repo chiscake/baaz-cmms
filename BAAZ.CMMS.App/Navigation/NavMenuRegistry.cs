@@ -80,6 +80,7 @@ internal static class NavMenuRegistry
             Leaf(NavItemIds.DispatcherMaintenanceSchedule, NavLeafCatalog.MaintenanceSchedule),
             Leaf(NavItemIds.DispatcherMaterialRequisition, NavLeafCatalog.MaterialRequisition),
             Leaf(NavItemIds.DispatcherToolRequisition, NavLeafCatalog.ToolRequisition),
+            Leaf(NavItemIds.DispatcherToolRequisitionHistory, NavLeafCatalog.ToolRequisitionHistory),
             Leaf(NavItemIds.DispatcherRequestHistory, NavLeafCatalog.RequestHistory),
             Leaf(NavItemIds.DispatcherWorkReports, NavLeafCatalog.WorkReports),
             Leaf(NavItemIds.DispatcherPersonnel, NavLeafCatalog.Personnel),
@@ -138,6 +139,7 @@ internal static class NavMenuRegistry
         children.Add(Leaf(NavItemIds.DispatcherMaintenanceSchedule, NavLeafCatalog.MaintenanceSchedule));
         children.Add(Leaf(NavItemIds.DispatcherMaterialRequisition, NavLeafCatalog.MaterialRequisition));
         children.Add(Leaf(NavItemIds.DispatcherToolRequisition, NavLeafCatalog.ToolRequisition));
+        children.Add(Leaf(NavItemIds.DispatcherToolRequisitionHistory, NavLeafCatalog.ToolRequisitionHistory));
         children.Add(Leaf(NavItemIds.DispatcherRequestHistory, NavLeafCatalog.RequestHistory));
         children.Add(Leaf(NavItemIds.DispatcherWorkReports, NavLeafCatalog.WorkReports));
         children.Add(Leaf(NavItemIds.DispatcherPersonnel, NavLeafCatalog.Personnel));

@@ -11,6 +11,11 @@ public sealed class NullToolTrackerIntegration : IToolTrackerIntegration
     public Task NotifyWorkReportCreatedAsync(Guid workReportId, Guid? requestId, Guid? scheduleId, decimal actualDurationHours, CancellationToken cancellationToken = default)
         => Task.CompletedTask;
 
-    public Task NotifyRequestStatusChangedAsync(Guid requestId, string newStatus, DateTimeOffset changedAt, CancellationToken cancellationToken = default)
+    public Task NotifyRequestStatusChangedAsync(
+        Guid requestId,
+        string newStatus,
+        DateTimeOffset changedAt,
+        ToolTrackerRequestStatusContext? context = null,
+        CancellationToken cancellationToken = default)
         => Task.CompletedTask;
 }

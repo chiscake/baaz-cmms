@@ -5,6 +5,9 @@ public sealed class ToolRequisitionCreateResult
 {
     public required Guid RequisitionId { get; init; }
 
+    /// <summary>Человекочитаемый номер заявки TMS (из ответа API или производный от <see cref="RequisitionId"/>).</summary>
+    public string? RequisitionNumber { get; init; }
+
     public required Guid ClientReferenceId { get; init; }
 
     public required Guid WarehouseId { get; init; }

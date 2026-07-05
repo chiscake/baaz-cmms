@@ -14,6 +14,7 @@ using BAAZ.CMMS.App.Pages.Dispatcher.PersonnelManagement;
 using BAAZ.CMMS.App.Pages.Dispatcher.RequestHistory;
 using BAAZ.CMMS.App.Pages.Dispatcher.RequestDetail;
 using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisition;
+using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisitionHistory;
 using BAAZ.CMMS.App.Pages.Dispatcher.WorkReports;
 using BAAZ.CMMS.App.Pages.Home.AdminHome;
 using BAAZ.CMMS.App.Pages.Home.DispatcherHome;
@@ -46,6 +47,7 @@ internal static class PageMap
         // Supply
         ["MaterialRequisition"] = typeof(MaterialRequisitionPage),
         ["ToolRequisition"] = typeof(ToolRequisitionPage),
+        ["ToolRequisitionHistory"] = typeof(ToolRequisitionHistoryPage),
         // Assets & Personnel
         ["AssetRegistry"] = typeof(AssetRegistryPage),
         ["PersonnelManagement"] = typeof(PersonnelManagementPage),

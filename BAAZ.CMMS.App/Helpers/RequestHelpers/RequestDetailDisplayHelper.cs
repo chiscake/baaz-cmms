@@ -12,6 +12,14 @@ public static class RequestDetailDisplayHelper
 
     public static string FormatAsset(RequestDetailItem detail)
     {
+        if (detail.IsInventoryRequest)
+        {
+            var name = detail.InventoryName ?? detail.InventoryId?.ToString() ?? "—";
+            if (!string.IsNullOrWhiteSpace(detail.InventorySerial))
+                return $"{name} ({detail.InventorySerial})";
+            return name;
+        }
+
         if (detail.AssetId is null)
             return ResourceStrings.Get("MyRequests_Detail_Asset_None");
 

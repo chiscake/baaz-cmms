@@ -28,6 +28,30 @@ public sealed class RequestDetailItem
 
     public string? AssetName { get; init; }
 
+    public Guid? InventoryId { get; init; }
+
+    public string? InventoryKind { get; init; }
+
+    public string? InventoryName { get; init; }
+
+    public string? InventorySerial { get; init; }
+
+    public string? InventoryTypeName { get; init; }
+
+    public string? InventoryHandoffMode { get; init; }
+
+    public string? InventoryWarehouseName { get; init; }
+
+    public DateTimeOffset? InventoryReceivedAt { get; init; }
+
+    public bool IsInventoryRequest => InventoryId is not null;
+
+    public bool IsPickupHandoff =>
+        string.Equals(InventoryHandoffMode, "pickup_at_warehouse", StringComparison.Ordinal);
+
+    public bool IsDeliverHandoff =>
+        string.Equals(InventoryHandoffMode, "deliver_to_department", StringComparison.Ordinal);
+
     public string? RequesterName { get; init; }
 
     /// <summary>Отделы, задействованные в заявке, со своими исполнителями (request_repair_departments).</summary>

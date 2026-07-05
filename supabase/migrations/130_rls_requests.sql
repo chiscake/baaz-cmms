@@ -6,6 +6,8 @@
 -- requester — только свои.
 -- dispatcher — направленные в его отдел + свои как заявитель.
 -- admin — все.
+-- inventory-заявки (контур А TMS): INSERT только через Edge Function с service_role
+-- (REP-API-1); service_role обходит RLS, явная политика ниже — для документирования.
 -- -----------------------------------------------------------------------------
 
 alter table public.requests enable row level security;
@@ -51,6 +53,7 @@ to authenticated
 with check (
   requester_id = auth.uid()
   and public.current_profile_role() = 'requester'
+  and inventory_id is null
   and target_repair_department_id is not null
   and exists (
     select 1 from public.repair_departments rd
@@ -74,6 +77,7 @@ to authenticated
 with check (
   requester_id = auth.uid()
   and public.current_profile_role() = 'admin'
+  and inventory_id is null
 );
 
 create policy requests_insert_dispatcher
@@ -83,6 +87,7 @@ to authenticated
 with check (
   requester_id = auth.uid()
   and public.current_profile_role() = 'dispatcher'
+  and inventory_id is null
   and (
     asset_id is null
     or exists (
@@ -93,6 +98,12 @@ with check (
     )
   )
 );
+
+create policy requests_insert_service
+on public.requests
+for insert
+to service_role
+with check (true);
 
 create policy requests_update_admin
 on public.requests

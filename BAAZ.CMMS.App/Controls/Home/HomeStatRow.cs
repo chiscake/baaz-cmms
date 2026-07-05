@@ -8,7 +8,13 @@ public sealed class HomeStatRow
 
     public string? Heading { get; init; }
 
+    public string? SecondaryHeading { get; init; }
+
     public bool HasHeading => !string.IsNullOrEmpty(Heading);
+
+    public bool HasSecondaryHeading => !string.IsNullOrEmpty(SecondaryHeading);
+
+    public int PrimaryHeadingColumnSpan => HasSecondaryHeading ? 3 : Columns;
 
     public ObservableCollection<HomeStatItem> Items { get; } = [];
 }

@@ -25,6 +25,7 @@ using BAAZ.CMMS.App.Pages.Dispatcher.PersonnelManagement;
 using BAAZ.CMMS.App.Pages.Dispatcher.RequestHistory;
 using BAAZ.CMMS.App.Pages.Dispatcher.RequestDetail;
 using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisition;
+using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisitionHistory;
 using BAAZ.CMMS.App.Pages.Dispatcher.WorkReports;
 using BAAZ.CMMS.App.Pages.Home.AdminHome;
 using BAAZ.CMMS.App.Pages.Home.Dashboards;
@@ -37,6 +38,7 @@ using BAAZ.CMMS.App.Pages.Settings;
 using BAAZ.CMMS.App.ViewModels;
 using BAAZ.CMMS.Core.Contracts.Integrations;
 using BAAZ.CMMS.Core.Integrations.ToolIssuance;
+using BAAZ.CMMS.Core.Integrations.ToolTracker;
 using BAAZ.CMMS.Core.Integrations.Warehouse;
 using BAAZ.CMMS.Core.Services.MaterialRequisition;
 using BAAZ.CMMS.Core.Services.ToolRequisition;
@@ -46,6 +48,7 @@ using BAAZ.CMMS.Core.Repositories;
 using BAAZ.CMMS.Core.Repositories.Junction;
 using BAAZ.CMMS.Core.Services;
 using BAAZ.CMMS.Core.Services.TmsIssuance;
+using BAAZ.CMMS.Core.Services.Integrations;
 using BAAZ.CMMS.Core.Services.Catalog;
 using Microsoft.Windows.AppNotifications;
 using WinUI.UtilsLibrary.Contracts;
@@ -104,6 +107,7 @@ public partial class App : Application
         services.AddSingleton<AdminUsersFunctionClient>();
         services.AddSingleton<IConnectionService, ConnectionService>();
         services.AddSingleton<IAuthService, AuthService>();
+        services.AddSingleton<IRequestIntegrationHooks, RequestIntegrationHooks>();
         services.AddSingleton<IRequestService, RequestService>();
         RegisterCatalogServices(services);
         services.AddSingleton<ILocationTreeCache, LocationTreeCache>();
@@ -111,11 +115,9 @@ public partial class App : Application
         services.AddSingleton<LocationScopeTreeProjectionCache>();
         services.AddSingleton<IMaintenanceService, MaintenanceService>();
         services.AddSingleton<IProfileAdminService, ProfileAdminService>();
-        services.AddSingleton<IToolTrackerIntegration, NullToolTrackerIntegration>();
+        RegisterTmsIntegration(services);
         services.AddSingleton<IToolRequisitionDocxGenerator, ToolRequisitionDocxGenerator>();
         services.AddSingleton<IToolRequisitionDocxIntegration, DocxFileToolRequisitionIntegration>();
-        services.AddSingleton<ITmsIssuanceOutboundSender, StubTmsIssuanceOutboundSender>();
-        services.AddSingleton<ITmsIssuanceClient, TmsIssuanceClient>();
         services.AddSingleton<ITmsToolRequisitionLinkRepository, TmsToolRequisitionLinkRepository>();
         services.AddSingleton<ITmsToolRequisitionService, TmsToolRequisitionService>();
         services.AddSingleton<IToolRequisitionService, ToolRequisitionService>();
@@ -126,6 +128,8 @@ public partial class App : Application
         services.AddSingleton<IRealtimeNotificationService, RealtimeNotificationService>();
         services.AddSingleton<AppBootstrapper>();
 
+        services.AddTransient<Windows.LoginViewModel>();
+        services.AddTransient<Windows.ConnectionErrorViewModel>();
         services.AddTransient<Windows.LoginWindow>();
         services.AddTransient<Windows.ConnectionErrorWindow>();
         services.AddTransient<Windows.StartupLoadingWindow>();
@@ -208,6 +212,8 @@ public partial class App : Application
         // Supply
         services.AddTransient<MaterialRequisitionViewModel>();
         services.AddTransient<ToolRequisitionViewModel>();
+        services.AddTransient<ToolRequisitionHistoryViewModel>();
+        services.AddTransient<ToolRequisitionHistoryTableViewModel>();
         // Assets & Personnel
         services.AddTransient<AssetRegistryViewModel>();
         services.AddTransient<PersonnelManagementViewModel>();
@@ -219,6 +225,8 @@ public partial class App : Application
         // Shell
         services.AddTransient<SettingsViewModel>();
 
+        services.AddTransient<Windows.LoginViewModel>();
+        services.AddTransient<Windows.ConnectionErrorViewModel>();
         services.AddTransient<Windows.LoginWindow>();
         services.AddTransient<Windows.ConnectionErrorWindow>();
         services.AddTransient<Windows.StartupLoadingWindow>();
@@ -255,6 +263,29 @@ public partial class App : Application
         services.AddSingleton<RepairDepartmentCatalogService>();
         services.AddSingleton<IRepairDepartmentCatalogService>(sp => sp.GetRequiredService<RepairDepartmentCatalogService>());
         services.AddSingleton<ICatalogService, CatalogService>();
+    }
+
+    private static void RegisterTmsIntegration(IServiceCollection services)
+    {
+        ApplyTmsIntegrationSettingsFromAppConfig();
+        services.AddSingleton<TmsIssuanceClientProvider>();
+        services.AddSingleton<ITmsIssuanceClient>(sp =>
+        {
+            var provider = sp.GetRequiredService<TmsIssuanceClientProvider>();
+            TmsIntegrationSettings.RegisterIssuanceClientProvider(provider);
+            return provider;
+        });
+        services.AddSingleton<IToolTrackerIntegration>(_ => TmsIntegrationSettings.CreateToolTrackerIntegration());
+    }
+
+    private static void ApplyTmsIntegrationSettingsFromAppConfig()
+    {
+        var settings = SettingsHelper.Current;
+        TmsIntegrationSettingsSync.Apply(
+            settings.TmsIntegrationMode,
+            settings.TmsBaseUrl,
+            settings.TmsIntegrationSecret,
+            settings.SupabaseAnonKey);
     }
 
     private async Task LaunchAsync(DispatcherQueue dispatcherQueue)

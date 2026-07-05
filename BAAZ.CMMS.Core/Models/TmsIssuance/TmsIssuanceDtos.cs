@@ -84,6 +84,8 @@ public sealed class TmsRequisitionSummaryItem
 
     public required string Status { get; init; }
 
+    public string? CancelledBy { get; init; }
+
     public DateTimeOffset? ReadyAt { get; init; }
 
     public DateTimeOffset? IssuedAt { get; init; }

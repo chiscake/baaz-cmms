@@ -4,10 +4,14 @@ using BAAZ.CMMS.Core.Data;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Repositories;
 using BAAZ.CMMS.Core.Repositories.Dtos;
+using BAAZ.CMMS.Core.Services.Integrations;
 
 namespace BAAZ.CMMS.Core.Services;
 
-public sealed class RequestService(IRequestRepository requestRepository, IAuthService authService) : IRequestService
+public sealed class RequestService(
+    IRequestRepository requestRepository,
+    IAuthService authService,
+    IRequestIntegrationHooks integrationHooks) : IRequestService
 {
     private static readonly string[] TypeValues = ["breakdown", "service", "inspection"];
     private static readonly string[] PriorityValues = ["low", "normal", "high", "critical"];
@@ -19,6 +23,7 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
 
     private readonly IRequestRepository _requestRepository = requestRepository;
     private readonly IAuthService _authService = authService;
+    private readonly IRequestIntegrationHooks _integrationHooks = integrationHooks;
 
     public async Task<CreateRequestResult?> CreateRequestAsync(
         CreateRequestInput input,
@@ -175,7 +180,12 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
             },
             cancellationToken);
 
-        return history.IsSuccess;
+        if (!history.IsSuccess)
+            return false;
+
+        await _integrationHooks.AfterRequestStatusChangedAsync(
+            requestId, current.Value.Status, "cancelled", cancellationToken);
+        return true;
     }
 
     public async Task<bool> CloseRequestAsync(
@@ -206,7 +216,12 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
             },
             cancellationToken);
 
-        return history.IsSuccess;
+        if (!history.IsSuccess)
+            return false;
+
+        await _integrationHooks.AfterRequestStatusChangedAsync(
+            requestId, current.Value.Status, "closed", cancellationToken);
+        return true;
     }
 
     public async Task<IReadOnlyList<RequestListItem>> GetIncomingRequestsAsync(
@@ -253,6 +268,9 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
         string? comment = null,
         CancellationToken cancellationToken = default)
     {
+        var before = await _requestRepository.GetDetailByIdAsync(requestId, cancellationToken);
+        var previousStatus = before.IsSuccess ? before.Value?.Status ?? string.Empty : string.Empty;
+
         var result = await _requestRepository.CallWorkflowRpcAsync(
             "reject_request",
             new Dictionary<string, object?>
@@ -261,6 +279,12 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
                 ["p_comment"] = comment,
             },
             cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            await _integrationHooks.AfterRequestStatusChangedAsync(
+                requestId, previousStatus, "rejected", cancellationToken);
+        }
 
         return result;
     }
@@ -360,12 +384,41 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
             cancellationToken);
     }
 
+    public async Task<DataResult> ConfirmInventoryReceivedAsync(
+        Guid requestId,
+        string? comment = null,
+        CancellationToken cancellationToken = default)
+    {
+        var before = await _requestRepository.GetDetailByIdAsync(requestId, cancellationToken);
+        var previousStatus = before.IsSuccess ? before.Value?.Status ?? string.Empty : string.Empty;
+
+        var result = await _requestRepository.CallWorkflowRpcAsync(
+            "confirm_inventory_received",
+            new Dictionary<string, object?>
+            {
+                ["p_request_id"] = requestId,
+                ["p_comment"] = comment,
+            },
+            cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            await _integrationHooks.AfterRequestStatusChangedAsync(
+                requestId, previousStatus, "in_progress", cancellationToken);
+        }
+
+        return result;
+    }
+
     public async Task<DataResult> CloseRequestAsStaffAsync(
         Guid requestId,
         string? comment = null,
         CancellationToken cancellationToken = default)
     {
-        return await _requestRepository.CallWorkflowRpcAsync(
+        var before = await _requestRepository.GetDetailByIdAsync(requestId, cancellationToken);
+        var previousStatus = before.IsSuccess ? before.Value?.Status ?? string.Empty : string.Empty;
+
+        var result = await _requestRepository.CallWorkflowRpcAsync(
             "close_request_as_staff",
             new Dictionary<string, object?>
             {
@@ -373,6 +426,14 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
                 ["p_comment"] = comment,
             },
             cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            await _integrationHooks.AfterRequestStatusChangedAsync(
+                requestId, previousStatus, "closed", cancellationToken);
+        }
+
+        return result;
     }
 
     public async Task<IReadOnlyList<RequestStatusHistoryItem>> GetStatusHistoryAsync(
@@ -503,6 +564,14 @@ public sealed class RequestService(IRequestRepository requestRepository, IAuthSe
         AssetId = row.AssetId,
         AssetNumber = row.Assets?.AssetNumber,
         AssetName = row.Assets?.Name,
+        InventoryId = row.InventoryId,
+        InventoryKind = row.InventoryKind,
+        InventoryName = row.InventoryName,
+        InventorySerial = row.InventorySerial,
+        InventoryTypeName = row.InventoryTypeName,
+        InventoryHandoffMode = row.InventoryHandoffMode,
+        InventoryWarehouseName = row.InventoryWarehouseName,
+        InventoryReceivedAt = row.InventoryReceivedAt,
         RequesterName = row.Profiles?.FullName,
         Departments = MapDepartments(row.RequestRepairDepartments),
         AssigneeName = FormatAssigneeNames(row.RequestRepairDepartments),

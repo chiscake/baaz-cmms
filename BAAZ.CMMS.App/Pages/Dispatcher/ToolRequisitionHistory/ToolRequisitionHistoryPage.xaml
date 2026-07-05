@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisitionHistory.ToolRequisitionHistoryPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:breakpoint="using:WinUI.UtilsLibrary.Controls.BreakpointContent"
+      xmlns:crud="using:BAAZ.CMMS.App.Controls.CrudWorkbench"
+      xmlns:badge="using:BAAZ.CMMS.App.Controls.StatusBadge"
+      xmlns:local="using:BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisitionHistory"
+      mc:Ignorable="d">
+
+    <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                       State="{x:Bind ViewModel.InfoBanner, Mode=OneWay}"
+                       VerticalScrollMode="Disabled">
+        <Grid VerticalAlignment="Stretch">
+            <Grid x:Name="BrowseRoot"
+                  VerticalAlignment="Stretch"
+                  Visibility="{x:Bind ViewModel.IsBrowseView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                  ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="320" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        VerticalAlignment="Stretch"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        Padding="16"
+                        CornerRadius="{ThemeResource OverlayCornerRadius}">
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBox Grid.Row="0"
+                                 Margin="0,0,0,8"
+                                 Header="{x:Bind ViewModel.SearchPlaceholder, Mode=OneWay}"
+                                 PlaceholderText="{x:Bind ViewModel.SearchPlaceholder, Mode=OneWay}"
+                                 Text="{x:Bind ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <ComboBox Grid.Row="1"
+                                  Margin="0,0,0,8"
+                                  Header="{x:Bind ViewModel.FilterStatusLabel, Mode=OneWay}"
+                                  ItemsSource="{x:Bind ViewModel.StatusFilterLabels, Mode=OneWay}"
+                                  SelectedIndex="{x:Bind ViewModel.SelectedStatusIndex, Mode=TwoWay}" />
+
+                        <ListView Grid.Row="2"
+                                  VerticalAlignment="Stretch"
+                                  ItemsSource="{x:Bind ViewModel.BrowseItems, Mode=OneWay}"
+                                  SelectionMode="None"
+                                  IsItemClickEnabled="True"
+                                  ItemClick="BrowseList_ItemClick">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment"
+                                            Value="Stretch" />
+                                    <Setter Property="VerticalContentAlignment"
+                                            Value="Stretch" />
+                                    <Setter Property="Padding"
+                                            Value="8,4" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="local:ToolRequisitionBrowseItem">
+                                    <Grid Padding="8,6"
+                                          Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                          BorderThickness="1"
+                                          CornerRadius="4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{x:Bind Title}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   VerticalAlignment="Center"
+                                                   Style="{ThemeResource BodyTextBlockStyle}" />
+                                        <badge:StatusBadge Grid.Column="1"
+                                                           Margin="8,0,0,0"
+                                                           VerticalAlignment="Center"
+                                                           Label="{x:Bind StatusLabel}"
+                                                           BackgroundKey="{x:Bind StatusBadgeBackgroundKey}"
+                                                           ForegroundKey="{x:Bind StatusBadgeForegroundKey}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <Button Grid.Row="3"
+                                Margin="0,8,0,0"
+                                HorizontalAlignment="Stretch"
+                                Command="{x:Bind ViewModel.OpenTableCommand}"
+                                Content="{x:Bind ViewModel.OpenInTableLabel, Mode=OneWay}" />
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Column="1"
+                      VerticalAlignment="Stretch">
+                    <breakpoint:BreakpointContent MaxContentWidth="Small640"
+                                                  Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                                  ContentPadding="16"
+                                                  VerticalAlignment="Stretch"
+                                                  HorizontalAlignment="Stretch">
+                        <ScrollViewer VerticalAlignment="Stretch"
+                                      VerticalScrollBarVisibility="Auto">
+                            <StackPanel Spacing="12">
+                                <TextBlock Text="{x:Bind ViewModel.EmptyListText, Mode=OneWay}"
+                                           Visibility="{x:Bind ViewModel.ShowEmptyList, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                           Style="{ThemeResource BodyTextBlockStyle}"
+                                           TextWrapping="WrapWholeWords" />
+                                <TextBlock Text="{x:Bind ViewModel.EmptyFilterText, Mode=OneWay}"
+                                           Visibility="{x:Bind ViewModel.ShowEmptyFilter, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                           Style="{ThemeResource BodyTextBlockStyle}"
+                                           TextWrapping="WrapWholeWords" />
+                                <TextBlock Text="{x:Bind ViewModel.EmptySelectionText, Mode=OneWay}"
+                                           Visibility="{x:Bind ViewModel.ShowEmptySelection, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                           Style="{ThemeResource BodyTextBlockStyle}"
+                                           TextWrapping="WrapWholeWords" />
+
+                                <StackPanel Visibility="{x:Bind ViewModel.HasDetail, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Spacing="12">
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Text="{x:Bind ViewModel.DetailTitle, Mode=OneWay}"
+                                                   Style="{ThemeResource SubtitleTextBlockStyle}"
+                                                   TextWrapping="WrapWholeWords" />
+                                        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}"
+                                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                                            <Run Text="{x:Bind ViewModel.DetailLabelNumber, Mode=OneWay}" />
+                                            <Run Text=": " />
+                                            <Run Text="{x:Bind ViewModel.DetailNumber, Mode=OneWay}" />
+                                        </TextBlock>
+                                        <badge:StatusBadge HorizontalAlignment="Left"
+                                                           Label="{x:Bind ViewModel.DetailStatusLabel, Mode=OneWay}"
+                                                           BackgroundKey="{x:Bind ViewModel.DetailStatusBackgroundKey, Mode=OneWay}"
+                                                           ForegroundKey="{x:Bind ViewModel.DetailStatusForegroundKey, Mode=OneWay}" />
+                                    </StackPanel>
+
+                                    <TextBlock>
+                                        <Run FontWeight="SemiBold"
+                                             Text="{x:Bind ViewModel.DetailLabelWarehouse, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                        <Run Text="{x:Bind ViewModel.DetailWarehouse, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run FontWeight="SemiBold"
+                                             Text="{x:Bind ViewModel.DetailLabelWorkOrderKind, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                        <Run Text="{x:Bind ViewModel.DetailWorkOrderKind, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock TextWrapping="WrapWholeWords">
+                                        <Run FontWeight="SemiBold"
+                                             Text="{x:Bind ViewModel.DetailLabelWorkOrder, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                        <Run Text="{x:Bind ViewModel.DetailWorkOrder, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock TextWrapping="WrapWholeWords"
+                                               Visibility="{x:Bind ViewModel.HasDetailNotes, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Run FontWeight="SemiBold"
+                                             Text="{x:Bind ViewModel.DetailLabelNotes, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                        <Run Text="{x:Bind ViewModel.DetailNotes, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run FontWeight="SemiBold"
+                                             Text="{x:Bind ViewModel.DetailLabelCreatedAt, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                        <Run Text="{x:Bind ViewModel.DetailCreatedAt, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock>
+                                        <Run FontWeight="SemiBold"
+                                             Text="{x:Bind ViewModel.DetailLabelUpdatedAt, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                        <Run Text="{x:Bind ViewModel.DetailUpdatedAt, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock Visibility="{x:Bind ViewModel.HasLastSyncedAt, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <Run FontWeight="SemiBold"
+                                             Text="{x:Bind ViewModel.DetailLabelLastSyncedAt, Mode=OneWay}" />
+                                        <Run Text=": " />
+                                        <Run Text="{x:Bind ViewModel.DetailLastSyncedAt, Mode=OneWay}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </breakpoint:BreakpointContent>
+                </Grid>
+            </Grid>
+
+            <Grid VerticalAlignment="Stretch"
+                  Visibility="{x:Bind ViewModel.IsTableView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Margin="0,0,0,8"
+                        HorizontalAlignment="Left"
+                        Command="{x:Bind ViewModel.BackToListCommand}"
+                        Content="{x:Bind ViewModel.BackToListLabel, Mode=OneWay}" />
+                <crud:CrudWorkbenchPage Grid.Row="1"
+                                        x:Name="TableWorkbench"
+                                        VerticalAlignment="Stretch"
+                                        HasShowInactive="False"
+                                        DataContext="{x:Bind ViewModel.TableViewModel, Mode=OneWay}" />
+            </Grid>
+        </Grid>
+    </layout:PageLayout>
+</Page>

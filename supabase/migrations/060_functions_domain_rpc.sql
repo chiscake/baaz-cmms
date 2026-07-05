@@ -670,6 +670,75 @@ begin
 end;
 $$;
 
+-- Inventory (контур А): подтверждение получения инструмента отделом → in_progress.
+-- Вызывается диспетчером (pickup) или Edge Function REP-API-2 (deliver).
+create or replace function public.confirm_inventory_received(
+  p_request_id uuid,
+  p_comment text default null
+)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_status public.request_status;
+  v_inventory_id uuid;
+  v_received_at timestamptz;
+  v_actor uuid;
+begin
+  v_actor := auth.uid();
+  if v_actor is null then
+    select id into v_actor from public.profiles where role = 'admin' limit 1;
+    if v_actor is null then
+      raise exception using errcode = 'P0001', message = 'NO_INTEGRATION_ACTOR';
+    end if;
+  elsif public.current_profile_role() not in ('admin', 'dispatcher') then
+    raise exception 'UNAUTHORIZED';
+  end if;
+
+  select status, inventory_id, inventory_received_at
+  into v_status, v_inventory_id, v_received_at
+  from public.requests
+  where id = p_request_id
+  for update;
+
+  if v_inventory_id is null then
+    raise exception using errcode = 'P0001', message = 'NOT_INVENTORY_REQUEST';
+  end if;
+
+  if v_received_at is not null and v_status = 'in_progress' then
+    return;
+  end if;
+
+  if v_status is distinct from 'accepted' then
+    raise exception using errcode = 'P0001', message = 'REQUEST_NOT_ACCEPTED';
+  end if;
+
+  if exists (
+    select 1 from public.request_repair_departments
+    where request_id = p_request_id and assignee_id is null
+  ) then
+    raise exception using errcode = 'P0001', message = 'ALL_DEPARTMENTS_NEED_ASSIGNEE';
+  end if;
+
+  update public.requests
+  set status = 'in_progress',
+      inventory_received_at = now(),
+      updated_at = now()
+  where id = p_request_id;
+
+  insert into public.request_status_history (request_id, changed_by, old_status, new_status, comment)
+  values (
+    p_request_id,
+    v_actor,
+    'accepted',
+    'in_progress',
+    coalesce(p_comment, 'Инструмент получен отделом')
+  );
+end;
+$$;
+
 -- Начать работы по позиции ППР (scheduled | overdue → in_progress).
 create or replace function public.start_schedule_work(
   p_schedule_id uuid,

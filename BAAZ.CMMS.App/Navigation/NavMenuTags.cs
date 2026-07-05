@@ -19,6 +19,7 @@ internal static class NavMenuTags
     public const string MaintenanceNorms = "MaintenanceNorms";
     public const string MaterialRequisition = "MaterialRequisition";
     public const string ToolRequisition = "ToolRequisition";
+    public const string ToolRequisitionHistory = "ToolRequisitionHistory";
     public const string RequesterAssets = "RequesterAssets";
     public const string DispatcherGroup = "DispatcherGroup";
     public const string RequesterGroup = "RequesterGroup";
@@ -45,6 +46,7 @@ internal static class NavItemIds
     public const string DispatcherWorkReports = "dispatcher.workReports";
     public const string DispatcherMaterialRequisition = "dispatcher.materialRequisition";
     public const string DispatcherToolRequisition = "dispatcher.toolRequisition";
+    public const string DispatcherToolRequisitionHistory = "dispatcher.toolRequisitionHistory";
     public const string DispatcherGroupHome = "dispatcher.group.home";
 
     public const string RequesterHome = "requester.home";

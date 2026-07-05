@@ -33,6 +33,11 @@
                                    Label="{x:Bind ViewModel.DetailStatusLabel, Mode=OneWay}"
                                    BackgroundKey="{x:Bind ViewModel.DetailStatusBackgroundKey, Mode=OneWay}"
                                    ForegroundKey="{x:Bind ViewModel.DetailStatusForegroundKey, Mode=OneWay}" />
+                <badge:StatusBadge HorizontalAlignment="Left"
+                                   Label="{x:Bind ViewModel.InventoryBadgeLabel, Mode=OneWay}"
+                                   BackgroundKey="AccentFillColorDefaultBrush"
+                                   ForegroundKey="TextOnAccentFillColorPrimaryBrush"
+                                   Visibility="{x:Bind ViewModel.IsInventoryRequest, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
             </StackPanel>
 
             <StackPanel Spacing="6">
@@ -71,6 +76,24 @@
                              Text="{x:Bind ViewModel.LabelLocation, Mode=OneWay}" />
                         <Run Text=": " />
                         <Run Text="{x:Bind ViewModel.DetailLocation, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Visibility="{x:Bind ViewModel.IsInventoryRequest, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Run FontWeight="SemiBold"
+                             Text="{x:Bind ViewModel.LabelInventoryWarehouse, Mode=OneWay}" />
+                        <Run Text=": " />
+                        <Run Text="{x:Bind ViewModel.InventoryWarehouseDisplay, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Visibility="{x:Bind ViewModel.ShowInventoryHandoffInfo, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Run FontWeight="SemiBold"
+                             Text="{x:Bind ViewModel.LabelInventoryHandoff, Mode=OneWay}" />
+                        <Run Text=": " />
+                        <Run Text="{x:Bind ViewModel.InventoryHandoffDisplay, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Visibility="{x:Bind ViewModel.ShowInventoryReceivedAt, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Run FontWeight="SemiBold"
+                             Text="{x:Bind ViewModel.LabelInventoryReceivedAt, Mode=OneWay}" />
+                        <Run Text=": " />
+                        <Run Text="{x:Bind ViewModel.InventoryReceivedDisplay, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock TextWrapping="WrapWholeWords">
                         <Run FontWeight="SemiBold"
@@ -258,6 +281,17 @@
                     HorizontalAlignment="Left"
                     Visibility="{x:Bind ViewModel.CanStartWork, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
 
+            <Button Content="{x:Bind ViewModel.ActionConfirmInventoryReceived, Mode=OneWay}"
+                    Command="{x:Bind ViewModel.ConfirmInventoryReceivedCommand}"
+                    Style="{ThemeResource AccentButtonStyle}"
+                    HorizontalAlignment="Left"
+                    Visibility="{x:Bind ViewModel.CanConfirmInventoryReceived, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+            <InfoBar IsOpen="{x:Bind ViewModel.ShowAwaitingClerkHandoff, Mode=OneWay}"
+                     Severity="Informational"
+                     Message="{x:Bind ViewModel.AwaitingClerkHandoffHint, Mode=OneWay}"
+                     IsClosable="False" />
+
             <Grid ColumnSpacing="8"
                   Visibility="{x:Bind ViewModel.CanChangeZone, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
@@ -413,6 +447,10 @@
                                     <Run Text=" — " />
                                     <Run Text="{x:Bind StatusLabel}" />
                                 </TextBlock>
+                                <TextBlock Text="{x:Bind StorekeeperCancelBanner}"
+                                           Style="{ThemeResource CaptionTextBlockStyle}"
+                                           Foreground="{ThemeResource SystemFillColorCautionBrush}"
+                                           Visibility="{x:Bind IsCancelledByStorekeeper, Mode=OneTime, Converter={StaticResource BoolToVisibilityConverter}}" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>

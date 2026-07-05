@@ -6,6 +6,16 @@ create table public.requests (
   request_number text not null unique,
   type public.request_type not null default 'breakdown',
   asset_id uuid references public.assets(id) on delete restrict,
+  -- Контур А (TMS → CMMS): ссылка на экземпляр во внешней складской системе (MVP: tms_tools.id).
+  inventory_id uuid,
+  inventory_kind public.inventory_kind,
+  inventory_name text,
+  inventory_serial text,
+  inventory_type_name text,
+  inventory_source public.inventory_source not null default 'tms',
+  inventory_handoff_mode public.inventory_handoff_mode,
+  inventory_warehouse_name text,
+  inventory_received_at timestamptz,
   location_description text not null,
   requester_id uuid not null references public.profiles(id) on delete restrict,
   title text not null,
@@ -19,8 +29,29 @@ create table public.requests (
   status public.request_status default 'new',
   created_at timestamptz default now(),
   updated_at timestamptz default now(),
-  check (asset_id is not null or location_description is not null)
+  check (
+    (
+      asset_id is not null
+      and inventory_id is null
+    )
+    or (
+      inventory_id is not null
+      and inventory_kind is not null
+      and asset_id is null
+    )
+    or (
+      asset_id is null
+      and inventory_id is null
+      and nullif(trim(location_description), '') is not null
+    )
+  )
 );
+
+-- Одна незакрытая заявка на пару (inventory_id, inventory_kind) — идемпотентность REP-API-1.
+create unique index requests_one_open_inventory
+  on public.requests (inventory_id, inventory_kind)
+  where inventory_id is not null
+    and status not in ('closed', 'rejected', 'cancelled');
 
 -- Маршрутизация заявки по ремонтным отделам (многие-ко-многим).
 -- Диспетчер указывает куда направить при принятии заявки; каждая строка

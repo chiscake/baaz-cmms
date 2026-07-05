@@ -1,5 +1,7 @@
 namespace BAAZ.CMMS.App.Helpers;
 
+using BAAZ.CMMS.Core.Models.TmsIssuance;
+
 /// <summary>Единая палитра бейджей статусов заявок, графика ТО и оборудования (Material Design, см. <see cref="SemanticColorCatalog"/>).</summary>
 public static class StatusBadgeFactory
 {
@@ -48,6 +50,18 @@ public static class StatusBadgeFactory
         "active" => new(StatusBadgeColorToken.Green),
         "maintenance" => new(StatusBadgeColorToken.Amber),
         "decommissioned" => new(StatusBadgeColorToken.Brown),
+        _ => new(StatusBadgeColorToken.BlueGrey),
+    };
+
+    public static StatusBadgeStyle ForTmsRequisition(string? status) => status switch
+    {
+        TmsRequisitionStatuses.New => new(StatusBadgeColorToken.Blue),
+        TmsRequisitionStatuses.PartiallyReserved => new(StatusBadgeColorToken.BlueGrey),
+        TmsRequisitionStatuses.ReadyForIssue => new(StatusBadgeColorToken.Green),
+        TmsRequisitionStatuses.Issued => new(StatusBadgeColorToken.Amber),
+        TmsRequisitionStatuses.PartiallyReturned => new(StatusBadgeColorToken.Teal),
+        TmsRequisitionStatuses.Returned => new(StatusBadgeColorToken.Teal),
+        TmsRequisitionStatuses.Cancelled => new(StatusBadgeColorToken.Brown),
         _ => new(StatusBadgeColorToken.BlueGrey),
     };
 }

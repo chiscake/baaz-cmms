@@ -1,5 +1,5 @@
 using System;
-using System.IO;
+using System.Diagnostics;
 using System.Threading;
 
 using BAAZ.CMMS.App.Helpers;
@@ -39,12 +39,16 @@ public static class Program
 
     private static void InitializeAppNotifications()
     {
-        AppNotificationManager.Default.NotificationInvoked += OnNotificationInvoked;
-
-        var iconPath = Path.Combine(AppContext.BaseDirectory, "Assets", "baaz-logo.ico");
-        AppNotificationManager.Default.Register(
-            ResourceStrings.Get("App_Title"),
-            new Uri(iconPath));
+        try
+        {
+            AppNotificationManager.Default.NotificationInvoked += OnNotificationInvoked;
+            AppNotificationManager.Default.Register();
+        }
+        catch (Exception ex)
+        {
+            // Self-contained unpackaged: Insights.Resource.dll may be missing from WinAppSDK deployment (WindowsAppSDK #6071).
+            Debug.WriteLine($"[AppNotifications] Register failed ({ex.GetType().Name}): {ex.Message}");
+        }
     }
 
     private static void OnNotificationInvoked(

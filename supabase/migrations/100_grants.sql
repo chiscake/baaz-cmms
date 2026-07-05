@@ -107,5 +107,6 @@ grant execute on function public.add_request_department(uuid, uuid, uuid, text) 
 grant execute on function public.assign_request_technician(uuid, uuid, uuid) to authenticated, service_role;
 grant execute on function public.update_request_repair_zone(uuid, public.repair_zone, text, text) to authenticated, service_role;
 grant execute on function public.start_request_work(uuid, text) to authenticated, service_role;
+grant execute on function public.confirm_inventory_received(uuid, text) to authenticated, service_role;
 grant execute on function public.start_schedule_work(uuid, text) to authenticated, service_role;
 grant execute on function public.close_request_as_staff(uuid, text) to authenticated, service_role;

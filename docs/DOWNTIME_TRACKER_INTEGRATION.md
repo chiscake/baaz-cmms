@@ -2,7 +2,7 @@
 
 Read-only API для учёта простоев. DT **не пишет** в CMMS — только читает view схемы `integration` через PostgREST (publishable key + `Accept-Profile: integration`).
 
-Клиентская документация: [Prostoi/docs/CMMS_INTEGRATION.md](../../Prostoi/docs/CMMS_INTEGRATION.md) (если workspace Prostoi доступен).
+Клиентская документация (репозиторий **Prostoi** / baaz-downtime-tracker): `docs/CMMS_INTEGRATION.md`.
 
 Целевая модель v2 (Realtime, авто-события): [docs/use-cases/downtime-tracker.md](use-cases/downtime-tracker.md).
 
@@ -50,7 +50,7 @@ Read-only API для учёта простоев. DT **не пишет** в CMMS
 
 ## Seed и симметрия с Mock
 
-DT-заявки для демо: [`scripts/seed-dt-integration-data.mjs`](../scripts/seed-dt-integration-data.mjs) — зеркало [`Prostoi/Integration/Fixtures/`](../Prostoi/Prostoi/Integration/Fixtures/).
+DT-заявки для демо: [seed-dt-integration-data.mjs](../scripts/seed-dt-integration-data.mjs) — зеркало `Prostoi/Integration/Fixtures/` (репозиторий Prostoi).
 
 - UUID `b222…201`–`207` (заявки), `c333…302`–`306` (отчёты)
 - `REQ-2026-0047` — closed multi-dept (РМУ + КИПиА), 2 отчёта на одну заявку
@@ -63,4 +63,4 @@ DT-заявки для демо: [`scripts/seed-dt-integration-data.mjs`](../scr
 
 ## Синхронизация документации
 
-При изменении контракта обновлять этот файл и, если в workspace есть Prostoi, [`Prostoi/docs/CMMS_INTEGRATION.md`](../../Prostoi/docs/CMMS_INTEGRATION.md) + fixtures (см. [`AGENTS.md`](../AGENTS.md)).
+При изменении контракта обновлять этот файл и, если доступен репозиторий Prostoi, `docs/CMMS_INTEGRATION.md` + fixtures там же (см. [AGENTS.md](../AGENTS.md)).

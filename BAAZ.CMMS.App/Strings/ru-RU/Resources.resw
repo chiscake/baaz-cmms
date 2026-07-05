@@ -66,6 +66,9 @@
   <data name="Nav_ToolRequisition" xml:space="preserve">
     <value>Заявка на инструмент</value>
   </data>
+  <data name="Nav_ToolRequisitionHistory" xml:space="preserve">
+    <value>Заявки на инструменты</value>
+  </data>
   <data name="Nav_Group_Dispatcher" xml:space="preserve">
     <value>Диспетчер</value>
   </data>
@@ -150,6 +153,27 @@
   </data>
   <data name="RequestDetail_Action_StartWork" xml:space="preserve">
     <value>Начать работы</value>
+  </data>
+  <data name="RequestDetail_Action_ConfirmInventoryReceived" xml:space="preserve">
+    <value>Инструмент получен</value>
+  </data>
+  <data name="RequestDetail_Label_InventoryWarehouse" xml:space="preserve">
+    <value>Склад TMS</value>
+  </data>
+  <data name="RequestDetail_Label_InventoryHandoff" xml:space="preserve">
+    <value>Способ передачи</value>
+  </data>
+  <data name="RequestDetail_Label_InventoryReceivedAt" xml:space="preserve">
+    <value>Получен отделом</value>
+  </data>
+  <data name="RequestDetail_Handoff_Pickup" xml:space="preserve">
+    <value>Отдел заберёт со склада</value>
+  </data>
+  <data name="RequestDetail_Handoff_Deliver" xml:space="preserve">
+    <value>Кладовщик передаст в отдел</value>
+  </data>
+  <data name="RequestDetail_Hint_AwaitingClerkHandoff" xml:space="preserve">
+    <value>Ожидает передачи кладовщиком TMS на склад → отдел.</value>
   </data>
   <data name="RequestDetail_Action_ChangeZone" xml:space="preserve">
     <value>Зона ремонта</value>
@@ -652,6 +676,15 @@
   <data name="RequestDetail_Section_ToolRequisitions" xml:space="preserve">
     <value>Заявки на инструмент (TMS)</value>
   </data>
+  <data name="RequestDetail_Label_Inventory" xml:space="preserve">
+    <value>Инструмент (TMS)</value>
+  </data>
+  <data name="RequestDetail_Badge_InventoryTms" xml:space="preserve">
+    <value>Инструмент (TMS)</value>
+  </data>
+  <data name="RequestDetail_Tms_StorekeeperCancelled" xml:space="preserve">
+    <value>Отменено кладовщиком в TMS</value>
+  </data>
   <data name="ToolRequisition_Section_Channel" xml:space="preserve">
     <value>Способ оформления</value>
   </data>
@@ -767,7 +800,19 @@
     <value>Отправлено в TMS</value>
   </data>
   <data name="ToolRequisition_SubmitTms_Success_Message" xml:space="preserve">
-    <value>Заявка TMS {0} создана (статус: {1}).</value>
+    <value>Заявка TMS {0} создана.</value>
+  </data>
+  <data name="ToolRequisition_SubmitTms_Success_Message_Mock" xml:space="preserve">
+    <value>Демо-режим Mock: ссылка {0} сохранена только в CMMS. В базе TMS записей нет — включите Live в настройках.</value>
+  </data>
+  <data name="ToolRequisition_TmsMock_Warning" xml:space="preserve">
+    <value>Режим Mock: отправка не создаёт заявку в TMS (только локальная ссылка в CMMS). Для интеграции: Настройки → Tool Tracker → Live, URL http://127.0.0.1:8000 и секрет A.</value>
+  </data>
+  <data name="ToolRequisition_TmsLive_Hint" xml:space="preserve">
+    <value>Режим Live: заявка уходит в TMS (БД на порту 55321, таблицы requisitions, requisition_lines, cmms_work_order_links).</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsNotConfirmed" xml:space="preserve">
+    <value>TMS не подтвердил создание заявки. Проверьте, что uvicorn запущен, секрет совпадает, и смотрите логи TMS.</value>
   </data>
   <data name="ToolRequisition_Error_NoWorkOrder" xml:space="preserve">
     <value>Выберите наряд.</value>
@@ -801,6 +846,51 @@
   </data>
   <data name="ToolRequisition_Error_TmsFailed" xml:space="preserve">
     <value>Не удалось отправить заявку в TMS.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsWarehousesFailed" xml:space="preserve">
+    <value>Не удалось загрузить склады TMS.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsCatalogFailed" xml:space="preserve">
+    <value>Не удалось загрузить каталог инструментов TMS.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsFixturesFailed" xml:space="preserve">
+    <value>Ошибка загрузки TMS fixtures: {0}</value>
+  </data>
+  <data name="TmsIntegration_Error_Unreachable" xml:space="preserve">
+    <value>Не удалось подключиться к TMS.</value>
+  </data>
+  <data name="TmsIntegration_Error_WrongSupabaseUrl" xml:space="preserve">
+    <value>Указан URL Supabase TMS вместо FastAPI.</value>
+  </data>
+  <data name="TmsIntegration_Error_Unauthorized" xml:space="preserve">
+    <value>TMS отклонил запрос: неверный или отсутствующий секрет интеграции.</value>
+  </data>
+  <data name="TmsIntegration_Error_ForbiddenSecret" xml:space="preserve">
+    <value>TMS отклонил запрос: секрет интеграции не совпадает.</value>
+  </data>
+  <data name="TmsIntegration_Error_ForbiddenApiKey" xml:space="preserve">
+    <value>TMS отклонил запрос: неверный apikey.</value>
+  </data>
+  <data name="TmsIntegration_Error_WrongUrl" xml:space="preserve">
+    <value>Неверный адрес TMS (ожидается FastAPI, не Supabase).</value>
+  </data>
+  <data name="TmsIntegration_Error_Server" xml:space="preserve">
+    <value>Ошибка сервера TMS при обработке запроса.</value>
+  </data>
+  <data name="TmsIntegration_Error_Http" xml:space="preserve">
+    <value>TMS вернул ошибку HTTP.</value>
+  </data>
+  <data name="ToolRequisition_Error_DuplicateTmsRequisition" xml:space="preserve">
+    <value>Заявка с таким идентификатором TMS уже сохранена. Обновите страницу или выберите другой наряд.</value>
+  </data>
+  <data name="ToolRequisition_Error_DuplicateClientReference" xml:space="preserve">
+    <value>Эта заявка уже была отправлена (повторная отправка).</value>
+  </data>
+  <data name="ToolRequisition_Error_DuplicateActiveLink" xml:space="preserve">
+    <value>Для этого наряда и склада уже есть активная заявка в TMS. Выберите другой склад или дождитесь завершения текущей.</value>
+  </data>
+  <data name="ToolRequisition_DuplicateActiveLink_Hint" xml:space="preserve">
+    <value>Для выбранного склада заявка уже отправлена в TMS. Чтобы отправить снова, отмените предыдущую в TMS или выберите другой склад.</value>
   </data>
   <data name="ToolRequisition_Error_NotAuthenticated" xml:space="preserve">
     <value>Требуется вход в систему.</value>
@@ -1508,8 +1598,62 @@
   <data name="Settings_Supabase_Key" xml:space="preserve">
     <value>Publishable key</value>
   </data>
+  <data name="Settings_Supabase_Test" xml:space="preserve">
+    <value>Проверить подключение</value>
+  </data>
   <data name="Settings_Supabase_Save" xml:space="preserve">
     <value>Сохранить и переподключиться</value>
+  </data>
+  <data name="Settings_Supabase_Test_Validation" xml:space="preserve">
+    <value>Укажите Supabase URL и publishable key.</value>
+  </data>
+  <data name="Settings_Supabase_Test_Success" xml:space="preserve">
+    <value>Подключение к Supabase успешно.</value>
+  </data>
+  <data name="Settings_Supabase_Test_Failed" xml:space="preserve">
+    <value>Не удалось подключиться к Supabase.</value>
+  </data>
+  <data name="Settings_Supabase_Saved" xml:space="preserve">
+    <value>Настройки Supabase сохранены и применены.</value>
+  </data>
+  <data name="Settings_Tms_Section" xml:space="preserve">
+    <value>Tool Tracker (TMS)</value>
+  </data>
+  <data name="Settings_Tms_Header" xml:space="preserve">
+    <value>Интеграция с TMS</value>
+  </data>
+  <data name="Settings_Tms_Description" xml:space="preserve">
+    <value>Mock — JSON-fixtures без запущенного TMS. Live — HTTP FastAPI на порту 8000.</value>
+  </data>
+  <data name="Settings_Tms_Mode" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="Settings_Tms_BaseUrl" xml:space="preserve">
+    <value>TMS Base URL</value>
+  </data>
+  <data name="Settings_Tms_Secret" xml:space="preserve">
+    <value>TMS Integration Secret</value>
+  </data>
+  <data name="Settings_Tms_Test" xml:space="preserve">
+    <value>Проверить подключение</value>
+  </data>
+  <data name="Settings_Tms_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Settings_Tms_Test_Validation" xml:space="preserve">
+    <value>Укажите TMS Base URL для режима Live.</value>
+  </data>
+  <data name="Settings_Tms_Test_Mock_Success" xml:space="preserve">
+    <value>Режим Mock: подключение к TMS не требуется.</value>
+  </data>
+  <data name="Settings_Tms_Test_Success" xml:space="preserve">
+    <value>Подключение к TMS успешно.</value>
+  </data>
+  <data name="Settings_Tms_Test_Failed" xml:space="preserve">
+    <value>Не удалось подключиться к TMS.</value>
+  </data>
+  <data name="Settings_Tms_Saved" xml:space="preserve">
+    <value>Настройки TMS сохранены</value>
   </data>
   <data name="Home_RoleBadge_Admin" xml:space="preserve">
     <value>АДМИНИСТРАТОР</value>
@@ -1568,6 +1712,9 @@
   <data name="Home_Row_PlannedMaintenance" xml:space="preserve">
     <value>Плановое ТО</value>
   </data>
+  <data name="Home_Row_Tools" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
   <data name="Home_Stat_AcceptedRequests" xml:space="preserve">
     <value>Принятые</value>
   </data>
@@ -1581,10 +1728,13 @@
     <value>Просроченные</value>
   </data>
   <data name="Home_Stat_ScheduleToday" xml:space="preserve">
-    <value>Запланировано на сегодня</value>
+    <value>На сегодня</value>
   </data>
   <data name="Home_Stat_ScheduleInProgress" xml:space="preserve">
     <value>В работе</value>
+  </data>
+  <data name="Home_Stat_ToolRequisitionsReady" xml:space="preserve">
+    <value>Заявок готовых к выдаче</value>
   </data>
   <data name="Home_Stat_ActiveTechnicians" xml:space="preserve">
     <value>Активные техники</value>
@@ -1667,6 +1817,15 @@
   <data name="Auth_ProfileNotFound" xml:space="preserve">
     <value>Профиль пользователя не найден.</value>
   </data>
+  <data name="Auth_ChangeServer" xml:space="preserve">
+    <value>Изменить сервер Supabase</value>
+  </data>
+  <data name="Auth_BackToSignIn" xml:space="preserve">
+    <value>Назад к входу</value>
+  </data>
+  <data name="Auth_Server_Subtitle" xml:space="preserve">
+    <value>Укажите URL и publishable key для подключения к Supabase.</value>
+  </data>
   <data name="TitleBar_Profile_Format" xml:space="preserve">
     <value>{0} | {1} | {2}</value>
   </data>
@@ -1687,6 +1846,9 @@
   </data>
   <data name="Connection_Retry" xml:space="preserve">
     <value>Переподключиться</value>
+  </data>
+  <data name="Connection_Back" xml:space="preserve">
+    <value>Назад к ошибке подключения</value>
   </data>
   <data name="Startup_Window_Title" xml:space="preserve">
     <value>Запуск</value>
@@ -2054,6 +2216,30 @@ HResult: {1}</value>
   </data>
   <data name="RequestHistory_Empty_List" xml:space="preserve">
     <value>Заявок пока нет.</value>
+  </data>
+  <data name="ToolRequisitionHistory_Empty_List" xml:space="preserve">
+    <value>Заявок на инструменты пока нет.</value>
+  </data>
+  <data name="ToolRequisitionHistory_Search_Placeholder" xml:space="preserve">
+    <value>Поиск по номеру, складу или статусу</value>
+  </data>
+  <data name="ToolRequisitionHistory_Detail_Number" xml:space="preserve">
+    <value>Номер заявки TMS</value>
+  </data>
+  <data name="ToolRequisitionHistory_Detail_Warehouse" xml:space="preserve">
+    <value>Склад</value>
+  </data>
+  <data name="ToolRequisitionHistory_Detail_LastSyncedAt" xml:space="preserve">
+    <value>Последняя синхронизация</value>
+  </data>
+  <data name="ToolRequisitionHistory_UnknownWarehouse" xml:space="preserve">
+    <value>Склад не указан</value>
+  </data>
+  <data name="ToolRequisitionHistory_Column_Number" xml:space="preserve">
+    <value>Номер</value>
+  </data>
+  <data name="ToolRequisitionHistory_Column_Warehouse" xml:space="preserve">
+    <value>Склад</value>
   </data>
   <data name="MaintenanceType_To1" xml:space="preserve">
     <value>ТО-1</value>

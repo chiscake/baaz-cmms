@@ -89,9 +89,35 @@
                     <TextBlock Text="{Binding SupabaseKeyLabel, Mode=OneWay}" />
                     <TextBox Text="{Binding SupabaseAnonKey, Mode=TwoWay}" />
 
-                    <Button HorizontalAlignment="Left"
-                            Command="{Binding SaveSupabaseSettingsCommand}"
-                            Content="{Binding SupabaseSaveButtonText, Mode=OneWay}" />
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8">
+                        <Button Command="{Binding TestSupabaseConnectionCommand}"
+                                Content="{Binding SupabaseTestButtonText, Mode=OneWay}" />
+                        <Button Command="{Binding SaveSupabaseSettingsCommand}"
+                                Content="{Binding SupabaseSaveButtonText, Mode=OneWay}" />
+                    </StackPanel>
+                </StackPanel>
+            </toolkit:SettingsCard>
+
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                       Text="{Binding SectionTmsIntegration, Mode=OneWay}" />
+            <toolkit:SettingsCard Description="{Binding TmsIntegrationDescription, Mode=OneWay}"
+                                  Header="{Binding TmsIntegrationHeader, Mode=OneWay}">
+                <StackPanel Spacing="8" MinWidth="420">
+                    <TextBlock Text="{Binding TmsModeLabel, Mode=OneWay}" />
+                    <ComboBox ItemsSource="{Binding TmsModeOptions, Mode=OneWay}"
+                              SelectedIndex="{Binding SelectedTmsModeIndex, Mode=TwoWay}" />
+                    <TextBlock Text="{Binding TmsBaseUrlLabel, Mode=OneWay}" />
+                    <TextBox Text="{Binding TmsBaseUrl, Mode=TwoWay}" />
+                    <TextBlock Text="{Binding TmsSecretLabel, Mode=OneWay}" />
+                    <PasswordBox x:Name="TmsSecretBox" PasswordChanged="TmsSecretBox_PasswordChanged" />
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8">
+                        <Button Command="{Binding TestTmsConnectionCommand}"
+                                Content="{Binding TmsTestButtonText, Mode=OneWay}" />
+                        <Button Command="{Binding SaveTmsIntegrationSettingsCommand}"
+                                Content="{Binding TmsSaveButtonText, Mode=OneWay}" />
+                    </StackPanel>
                 </StackPanel>
             </toolkit:SettingsCard>
         </StackPanel>

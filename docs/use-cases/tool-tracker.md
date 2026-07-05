@@ -4,7 +4,7 @@
 
 > **Важно:** приложение TMS разрабатывается **в отдельном репозитории** и **отдельном проекте Supabase**. В BAAZ CMMS реализуются контракты интеграции (Edge Functions, webhooks, views); UI кладовой в CMMS нет.
 >
-> **Актуальное предложение по интеграции (для согласования с TMS):** [`tms-integration-proposal.md`](tms-integration-proposal.md) — ремонт/поверка инструмента (TMS → CMMS). [`tms-tool-issuance-proposal.md`](tms-tool-issuance-proposal.md) — получение инструмента на наряд (CMMS → TMS). Документ ниже — **ранняя внутренняя спецификация UC-TT**; при расхождении приоритет у proposal-файлов.
+> **Актуальный контракт:** [TOOL_TRACKER_INTEGRATION.md](../TOOL_TRACKER_INTEGRATION.md) (CMMS) и `baaz-tool-tracker/docs/CMMS_INTEGRATION.md` (TMS). Документ ниже — UC-TT; при расхождении приоритет у integration docs.
 
 Основание: схема данных в [`DATABASE_TABLES.md`](../DATABASE_TABLES.md).
 
@@ -31,7 +31,7 @@ flowchart LR
 
 Ключевые поля для связки: `request_id`, `schedule_id`, `tool_id`, `actual_duration_hours`, `status` заявки.
 
-> Ранние строки про `inventory.*` удалены — схема `inventory` в CMMS не используется. Актуальный контракт — в [`tms-integration-proposal.md`](tms-integration-proposal.md).
+> Ранние строки про отдельную схему `inventory.*` удалены — inventory-поля на `public.requests` (вариант 3). Актуальный контракт — [`TOOL_TRACKER_INTEGRATION.md`](../TOOL_TRACKER_INTEGRATION.md).
 
 ---
 
@@ -100,6 +100,31 @@ flowchart LR
 
 ---
 
+## UC-TT6 — Отправка инструмента со склада TMS в ТОиР (контур А)
+
+**Инициатор:** кладовщик или мастер TMS (`/inventory` → «Отправить в ТОиР»)
+
+**Цель:** создать inventory-заявку в CMMS и заблокировать инструмент до завершения ремонта/поверки.
+
+**Предусловия:** инструмент `available`, нет активной `cmms_repair_links`; в CMMS доступен REP-API-1.
+
+**Основной сценарий:**
+
+1. Пользователь TMS выбирает ремонтный отдел и **способ передачи**:
+   - `pickup_at_warehouse` — отдел заберёт со склада;
+   - `deliver_to_department` — кладовщик передаст в отдел (режим по умолчанию).
+2. TMS вызывает REP-API-1 с `inventory_handoff_mode`, `inventory_warehouse_name`; инструмент → `pending_repair`, CMMS → `new` (`repair_zone=workshop`).
+3. Диспетчер CMMS принимает заявку и назначает исполнителей (`accepted`).
+4. **Забор:** диспетчер CMMS на `RequestDetail` нажимает «Инструмент получен» → `in_progress`, TMS `maintenance`.
+5. **Доставка:** кладовщик TMS «Передан в отдел» (REP-API-2) → `in_progress`, TMS `maintenance`.
+6. Закрытие заявки CMMS → TMS `pending_return` → «Принят на склад» → `available`.
+
+**Затронутые сущности:** CMMS `requests` (`inventory_*`), TMS `tools`, `cmms_repair_links`.
+
+**Реализация:** REP-API-1/2, Edge Functions `integration-tms-*`; UI TMS `/inventory`; CMMS `RequestDetail` (handoff hint, кнопка получения для pickup).
+
+---
+
 ## UC-TT4 — Разблокировка инструмента по результатам поверки
 
 **Инициатор:** BAAZ CMMS (закрытие заявки после работ)
@@ -152,6 +177,7 @@ flowchart LR
 | `CreateMaintenanceRequest` | ToolTracker → BAAZ CMMS | INSERT `requests` |
 | `OnRequestStatusChanged` | BAAZ CMMS → ToolTracker | UPDATE `requests.status` |
 | `CreateToolRequisition` | BAAZ CMMS → ToolTracker | UC-D8 | `ITmsIssuanceClient` |
+| `SendInventoryToCmms` | ToolTracker → BAAZ CMMS | UC-TT6 | REP-API-1 (Edge Function) |
 
 Аутентификация интеграции: `service_role` или отдельный сервисный ключ с узкими RLS-политиками — уточняется при реализации адаптеров.
 

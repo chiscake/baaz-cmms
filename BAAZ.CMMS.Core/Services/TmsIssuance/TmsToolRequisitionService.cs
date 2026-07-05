@@ -1,6 +1,7 @@
 using BAAZ.CMMS.Core.Contracts.Integrations;
 using BAAZ.CMMS.Core.Data;
 using BAAZ.CMMS.Core.Data.Models;
+using BAAZ.CMMS.Core.Integrations.ToolTracker;
 using BAAZ.CMMS.Core.Models.TmsIssuance;
 using BAAZ.CMMS.Core.Repositories;
 
@@ -24,9 +25,39 @@ public sealed class TmsToolRequisitionService(
             return DataResult<ToolRequisitionCreateResult>.Ok(MapExistingToCreateResult(existing.Value));
         }
 
+        var duplicate = await _linkRepository.FindBlockingDuplicateAsync(
+            new TmsWorkOrderRef { Kind = input.WorkOrder.Kind, Id = input.WorkOrder.Id },
+            input.WarehouseId,
+            cancellationToken);
+        if (!duplicate.IsSuccess)
+            return DataResult<ToolRequisitionCreateResult>.Fail(duplicate.Error ?? DataError.Unknown("Не удалось проверить существующие заявки TMS"));
+
+        if (duplicate.Value is not null)
+            return DataResult<ToolRequisitionCreateResult>.Fail(DataError.Validation("ToolRequisition_Error_DuplicateActiveLink"));
+
         var created = await _issuanceClient.CreateRequisitionAsync(input, cancellationToken);
         if (!created.IsSuccess || created.Value is null)
             return DataResult<ToolRequisitionCreateResult>.Fail(created.Error ?? DataError.Unknown("TMS не принял заявку"));
+
+        if (TmsIntegrationSettingsSync.IsLive)
+        {
+            var verify = await _issuanceClient.GetRequisitionsByWorkOrderAsync(
+                new TmsWorkOrderRef { Kind = input.WorkOrder.Kind, Id = input.WorkOrder.Id },
+                TmsRequisitionFields.Summary,
+                cancellationToken: cancellationToken);
+            if (!verify.IsSuccess || verify.Value is null)
+            {
+                return DataResult<ToolRequisitionCreateResult>.Fail(
+                    verify.Error ?? DataError.Unknown("ToolRequisition_Error_TmsNotConfirmed"));
+            }
+
+            var confirmed = verify.Value.Requisitions.Any(r => r.RequisitionId == created.Value.RequisitionId);
+            if (!confirmed)
+            {
+                return DataResult<ToolRequisitionCreateResult>.Fail(
+                    DataError.Unknown("ToolRequisition_Error_TmsNotConfirmed"));
+            }
+        }
 
         var link = new TmsToolRequisitionLinkModel
         {
@@ -54,6 +85,16 @@ public sealed class TmsToolRequisitionService(
         TmsWorkOrderRef workOrder,
         CancellationToken cancellationToken = default)
         => _linkRepository.ListByWorkOrderAsync(workOrder, cancellationToken);
+
+    public Task<DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>> ListAllLocalAsync(
+        int limit = 500,
+        CancellationToken cancellationToken = default)
+        => _linkRepository.ListAllAsync(limit, cancellationToken);
+
+    public Task<DataResult<TmsToolRequisitionLinkModel?>> GetLocalByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default)
+        => _linkRepository.GetByIdAsync(id, cancellationToken);
 
     public async Task<DataResult<TmsRequisitionListResult>> RefreshWorkOrderStatusAsync(
         TmsWorkOrderRef workOrder,
@@ -124,6 +165,7 @@ public sealed class TmsToolRequisitionService(
         => new()
         {
             RequisitionId = link.TmsRequisitionId,
+            RequisitionNumber = TmsRequisitionDisplayNumber.Format(link.TmsRequisitionId),
             ClientReferenceId = link.ClientReferenceId,
             WarehouseId = link.WarehouseId,
             WarehouseName = link.WarehouseName,

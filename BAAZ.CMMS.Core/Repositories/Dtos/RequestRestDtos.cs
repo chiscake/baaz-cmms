@@ -119,6 +119,30 @@ public sealed class RequestDetailRowDto
     [JsonPropertyName("asset_id")]
     public Guid? AssetId { get; init; }
 
+    [JsonPropertyName("inventory_id")]
+    public Guid? InventoryId { get; init; }
+
+    [JsonPropertyName("inventory_kind")]
+    public string? InventoryKind { get; init; }
+
+    [JsonPropertyName("inventory_name")]
+    public string? InventoryName { get; init; }
+
+    [JsonPropertyName("inventory_serial")]
+    public string? InventorySerial { get; init; }
+
+    [JsonPropertyName("inventory_type_name")]
+    public string? InventoryTypeName { get; init; }
+
+    [JsonPropertyName("inventory_handoff_mode")]
+    public string? InventoryHandoffMode { get; init; }
+
+    [JsonPropertyName("inventory_warehouse_name")]
+    public string? InventoryWarehouseName { get; init; }
+
+    [JsonPropertyName("inventory_received_at")]
+    public DateTimeOffset? InventoryReceivedAt { get; init; }
+
     [JsonPropertyName("requester_id")]
     public Guid RequesterId { get; init; }
 

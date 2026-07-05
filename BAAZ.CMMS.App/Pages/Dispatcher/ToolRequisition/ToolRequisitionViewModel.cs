@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 using BAAZ.CMMS.App.Helpers;
@@ -10,6 +12,7 @@ using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.App.Services;
 using BAAZ.CMMS.Core.Contracts.Integrations;
 using BAAZ.CMMS.Core.Data;
+using BAAZ.CMMS.Core.Integrations.ToolTracker;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Models.TmsIssuance;
 using BAAZ.CMMS.Core.Services;
@@ -24,6 +27,8 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml.Controls;
 
 using WinUI.UtilsLibrary.ViewModels;
+
+using Helpers.Settings;
 
 namespace BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisition;
 
@@ -42,6 +47,7 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
     private Guid? _lockedRequestId;
     private Guid? _lockedScheduleId;
     private IReadOnlyList<TechnicianListItem> _technicians = [];
+    private readonly HashSet<Guid> _blockingWarehouseIds = [];
 
     public ToolRequisitionViewModel(
         IToolRequisitionService toolRequisitionService,
@@ -101,11 +107,20 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
     public string ActionRemoveLine => ResourceStrings.Get("ToolRequisition_Action_RemoveLine");
     public string ActionSubmitDocx => ResourceStrings.Get("Common_Action_GenerateDocx");
     public string ActionSubmitTms => ResourceStrings.Get("ToolRequisition_Action_SubmitTms");
+    public string DuplicateTmsHint => ResourceStrings.Get("ToolRequisition_DuplicateActiveLink_Hint");
     public string NotesPlaceholder => ResourceStrings.Get("ToolRequisition_Notes_Placeholder");
     public string WorkOrderKindPlaceholder => ResourceStrings.Get("Common_SelectWorkOrderKind");
     public string WorkOrderPlaceholder => ResourceStrings.Get("Common_SelectWorkOrder");
     public string TechnicianPlaceholder => ResourceStrings.Get("Common_SelectTechnician");
     public string TmsWarehousePlaceholder => ResourceStrings.Get("ToolRequisition_TmsWarehouse_Placeholder");
+
+    public bool IsTmsLiveIntegration => TmsIntegrationSettingsSync.IsLive;
+
+    public bool ShowTmsMockWarning => IsTmsMode && !IsTmsLiveIntegration;
+
+    public string TmsMockWarningText => ResourceStrings.Get("ToolRequisition_TmsMock_Warning");
+
+    public string TmsLiveModeHint => ResourceStrings.Get("ToolRequisition_TmsLive_Hint");
 
     public IReadOnlyList<string> WorkOrderKindLabels { get; } =
     [
@@ -160,6 +175,13 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
 
     public bool CanSubmit => !IsSubmitting && !IsLoading;
 
+    public bool HasBlockingLinkForSelectedWarehouse =>
+        SelectedTmsWarehouse is { } warehouse && _blockingWarehouseIds.Contains(warehouse.WarehouseId);
+
+    public bool CanSubmitTms => CanSubmit && !HasBlockingLinkForSelectedWarehouse;
+
+    public bool ShowDuplicateTmsHint => IsTmsMode && HasBlockingLinkForSelectedWarehouse;
+
     public bool IsDocxMode => SelectedChannelIndex == (int)ToolRequisitionChannel.Docx;
 
     public bool IsTmsMode => SelectedChannelIndex == (int)ToolRequisitionChannel.Tms;
@@ -172,9 +194,17 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
 
     public bool HasTmsLinks => TmsLinks.Count > 0;
 
-    partial void OnIsSubmittingChanged(bool value) => OnPropertyChanged(nameof(CanSubmit));
+    partial void OnIsSubmittingChanged(bool value)
+    {
+        OnPropertyChanged(nameof(CanSubmit));
+        OnPropertyChanged(nameof(CanSubmitTms));
+    }
 
-    partial void OnIsLoadingChanged(bool value) => OnPropertyChanged(nameof(CanSubmit));
+    partial void OnIsLoadingChanged(bool value)
+    {
+        OnPropertyChanged(nameof(CanSubmit));
+        OnPropertyChanged(nameof(CanSubmitTms));
+    }
 
     partial void OnSelectedChannelIndexChanged(int value)
     {
@@ -182,6 +212,9 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         OnPropertyChanged(nameof(IsTmsMode));
         OnPropertyChanged(nameof(ShowTmsCatalog));
         OnPropertyChanged(nameof(SectionLinesHint));
+        OnPropertyChanged(nameof(ShowDuplicateTmsHint));
+        OnPropertyChanged(nameof(CanSubmitTms));
+        OnPropertyChanged(nameof(ShowTmsMockWarning));
     }
 
     partial void OnSelectedWorkOrderKindIndexChanged(int value)
@@ -206,6 +239,9 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
             WarehouseName = value.Name;
 
         OnPropertyChanged(nameof(ShowTmsCatalog));
+        OnPropertyChanged(nameof(HasBlockingLinkForSelectedWarehouse));
+        OnPropertyChanged(nameof(ShowDuplicateTmsHint));
+        OnPropertyChanged(nameof(CanSubmitTms));
         _ = LoadCatalogToolsAsync();
     }
 
@@ -289,6 +325,12 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         if (IsSubmitting || !TryBuildInput(includeWarehouseId: true, out var input))
             return;
 
+        if (HasBlockingLinkForSelectedWarehouse)
+        {
+            InfoBanner.Report(ResourceStrings.Get("ToolRequisition_Error_DuplicateActiveLink"), InfoBarSeverity.Warning);
+            return;
+        }
+
         var profile = _authService.CurrentProfile;
         if (profile is null)
         {
@@ -311,9 +353,11 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
                 ResourceStrings.Get("ToolRequisition_SubmitTms_Success_Title"),
                 string.Format(
                     CultureInfo.CurrentCulture,
-                    ResourceStrings.Get("ToolRequisition_SubmitTms_Success_Message"),
-                    result.Value.RequisitionId,
-                    FormatTmsStatus(result.Value.Status)),
+                    ResourceStrings.Get(
+                        IsTmsLiveIntegration
+                            ? "ToolRequisition_SubmitTms_Success_Message"
+                            : "ToolRequisition_SubmitTms_Success_Message_Mock"),
+                    result.Value.RequisitionNumber),
                 App.MainWindow);
 
             await RefreshTmsLinksAsync();
@@ -350,6 +394,10 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         InfoBanner.Report(string.Empty);
         try
         {
+            SyncTmsIntegrationSettings();
+            OnPropertyChanged(nameof(IsTmsLiveIntegration));
+            OnPropertyChanged(nameof(ShowTmsMockWarning));
+
             var techniciansResult = await _technicianCatalogService.GetTechniciansAsync();
             if (!techniciansResult.IsSuccess || techniciansResult.Value is null)
             {
@@ -381,17 +429,36 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         TmsWarehouses.Clear();
         SelectedTmsWarehouse = null;
 
-        var result = await _tmsIssuanceClient.GetWarehousesAsync();
-        if (!result.IsSuccess || result.Value is null)
-            return;
-
-        foreach (var warehouse in result.Value.Warehouses)
+        try
         {
-            TmsWarehouses.Add(new TmsWarehousePickerItem
+            var result = await _tmsIssuanceClient.GetWarehousesAsync();
+            if (!result.IsSuccess || result.Value is null)
             {
-                WarehouseId = warehouse.WarehouseId,
-                Name = warehouse.Name,
-            });
+                InfoBanner.Report(
+                    result.Error is not null
+                        ? ResolveError(result.Error)
+                        : ResourceStrings.Get("ToolRequisition_Error_TmsWarehousesFailed"),
+                    InfoBarSeverity.Error);
+                return;
+            }
+
+            foreach (var warehouse in result.Value.Warehouses)
+            {
+                TmsWarehouses.Add(new TmsWarehousePickerItem
+                {
+                    WarehouseId = warehouse.WarehouseId,
+                    Name = warehouse.Name,
+                });
+            }
+        }
+        catch (Exception ex) when (ex is FileNotFoundException or InvalidOperationException or JsonException)
+        {
+            InfoBanner.Report(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    ResourceStrings.Get("ToolRequisition_Error_TmsFixturesFailed"),
+                    ex.Message),
+                InfoBarSeverity.Error);
         }
     }
 
@@ -401,15 +468,34 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         if (SelectedTmsWarehouse is null)
             return;
 
-        var result = await _tmsIssuanceClient.GetToolsAsync(
-            SelectedTmsWarehouse.WarehouseId,
-            TmsToolAvailability.Available);
+        try
+        {
+            var result = await _tmsIssuanceClient.GetToolsAsync(
+                SelectedTmsWarehouse.WarehouseId,
+                TmsToolAvailability.Available);
 
-        if (!result.IsSuccess || result.Value is null)
-            return;
+            if (!result.IsSuccess || result.Value is null)
+            {
+                InfoBanner.Report(
+                    result.Error is not null
+                        ? ResolveError(result.Error)
+                        : ResourceStrings.Get("ToolRequisition_Error_TmsCatalogFailed"),
+                    InfoBarSeverity.Error);
+                return;
+            }
 
-        foreach (var item in result.Value.Items)
-            CatalogTools.Add(item);
+            foreach (var item in result.Value.Items)
+                CatalogTools.Add(item);
+        }
+        catch (Exception ex) when (ex is FileNotFoundException or InvalidOperationException or JsonException)
+        {
+            InfoBanner.Report(
+                string.Format(
+                    CultureInfo.CurrentCulture,
+                    ResourceStrings.Get("ToolRequisition_Error_TmsFixturesFailed"),
+                    ex.Message),
+                InfoBarSeverity.Error);
+        }
     }
 
     private async Task LoadWorkOrderOptionsAsync()
@@ -496,11 +582,17 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
     private async Task RefreshTmsLinksAsync()
     {
         TmsLinks.Clear();
+        _blockingWarehouseIds.Clear();
         OnPropertyChanged(nameof(HasTmsLinks));
+        OnPropertyChanged(nameof(HasBlockingLinkForSelectedWarehouse));
+        OnPropertyChanged(nameof(ShowDuplicateTmsHint));
+        OnPropertyChanged(nameof(CanSubmitTms));
 
         var workOrder = ResolveWorkOrderRef();
         if (workOrder is null)
             return;
+
+        await _tmsToolRequisitionService.RefreshWorkOrderStatusAsync(workOrder);
 
         var result = await _tmsToolRequisitionService.ListLocalByWorkOrderAsync(workOrder);
         if (!result.IsSuccess || result.Value is null)
@@ -508,9 +600,13 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
 
         foreach (var link in result.Value.OrderByDescending(l => l.LastSyncedAt ?? l.CreatedAt))
         {
+            if (TmsRequisitionStatuses.BlocksDuplicateSubmission(link.LastKnownStatus))
+                _blockingWarehouseIds.Add(link.WarehouseId);
+
             TmsLinks.Add(new TmsLinkDisplayItem
             {
                 WarehouseName = link.WarehouseName ?? "—",
+                TmsRequisitionId = link.TmsRequisitionId,
                 Status = link.LastKnownStatus,
                 StatusLabel = FormatTmsStatus(link.LastKnownStatus),
                 LastSyncedAt = link.LastSyncedAt ?? link.CreatedAt,
@@ -518,6 +614,19 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         }
 
         OnPropertyChanged(nameof(HasTmsLinks));
+        OnPropertyChanged(nameof(HasBlockingLinkForSelectedWarehouse));
+        OnPropertyChanged(nameof(ShowDuplicateTmsHint));
+        OnPropertyChanged(nameof(CanSubmitTms));
+    }
+
+    private static void SyncTmsIntegrationSettings()
+    {
+        var settings = SettingsHelper.Current;
+        TmsIntegrationSettingsSync.Apply(
+            settings.TmsIntegrationMode,
+            settings.TmsBaseUrl,
+            settings.TmsIntegrationSecret,
+            settings.SupabaseAnonKey);
     }
 
     private TmsWorkOrderRef? ResolveWorkOrderRef()
@@ -639,8 +748,19 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
             return ResourceStrings.Get("ToolRequisition_Error_SaveFailed");
 
         var localized = ResourceStrings.Get(error.MessageKey);
+        if (error.MessageKey.StartsWith("TmsIntegration_", StringComparison.Ordinal))
+        {
+            var headline = localized != error.MessageKey ? localized : ResourceStrings.Get("ToolRequisition_Error_TmsFailed");
+            return string.IsNullOrWhiteSpace(error.Detail) ? headline : $"{headline} {error.Detail}";
+        }
+
         if (localized != error.MessageKey)
+        {
+            if (error.MessageKey == "DataError_Unknown" && !string.IsNullOrWhiteSpace(error.Detail))
+                return error.Detail;
+
             return localized;
+        }
 
         if (!string.IsNullOrWhiteSpace(error.Detail))
             return error.Detail;

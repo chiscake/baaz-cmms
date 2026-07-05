@@ -3,10 +3,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using BAAZ.CMMS.App.Helpers;
+
 using BAAZ.CMMS.App.Controls.Home;
 using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.App.Navigation;
+using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisitionHistory;
+using BAAZ.CMMS.Core.Models.TmsIssuance;
 using BAAZ.CMMS.Core.Services;
+using BAAZ.CMMS.Core.Services.TmsIssuance;
 
 using WinUI.UtilsLibrary.Contracts;
 
@@ -16,15 +21,18 @@ public sealed class DispatcherHomeDashboardViewModel : HomeDashboardSectionViewM
 {
     private readonly IRequestService _requestService;
     private readonly IMaintenanceService _maintenanceService;
+    private readonly ITmsToolRequisitionService _tmsToolRequisitionService;
 
     public DispatcherHomeDashboardViewModel(
         IRequestService requestService,
         IMaintenanceService maintenanceService,
+        ITmsToolRequisitionService tmsToolRequisitionService,
         INavigationService navigationService)
         : base(navigationService)
     {
         _requestService = requestService;
         _maintenanceService = maintenanceService;
+        _tmsToolRequisitionService = tmsToolRequisitionService;
 
         this.AddDashboardAction(NavLeafCatalog.IncomingRequests);
         this.AddDashboardAction(NavLeafCatalog.MaintenanceSchedule);
@@ -32,6 +40,7 @@ public sealed class DispatcherHomeDashboardViewModel : HomeDashboardSectionViewM
         this.AddDashboardAction(NavLeafCatalog.ToolRequisition);
 
         this.AddDashboardNavLink(NavLeafCatalog.RequestHistory);
+        this.AddDashboardNavLink(NavLeafCatalog.ToolRequisitionHistory);
         this.AddDashboardNavLink(NavLeafCatalog.WorkReports);
         this.AddDashboardNavLink(NavLeafCatalog.Personnel);
     }
@@ -72,11 +81,27 @@ public sealed class DispatcherHomeDashboardViewModel : HomeDashboardSectionViewM
                 && s.PlannedDate == today);
             var scheduleInProgressCount = schedule.Count(s => string.Equals(s.Status, "in_progress", StringComparison.Ordinal));
 
-            var scheduleRow = BeginStatRow(4, "Home_Row_PlannedMaintenance");
+            var toolLinksResult = await _tmsToolRequisitionService.ListAllLocalAsync(cancellationToken: cancellationToken);
+            var readyForIssueCount = toolLinksResult.IsSuccess && toolLinksResult.Value is not null
+                ? toolLinksResult.Value.Count(link =>
+                    string.Equals(link.LastKnownStatus, TmsRequisitionStatuses.ReadyForIssue, StringComparison.Ordinal))
+                : 0;
+
+            var scheduleRow = BeginStatRow(4, "Home_Row_PlannedMaintenance", "Home_Row_Tools");
             AddStat(scheduleRow, "Home_Stat_ScheduleOverdue", overdueCount, "\uE7BA", ScheduleColor("overdue"));
             AddStat(scheduleRow, "Home_Stat_ScheduleToday", todayCount, "\uE787", ScheduleColor("scheduled"));
             AddStat(scheduleRow, "Home_Stat_ScheduleInProgress", scheduleInProgressCount, "\uE9D9", ScheduleColor("in_progress"));
-            AddStatSpacer(scheduleRow);
+            AddStat(
+                scheduleRow,
+                "Home_Stat_ToolRequisitionsReady",
+                readyForIssueCount,
+                "\uE90F",
+                StatusBadgeColorToken.Green,
+                "ToolRequisitionHistory",
+                new ToolRequisitionHistoryNavigationArgs
+                {
+                    StatusFilter = TmsRequisitionStatuses.ReadyForIssue,
+                });
         }
         catch (Exception)
         {

@@ -106,6 +106,12 @@ internal static class NavLeafCatalog
         TitleResourceKey: "Nav_ToolRequisition",
         Icon: Symbol.Repair);
 
+    public static NavLeaf ToolRequisitionHistory { get; } = new(
+        NavMenuTags.ToolRequisitionHistory,
+        PageKey: "ToolRequisitionHistory",
+        TitleResourceKey: "Nav_ToolRequisitionHistory",
+        Icon: Symbol.List);
+
     public static NavLeaf Settings { get; } = new(
         NavMenuTags.Settings,
         PageKey: "Settings",
@@ -131,6 +137,7 @@ internal static class NavLeafCatalog
         NavMenuTags.MaintenanceNorms => MaintenanceNorms.TitleResourceKey,
         NavMenuTags.MaterialRequisition => MaterialRequisition.TitleResourceKey,
         NavMenuTags.ToolRequisition => ToolRequisition.TitleResourceKey,
+        NavMenuTags.ToolRequisitionHistory => ToolRequisitionHistory.TitleResourceKey,
         NavMenuTags.Settings => Settings.TitleResourceKey,
         _ => null,
     };

@@ -23,8 +23,26 @@
 
         <Grid Grid.Row="1"
               Padding="28,16,28,24">
-            <Border Style="{StaticResource AuthCardStyle}"
-                    VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Margin="0,0,0,16"
+                        Spacing="4">
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
+                           Text="{Binding TitleText, Mode=OneWay}" />
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Style="{ThemeResource BodyTextBlockStyle}"
+                           Text="{Binding SubtitleText, Mode=OneWay}"
+                           TextWrapping="WrapWholeWords" />
+            </StackPanel>
+
+            <Border Grid.Row="1"
+                    Style="{StaticResource AuthCardStyle}"
+                    VerticalAlignment="Top"
+                    Visibility="{Binding IsErrorView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <StackPanel Spacing="16">
                     <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
@@ -39,24 +57,56 @@
                                   Foreground="{ThemeResource SystemFillColorCautionBrush}"
                                   Glyph="&#xE7BA;" />
 
-                        <StackPanel Grid.Column="1"
-                                    Spacing="4"
-                                    VerticalAlignment="Center">
-                            <TextBlock FontWeight="SemiBold"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}"
-                                       Text="{Binding TitleText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
-                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                       Style="{ThemeResource BodyTextBlockStyle}"
-                                       Text="{Binding MessageText, Mode=OneWay}"
-                                       TextWrapping="WrapWholeWords" />
-                        </StackPanel>
+                        <TextBlock Grid.Column="1"
+                                   FontWeight="SemiBold"
+                                   Style="{ThemeResource SubtitleTextBlockStyle}"
+                                   Text="{Binding TitleText, Mode=OneWay}"
+                                   TextWrapping="WrapWholeWords"
+                                   VerticalAlignment="Center" />
                     </Grid>
 
                     <Button HorizontalAlignment="Stretch"
                             Click="RetryButton_Click"
                             Content="{Binding RetryButtonText, Mode=OneWay}"
                             Style="{ThemeResource AccentButtonStyle}" />
+
+                    <HyperlinkButton HorizontalAlignment="Left"
+                                     Command="{Binding ShowServerSettingsCommand}"
+                                     Content="{Binding ChangeServerText, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Style="{StaticResource AuthCardStyle}"
+                    VerticalAlignment="Top"
+                    Visibility="{Binding IsServerSettingsView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Spacing="14">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding ServerSettings.SupabaseUrlLabel, Mode=OneWay}" />
+                        <TextBox Text="{Binding ServerSettings.SupabaseUrl, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding ServerSettings.SupabaseKeyLabel, Mode=OneWay}" />
+                        <TextBox Text="{Binding ServerSettings.SupabaseAnonKey, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical"
+                                Spacing="8">
+                        <Button Command="{Binding ServerSettings.TestSupabaseConnectionCommand}"
+                                Content="{Binding ServerSettings.SupabaseTestButtonText, Mode=OneWay}" />
+                        <Button Command="{Binding ServerSettings.SaveSupabaseSettingsCommand}"
+                                Content="{Binding ServerSettings.SupabaseSaveButtonText, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Text="{Binding ServerSettings.StatusMessage, Mode=OneWay}"
+                               TextWrapping="WrapWholeWords" />
+
+                    <HyperlinkButton HorizontalAlignment="Left"
+                                     Command="{Binding ShowErrorViewCommand}"
+                                     Content="{Binding BackToErrorText, Mode=OneWay}" />
                 </StackPanel>
             </Border>
         </Grid>

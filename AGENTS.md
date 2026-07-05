@@ -90,9 +90,9 @@ pnpm fn:serve   # scripts/serve-edge-functions.ps1: stop+start при отсут
 
 Альтернатива без логов: после правок в `supabase/functions/` достаточно hot reload (`per_worker` в `config.toml`), если контейнер уже запущен. Не делайте `docker restart` только edge_runtime — Kong кэширует IP; при необходимости перезапустите весь стек (`supabase stop` / `supabase start`). Прямой CLI: `pnpm fn:serve:cli` (если заработает после обновления Supabase CLI).
 
-Деплой: `pnpm fn:deploy`; remote логи: `pnpm fn:logs`.
+Деплой: `pnpm fn:deploy`; remote логи: `pnpm fn:logs`. **Cloud:** Edge Functions (e.g. `admin-users`) are **not** deployed by `db push` / `db reset --linked` — run `pnpm fn:deploy` separately (see [`docs/CLOUD_DATABASE.md`](docs/CLOUD_DATABASE.md)).
 
-**Supabase URL / keys:** defaults in app config (`appsettings` or equivalent); overridable from **Settings** at runtime.
+**Supabase URL / keys:** overridable from **Settings** at runtime; persisted in `%LocalAppData%\BAAZ.CMMS.App\settings.json` (not app `.env`). Built-in defaults target local dev. **Cloud project ref:** `nuygawdgrzoiehefysfv` — see [`docs/CLOUD_DATABASE.md`](docs/CLOUD_DATABASE.md).
 
 ## Build and verification
 
@@ -457,7 +457,7 @@ Don't reimplement in page VM:
 - Forgetting `VerticalScrollMode="Disabled"` → paginator clipped, table overflows status bar.
 - Column `Key` / `GetCellText` mismatch → empty cells.
 - In-place row DTO mutate after load → selection/filter bugs; replace in `_allRows` by index/Id.
-- Edge Function with publishable key as `Authorization` — pass **session JWT** + `apikey` separately (`AdminUsersFunctionClient`).
+- Edge Function calls (`AdminUsersFunctionClient`): pass **session JWT** as `Authorization`; do **not** set `Headers["apikey"]` in `InvokeFunctionOptions` — Supabase C# SDK 1.1.1 merges publishable key from `Client`; explicit `apikey` → `401 Invalid API key` on cloud (local Kong may tolerate duplicates).
 - Bool column without `FilterKind.Bool` or display not via `CrudBoolCellHelper.Format` → фильтр / бейдж ломается.
 - Hard delete without `DeleteAsync` override → bulk delete noop (`DeleteAsync` default returns false).
 
@@ -615,6 +615,17 @@ After non-trivial API usage, verify with **x64 build**.
 
 ---
 
+## Adjacent repo: BAAZ Tool Tracker (TMS)
+
+Separate FastAPI + Supabase repo; CMMS ↔ TMS integration via HTTP + Edge Functions ([`docs/TOOL_TRACKER_INTEGRATION.md`](docs/TOOL_TRACKER_INTEGRATION.md)). TMS has its own agent guide: `baaz-tool-tracker/AGENTS.md`. **Local Supabase ports:** CMMS **54321**, TMS **55321** (both stacks on one machine).
+
+**When changing TMS integration contract** (`170_integration_tool_tracker.sql`, `scripts/seed-tt-integration-data.mjs`, fixtures UUIDs):
+
+1. Update [`docs/TOOL_TRACKER_INTEGRATION.md`](docs/TOOL_TRACKER_INTEGRATION.md).
+2. **If `baaz-tool-tracker` workspace is available:** also update `baaz-tool-tracker/docs/CMMS_INTEGRATION.md` and symmetric fixtures in both repos.
+
+---
+
 ## Adjacent repo: Prostoi (DowntimeTracker)
 
 Separate WinForms repo; CMMS exposes read-only `integration.*` views ([`docs/DOWNTIME_TRACKER_INTEGRATION.md`](docs/DOWNTIME_TRACKER_INTEGRATION.md)).
@@ -622,7 +633,7 @@ Separate WinForms repo; CMMS exposes read-only `integration.*` views ([`docs/DOW
 **When changing DT integration contract** (`160_integration_downtime_tracker.sql`, `scripts/seed-dt-integration-data.mjs`, integration-related seed UUIDs):
 
 1. Update [`docs/DOWNTIME_TRACKER_INTEGRATION.md`](docs/DOWNTIME_TRACKER_INTEGRATION.md).
-2. **If the Prostoi workspace is available** in the same Cursor workspace (`Prostoi/` root): also update [`Prostoi/docs/CMMS_INTEGRATION.md`](../Prostoi/docs/CMMS_INTEGRATION.md) (DT-facing sections) and [`Prostoi/Prostoi/Integration/Fixtures/`](../Prostoi/Prostoi/Integration/Fixtures/) to stay symmetric with seed UUIDs and view columns.
+2. **If the Prostoi workspace is available** in the same Cursor workspace (`Prostoi/` root): also update `Prostoi/docs/CMMS_INTEGRATION.md` (DT-facing sections) and `Prostoi/Integration/Fixtures/` to stay symmetric with seed UUIDs and view columns.
 3. Do **not** recreate `downtime-tracker-integration-proposal.md` (removed; replaced by the two docs above).
 
 ---
@@ -633,11 +644,11 @@ Integration UC from `docs/use-cases/tool-tracker.md`, `docs/use-cases/tms-integr
 
 | uc | system | operation | direction | interface | status |
 |---|---|---|---|---|---|
-| UC-TT1 | ToolTracker | `GetActiveTaskForTechnician` | TT → CMMS (read) | `IToolTrackerIntegration` | stub |
+| UC-TT1 | ToolTracker | `GetActiveTaskForTechnician` | TT → CMMS (read) | `IToolTrackerIntegration` | partial |
 | UC-TT2 | ToolTracker | `NotifyWorkReportCreated` | CMMS → TT (event) | `IToolTrackerIntegration` | stub |
 | UC-TT3 | ToolTracker | `CreateMaintenanceRequest` | TT → CMMS (write via DB) | — (direct DB insert) | — |
-| UC-TT4 | ToolTracker | `NotifyRequestStatusChanged` | CMMS → TT (event) | `IToolTrackerIntegration` | stub |
-| UC-TT5 | ToolTracker | `CreateToolRequisition` | CMMS → TT (write) | `IToolTrackerIntegration` | stub |
+| UC-TT4 | ToolTracker | `NotifyRequestStatusChanged` | CMMS → TT (event) | `IToolTrackerIntegration` | partial |
+| UC-TT5 | ToolTracker | `CreateToolRequisition` | CMMS → TT (write) | `IToolTrackerIntegration` | partial |
 | UC-WH1 | Warehouse | `CreateMaterialRequisition` | CMMS → WH (write) | `IWarehouseIntegration` | stub |
 | UC-DT1 | DowntimeTracker | `NotifyRequestStatusChanged` | CMMS → DT (event) | `IDowntimeTrackerIntegration` | stub |
 | UC-DT2 | DowntimeTracker | `GetScheduledMaintenance` | DT → CMMS (read) | `IDowntimeTrackerIntegration` | stub |
@@ -657,8 +668,9 @@ Stub implementations registered in `BAAZ.CMMS.App/App.xaml.cs` DI (no-op, no exc
 - `requests.contractor_name` — без CHECK в DDL; инвариант «только при external» — RPC `update_request_repair_zone`. `target_repair_department_id` ≠ маршрутизация (`request_repair_departments`); после accept — смена отдела только через RPC на `RequestDetail`
 - Интеграция Prostoi/DT: `Equipment.InventoryNumber` (MySQL) ↔ `assets.asset_number` (PostgreSQL)
 - Demo auth: не INSERT в `auth.users` в seed.sql; аккаунты через `scripts/seed-test-users.mjs`
-- На Windows `parallel-cli` — `pip install "parallel-web-tools[cli]"`, если bash install script недоступен
+- Cloud Supabase + Supabase C# SDK 1.1.1: do **not** set `Headers["apikey"]` in `InvokeFunctionOptions` for `client.Functions.Invoke()` — SDK merges publishable key from `Client`; duplicate `apikey` → `401` on cloud (`AdminUsersFunctionClient`)
 - WinUI `DataTemplate`: `ElementName` → page не работает (пустые Header/ComboBox); фикс — `UserControl` + `Row.Owner` на VM или code-behind (`MaterialRequisitionLineItemControl`, `IncomingRequestCard`)
 - UC-D7/D8: расходники и инструмент — `accepted`/`in_progress` (заявки) или `scheduled`/`overdue`/`in_progress` (ППР); политика `WorkOrderRequisitionPolicy`; TMS: `accepted`/`overdue` → `scheduled`
 - Workflow заявки UC-D2: assign/add dept — `accepted` или `in_progress` (assign только отделам без `work_reports`); zone/transfer — только `accepted`; `start_request_work` — `accepted` + все `rrd.assignee_id` заполнены (`ALL_DEPARTMENTS_NEED_ASSIGNEE`); после `work_reports` отдел locked (UI + `DEPARTMENT_ALREADY_REPORTED`); auto-`completed` — триггер NOT EXISTS по `rrd` без отчёта; admin `transfer_request_department` заменяет все `rrd`
 - WinUI code-behind theme: `AppThemeHelper` + `ThemeBrushResolver` в `BAAZ.CMMS.App/Helpers/`; см. § WinUI theming (code-behind)
+- TMS adjacent repo: own `AGENTS.md`; local Supabase port **55321** (TMS) vs **54321** (CMMS)

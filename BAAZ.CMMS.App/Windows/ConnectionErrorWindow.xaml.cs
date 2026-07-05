@@ -6,6 +6,7 @@ using BAAZ.CMMS.App.Localization;
 using Helpers.Microsoft;
 using Helpers.Settings;
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 
@@ -13,30 +14,25 @@ namespace BAAZ.CMMS.App.Windows;
 
 public sealed partial class ConnectionErrorWindow : Window
 {
+    private readonly ConnectionErrorViewModel _viewModel;
     private TaskCompletionSource<bool>? _completionSource;
 
-    public string WindowTitleText => ResourceStrings.Get("Connection_Window_Title");
-
-    public string TitleText => ResourceStrings.Get("Connection_Error_Title");
-
-    public string MessageText => ResourceStrings.Get("Connection_Error_Message");
-
-    public string RetryButtonText => ResourceStrings.Get("Connection_Retry");
-
-    public ConnectionErrorWindow()
+    public ConnectionErrorWindow(ConnectionErrorViewModel viewModel)
     {
+        _viewModel = viewModel;
         InitializeComponent();
         rootGrid.RequestedTheme = SettingsHelper.Current.SelectedAppTheme;
-        if (Content is FrameworkElement root)
-        {
-            root.DataContext = this;
-        }
+        rootGrid.DataContext = _viewModel;
 
         Title = ResourceStrings.Get("Connection_Window_Title");
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(titleBar);
         WindowHelper.TrackWindow(this);
         Closed += OnClosed;
+    }
+
+    public ConnectionErrorWindow() : this(App.Services.GetRequiredService<ConnectionErrorViewModel>())
+    {
     }
 
     public Task<bool> ShowAsync()

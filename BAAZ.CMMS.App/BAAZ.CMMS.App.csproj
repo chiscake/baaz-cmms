@@ -57,4 +57,28 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<ApplicationIcon>Assets\baaz-logo.ico</ApplicationIcon>
 	</PropertyGroup>
+
+	<!-- Release output: framework-dependent .NET + self-contained WinAppSDK only (see AGENTS build gate). -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+		<SatelliteResourceLanguages>ru-RU;en-US</SatelliteResourceLanguages>
+	</PropertyGroup>
+
+	<Target Name="SetFrameworkDependentRelease" BeforeTargets="ProcessFrameworkReferences"
+	        Condition="'$(Configuration)' == 'Release'">
+		<PropertyGroup>
+			<SelfContained>false</SelfContained>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="RemoveUnusedWinAppSdkMlBinaries" AfterTargets="Build"
+	        Condition="'$(Configuration)' == 'Release'">
+		<ItemGroup>
+			<_ReleasePdbs Include="$(OutputPath)**\*.pdb" />
+		</ItemGroup>
+		<Delete Files="$(OutputPath)onnxruntime.dll;$(OutputPath)DirectML.dll;$(OutputPath)Microsoft.ML.OnnxRuntime.dll"
+		        ContinueOnError="true" />
+		<Delete Files="@(_ReleasePdbs)" ContinueOnError="true" />
+	</Target>
 </Project>

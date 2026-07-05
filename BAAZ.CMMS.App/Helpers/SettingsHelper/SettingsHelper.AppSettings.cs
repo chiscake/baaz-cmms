@@ -90,4 +90,23 @@ public sealed partial class SettingsHelper
         get => GetOrCreateDefault(string.Empty) ?? string.Empty;
         set => Set(value);
     }
+
+    /// <summary>Mock | Live — интеграция с Tool Tracker.</summary>
+    public string TmsIntegrationMode
+    {
+        get => GetOrCreateDefault("Mock") ?? "Mock";
+        set => Set(value);
+    }
+
+    public string TmsBaseUrl
+    {
+        get => GetOrCreateDefault("http://127.0.0.1:8000") ?? "http://127.0.0.1:8000";
+        set => Set(value);
+    }
+
+    public string TmsIntegrationSecret
+    {
+        get => GetOrCreateDefault(string.Empty) ?? string.Empty;
+        set => Set(value);
+    }
 }

@@ -80,6 +80,10 @@ public sealed class AppBootstrapper(
 
             ShowLoading();
             await UiDispatchHelper.RunAsync(dispatcherQueue, () => window.Close());
+
+            supabaseUrl = SettingsHelper.Current.SupabaseUrl;
+            supabaseAnonKey = SettingsHelper.Current.SupabaseAnonKey;
+            _supabaseClientProvider.ConfigureEndpoint(supabaseUrl, supabaseAnonKey);
         }
         Debug.WriteLine("[AppBootstrapper] CheckAsync: connected");
 

@@ -104,12 +104,22 @@
                 <!-- TMS -->
                 <StackPanel Spacing="12"
                             Visibility="{x:Bind ViewModel.IsTmsMode, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <InfoBar IsOpen="{x:Bind ViewModel.ShowTmsMockWarning, Mode=OneWay}"
+                             Severity="Warning"
+                             IsClosable="False"
+                             Message="{x:Bind ViewModel.TmsMockWarningText, Mode=OneWay}" />
+                    <TextBlock Text="{x:Bind ViewModel.TmsLiveModeHint, Mode=OneWay}"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="WrapWholeWords"
+                               Visibility="{x:Bind ViewModel.IsTmsLiveIntegration, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
                     <TextBlock Text="{x:Bind ViewModel.SectionWarehouseTms, Mode=OneWay}"
                                Style="{ThemeResource BodyStrongTextBlockStyle}" />
                     <ComboBox Header="{x:Bind ViewModel.LabelTmsWarehouse, Mode=OneWay}"
                               PlaceholderText="{x:Bind ViewModel.TmsWarehousePlaceholder, Mode=OneWay}"
                               ItemsSource="{x:Bind ViewModel.TmsWarehouses, Mode=OneWay}"
                               SelectedItem="{x:Bind ViewModel.SelectedTmsWarehouse, Mode=TwoWay}"
+                              DisplayMemberPath="Name"
                               HorizontalAlignment="Stretch" />
 
                     <TextBlock Text="{x:Bind ViewModel.SectionLines, Mode=OneWay}"
@@ -149,6 +159,8 @@
                                 <TextBlock TextWrapping="WrapWholeWords"
                                            Margin="0,0,0,4">
                                     <Run FontWeight="SemiBold" Text="{x:Bind WarehouseName}" />
+                                    <Run Text=" · TMS " />
+                                    <Run Text="{x:Bind TmsRequisitionIdShort}" />
                                     <Run Text=" — " />
                                     <Run Text="{x:Bind StatusLabel}" />
                                 </TextBlock>
@@ -156,11 +168,17 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
+                    <TextBlock Text="{x:Bind ViewModel.DuplicateTmsHint, Mode=OneWay}"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               TextWrapping="WrapWholeWords"
+                               Visibility="{x:Bind ViewModel.ShowDuplicateTmsHint, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+
                     <Button Style="{ThemeResource AccentButtonStyle}"
                             HorizontalAlignment="Left"
                             Content="{x:Bind ViewModel.ActionSubmitTms, Mode=OneWay}"
                             Command="{x:Bind ViewModel.SubmitTmsCommand}"
-                            IsEnabled="{x:Bind ViewModel.CanSubmit, Mode=OneWay}" />
+                            IsEnabled="{x:Bind ViewModel.CanSubmitTms, Mode=OneWay}" />
                 </StackPanel>
             </StackPanel>
         </StackPanel>

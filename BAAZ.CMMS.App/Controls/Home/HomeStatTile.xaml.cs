@@ -31,6 +31,7 @@ public sealed partial class HomeStatTile : UserControl
             IconGlyph.Visibility = Visibility.Collapsed;
             ValueText.Visibility = Visibility.Collapsed;
             LabelText.Visibility = Visibility.Collapsed;
+            NavigateChevron.Visibility = Visibility.Collapsed;
             return;
         }
 
@@ -47,5 +48,29 @@ public sealed partial class HomeStatTile : UserControl
         var theme = ActualTheme;
         IconGlyph.Foreground = new SolidColorBrush(StatusBadgePalette.ResolveColor(item.IconColorToken, theme));
         ValueText.Foreground = new SolidColorBrush(StatusBadgePalette.ResolveColor(item.ValueColorToken, theme));
+
+        if (item.IsNavigable)
+        {
+            TileRoot.Visibility = Visibility.Visible;
+            NavigateChevron.Visibility = Visibility.Visible;
+            _navigableItem = item;
+        }
+        else
+        {
+            TileRoot.Visibility = Visibility.Visible;
+            NavigateChevron.Visibility = Visibility.Collapsed;
+            _navigableItem = null;
+        }
+    }
+
+    private HomeStatItem? _navigableItem;
+
+    private void TileRoot_Tapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+    {
+        if (_navigableItem?.NavigateCommand is null || string.IsNullOrWhiteSpace(_navigableItem.PageKey))
+            return;
+
+        if (_navigableItem.NavigateCommand.CanExecute(_navigableItem))
+            _navigableItem.NavigateCommand.Execute(_navigableItem);
     }
 }

@@ -37,7 +37,7 @@ public sealed class TmsToolRequisitionLinkRepository : ITmsToolRequisitionLinkRe
         }
     }
 
-    public async Task<DataResult<TmsToolRequisitionLinkModel>> GetByClientReferenceIdAsync(
+    public async Task<DataResult<TmsToolRequisitionLinkModel?>> GetByClientReferenceIdAsync(
         Guid clientReferenceId,
         CancellationToken ct = default)
     {
@@ -48,19 +48,32 @@ public sealed class TmsToolRequisitionLinkRepository : ITmsToolRequisitionLinkRe
                 .Get(ct);
 
             var model = response.Models?.FirstOrDefault();
-            if (model is null)
-                return DataResult<TmsToolRequisitionLinkModel>.Fail(DataError.Unknown("Запись не найдена"));
-
-            return DataResult<TmsToolRequisitionLinkModel>.Ok(model);
+            return DataResult<TmsToolRequisitionLinkModel?>.Ok(model);
         }
         catch (Supabase.Postgrest.Exceptions.PostgrestException ex)
         {
-            return DataResult<TmsToolRequisitionLinkModel>.Fail(MapPostgrestError(ex));
+            return DataResult<TmsToolRequisitionLinkModel?>.Fail(MapPostgrestError(ex));
         }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
         {
-            return DataResult<TmsToolRequisitionLinkModel>.Fail(DataError.Network(ex.Message));
+            return DataResult<TmsToolRequisitionLinkModel?>.Fail(DataError.Network(ex.Message));
         }
+    }
+
+    public async Task<DataResult<TmsToolRequisitionLinkModel?>> FindBlockingDuplicateAsync(
+        TmsWorkOrderRef workOrder,
+        Guid warehouseId,
+        CancellationToken ct = default)
+    {
+        var listResult = await ListByWorkOrderAsync(workOrder, ct);
+        if (!listResult.IsSuccess || listResult.Value is null)
+            return DataResult<TmsToolRequisitionLinkModel?>.Fail(listResult.Error ?? DataError.Unknown("Не удалось загрузить ссылки"));
+
+        var duplicate = listResult.Value.FirstOrDefault(link =>
+            link.WarehouseId == warehouseId
+            && TmsRequisitionStatuses.BlocksDuplicateSubmission(link.LastKnownStatus));
+
+        return DataResult<TmsToolRequisitionLinkModel?>.Ok(duplicate);
     }
 
     public async Task<DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>> ListByWorkOrderAsync(
@@ -90,6 +103,51 @@ public sealed class TmsToolRequisitionLinkRepository : ITmsToolRequisitionLinkRe
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
         {
             return DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>.Fail(DataError.Network(ex.Message));
+        }
+    }
+
+    public async Task<DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>> ListAllAsync(
+        int limit = 500,
+        CancellationToken ct = default)
+    {
+        try
+        {
+            var response = await _gateway.From<TmsToolRequisitionLinkModel>()
+                .Order("updated_at", Ordering.Descending)
+                .Limit(limit)
+                .Get(ct);
+
+            var models = response.Models ?? [];
+            return DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>.Ok(models.AsReadOnly());
+        }
+        catch (Supabase.Postgrest.Exceptions.PostgrestException ex)
+        {
+            return DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>.Fail(MapPostgrestError(ex));
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            return DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>.Fail(DataError.Network(ex.Message));
+        }
+    }
+
+    public async Task<DataResult<TmsToolRequisitionLinkModel?>> GetByIdAsync(Guid id, CancellationToken ct = default)
+    {
+        try
+        {
+            var response = await _gateway.From<TmsToolRequisitionLinkModel>()
+                .Filter("id", Operator.Equals, id.ToString())
+                .Get(ct);
+
+            var model = response.Models?.FirstOrDefault();
+            return DataResult<TmsToolRequisitionLinkModel?>.Ok(model);
+        }
+        catch (Supabase.Postgrest.Exceptions.PostgrestException ex)
+        {
+            return DataResult<TmsToolRequisitionLinkModel?>.Fail(MapPostgrestError(ex));
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            return DataResult<TmsToolRequisitionLinkModel?>.Fail(DataError.Network(ex.Message));
         }
     }
 
@@ -160,6 +218,19 @@ public sealed class TmsToolRequisitionLinkRepository : ITmsToolRequisitionLinkRe
         var message = ex.Message;
         if (ex.Content is { } content && !string.IsNullOrWhiteSpace(content))
             message = content;
+
+        if (message.Contains("23505", StringComparison.Ordinal))
+        {
+            if (message.Contains("tms_requisition_id", StringComparison.OrdinalIgnoreCase))
+                return DataError.Validation("ToolRequisition_Error_DuplicateTmsRequisition");
+
+            if (message.Contains("client_reference_id", StringComparison.OrdinalIgnoreCase))
+                return DataError.Validation("ToolRequisition_Error_DuplicateClientReference");
+
+            if (message.Contains("tms_tool_requisition_links_request_warehouse_active_uidx", StringComparison.OrdinalIgnoreCase)
+                || message.Contains("tms_tool_requisition_links_schedule_warehouse_active_uidx", StringComparison.OrdinalIgnoreCase))
+                return DataError.Validation("ToolRequisition_Error_DuplicateActiveLink");
+        }
 
         return DataError.Unknown(message);
     }

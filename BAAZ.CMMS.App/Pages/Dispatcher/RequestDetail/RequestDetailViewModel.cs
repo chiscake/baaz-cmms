@@ -76,7 +76,11 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
     public string LabelType => ResourceStrings.Get("MyRequests_Detail_Type");
     public string LabelPriority => ResourceStrings.Get("MyRequests_Detail_Priority");
     public string LabelRepairZone => ResourceStrings.Get("MyRequests_Detail_RepairZone");
-    public string LabelAsset => ResourceStrings.Get("MyRequests_Detail_Asset");
+    public string LabelAsset => IsInventoryRequest
+        ? ResourceStrings.Get("RequestDetail_Label_Inventory")
+        : ResourceStrings.Get("MyRequests_Detail_Asset");
+
+    public string InventoryBadgeLabel => ResourceStrings.Get("RequestDetail_Badge_InventoryTms");
     public string LabelLocation => ResourceStrings.Get("MyRequests_Detail_Location");
     public string LabelDescription => ResourceStrings.Get("MyRequests_Detail_Description");
     public string LabelRequester => ResourceStrings.Get("RequestDetail_Label_Requester");
@@ -90,6 +94,17 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
 
     public string ActionAssignTechnician => ResourceStrings.Get("RequestDetail_Action_AssignTechnician");
     public string ActionStartWork => ResourceStrings.Get("RequestDetail_Action_StartWork");
+
+    public string ActionConfirmInventoryReceived =>
+        ResourceStrings.Get("RequestDetail_Action_ConfirmInventoryReceived");
+
+    public string LabelInventoryWarehouse => ResourceStrings.Get("RequestDetail_Label_InventoryWarehouse");
+
+    public string LabelInventoryHandoff => ResourceStrings.Get("RequestDetail_Label_InventoryHandoff");
+
+    public string LabelInventoryReceivedAt => ResourceStrings.Get("RequestDetail_Label_InventoryReceivedAt");
+
+    public string AwaitingClerkHandoffHint => ResourceStrings.Get("RequestDetail_Hint_AwaitingClerkHandoff");
     public string ActionChangeZone => ResourceStrings.Get("RequestDetail_Action_ChangeZone");
     public string ActionApply => ResourceStrings.Get("RequestDetail_Action_Apply");
     public string ActionTransferDepartment => ResourceStrings.Get("RequestDetail_Action_TransferDepartment");
@@ -164,6 +179,9 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
     public partial bool HasDetail { get; set; }
 
     [ObservableProperty]
+    public partial bool IsInventoryRequest { get; set; }
+
+    [ObservableProperty]
     public partial string DetailTitle { get; set; } = string.Empty;
 
     [ObservableProperty]
@@ -229,6 +247,27 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
     public partial bool CanStartWork { get; set; }
 
     [ObservableProperty]
+    public partial bool CanConfirmInventoryReceived { get; set; }
+
+    [ObservableProperty]
+    public partial bool ShowAwaitingClerkHandoff { get; set; }
+
+    [ObservableProperty]
+    public partial string InventoryWarehouseDisplay { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string InventoryHandoffDisplay { get; set; } = string.Empty;
+
+    [ObservableProperty]
+    public partial string InventoryReceivedDisplay { get; set; } = string.Empty;
+
+    public bool ShowInventoryHandoffInfo =>
+        IsInventoryRequest && !string.IsNullOrWhiteSpace(InventoryHandoffDisplay);
+
+    public bool ShowInventoryReceivedAt =>
+        IsInventoryRequest && !string.IsNullOrWhiteSpace(InventoryReceivedDisplay);
+
+    [ObservableProperty]
     public partial bool CanChangeZone { get; set; }
 
     [ObservableProperty]
@@ -270,7 +309,8 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
         ResourceStrings.Get("RequestDetail_Banner_DepartmentReported");
 
     public bool ShowNoActions =>
-        !CanAccept && !CanReject && !CanAssignTechnician && !CanStartWork && !CanChangeZone
+        !CanAccept && !CanReject && !CanAssignTechnician && !CanStartWork && !CanConfirmInventoryReceived
+        && !CanChangeZone
         && !CanTransferDepartment && !CanAddDepartment && !CanSubmitWorkReport && !CanCloseRequest
         && !CanCreateMaterialRequisition && !CanCreateToolRequisition;
 
@@ -389,6 +429,15 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
             return;
 
         await RunActionAsync(() => _requestService.StartWorkAsync(_requestId));
+    }
+
+    [RelayCommand]
+    private async Task ConfirmInventoryReceivedAsync()
+    {
+        if (IsActionBusy)
+            return;
+
+        await RunActionAsync(() => _requestService.ConfirmInventoryReceivedAsync(_requestId));
     }
 
     [RelayCommand]
@@ -784,6 +833,16 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
             DetailType = RequestEnumLabels.Type(detail.Type);
             DetailPriority = RequestEnumLabels.Priority(detail.Priority);
             DetailAsset = RequestDetailDisplayHelper.FormatAsset(detail);
+            IsInventoryRequest = detail.IsInventoryRequest;
+            OnPropertyChanged(nameof(LabelAsset));
+            OnPropertyChanged(nameof(InventoryBadgeLabel));
+            InventoryWarehouseDisplay = detail.InventoryWarehouseName ?? string.Empty;
+            InventoryHandoffDisplay = FormatInventoryHandoff(detail.InventoryHandoffMode);
+            InventoryReceivedDisplay = detail.InventoryReceivedAt is not null
+                ? DateTimeDisplayHelper.Format(detail.InventoryReceivedAt.Value)
+                : string.Empty;
+            OnPropertyChanged(nameof(ShowInventoryHandoffInfo));
+            OnPropertyChanged(nameof(ShowInventoryReceivedAt));
             DetailLocation = detail.LocationDescription;
             DetailDescription = detail.Description;
             DetailRequester = detail.RequesterName ?? ResourceStrings.Get("Common_None");
@@ -856,7 +915,9 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
                 CanChangeZone = isAccepted;
                 CanTransferDepartment = isAccepted;
                 CanAddDepartment = isAssignableStatus;
-                CanStartWork = isAccepted && allDepartmentsHaveAssignee;
+                CanStartWork = !detail.IsInventoryRequest && isAccepted && allDepartmentsHaveAssignee;
+                CanConfirmInventoryReceived = detail.IsPickupHandoff && isAccepted && allDepartmentsHaveAssignee;
+                ShowAwaitingClerkHandoff = detail.IsDeliverHandoff && isAccepted && detail.InventoryReceivedAt is null;
             }
             else
             {
@@ -864,7 +925,9 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
                 CanChangeZone = ownCanPrepare;
                 CanTransferDepartment = ownCanPrepare;
                 CanAddDepartment = isAssignableStatus && ownDepartmentInvolved && !ownDepartmentHasReported;
-                CanStartWork = ownCanPrepare && allDepartmentsHaveAssignee;
+                CanStartWork = !detail.IsInventoryRequest && ownCanPrepare && allDepartmentsHaveAssignee;
+                CanConfirmInventoryReceived = detail.IsPickupHandoff && ownCanPrepare && allDepartmentsHaveAssignee;
+                ShowAwaitingClerkHandoff = detail.IsDeliverHandoff && ownCanPrepare && detail.InventoryReceivedAt is null;
             }
 
             CanSubmitWorkReport = detail.Status == "in_progress" && (
@@ -933,22 +996,30 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
         ToolRequisitionLinks.Clear();
         OnPropertyChanged(nameof(HasToolRequisitionLinks));
 
-        var result = await _tmsToolRequisitionService.ListLocalByWorkOrderAsync(new TmsWorkOrderRef
-        {
-            Kind = TmsWorkOrderKind.Request,
-            Id = _requestId,
-        });
+        var workOrder = new TmsWorkOrderRef { Kind = TmsWorkOrderKind.Request, Id = _requestId };
+        var refresh = await _tmsToolRequisitionService.RefreshWorkOrderStatusAsync(workOrder);
+        var remoteById = refresh.IsSuccess && refresh.Value?.Requisitions is { } remoteList
+            ? remoteList.ToDictionary(r => r.RequisitionId)
+            : new Dictionary<Guid, TmsRequisitionSummaryItem>();
+
+        var result = await _tmsToolRequisitionService.ListLocalByWorkOrderAsync(workOrder);
 
         if (!result.IsSuccess || result.Value is null)
             return;
 
         foreach (var link in result.Value.OrderByDescending(l => l.LastSyncedAt ?? l.CreatedAt))
         {
+            remoteById.TryGetValue(link.TmsRequisitionId, out var remote);
+            var cancelledBy = remote?.CancelledBy;
             ToolRequisitionLinks.Add(new TmsLinkDisplayItem
             {
                 WarehouseName = link.WarehouseName ?? "—",
                 Status = link.LastKnownStatus,
                 StatusLabel = ToolRequisitionLabels.FormatTmsStatus(link.LastKnownStatus),
+                CancelledBy = cancelledBy,
+                StorekeeperCancelBanner = string.Equals(cancelledBy, "storekeeper", StringComparison.OrdinalIgnoreCase)
+                    ? ResourceStrings.Get("RequestDetail_Tms_StorekeeperCancelled")
+                    : null,
                 LastSyncedAt = link.LastSyncedAt ?? link.CreatedAt,
             });
         }
@@ -992,4 +1063,11 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
 
         RealtimeUiRefresh.Enqueue(LoadAsync);
     }
+
+    private static string FormatInventoryHandoff(string? mode) => mode switch
+    {
+        "pickup_at_warehouse" => ResourceStrings.Get("RequestDetail_Handoff_Pickup"),
+        "deliver_to_department" => ResourceStrings.Get("RequestDetail_Handoff_Deliver"),
+        _ => string.Empty,
+    };
 }

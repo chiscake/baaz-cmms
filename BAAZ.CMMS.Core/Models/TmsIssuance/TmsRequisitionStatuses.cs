@@ -10,6 +10,12 @@ public static class TmsRequisitionStatuses
     public const string PartiallyReturned = "partially_returned";
     public const string Returned = "returned";
     public const string Cancelled = "cancelled";
+
+    /// <summary>Статусы, при которых повторная отправка для того же наряда и склада запрещена.</summary>
+    public static bool BlocksDuplicateSubmission(string? status)
+        => !string.IsNullOrWhiteSpace(status)
+           && !string.Equals(status, Cancelled, StringComparison.Ordinal)
+           && !string.Equals(status, Returned, StringComparison.Ordinal);
 }
 
 public static class TmsLineStatuses

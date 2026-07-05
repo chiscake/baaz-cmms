@@ -8,3 +8,5 @@
 .env.*.local
 
 snippets/
+
+schema.sql

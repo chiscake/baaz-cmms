@@ -32,3 +32,14 @@ create index tms_tool_requisition_links_request_idx
 create index tms_tool_requisition_links_schedule_idx
   on public.tms_tool_requisition_links (cmms_schedule_id)
   where cmms_schedule_id is not null;
+
+-- Одна активная заявка TMS на наряд + склад; отменённые и возвращённые не блокируют повтор.
+create unique index tms_tool_requisition_links_request_warehouse_active_uidx
+  on public.tms_tool_requisition_links (cmms_request_id, warehouse_id)
+  where cmms_request_id is not null
+    and last_known_status not in ('cancelled', 'returned');
+
+create unique index tms_tool_requisition_links_schedule_warehouse_active_uidx
+  on public.tms_tool_requisition_links (cmms_schedule_id, warehouse_id)
+  where cmms_schedule_id is not null
+    and last_known_status not in ('cancelled', 'returned');

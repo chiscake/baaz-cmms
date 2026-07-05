@@ -1,0 +1,15 @@
+{
+  "warehouseId": "a1000000-0000-4000-8000-000000000001",
+  "availability": "Available",
+  "catalogVersion": "demo-v1",
+  "eTag": "\"demo-catalog-v1\"",
+  "items": [
+    {
+      "toolId": "d1000000-0000-4000-8000-000000000001",
+      "name": "Микрометр МК-25 0.01",
+      "toolTypeName": "Мерительный инструмент",
+      "quantityAvailable": 2,
+      "quantityTotal": 2
+    }
+  ]
+}

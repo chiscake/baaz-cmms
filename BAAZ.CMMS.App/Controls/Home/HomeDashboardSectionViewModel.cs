@@ -42,12 +42,18 @@ public abstract partial class HomeDashboardSectionViewModel : ObservableObject
 
     protected void ClearStats() => StatRows.Clear();
 
-    protected HomeStatRow BeginStatRow(int columns, string? headingResourceKey = null)
+    protected HomeStatRow BeginStatRow(
+        int columns,
+        string? headingResourceKey = null,
+        string? secondaryHeadingResourceKey = null)
     {
         var row = new HomeStatRow
         {
             Columns = columns,
             Heading = headingResourceKey is null ? null : ResourceStrings.Get(headingResourceKey),
+            SecondaryHeading = secondaryHeadingResourceKey is null
+                ? null
+                : ResourceStrings.Get(secondaryHeadingResourceKey),
         };
         StatRows.Add(row);
         return row;
@@ -58,7 +64,9 @@ public abstract partial class HomeDashboardSectionViewModel : ObservableObject
         string labelResourceKey,
         int value,
         string glyph,
-        StatusBadgeColorToken colorToken)
+        StatusBadgeColorToken colorToken,
+        string? pageKey = null,
+        object? navigationParameter = null)
     {
         row.Items.Add(new HomeStatItem
         {
@@ -67,6 +75,9 @@ public abstract partial class HomeDashboardSectionViewModel : ObservableObject
             Glyph = glyph,
             ValueColorToken = colorToken,
             IconColorToken = colorToken,
+            PageKey = pageKey,
+            NavigationParameter = navigationParameter,
+            NavigateCommand = string.IsNullOrWhiteSpace(pageKey) ? null : NavigateStatCommand,
         });
     }
 
@@ -110,6 +121,17 @@ public abstract partial class HomeDashboardSectionViewModel : ObservableObject
             Value = string.Empty,
             Glyph = string.Empty,
         });
+
+    [RelayCommand]
+    private void NavigateStat(HomeStatItem? item)
+    {
+        if (item is null || string.IsNullOrWhiteSpace(item.PageKey))
+        {
+            return;
+        }
+
+        _navigationService.NavigateTo(item.PageKey, item.NavigationParameter);
+    }
 
     [RelayCommand]
     private void NavigateAction(HomeQuickAction? action)

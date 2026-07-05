@@ -8,27 +8,54 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
 
-    <Border x:Name="TileBorder"
-            HorizontalAlignment="Stretch"
-            MinHeight="112"
-            Style="{StaticResource HomeStatTileStyle}">
-        <Grid RowDefinitions="Auto,*,Auto"
-              RowSpacing="8">
-            <FontIcon x:Name="IconGlyph"
-                      Grid.Row="0"
-                      FontSize="16"
-                      HorizontalAlignment="Left" />
-            <TextBlock x:Name="ValueText"
-                       Grid.Row="1"
-                       Style="{ThemeResource TitleLargeTextBlockStyle}"
-                       VerticalAlignment="Center" />
-            <TextBlock x:Name="LabelText"
-                       Grid.Row="2"
-                       MaxLines="2"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       LineHeight="16"
-                       Style="{ThemeResource CaptionTextBlockStyle}"
-                       TextWrapping="WrapWholeWords" />
-        </Grid>
-    </Border>
+    <Grid x:Name="TileRoot"
+          HorizontalAlignment="Stretch"
+          Tapped="TileRoot_Tapped">
+        <Border x:Name="TileBorder"
+                HorizontalAlignment="Stretch"
+                MinHeight="112"
+                Style="{StaticResource HomeStatTileStyle}">
+            <Grid RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <FontIcon x:Name="IconGlyph"
+                          Grid.Row="0"
+                          FontSize="16"
+                          HorizontalAlignment="Left" />
+                <TextBlock x:Name="ValueText"
+                           Grid.Row="1"
+                           HorizontalAlignment="Left"
+                           Style="{ThemeResource TitleLargeTextBlockStyle}"
+                           VerticalAlignment="Center" />
+                <Grid Grid.Row="2"
+                      ColumnSpacing="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="LabelText"
+                               Grid.Column="0"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Bottom"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               LineHeight="16"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               TextAlignment="Left"
+                               TextTrimming="None"
+                               TextWrapping="NoWrap" />
+                    <FontIcon x:Name="NavigateChevron"
+                              Grid.Column="1"
+                              Margin="0,0,0,1"
+                              FontSize="12"
+                              Glyph="&#xE76C;"
+                              VerticalAlignment="Bottom"
+                              Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                              Visibility="Collapsed" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>

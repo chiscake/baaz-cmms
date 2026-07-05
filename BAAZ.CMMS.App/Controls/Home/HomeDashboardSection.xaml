@@ -48,11 +48,29 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="home:HomeStatRow">
-                    <StackPanel Spacing="8">
-                        <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                   Text="{Binding Heading, Mode=OneWay}"
-                                   Visibility="{Binding HasHeading, Mode=OneWay, Converter={StaticResource HomeBoolToVisibility}}" />
-                        <ItemsControl Margin="0,0,-12,-12"
+                    <Grid RowDefinitions="Auto,Auto"
+                          RowSpacing="8">
+                        <Grid Grid.Row="0"
+                              Margin="0,0,-12,0"
+                              ColumnSpacing="12"
+                              Visibility="{Binding HasHeading, Mode=OneWay, Converter={StaticResource HomeBoolToVisibility}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Grid.ColumnSpan="{Binding PrimaryHeadingColumnSpan, Mode=OneWay}"
+                                       Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                       Text="{Binding Heading, Mode=OneWay}" />
+                            <TextBlock Grid.Column="3"
+                                       Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                       Text="{Binding SecondaryHeading, Mode=OneWay}"
+                                       Visibility="{Binding HasSecondaryHeading, Mode=OneWay, Converter={StaticResource HomeBoolToVisibility}}" />
+                        </Grid>
+                        <ItemsControl Grid.Row="1"
+                                      Margin="0,0,-12,-12"
                                       ItemsSource="{Binding Items, Mode=OneWay}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -74,7 +92,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

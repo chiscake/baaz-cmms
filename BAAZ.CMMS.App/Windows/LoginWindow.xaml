@@ -42,7 +42,8 @@
 
             <Border Grid.Row="1"
                     Style="{StaticResource AuthCardStyle}"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Top"
+                    Visibility="{Binding IsSignInView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <StackPanel Spacing="14">
                     <StackPanel Spacing="6">
                         <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -68,11 +69,49 @@
                             Content="{Binding SignInButtonText, Mode=OneWay}"
                             Style="{ThemeResource AccentButtonStyle}" />
 
-                    <TextBlock x:Name="errorTextBlock"
-                               Margin="0,4,0,0"
+                    <TextBlock Margin="0,4,0,0"
                                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                Style="{ThemeResource CaptionTextBlockStyle}"
+                               Text="{Binding SignInErrorMessage, Mode=OneWay}"
                                TextWrapping="WrapWholeWords" />
+
+                    <HyperlinkButton HorizontalAlignment="Left"
+                                     Command="{Binding ShowServerSettingsCommand}"
+                                     Content="{Binding ChangeServerText, Mode=OneWay}" />
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1"
+                    Style="{StaticResource AuthCardStyle}"
+                    VerticalAlignment="Top"
+                    Visibility="{Binding IsServerSettingsView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Spacing="14">
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding ServerSettings.SupabaseUrlLabel, Mode=OneWay}" />
+                        <TextBox Text="{Binding ServerSettings.SupabaseUrl, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="{Binding ServerSettings.SupabaseKeyLabel, Mode=OneWay}" />
+                        <TextBox Text="{Binding ServerSettings.SupabaseAnonKey, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical"
+                                Spacing="8">
+                        <Button Command="{Binding ServerSettings.TestSupabaseConnectionCommand}"
+                                Content="{Binding ServerSettings.SupabaseTestButtonText, Mode=OneWay}" />
+                        <Button Command="{Binding ServerSettings.SaveSupabaseSettingsCommand}"
+                                Content="{Binding ServerSettings.SupabaseSaveButtonText, Mode=OneWay}" />
+                    </StackPanel>
+
+                    <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Style="{ThemeResource CaptionTextBlockStyle}"
+                               Text="{Binding ServerSettings.StatusMessage, Mode=OneWay}"
+                               TextWrapping="WrapWholeWords" />
+
+                    <HyperlinkButton HorizontalAlignment="Left"
+                                     Command="{Binding ShowSignInCommand}"
+                                     Content="{Binding BackToSignInText, Mode=OneWay}" />
                 </StackPanel>
             </Border>
 

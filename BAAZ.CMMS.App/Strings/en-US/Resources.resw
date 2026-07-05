@@ -66,6 +66,9 @@
   <data name="Nav_ToolRequisition" xml:space="preserve">
     <value>Tool requisition</value>
   </data>
+  <data name="Nav_ToolRequisitionHistory" xml:space="preserve">
+    <value>Tool requisitions</value>
+  </data>
   <data name="Nav_Group_Dispatcher" xml:space="preserve">
     <value>Dispatcher</value>
   </data>
@@ -150,6 +153,27 @@
   </data>
   <data name="RequestDetail_Action_StartWork" xml:space="preserve">
     <value>Start work</value>
+  </data>
+  <data name="RequestDetail_Action_ConfirmInventoryReceived" xml:space="preserve">
+    <value>Instrument received</value>
+  </data>
+  <data name="RequestDetail_Label_InventoryWarehouse" xml:space="preserve">
+    <value>TMS warehouse</value>
+  </data>
+  <data name="RequestDetail_Label_InventoryHandoff" xml:space="preserve">
+    <value>Handoff mode</value>
+  </data>
+  <data name="RequestDetail_Label_InventoryReceivedAt" xml:space="preserve">
+    <value>Received by department</value>
+  </data>
+  <data name="RequestDetail_Handoff_Pickup" xml:space="preserve">
+    <value>Department picks up at warehouse</value>
+  </data>
+  <data name="RequestDetail_Handoff_Deliver" xml:space="preserve">
+    <value>Storekeeper delivers to department</value>
+  </data>
+  <data name="RequestDetail_Hint_AwaitingClerkHandoff" xml:space="preserve">
+    <value>Awaiting storekeeper handoff in TMS (warehouse → department).</value>
   </data>
   <data name="RequestDetail_Action_ChangeZone" xml:space="preserve">
     <value>Repair zone</value>
@@ -652,6 +676,15 @@
   <data name="RequestDetail_Section_ToolRequisitions" xml:space="preserve">
     <value>Tool requisitions (TMS)</value>
   </data>
+  <data name="RequestDetail_Label_Inventory" xml:space="preserve">
+    <value>Tool (TMS)</value>
+  </data>
+  <data name="RequestDetail_Badge_InventoryTms" xml:space="preserve">
+    <value>Tool (TMS)</value>
+  </data>
+  <data name="RequestDetail_Tms_StorekeeperCancelled" xml:space="preserve">
+    <value>Cancelled by storekeeper in TMS</value>
+  </data>
   <data name="ToolRequisition_Section_Channel" xml:space="preserve">
     <value>Submission method</value>
   </data>
@@ -767,7 +800,19 @@
     <value>Sent to TMS</value>
   </data>
   <data name="ToolRequisition_SubmitTms_Success_Message" xml:space="preserve">
-    <value>TMS requisition {0} created (status: {1}).</value>
+    <value>TMS requisition {0} created.</value>
+  </data>
+  <data name="ToolRequisition_SubmitTms_Success_Message_Mock" xml:space="preserve">
+    <value>Mock demo mode: link {0} saved in CMMS only. No TMS database rows — enable Live in Settings.</value>
+  </data>
+  <data name="ToolRequisition_TmsMock_Warning" xml:space="preserve">
+    <value>Mock mode: submit does not create a TMS requisition (CMMS local link only). For integration: Settings → Tool Tracker → Live, URL http://127.0.0.1:8000 and secret A.</value>
+  </data>
+  <data name="ToolRequisition_TmsLive_Hint" xml:space="preserve">
+    <value>Live mode: requisition is sent to TMS (DB port 55321, tables requisitions, requisition_lines, cmms_work_order_links).</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsNotConfirmed" xml:space="preserve">
+    <value>TMS did not confirm requisition creation. Check uvicorn, shared secret, and TMS logs.</value>
   </data>
   <data name="ToolRequisition_Error_NoWorkOrder" xml:space="preserve">
     <value>Select a work order.</value>
@@ -801,6 +846,51 @@
   </data>
   <data name="ToolRequisition_Error_TmsFailed" xml:space="preserve">
     <value>Could not send the requisition to TMS.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsWarehousesFailed" xml:space="preserve">
+    <value>Could not load TMS warehouses.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsCatalogFailed" xml:space="preserve">
+    <value>Could not load the TMS tool catalog.</value>
+  </data>
+  <data name="ToolRequisition_Error_TmsFixturesFailed" xml:space="preserve">
+    <value>TMS fixture load error: {0}</value>
+  </data>
+  <data name="TmsIntegration_Error_Unreachable" xml:space="preserve">
+    <value>Could not connect to TMS.</value>
+  </data>
+  <data name="TmsIntegration_Error_WrongSupabaseUrl" xml:space="preserve">
+    <value>TMS Supabase URL was used instead of the FastAPI base URL.</value>
+  </data>
+  <data name="TmsIntegration_Error_Unauthorized" xml:space="preserve">
+    <value>TMS rejected the request: missing or invalid integration secret.</value>
+  </data>
+  <data name="TmsIntegration_Error_ForbiddenSecret" xml:space="preserve">
+    <value>TMS rejected the request: integration secret mismatch.</value>
+  </data>
+  <data name="TmsIntegration_Error_ForbiddenApiKey" xml:space="preserve">
+    <value>TMS rejected the request: invalid apikey header.</value>
+  </data>
+  <data name="TmsIntegration_Error_WrongUrl" xml:space="preserve">
+    <value>Invalid TMS base URL (expected FastAPI, not Supabase).</value>
+  </data>
+  <data name="TmsIntegration_Error_Server" xml:space="preserve">
+    <value>TMS server error while processing the request.</value>
+  </data>
+  <data name="TmsIntegration_Error_Http" xml:space="preserve">
+    <value>TMS returned an HTTP error.</value>
+  </data>
+  <data name="ToolRequisition_Error_DuplicateTmsRequisition" xml:space="preserve">
+    <value>A requisition with this TMS identifier is already saved. Refresh the page or choose another work order.</value>
+  </data>
+  <data name="ToolRequisition_Error_DuplicateClientReference" xml:space="preserve">
+    <value>This requisition was already submitted (duplicate send).</value>
+  </data>
+  <data name="ToolRequisition_Error_DuplicateActiveLink" xml:space="preserve">
+    <value>An active TMS requisition already exists for this work order and warehouse. Choose another warehouse or wait for the current one to finish.</value>
+  </data>
+  <data name="ToolRequisition_DuplicateActiveLink_Hint" xml:space="preserve">
+    <value>A requisition for the selected warehouse was already sent to TMS. To send again, cancel the previous one in TMS or choose another warehouse.</value>
   </data>
   <data name="ToolRequisition_Error_NotAuthenticated" xml:space="preserve">
     <value>Sign in required.</value>
@@ -1508,8 +1598,62 @@
   <data name="Settings_Supabase_Key" xml:space="preserve">
     <value>Publishable key</value>
   </data>
+  <data name="Settings_Supabase_Test" xml:space="preserve">
+    <value>Test connection</value>
+  </data>
   <data name="Settings_Supabase_Save" xml:space="preserve">
     <value>Save and reconnect</value>
+  </data>
+  <data name="Settings_Supabase_Test_Validation" xml:space="preserve">
+    <value>Enter Supabase URL and publishable key.</value>
+  </data>
+  <data name="Settings_Supabase_Test_Success" xml:space="preserve">
+    <value>Supabase connection successful.</value>
+  </data>
+  <data name="Settings_Supabase_Test_Failed" xml:space="preserve">
+    <value>Could not connect to Supabase.</value>
+  </data>
+  <data name="Settings_Supabase_Saved" xml:space="preserve">
+    <value>Supabase settings saved and applied.</value>
+  </data>
+  <data name="Settings_Tms_Section" xml:space="preserve">
+    <value>Tool Tracker (TMS)</value>
+  </data>
+  <data name="Settings_Tms_Header" xml:space="preserve">
+    <value>TMS integration</value>
+  </data>
+  <data name="Settings_Tms_Description" xml:space="preserve">
+    <value>Mock — JSON fixtures without TMS running. Live — HTTP FastAPI on port 8000.</value>
+  </data>
+  <data name="Settings_Tms_Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Settings_Tms_BaseUrl" xml:space="preserve">
+    <value>TMS Base URL</value>
+  </data>
+  <data name="Settings_Tms_Secret" xml:space="preserve">
+    <value>TMS Integration Secret</value>
+  </data>
+  <data name="Settings_Tms_Test" xml:space="preserve">
+    <value>Test connection</value>
+  </data>
+  <data name="Settings_Tms_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Settings_Tms_Test_Validation" xml:space="preserve">
+    <value>Enter TMS Base URL for Live mode.</value>
+  </data>
+  <data name="Settings_Tms_Test_Mock_Success" xml:space="preserve">
+    <value>Mock mode: TMS connection is not required.</value>
+  </data>
+  <data name="Settings_Tms_Test_Success" xml:space="preserve">
+    <value>TMS connection successful.</value>
+  </data>
+  <data name="Settings_Tms_Test_Failed" xml:space="preserve">
+    <value>Could not connect to TMS.</value>
+  </data>
+  <data name="Settings_Tms_Saved" xml:space="preserve">
+    <value>TMS settings saved</value>
   </data>
   <data name="Home_RoleBadge_Admin" xml:space="preserve">
     <value>ADMINISTRATOR</value>
@@ -1568,6 +1712,9 @@
   <data name="Home_Row_PlannedMaintenance" xml:space="preserve">
     <value>Planned maintenance</value>
   </data>
+  <data name="Home_Row_Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
   <data name="Home_Stat_AcceptedRequests" xml:space="preserve">
     <value>Accepted</value>
   </data>
@@ -1581,10 +1728,13 @@
     <value>Overdue</value>
   </data>
   <data name="Home_Stat_ScheduleToday" xml:space="preserve">
-    <value>Scheduled for today</value>
+    <value>Today</value>
   </data>
   <data name="Home_Stat_ScheduleInProgress" xml:space="preserve">
     <value>In progress</value>
+  </data>
+  <data name="Home_Stat_ToolRequisitionsReady" xml:space="preserve">
+    <value>Requisitions ready for issue</value>
   </data>
   <data name="Home_Stat_ActiveTechnicians" xml:space="preserve">
     <value>Active technicians</value>
@@ -1667,6 +1817,15 @@
   <data name="Auth_ProfileNotFound" xml:space="preserve">
     <value>User profile was not found.</value>
   </data>
+  <data name="Auth_ChangeServer" xml:space="preserve">
+    <value>Change Supabase server</value>
+  </data>
+  <data name="Auth_BackToSignIn" xml:space="preserve">
+    <value>Back to sign in</value>
+  </data>
+  <data name="Auth_Server_Subtitle" xml:space="preserve">
+    <value>Enter the Supabase URL and publishable key.</value>
+  </data>
   <data name="TitleBar_Profile_Format" xml:space="preserve">
     <value>{0} | {1} | {2}</value>
   </data>
@@ -1687,6 +1846,9 @@
   </data>
   <data name="Connection_Retry" xml:space="preserve">
     <value>Reconnect</value>
+  </data>
+  <data name="Connection_Back" xml:space="preserve">
+    <value>Back to connection error</value>
   </data>
   <data name="Startup_Window_Title" xml:space="preserve">
     <value>Starting</value>
@@ -2054,6 +2216,30 @@ HResult: {1}</value>
   </data>
   <data name="RequestHistory_Empty_List" xml:space="preserve">
     <value>No requests yet.</value>
+  </data>
+  <data name="ToolRequisitionHistory_Empty_List" xml:space="preserve">
+    <value>No tool requisitions yet.</value>
+  </data>
+  <data name="ToolRequisitionHistory_Search_Placeholder" xml:space="preserve">
+    <value>Search by number, warehouse, or status</value>
+  </data>
+  <data name="ToolRequisitionHistory_Detail_Number" xml:space="preserve">
+    <value>TMS requisition number</value>
+  </data>
+  <data name="ToolRequisitionHistory_Detail_Warehouse" xml:space="preserve">
+    <value>Warehouse</value>
+  </data>
+  <data name="ToolRequisitionHistory_Detail_LastSyncedAt" xml:space="preserve">
+    <value>Last synced</value>
+  </data>
+  <data name="ToolRequisitionHistory_UnknownWarehouse" xml:space="preserve">
+    <value>Warehouse not specified</value>
+  </data>
+  <data name="ToolRequisitionHistory_Column_Number" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="ToolRequisitionHistory_Column_Warehouse" xml:space="preserve">
+    <value>Warehouse</value>
   </data>
   <data name="MaintenanceType_To1" xml:space="preserve">
     <value>MO-1</value>

@@ -14,5 +14,10 @@ public interface IToolTrackerIntegration
     Task NotifyWorkReportCreatedAsync(Guid workReportId, Guid? requestId, Guid? scheduleId, decimal actualDurationHours, CancellationToken cancellationToken = default);
 
     /// <summary>UC-TT4 — Уведомить ToolTracker об изменении статуса заявки (исходящее событие BAAZ CMMS).</summary>
-    Task NotifyRequestStatusChangedAsync(Guid requestId, string newStatus, DateTimeOffset changedAt, CancellationToken cancellationToken = default);
+    Task NotifyRequestStatusChangedAsync(
+        Guid requestId,
+        string newStatus,
+        DateTimeOffset changedAt,
+        ToolTrackerRequestStatusContext? context = null,
+        CancellationToken cancellationToken = default);
 }

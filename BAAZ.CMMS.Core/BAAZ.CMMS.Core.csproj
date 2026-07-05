@@ -11,4 +11,10 @@
     <PackageReference Include="Supabase" Version="1.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Integrations\ToolTracker\Fixtures\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

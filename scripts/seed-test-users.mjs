@@ -21,6 +21,7 @@ import {
   workflowStatusHistory,
   workflowWorkReports,
 } from "./seed-workflow-demo-data.mjs";
+import { seedTtIntegrationDemo } from "./seed-tt-integration-data.mjs";
 
 /**
  * Создание демо-учёток и DT-моков через Supabase Admin API.
@@ -596,6 +597,7 @@ async function main() {
   await seedDtIntegrationDemo(usersByEmail, repairDepartmentsByCode, requesterResolver, assetLocationById);
   await seedWorkflowDemo(usersByEmail, repairDepartmentsByCode, requesterResolver, assetLocationById);
   await seedPprWorkReportDemo(usersByEmail, repairDepartmentsByCode);
+  await seedTtIntegrationDemo(supabase);
 }
 
 main().catch((error) => {

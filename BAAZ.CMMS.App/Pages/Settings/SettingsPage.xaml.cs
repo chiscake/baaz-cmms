@@ -13,4 +13,10 @@ public sealed partial class SettingsPage : Page
         DataContext = ViewModel;
         InitializeComponent();
     }
+
+    private void TmsSecretBox_PasswordChanged(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        if (sender is PasswordBox box)
+            ViewModel.SetTmsIntegrationSecret(box.Password);
+    }
 }

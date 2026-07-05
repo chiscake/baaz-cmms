@@ -88,6 +88,8 @@ public sealed class ToolRequisitionService(
         return DataResult<ToolRequisitionTmsResult>.Ok(new ToolRequisitionTmsResult
         {
             RequisitionId = created.Value.RequisitionId,
+            RequisitionNumber = created.Value.RequisitionNumber
+                ?? TmsRequisitionDisplayNumber.Format(created.Value.RequisitionId),
             ClientReferenceId = created.Value.ClientReferenceId,
             Status = created.Value.Status,
             WarehouseName = created.Value.WarehouseName ?? input.WarehouseName,

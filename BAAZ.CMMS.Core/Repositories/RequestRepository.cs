@@ -10,7 +10,9 @@ public sealed class RequestRepository : IRequestRepository
 {
     private const string DetailSelect =
         "id,request_number,title,description,type,priority,repair_zone,contractor_name,status," +
-        "location_description,asset_id,requester_id,target_repair_department_id,created_at,updated_at," +
+        "location_description,asset_id,inventory_id,inventory_kind,inventory_name,inventory_serial,inventory_type_name," +
+        "inventory_handoff_mode,inventory_warehouse_name,inventory_received_at," +
+        "requester_id,target_repair_department_id,created_at,updated_at," +
         "assets(asset_number,name)," +
         "profiles(full_name)," +
         "target_repair_department:repair_departments!requests_target_repair_department_id_fkey(name)," +

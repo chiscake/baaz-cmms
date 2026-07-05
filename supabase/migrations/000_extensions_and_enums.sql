@@ -22,3 +22,11 @@ create type public.request_status as enum (
 );
 create type public.request_priority as enum ('low', 'normal', 'high', 'critical');
 create type public.repair_zone as enum ('on_site', 'workshop', 'external');
+
+-- Контур А (TMS → CMMS): тип и источник внешнего складского объекта на заявке.
+create type public.inventory_kind as enum ('tool');
+create type public.inventory_source as enum ('tms');
+create type public.inventory_handoff_mode as enum (
+  'pickup_at_warehouse',
+  'deliver_to_department'
+);

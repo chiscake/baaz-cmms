@@ -124,16 +124,15 @@ public sealed class AdminUsersFunctionClient
         var session = client.Auth.CurrentSession
             ?? throw new InvalidOperationException("Нет активной сессии");
 
+        // Do not set Headers["apikey"] here: Supabase.Functions merges GetHeaders() from the
+        // Client (constructor publishable key). An explicit apikey breaks cloud Edge Functions
+        // (401 Invalid API key) while local Kong may still accept the duplicate header.
         var options = new Supabase.Functions.Client.InvokeFunctionOptions
         {
             Body = ToFunctionBody(body),
-            Headers = new Dictionary<string, string>
-            {
-                ["apikey"] = _clientProvider.PublishableKey,
-            },
         };
 
-        // Second argument becomes Authorization; do not pass PublishableKey there.
+        // Second argument becomes Authorization Bearer JWT; never pass PublishableKey there.
         return await client.Functions.Invoke(FunctionName, session.AccessToken, options);
     }
 

@@ -16,6 +16,14 @@ public interface ITmsToolRequisitionService
         TmsWorkOrderRef workOrder,
         CancellationToken cancellationToken = default);
 
+    Task<DataResult<IReadOnlyList<TmsToolRequisitionLinkModel>>> ListAllLocalAsync(
+        int limit = 500,
+        CancellationToken cancellationToken = default);
+
+    Task<DataResult<TmsToolRequisitionLinkModel?>> GetLocalByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken = default);
+
     /// <summary>TMS-API-5 list-by-work-order + обновление локальных <c>last_known_status</c> / <c>sync_etag</c>.</summary>
     Task<DataResult<TmsRequisitionListResult>> RefreshWorkOrderStatusAsync(
         TmsWorkOrderRef workOrder,

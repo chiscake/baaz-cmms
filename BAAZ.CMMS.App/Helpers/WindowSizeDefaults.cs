@@ -23,7 +23,7 @@ public static class WindowSizeDefaults
     public static class ConnectionError
     {
         public const double Width = 480;
-        public const double Height = 360;
+        public const double Height = 480;
     }
 
     public static class StartupLoading

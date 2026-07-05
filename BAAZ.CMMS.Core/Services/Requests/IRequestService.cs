@@ -68,8 +68,11 @@ public interface IRequestService
     // После осмотра: сменить зону ремонта (не меняет status)
     Task<DataResult> UpdateRepairZoneAsync(Guid requestId, string repairZone, string? contractorName = null, string? comment = null, CancellationToken cancellationToken = default);
 
-    // UC-D2: начать работы (accepted → in_progress)
+    // UC-D2: начать работы (accepted → in_progress) — только для заявок на ОС/локацию
     Task<DataResult> StartWorkAsync(Guid requestId, string? comment = null, CancellationToken cancellationToken = default);
+
+    // Контур А: подтверждение получения inventory-инструмента (accepted → in_progress)
+    Task<DataResult> ConfirmInventoryReceivedAsync(Guid requestId, string? comment = null, CancellationToken cancellationToken = default);
 
     // UC-R4 делегирование: закрытие заявки диспетчером/admin (completed → closed)
     Task<DataResult> CloseRequestAsStaffAsync(Guid requestId, string? comment = null, CancellationToken cancellationToken = default);

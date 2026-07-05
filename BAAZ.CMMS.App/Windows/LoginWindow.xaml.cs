@@ -38,29 +38,16 @@ public sealed partial class LoginWindow : Window
 #endif
 
     private readonly IAuthService _authService;
+    private readonly LoginViewModel _viewModel;
     private TaskCompletionSource<bool>? _completionSource;
 
-    public string TitleText => ResourceStrings.Get("Auth_Window_Title");
-
-    public string SubtitleText => ResourceStrings.Get("Auth_Subtitle");
-
-    public string EmailLabel => ResourceStrings.Get("Auth_Email");
-
-    public string EmailPlaceholder => ResourceStrings.Get("Auth_Email_Placeholder");
-
-    public string PasswordLabel => ResourceStrings.Get("Auth_Password");
-
-    public string SignInButtonText => ResourceStrings.Get("Auth_SignIn");
-
-    public LoginWindow(IAuthService authService)
+    public LoginWindow(IAuthService authService, LoginViewModel viewModel)
     {
         _authService = authService;
+        _viewModel = viewModel;
         InitializeComponent();
         rootGrid.RequestedTheme = SettingsHelper.Current.SelectedAppTheme;
-        if (Content is FrameworkElement root)
-        {
-            root.DataContext = this;
-        }
+        rootGrid.DataContext = _viewModel;
 
         Title = ResourceStrings.Get("Auth_Window_Title");
         ExtendsContentIntoTitleBar = true;
@@ -69,7 +56,9 @@ public sealed partial class LoginWindow : Window
         Closed += OnClosed;
     }
 
-    public LoginWindow() : this(App.Services.GetRequiredService<IAuthService>())
+    public LoginWindow() : this(
+        App.Services.GetRequiredService<IAuthService>(),
+        App.Services.GetRequiredService<LoginViewModel>())
     {
     }
 
@@ -114,7 +103,7 @@ public sealed partial class LoginWindow : Window
     {
         if (devQuickLoginComboBox.SelectedItem is not DevQuickLoginAccount account)
         {
-            errorTextBlock.Text = "Выберите учётную запись для быстрого входа.";
+            _viewModel.SetSignInError("Выберите учётную запись для быстрого входа.");
             return;
         }
 
@@ -136,9 +125,11 @@ public sealed partial class LoginWindow : Window
         if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
             Debug.WriteLine($"[LoginWindow:{GetHashCode():X8}] TrySignInAsync: empty credentials");
-            errorTextBlock.Text = ResourceStrings.Get("Auth_Error_Required");
+            _viewModel.SetSignInError(ResourceStrings.Get("Auth_Error_Required"));
             return;
         }
+
+        _viewModel.SetSignInError(null);
 
         Debug.WriteLine($"[LoginWindow:{GetHashCode():X8}] SignInAsync at {DateTime.UtcNow:HH:mm:ss.fff}Z");
         var result = await _authService.SignInAsync(email, password);
@@ -151,7 +142,7 @@ public sealed partial class LoginWindow : Window
             return;
         }
 
-        errorTextBlock.Text = ResourceStrings.Get(result.ErrorMessage ?? "Auth_InvalidCredentials");
+        _viewModel.SetSignInError(ResourceStrings.Get(result.ErrorMessage ?? "Auth_InvalidCredentials"));
     }
 
     // Отложенный TrySetResult — не возобновлять LaunchAsync внутри обработчика кнопки.
