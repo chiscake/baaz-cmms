@@ -1590,7 +1590,7 @@
     <value>Supabase</value>
   </data>
   <data name="Settings_Supabase_Description" xml:space="preserve">
-    <value>Override URL and publishable key for Supabase connection.</value>
+    <value>Override connection data for the main server.</value>
   </data>
   <data name="Settings_Supabase_Url" xml:space="preserve">
     <value>Supabase URL</value>
@@ -1623,7 +1623,7 @@
     <value>TMS integration</value>
   </data>
   <data name="Settings_Tms_Description" xml:space="preserve">
-    <value>Mock — JSON fixtures without TMS running. Live — HTTP FastAPI on port 8000.</value>
+    <value>Configure connection to Tool Management System (TMS).</value>
   </data>
   <data name="Settings_Tms_Mode" xml:space="preserve">
     <value>Mode</value>
@@ -1818,13 +1818,13 @@
     <value>User profile was not found.</value>
   </data>
   <data name="Auth_ChangeServer" xml:space="preserve">
-    <value>Change Supabase server</value>
+    <value>Connection settings</value>
   </data>
   <data name="Auth_BackToSignIn" xml:space="preserve">
     <value>Back to sign in</value>
   </data>
   <data name="Auth_Server_Subtitle" xml:space="preserve">
-    <value>Enter the Supabase URL and publishable key.</value>
+    <value>Enter the database connection data.</value>
   </data>
   <data name="TitleBar_Profile_Format" xml:space="preserve">
     <value>{0} | {1} | {2}</value>

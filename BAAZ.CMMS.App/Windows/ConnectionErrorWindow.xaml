@@ -30,7 +30,8 @@
 
             <StackPanel Grid.Row="0"
                         Margin="0,0,0,16"
-                        Spacing="4">
+                        Spacing="4"
+                        Visibility="{Binding IsServerSettingsView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
                 <TextBlock Style="{ThemeResource TitleTextBlockStyle}"
                            Text="{Binding TitleText, Mode=OneWay}" />
                 <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -42,7 +43,8 @@
             <Border Grid.Row="1"
                     Style="{StaticResource AuthCardStyle}"
                     VerticalAlignment="Top"
-                    Visibility="{Binding IsErrorView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                    Visibility="{Binding IsErrorView, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Margin="0,60,0,0">
                 <StackPanel Spacing="16">
                     <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
@@ -57,12 +59,18 @@
                                   Foreground="{ThemeResource SystemFillColorCautionBrush}"
                                   Glyph="&#xE7BA;" />
 
-                        <TextBlock Grid.Column="1"
-                                   FontWeight="SemiBold"
-                                   Style="{ThemeResource SubtitleTextBlockStyle}"
-                                   Text="{Binding TitleText, Mode=OneWay}"
-                                   TextWrapping="WrapWholeWords"
-                                   VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1"
+                                    Spacing="4"
+                                    VerticalAlignment="Center">
+                            <TextBlock FontWeight="SemiBold"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       Text="{Binding TitleText, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                       Text="{Binding SubtitleText, Mode=OneWay}"
+                                       TextWrapping="WrapWholeWords" />
+                        </StackPanel>
                     </Grid>
 
                     <Button HorizontalAlignment="Stretch"

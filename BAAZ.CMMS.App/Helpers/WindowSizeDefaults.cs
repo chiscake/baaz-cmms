@@ -16,14 +16,14 @@ public static class WindowSizeDefaults
     public static class Login
     {
         public const double Width = 440;
-        public const double Height = 480;
+        public const double Height = 500;
         public const double DebugHeight = 600;
     }
 
     public static class ConnectionError
     {
         public const double Width = 480;
-        public const double Height = 480;
+        public const double Height = 500;
     }
 
     public static class StartupLoading

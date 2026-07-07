@@ -37,4 +37,7 @@ public sealed class DataError
 
     public static DataError Unknown(string? detail = null) =>
         new(DataErrorCode.Unknown, "DataError_Unknown", detail);
+
+    public static DataError NotFound(string messageKey, string? detail = null) =>
+        new(DataErrorCode.NotFound, messageKey, detail);
 }

@@ -19,7 +19,7 @@
     <value>Пользователи</value>
   </data>
   <data name="Nav_MaintenanceSchedule" xml:space="preserve">
-    <value>График ТО</value>
+    <value>График ППР</value>
   </data>
   <data name="Nav_IncomingRequests" xml:space="preserve">
     <value>Заявки</value>
@@ -1590,7 +1590,7 @@
     <value>Supabase</value>
   </data>
   <data name="Settings_Supabase_Description" xml:space="preserve">
-    <value>Переопределение URL и publishable key для подключения к Supabase.</value>
+    <value>Переопределение данных для подключения к основному серверу.</value>
   </data>
   <data name="Settings_Supabase_Url" xml:space="preserve">
     <value>Supabase URL</value>
@@ -1623,16 +1623,16 @@
     <value>Интеграция с TMS</value>
   </data>
   <data name="Settings_Tms_Description" xml:space="preserve">
-    <value>Mock — JSON-fixtures без запущенного TMS. Live — HTTP FastAPI на порту 8000.</value>
+    <value>Настройка подключения к серверу Tool Management System (TMS).</value>
   </data>
   <data name="Settings_Tms_Mode" xml:space="preserve">
     <value>Режим</value>
   </data>
   <data name="Settings_Tms_BaseUrl" xml:space="preserve">
-    <value>TMS Base URL</value>
+    <value>Базовый URL TMS</value>
   </data>
   <data name="Settings_Tms_Secret" xml:space="preserve">
-    <value>TMS Integration Secret</value>
+    <value>Секрет интеграции TMS</value>
   </data>
   <data name="Settings_Tms_Test" xml:space="preserve">
     <value>Проверить подключение</value>
@@ -1668,7 +1668,7 @@
     <value>Панель управления системой</value>
   </data>
   <data name="Home_Heading_Dispatcher" xml:space="preserve">
-    <value>Заявки и график ТО</value>
+    <value>Заявки и график ППР</value>
   </data>
   <data name="Home_Heading_Requester" xml:space="preserve">
     <value>Мои заявки</value>
@@ -1818,13 +1818,13 @@
     <value>Профиль пользователя не найден.</value>
   </data>
   <data name="Auth_ChangeServer" xml:space="preserve">
-    <value>Изменить сервер Supabase</value>
+    <value>Настройки подключения</value>
   </data>
   <data name="Auth_BackToSignIn" xml:space="preserve">
     <value>Назад к входу</value>
   </data>
   <data name="Auth_Server_Subtitle" xml:space="preserve">
-    <value>Укажите URL и publishable key для подключения к Supabase.</value>
+    <value>Укажите данные для подключения к базе данных.</value>
   </data>
   <data name="TitleBar_Profile_Format" xml:space="preserve">
     <value>{0} | {1} | {2}</value>
