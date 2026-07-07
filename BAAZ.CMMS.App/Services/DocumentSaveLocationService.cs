@@ -48,4 +48,32 @@ public sealed class DocumentSaveLocationService(IFilePickerService filePicker) :
 
         return path;
     }
+
+    public async Task<string?> PickXlsxSavePathAsync(
+        string suggestedFileName,
+        CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var initialDir = Directory.Exists(LastSaveDirectory) ? LastSaveDirectory : null;
+
+        var path = await _filePicker.PickSaveFileAsync(
+            suggestedFileName,
+            new Dictionary<string, IReadOnlyList<string>>
+            {
+                [ResourceStrings.Get("DocumentSave_FileTypeLabel_Xlsx")] = [".xlsx"],
+            },
+            ".xlsx",
+            ResourceStrings.Get("DocumentSave_PickerTitle"),
+            initialDir);
+
+        if (path is not null)
+        {
+            var directory = Path.GetDirectoryName(path);
+            if (!string.IsNullOrWhiteSpace(directory))
+                SettingsHelper.Current.LastDocumentSaveDirectory = directory;
+        }
+
+        return path;
+    }
 }

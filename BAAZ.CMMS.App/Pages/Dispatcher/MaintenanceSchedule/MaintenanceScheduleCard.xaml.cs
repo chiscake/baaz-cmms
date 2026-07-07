@@ -109,6 +109,8 @@ public sealed partial class MaintenanceScheduleCard : UserControl
             flyout.Items.Add(CreateItem(page.ActionMaterialRequisition, page.OpenMaterialRequisitionCommand, row));
         }
 
+        flyout.Items.Add(CreateItem(page.ActionExportPprWorkOrder, page.ExportPprWorkOrderCommand, row));
+
         if (row.CanCreateToolRequisition)
         {
             flyout.Items.Add(CreateItem(page.ActionToolRequisition, page.OpenToolRequisitionCommand, row));

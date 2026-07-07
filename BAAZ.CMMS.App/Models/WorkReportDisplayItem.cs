@@ -1,13 +1,19 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 using BAAZ.CMMS.App.Helpers;
+using BAAZ.CMMS.App.Pages.Dispatcher.RequestDetail;
 using BAAZ.CMMS.Core.Models;
 
 namespace BAAZ.CMMS.App.Models;
 
 public sealed class WorkReportDisplayItem
 {
+    public Guid Id { get; init; }
+
+    public RequestDetailViewModel? Owner { get; init; }
+
     public required string RepairDepartmentName { get; init; }
 
     public required string TechnicianName { get; init; }
@@ -24,8 +30,10 @@ public sealed class WorkReportDisplayItem
 
     public required string CreatedAtText { get; init; }
 
-    public static WorkReportDisplayItem From(WorkReportItem item) => new()
+    public static WorkReportDisplayItem From(WorkReportItem item, RequestDetailViewModel? owner = null) => new()
     {
+        Id = item.Id,
+        Owner = owner,
         RepairDepartmentName = item.RepairDepartmentName ?? string.Empty,
         TechnicianName = item.TechnicianName,
         WorkPerformed = item.WorkPerformed,

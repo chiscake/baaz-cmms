@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 using BAAZ.CMMS.App.Helpers;
 using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.App.Pages.Dispatcher.RequestDetail;
+using BAAZ.CMMS.App.Services;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Realtime;
 using BAAZ.CMMS.Core.Services;
+using BAAZ.CMMS.Core.Services.DocumentExport;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -26,6 +29,9 @@ public sealed partial class WorkReportsViewModel : PageViewModelBase
     private readonly IMaintenanceService _maintenanceService;
     private readonly INavigationService _navigationService;
     private readonly IRealtimeNotificationService _realtimeService;
+    private readonly IWorkReportExportService _workReportExportService;
+    private readonly IDocumentSaveLocationService _saveLocationService;
+    private readonly IWindowsShellFileService _shellFileService;
 
     private IReadOnlyList<WorkReportItem> _allItems = [];
     private bool _realtimeSubscribed;
@@ -33,11 +39,17 @@ public sealed partial class WorkReportsViewModel : PageViewModelBase
     public WorkReportsViewModel(
         IMaintenanceService maintenanceService,
         INavigationService navigationService,
-        IRealtimeNotificationService realtimeService)
+        IRealtimeNotificationService realtimeService,
+        IWorkReportExportService workReportExportService,
+        IDocumentSaveLocationService saveLocationService,
+        IWindowsShellFileService shellFileService)
     {
         _maintenanceService = maintenanceService;
         _navigationService = navigationService;
         _realtimeService = realtimeService;
+        _workReportExportService = workReportExportService;
+        _saveLocationService = saveLocationService;
+        _shellFileService = shellFileService;
     }
 
     public override string PageTitle => ResourceStrings.Get("Nav_WorkReports");
@@ -50,6 +62,7 @@ public sealed partial class WorkReportsViewModel : PageViewModelBase
     ];
 
     public string ActionOpen => ResourceStrings.Get("WorkReports_Action_Open");
+    public string ActionExportDocx => ResourceStrings.Get("Common_Action_GenerateDocx");
     public string FilterPlaceholder => ResourceStrings.Get("WorkReports_Filter_Placeholder");
     public string EmptyText => ResourceStrings.Get("WorkReports_Empty");
 
@@ -178,5 +191,32 @@ public sealed partial class WorkReportsViewModel : PageViewModelBase
             return;
 
         RealtimeUiRefresh.Enqueue(LoadAsync);
+    }
+
+    [RelayCommand]
+    private async Task ExportWorkReportAsync(WorkReportsRow? row)
+    {
+        if (row is null)
+            return;
+
+        var item = _allItems.FirstOrDefault(i => i.Id == row.Id);
+        var stamp = DateTime.Now.ToString("yyyyMMdd");
+        var suffix = item?.RequestNumber ?? item?.ScheduleAssetNumber ?? stamp;
+        var fileName = $"Акт-работ_{SanitizeFileName(suffix)}_{stamp}.docx";
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            fileName,
+            "DocumentExport_WorkReport_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _workReportExportService.ExportAsync(row.Id, path));
+    }
+
+    private static string SanitizeFileName(string value)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        return string.Concat(value.Select(ch => invalid.Contains(ch) ? '_' : ch));
     }
 }

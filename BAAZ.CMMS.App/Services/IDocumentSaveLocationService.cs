@@ -9,5 +9,9 @@ public interface IDocumentSaveLocationService
         string suggestedFileName,
         CancellationToken cancellationToken = default);
 
+    Task<string?> PickXlsxSavePathAsync(
+        string suggestedFileName,
+        CancellationToken cancellationToken = default);
+
     string? LastSaveDirectory { get; }
 }

@@ -16,7 +16,10 @@ public sealed class WorkReportItem
     public string? Notes { get; init; }
     public string? MaintenanceType { get; init; }
     public IReadOnlyList<string>? MaintenanceTypes { get; init; }
+    public string? MaintenanceTypesText { get; init; }
     public DateTimeOffset CreatedAt { get; init; }
+    public string? PartsUsed { get; init; }
+    public string? AuthorName { get; init; }
     public string? RequestNumber { get; init; }
     public string? ScheduleAssetName { get; init; }
     public string? ScheduleAssetNumber { get; init; }

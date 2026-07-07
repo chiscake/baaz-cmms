@@ -2,6 +2,7 @@ using System.Diagnostics;
 
 using BAAZ.CMMS.Core.Data;
 using BAAZ.CMMS.Core.Models;
+using BAAZ.CMMS.Core.Models.DocumentExport;
 using BAAZ.CMMS.Core.Repositories;
 using BAAZ.CMMS.Core.Repositories.Dtos;
 using BAAZ.CMMS.Core.Services.Integrations;
@@ -511,6 +512,7 @@ public sealed class RequestService(
             MaintenanceType = r.MaintenanceType,
             MaintenanceTypes = r.MaintenanceTypes,
             CreatedAt = r.CreatedAt,
+            PartsUsed = WorkReportPartsUsedFormatter.Format(r.PartsUsed),
         }).ToList();
     }
 

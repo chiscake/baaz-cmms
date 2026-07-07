@@ -494,3 +494,7 @@ $RECYCLE.BIN/
 *.temp
 tmp/
 temp/
+
+# Large docs
+*.docx
+*.pdf

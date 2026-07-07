@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,7 +10,9 @@ using BAAZ.CMMS.App.Helpers.RequestHelpers;
 using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.App.Pages.Requester.MyRequests;
 using BAAZ.CMMS.Core.Models;
+using BAAZ.CMMS.App.Services;
 using BAAZ.CMMS.Core.Services;
+using BAAZ.CMMS.Core.Services.DocumentExport;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -42,15 +45,27 @@ public sealed partial class RequestHistoryViewModel : PageViewModelBase
     ];
 
     private readonly IRequestService _requestService;
+    private readonly IDocumentSaveLocationService _saveLocationService;
+    private readonly IWindowsShellFileService _shellFileService;
+    private readonly IRepairRequestExportService _repairRequestExportService;
+    private readonly IRequestCardExportService _requestCardExportService;
 
     private List<RequestListItem> _browseSource = [];
     private Guid? _selectedRequestId;
 
     public RequestHistoryViewModel(
         IRequestService requestService,
-        RequestHistoryTableViewModel tableViewModel)
+        RequestHistoryTableViewModel tableViewModel,
+        IDocumentSaveLocationService saveLocationService,
+        IWindowsShellFileService shellFileService,
+        IRepairRequestExportService repairRequestExportService,
+        IRequestCardExportService requestCardExportService)
     {
         _requestService = requestService;
+        _saveLocationService = saveLocationService;
+        _shellFileService = shellFileService;
+        _repairRequestExportService = repairRequestExportService;
+        _requestCardExportService = requestCardExportService;
         TableViewModel = tableViewModel;
         TableViewModel.RecordPicked += OnTableRecordPicked;
     }
@@ -68,6 +83,8 @@ public sealed partial class RequestHistoryViewModel : PageViewModelBase
     public string EmptyFilterText => ResourceStrings.Get("MyRequests_Empty_Filter");
     public string HistoryTitle => ResourceStrings.Get("MyRequests_History_Title");
     public string HistoryEmptyText => ResourceStrings.Get("MyRequests_History_Empty");
+    public string ActionExportRepairRequest => ResourceStrings.Get("RequestDetail_Export_RepairRequest");
+    public string ActionExportRequestCard => ResourceStrings.Get("RequestDetail_Export_RequestCard");
 
     public string DetailLabelNumber => ResourceStrings.Get("MyRequests_Detail_Number");
     public string DetailLabelType => ResourceStrings.Get("MyRequests_Detail_Type");
@@ -424,5 +441,43 @@ public sealed partial class RequestHistoryViewModel : PageViewModelBase
         OnPropertyChanged(nameof(ShowEmptyList));
         OnPropertyChanged(nameof(ShowEmptyFilter));
         OnPropertyChanged(nameof(ShowEmptySelection));
+    }
+
+    [RelayCommand]
+    private async Task ExportRepairRequestAsync()
+    {
+        if (_selectedRequestId is not Guid requestId)
+            return;
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            $"Заявка-ремонт_{SanitizeFileName(DetailNumber)}.docx",
+            "DocumentExport_RepairRequest_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _repairRequestExportService.ExportAsync(requestId, path));
+    }
+
+    [RelayCommand]
+    private async Task ExportRequestCardAsync()
+    {
+        if (_selectedRequestId is not Guid requestId)
+            return;
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            $"Карточка-заявки_{SanitizeFileName(DetailNumber)}.docx",
+            "DocumentExport_RequestCard_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _requestCardExportService.ExportAsync(requestId, path));
+    }
+
+    private static string SanitizeFileName(string value)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        return string.Concat(value.Select(ch => invalid.Contains(ch) ? '_' : ch));
     }
 }

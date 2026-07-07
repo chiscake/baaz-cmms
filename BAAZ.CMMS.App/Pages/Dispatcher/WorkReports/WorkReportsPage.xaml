@@ -11,7 +11,7 @@
 
     <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        State="{x:Bind ViewModel.InfoBanner, Mode=OneWay}"
-                       MaxContentWidth="Small640"
+                       MaxContentWidth="Medium768"
                        VerticalScrollMode="Disabled">
         <Grid VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
@@ -87,7 +87,12 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1"
-                                                VerticalAlignment="Center">
+                                                VerticalAlignment="Center"
+                                                Spacing="8"
+                                                Orientation="Horizontal">
+                                        <Button Content="{x:Bind Page.ActionExportDocx, Mode=OneWay}"
+                                                Command="{x:Bind Page.ExportWorkReportCommand}"
+                                                CommandParameter="{x:Bind}" />
                                         <Button Content="{x:Bind Page.ActionOpen, Mode=OneWay}"
                                                 Command="{x:Bind Page.OpenSourceCommand}"
                                                 CommandParameter="{x:Bind}" />

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace BAAZ.CMMS.Core.Repositories.Dtos;
@@ -43,11 +44,17 @@ public sealed class WorkReportListRowDto
     [JsonPropertyName("maintenance_type")]
     public string? MaintenanceType { get; init; }
 
+    [JsonPropertyName("maintenance_types")]
+    public IReadOnlyList<string>? MaintenanceTypes { get; init; }
+
     [JsonPropertyName("work_performed")]
     public string? WorkPerformed { get; init; }
 
     [JsonPropertyName("actual_duration_hours")]
     public decimal ActualDurationHours { get; init; }
+
+    [JsonPropertyName("parts_used")]
+    public JsonElement? PartsUsed { get; init; }
 
     [JsonPropertyName("defects_found")]
     public string? DefectsFound { get; init; }

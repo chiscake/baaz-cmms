@@ -18,4 +18,8 @@ public interface IWorkReportRepository
 
     Task<DataResult<IReadOnlyList<WorkReportListRowDto>>> ListAllAsync(
         CancellationToken cancellationToken = default);
+
+    Task<DataResult<WorkReportRowDto>> GetByIdAsync(
+        Guid workReportId,
+        CancellationToken cancellationToken = default);
 }

@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using BAAZ.CMMS.Core.Data;
 using BAAZ.CMMS.Core.Data.Models;
 using BAAZ.CMMS.Core.Models;
+using BAAZ.CMMS.Core.Models.DocumentExport;
 using BAAZ.CMMS.Core.Repositories;
 using BAAZ.CMMS.Core.Repositories.Junction;
 using BAAZ.CMMS.Core.Services.Integrations;
@@ -463,6 +464,9 @@ public sealed class MaintenanceService : IMaintenanceService
         ActualDurationHours = r.ActualDurationHours,
         DefectsFound = r.DefectsFound,
         Notes = r.Notes,
+        MaintenanceType = r.MaintenanceType,
+        MaintenanceTypes = r.MaintenanceTypes,
+        PartsUsed = WorkReportPartsUsedFormatter.Format(r.PartsUsed),
         CreatedAt = r.CreatedAt,
     };
 
@@ -479,6 +483,8 @@ public sealed class MaintenanceService : IMaintenanceService
         DefectsFound = r.DefectsFound,
         Notes = r.Notes,
         MaintenanceType = r.MaintenanceType,
+        MaintenanceTypes = r.MaintenanceTypes,
+        PartsUsed = WorkReportPartsUsedFormatter.Format(r.PartsUsed),
         CreatedAt = r.CreatedAt,
         RequestNumber = r.Requests?.RequestNumber,
         ScheduleAssetName = r.MaintenanceSchedule?.Assets?.Name,

@@ -38,6 +38,8 @@
                     <Button Content="{x:Bind ViewModel.ActionGenerate, Mode=OneWay}"
                             Command="{x:Bind ViewModel.GeneratePprCommand}"
                             Visibility="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <Button Content="{x:Bind ViewModel.ActionExportExcel, Mode=OneWay}"
+                            Command="{x:Bind ViewModel.ExportScheduleExcelCommand}" />
                     <Button Content="{x:Bind ViewModel.ActionCancelAll, Mode=OneWay}"
                             Command="{x:Bind ViewModel.CancelAllOpenCommand}"
                             Visibility="{x:Bind ViewModel.IsAdmin, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />

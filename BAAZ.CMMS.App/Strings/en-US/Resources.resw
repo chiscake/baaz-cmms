@@ -1412,6 +1412,48 @@
   <data name="Common_Action_GenerateDocx" xml:space="preserve">
     <value>Generate DOCX</value>
   </data>
+  <data name="Common_Action_GenerateExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="DocumentSave_FileTypeLabel_Xlsx" xml:space="preserve">
+    <value>Excel workbook</value>
+  </data>
+  <data name="DocumentExport_Success_Message" xml:space="preserve">
+    <value>File saved: {0}</value>
+  </data>
+  <data name="DocumentExport_Error_SaveFailed" xml:space="preserve">
+    <value>Failed to save the document.</value>
+  </data>
+  <data name="DocumentExport_WorkReport_Success_Title" xml:space="preserve">
+    <value>Work report generated</value>
+  </data>
+  <data name="DocumentExport_RepairRequest_Success_Title" xml:space="preserve">
+    <value>Repair request generated</value>
+  </data>
+  <data name="DocumentExport_RequestCard_Success_Title" xml:space="preserve">
+    <value>Request card generated</value>
+  </data>
+  <data name="DocumentExport_PprWorkOrder_Success_Title" xml:space="preserve">
+    <value>PPM work order generated</value>
+  </data>
+  <data name="DocumentExport_ScheduleExcel_Success_Title" xml:space="preserve">
+    <value>Schedule export generated</value>
+  </data>
+  <data name="RequestDetail_Export_RepairRequest" xml:space="preserve">
+    <value>Printable request</value>
+  </data>
+  <data name="RequestDetail_Export_RequestCard" xml:space="preserve">
+    <value>Request card</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_ExportPprWorkOrder" xml:space="preserve">
+    <value>PPM work order (DOCX)</value>
+  </data>
+  <data name="MaintenanceSchedule_Export_Empty" xml:space="preserve">
+    <value>No schedule items match the current filters.</value>
+  </data>
+  <data name="MaintenanceSchedule_Export_Period_AllFiltered" xml:space="preserve">
+    <value>All items matching filters</value>
+  </data>
   <data name="Common_None" xml:space="preserve">
     <value>—</value>
   </data>

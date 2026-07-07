@@ -341,4 +341,15 @@ public sealed partial class MaintenanceScheduleViewModel
 
         return filtered;
     }
+
+    public IReadOnlyList<MaintenanceScheduleItem> GetItemsForExport()
+    {
+        var filtered = GetFilteredItems().ToList();
+        if (!IsChartView)
+            return filtered;
+
+        return filtered
+            .Where(i => i.PlannedDate >= VisibleRangeStart && i.PlannedDate <= VisibleRangeEnd)
+            .ToList();
+    }
 }

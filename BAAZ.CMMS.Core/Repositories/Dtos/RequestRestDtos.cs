@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace BAAZ.CMMS.Core.Repositories.Dtos;
@@ -326,6 +327,9 @@ public sealed class WorkReportRowDto
     [JsonPropertyName("actual_duration_hours")]
     public decimal ActualDurationHours { get; init; }
 
+    [JsonPropertyName("parts_used")]
+    public JsonElement? PartsUsed { get; init; }
+
     [JsonPropertyName("defects_found")]
     public string? DefectsFound { get; init; }
 
@@ -340,6 +344,39 @@ public sealed class WorkReportRowDto
 
     [JsonPropertyName("repair_departments")]
     public RepairDepartmentEmbedDto? RepairDepartments { get; init; }
+
+    [JsonPropertyName("profiles")]
+    public ProfileEmbedDto? Profiles { get; init; }
+
+    [JsonPropertyName("requests")]
+    public WorkReportRequestExportEmbedDto? Requests { get; init; }
+
+    [JsonPropertyName("maintenance_schedule")]
+    public WorkReportScheduleExportEmbedDto? MaintenanceSchedule { get; init; }
+}
+
+public sealed class WorkReportRequestExportEmbedDto
+{
+    [JsonPropertyName("request_number")]
+    public string? RequestNumber { get; init; }
+
+    [JsonPropertyName("title")]
+    public string? Title { get; init; }
+
+    [JsonPropertyName("assets")]
+    public WorkReportAssetEmbedDto? Assets { get; init; }
+}
+
+public sealed class WorkReportScheduleExportEmbedDto
+{
+    [JsonPropertyName("maintenance_type")]
+    public string? MaintenanceType { get; init; }
+
+    [JsonPropertyName("planned_date")]
+    public string? PlannedDate { get; init; }
+
+    [JsonPropertyName("assets")]
+    public WorkReportAssetEmbedDto? Assets { get; init; }
 }
 
 public sealed class RequestPatchDto

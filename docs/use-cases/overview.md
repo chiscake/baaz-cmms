@@ -217,6 +217,7 @@ flowchart TB
 1. Диспетчер открывает представление `asset_maintenance_status` (даты последнего и следующего ТО по нормативам).
 2. Сопоставляет данные с позициями `maintenance_schedule` (статусы `scheduled`, `overdue`, `completed`, `cancelled`).
 3. Планирует загрузку бригады и согласование остановов с производством.
+4. **Экспорт:** наряд на ППР (DOCX) по позиции графика из меню карточки; ведомость графика за период (Excel) по текущим фильтрам (в режиме календаря — видимый диапазон дат).
 
 **Затронутые сущности:** `asset_maintenance_status`, `maintenance_schedule`, `maintenance_norms`, `assets`.
 
@@ -239,6 +240,7 @@ flowchart TB
 3. Указывает `technician_id`, `work_performed`, `actual_duration_hours`, при необходимости `parts_used` (jsonb — перечень материалов в отчёте), `defects_found`, `notes`.
 4. Для аварийного ремонта, закрывающего плановый вид ТО, задаёт `maintenance_type` — дата учтётся в `asset_maintenance_status`.
 5. Для позиции ППР с несколькими отделами — каждый отдел сдаёт **свой** отчёт; `maintenance_schedule.status = 'completed'` устанавливается триггером автоматически, когда отчитались **все** назначенные отделы из `maintenance_schedule_departments`.
+6. **Экспорт:** акт выполненных работ (DOCX) по строке отчёта — со страницы «Отчёты о работах» и из карточки заявки.
 
 **Затронутые сущности:** `work_reports`, `requests`, `maintenance_schedule`, `maintenance_schedule_departments`, `repair_departments`, `technicians`, `profiles`.
 
@@ -274,6 +276,7 @@ flowchart TB
 
 1. Диспетчер открывает историю по `request_id` из `request_status_history`.
 2. Видит `old_status`, `new_status`, `changed_by` → `profiles`, `comment`, `created_at`.
+3. **Экспорт:** карточка заявки с историей статусов (DOCX) — из карточки заявки, «Мои заявки» и архива заявок.
 
 **Затронутые сущности:** `request_status_history`, `profiles`, `requests`.
 

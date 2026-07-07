@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,9 @@ using BAAZ.CMMS.App.Navigation;
 using BAAZ.CMMS.App.Services.Notifications;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Realtime;
+using BAAZ.CMMS.App.Services;
 using BAAZ.CMMS.Core.Services;
+using BAAZ.CMMS.Core.Services.DocumentExport;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -45,9 +48,14 @@ public sealed partial class MyRequestsViewModel : PageViewModelBase
     private readonly INavigationService _navigationService;
     private readonly IRealtimeNotificationService _realtimeService;
     private readonly INavBadgeService _navBadgeService;
+    private readonly IDocumentSaveLocationService _saveLocationService;
+    private readonly IWindowsShellFileService _shellFileService;
+    private readonly IRepairRequestExportService _repairRequestExportService;
+    private readonly IRequestCardExportService _requestCardExportService;
 
     private List<RequestListItem> _browseSource = [];
     private Guid? _selectedRequestId;
+    private string? _pendingStatusFilter;
     private bool _realtimeSubscribed;
 
     public MyRequestsViewModel(
@@ -56,13 +64,21 @@ public sealed partial class MyRequestsViewModel : PageViewModelBase
         INavigationService navigationService,
         IRealtimeNotificationService realtimeService,
         INavBadgeService navBadgeService,
-        MyRequestsTableViewModel tableViewModel)
+        MyRequestsTableViewModel tableViewModel,
+        IDocumentSaveLocationService saveLocationService,
+        IWindowsShellFileService shellFileService,
+        IRepairRequestExportService repairRequestExportService,
+        IRequestCardExportService requestCardExportService)
     {
         _requestService = requestService;
         _authService = authService;
         _navigationService = navigationService;
         _realtimeService = realtimeService;
         _navBadgeService = navBadgeService;
+        _saveLocationService = saveLocationService;
+        _shellFileService = shellFileService;
+        _repairRequestExportService = repairRequestExportService;
+        _requestCardExportService = requestCardExportService;
         TableViewModel = tableViewModel;
         TableViewModel.RecordPicked += OnTableRecordPicked;
         TableViewModel.AddRequested += OnTableAddRequested;
@@ -85,6 +101,8 @@ public sealed partial class MyRequestsViewModel : PageViewModelBase
     public string HistoryEmptyText => ResourceStrings.Get("MyRequests_History_Empty");
     public string ActionCancel => ResourceStrings.Get("MyRequests_Action_Cancel");
     public string ActionClose => ResourceStrings.Get("MyRequests_Action_Close");
+    public string ActionExportRepairRequest => ResourceStrings.Get("RequestDetail_Export_RepairRequest");
+    public string ActionExportRequestCard => ResourceStrings.Get("RequestDetail_Export_RequestCard");
 
     public string DetailLabelNumber => ResourceStrings.Get("MyRequests_Detail_Number");
     public string DetailLabelType => ResourceStrings.Get("MyRequests_Detail_Type");
@@ -579,5 +597,43 @@ public sealed partial class MyRequestsViewModel : PageViewModelBase
         OnPropertyChanged(nameof(ShowEmptyList));
         OnPropertyChanged(nameof(ShowEmptyFilter));
         OnPropertyChanged(nameof(ShowEmptySelection));
+    }
+
+    [RelayCommand]
+    private async Task ExportRepairRequestAsync()
+    {
+        if (_selectedRequestId is not Guid requestId)
+            return;
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            $"Заявка-ремонт_{SanitizeFileName(DetailNumber)}.docx",
+            "DocumentExport_RepairRequest_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _repairRequestExportService.ExportAsync(requestId, path));
+    }
+
+    [RelayCommand]
+    private async Task ExportRequestCardAsync()
+    {
+        if (_selectedRequestId is not Guid requestId)
+            return;
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            $"Карточка-заявки_{SanitizeFileName(DetailNumber)}.docx",
+            "DocumentExport_RequestCard_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _requestCardExportService.ExportAsync(requestId, path));
+    }
+
+    private static string SanitizeFileName(string value)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        return string.Concat(value.Select(ch => invalid.Contains(ch) ? '_' : ch));
     }
 }

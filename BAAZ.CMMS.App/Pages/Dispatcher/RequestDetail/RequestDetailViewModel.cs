@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 using BAAZ.CMMS.App.Helpers;
@@ -20,6 +21,8 @@ using BAAZ.CMMS.Core.Services;
 using BAAZ.CMMS.Core.Services.Catalog;
 using BAAZ.CMMS.Core.Services.Requisitions;
 using BAAZ.CMMS.Core.Services.TmsIssuance;
+using BAAZ.CMMS.App.Services;
+using BAAZ.CMMS.Core.Services.DocumentExport;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -47,6 +50,11 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
     private readonly IRealtimeNotificationService _realtimeService;
     private readonly INavigationService _navigationService;
     private readonly ITmsToolRequisitionService _tmsToolRequisitionService;
+    private readonly IDocumentSaveLocationService _saveLocationService;
+    private readonly IWindowsShellFileService _shellFileService;
+    private readonly IWorkReportExportService _workReportExportService;
+    private readonly IRepairRequestExportService _repairRequestExportService;
+    private readonly IRequestCardExportService _requestCardExportService;
 
     private Guid _requestId;
     private RequestDetailItem? _detail;
@@ -59,7 +67,12 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
         IRepairDepartmentCatalogService repairDepartmentCatalogService,
         IRealtimeNotificationService realtimeService,
         INavigationService navigationService,
-        ITmsToolRequisitionService tmsToolRequisitionService)
+        ITmsToolRequisitionService tmsToolRequisitionService,
+        IDocumentSaveLocationService saveLocationService,
+        IWindowsShellFileService shellFileService,
+        IWorkReportExportService workReportExportService,
+        IRepairRequestExportService repairRequestExportService,
+        IRequestCardExportService requestCardExportService)
     {
         _requestService = requestService;
         _authService = authService;
@@ -68,6 +81,11 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
         _realtimeService = realtimeService;
         _navigationService = navigationService;
         _tmsToolRequisitionService = tmsToolRequisitionService;
+        _saveLocationService = saveLocationService;
+        _shellFileService = shellFileService;
+        _workReportExportService = workReportExportService;
+        _repairRequestExportService = repairRequestExportService;
+        _requestCardExportService = requestCardExportService;
     }
 
     public override string PageTitle => ResourceStrings.Get("RequestDetail_Title");
@@ -113,6 +131,9 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
     public string ActionCloseRequest => ResourceStrings.Get("RequestDetail_Action_CloseRequest");
     public string ActionMaterialRequisition => ResourceStrings.Get("RequestDetail_Action_MaterialRequisition");
     public string ActionToolRequisition => ResourceStrings.Get("RequestDetail_Action_ToolRequisition");
+    public string ActionExportRepairRequest => ResourceStrings.Get("RequestDetail_Export_RepairRequest");
+    public string ActionExportRequestCard => ResourceStrings.Get("RequestDetail_Export_RequestCard");
+    public string ActionExportWorkReport => ResourceStrings.Get("Common_Action_GenerateDocx");
     public string SectionToolRequisitions => ResourceStrings.Get("RequestDetail_Section_ToolRequisitions");
     public string ActionAccept => ResourceStrings.Get("IncomingRequests_Action_Accept");
     public string ActionReject => ResourceStrings.Get("IncomingRequests_Action_Reject");
@@ -884,7 +905,7 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
             var reports = await _requestService.GetWorkReportsForRequestAsync(_requestId);
             WorkReports.Clear();
             foreach (var report in reports)
-                WorkReports.Add(WorkReportDisplayItem.From(report));
+                WorkReports.Add(WorkReportDisplayItem.From(report, this));
             HasWorkReports = WorkReports.Count > 0;
 
             var reportedDeptIds = reports.Select(r => r.RepairDepartmentId).ToHashSet();
@@ -1070,4 +1091,71 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
         "deliver_to_department" => ResourceStrings.Get("RequestDetail_Handoff_Deliver"),
         _ => string.Empty,
     };
+
+    [RelayCommand]
+    private async Task ExportRepairRequestAsync()
+    {
+        if (!HasDetail || _requestId == Guid.Empty)
+            return;
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            BuildRepairRequestFileName(),
+            "DocumentExport_RepairRequest_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _repairRequestExportService.ExportAsync(_requestId, path));
+    }
+
+    [RelayCommand]
+    private async Task ExportRequestCardAsync()
+    {
+        if (!HasDetail || _requestId == Guid.Empty)
+            return;
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            BuildRequestCardFileName(),
+            "DocumentExport_RequestCard_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _requestCardExportService.ExportAsync(_requestId, path));
+    }
+
+    [RelayCommand]
+    private async Task ExportWorkReportAsync(Guid workReportId)
+    {
+        if (workReportId == Guid.Empty)
+            return;
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            BuildWorkReportFileName(),
+            "DocumentExport_WorkReport_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _workReportExportService.ExportAsync(workReportId, path));
+    }
+
+    private string BuildRepairRequestFileName() =>
+        $"Заявка-ремонт_{SanitizeFileName(DetailNumber)}.docx";
+
+    private string BuildRequestCardFileName() =>
+        $"Карточка-заявки_{SanitizeFileName(DetailNumber)}.docx";
+
+    private string BuildWorkReportFileName()
+    {
+        var stamp = DateTime.Now.ToString("yyyyMMdd");
+        var suffix = string.IsNullOrWhiteSpace(DetailNumber) ? stamp : SanitizeFileName(DetailNumber);
+        return $"Акт-работ_{suffix}_{stamp}.docx";
+    }
+
+    private static string SanitizeFileName(string value)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        return string.Concat(value.Select(ch => invalid.Contains(ch) ? '_' : ch));
+    }
 }

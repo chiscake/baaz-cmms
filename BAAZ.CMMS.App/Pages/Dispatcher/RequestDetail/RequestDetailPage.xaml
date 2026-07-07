@@ -38,6 +38,14 @@
                                    BackgroundKey="AccentFillColorDefaultBrush"
                                    ForegroundKey="TextOnAccentFillColorPrimaryBrush"
                                    Visibility="{x:Bind ViewModel.IsInventoryRequest, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8"
+                            Margin="0,8,0,0">
+                    <Button Content="{x:Bind ViewModel.ActionExportRepairRequest, Mode=OneWay}"
+                            Command="{x:Bind ViewModel.ExportRepairRequestCommand}" />
+                    <Button Content="{x:Bind ViewModel.ActionExportRequestCard, Mode=OneWay}"
+                            Command="{x:Bind ViewModel.ExportRequestCardCommand}" />
+                </StackPanel>
             </StackPanel>
 
             <StackPanel Spacing="6">
@@ -489,6 +497,11 @@
                                 <TextBlock Text="{x:Bind DefectsFound}"
                                            TextWrapping="WrapWholeWords"
                                            Style="{ThemeResource CaptionTextBlockStyle}" />
+                                <Button Content="{x:Bind Owner.ActionExportWorkReport, Mode=OneWay}"
+                                        Command="{x:Bind Owner.ExportWorkReportCommand}"
+                                        CommandParameter="{x:Bind Id}"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,4,0,0" />
                             </StackPanel>
                         </Border>
                     </DataTemplate>
@@ -511,11 +524,8 @@
                                     <Run Text=" — " />
                                     <Run Text="{x:Bind ChangedByName}" />
                             </TextBlock>
-                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}">
-                                    <Run Text="{x:Bind OldStatusLabel}" />
-                                    <Run Text=" → " />
-                                    <Run Text="{x:Bind NewStatusLabel}" />
-                            </TextBlock>
+                            <TextBlock Text="{x:Bind StatusLineText}"
+                                       Style="{ThemeResource BodyTextBlockStyle}" />
                             <TextBlock Text="{x:Bind Comment}"
                                        Style="{ThemeResource CaptionTextBlockStyle}"
                                        TextWrapping="WrapWholeWords" />

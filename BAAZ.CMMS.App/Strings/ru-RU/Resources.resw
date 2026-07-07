@@ -1412,6 +1412,48 @@
   <data name="Common_Action_GenerateDocx" xml:space="preserve">
     <value>Сформировать DOCX</value>
   </data>
+  <data name="Common_Action_GenerateExcel" xml:space="preserve">
+    <value>Экспорт в Excel</value>
+  </data>
+  <data name="DocumentSave_FileTypeLabel_Xlsx" xml:space="preserve">
+    <value>Книга Excel</value>
+  </data>
+  <data name="DocumentExport_Success_Message" xml:space="preserve">
+    <value>Файл сохранён: {0}</value>
+  </data>
+  <data name="DocumentExport_Error_SaveFailed" xml:space="preserve">
+    <value>Не удалось сохранить документ.</value>
+  </data>
+  <data name="DocumentExport_WorkReport_Success_Title" xml:space="preserve">
+    <value>Акт выполненных работ сформирован</value>
+  </data>
+  <data name="DocumentExport_RepairRequest_Success_Title" xml:space="preserve">
+    <value>Заявка на ремонт сформирована</value>
+  </data>
+  <data name="DocumentExport_RequestCard_Success_Title" xml:space="preserve">
+    <value>Карточка заявки сформирована</value>
+  </data>
+  <data name="DocumentExport_PprWorkOrder_Success_Title" xml:space="preserve">
+    <value>Наряд на ППР сформирован</value>
+  </data>
+  <data name="DocumentExport_ScheduleExcel_Success_Title" xml:space="preserve">
+    <value>Ведомость графика ППР сформирована</value>
+  </data>
+  <data name="RequestDetail_Export_RepairRequest" xml:space="preserve">
+    <value>Печатная заявка</value>
+  </data>
+  <data name="RequestDetail_Export_RequestCard" xml:space="preserve">
+    <value>Карточка заявки</value>
+  </data>
+  <data name="MaintenanceSchedule_Action_ExportPprWorkOrder" xml:space="preserve">
+    <value>Наряд на ППР (DOCX)</value>
+  </data>
+  <data name="MaintenanceSchedule_Export_Empty" xml:space="preserve">
+    <value>Нет позиций для экспорта по текущим фильтрам.</value>
+  </data>
+  <data name="MaintenanceSchedule_Export_Period_AllFiltered" xml:space="preserve">
+    <value>Все позиции по фильтрам</value>
+  </data>
   <data name="Common_None" xml:space="preserve">
     <value>—</value>
   </data>
@@ -2083,7 +2125,7 @@ HResult: {1}</value>
     <value>Не указан</value>
   </data>
   <data name="MyRequests_Detail_Location" xml:space="preserve">
-    <value>Место</value>
+    <value>Местоположение</value>
   </data>
   <data name="MyRequests_Detail_Description" xml:space="preserve">
     <value>Описание</value>

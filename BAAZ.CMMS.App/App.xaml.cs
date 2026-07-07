@@ -40,7 +40,11 @@ using BAAZ.CMMS.App.ViewModels;
 using BAAZ.CMMS.Core.Contracts.Integrations;
 using BAAZ.CMMS.Core.Integrations.ToolIssuance;
 using BAAZ.CMMS.Core.Integrations.ToolTracker;
+using BAAZ.CMMS.Core.Integrations.Documents.Maintenance;
+using BAAZ.CMMS.Core.Integrations.Documents.Requests;
+using BAAZ.CMMS.Core.Integrations.Documents.WorkReports;
 using BAAZ.CMMS.Core.Integrations.Warehouse;
+using BAAZ.CMMS.Core.Services.DocumentExport;
 using BAAZ.CMMS.Core.Services.MaterialRequisition;
 using BAAZ.CMMS.Core.Services.ToolRequisition;
 using BAAZ.CMMS.Core.Data;
@@ -128,6 +132,16 @@ public partial class App : Application
         services.AddSingleton<IMaterialRequisitionDocxGenerator, MaterialRequisitionDocxGenerator>();
         services.AddSingleton<IWarehouseIntegration, DocxFileWarehouseIntegration>();
         services.AddSingleton<IMaterialRequisitionService, MaterialRequisitionService>();
+        services.AddSingleton<IWorkReportDocxGenerator, WorkReportDocxGenerator>();
+        services.AddSingleton<IRepairRequestDocxGenerator, RepairRequestDocxGenerator>();
+        services.AddSingleton<IRequestCardDocxGenerator, RequestCardDocxGenerator>();
+        services.AddSingleton<IPprWorkOrderDocxGenerator, PprWorkOrderDocxGenerator>();
+        services.AddSingleton<IMaintenanceScheduleExcelGenerator, MaintenanceScheduleExcelGenerator>();
+        services.AddSingleton<IWorkReportExportService, WorkReportExportService>();
+        services.AddSingleton<IRepairRequestExportService, RepairRequestExportService>();
+        services.AddSingleton<IRequestCardExportService, RequestCardExportService>();
+        services.AddSingleton<IPprWorkOrderExportService, PprWorkOrderExportService>();
+        services.AddSingleton<IMaintenanceScheduleExportService, MaintenanceScheduleExportService>();
         services.AddSingleton<IDowntimeTrackerIntegration, NullDowntimeTrackerIntegration>();
         services.AddSingleton<IRealtimeNotificationService, RealtimeNotificationService>();
         services.AddSingleton<AppBootstrapper>();
@@ -185,6 +199,11 @@ public partial class App : Application
         services.AddSingleton<IShellNotificationPresenter, ShellNotificationPresenter>();
 
         services.AddSingleton(bootstrapServices.GetRequiredService<IMaterialRequisitionService>());
+        services.AddSingleton(bootstrapServices.GetRequiredService<IWorkReportExportService>());
+        services.AddSingleton(bootstrapServices.GetRequiredService<IRepairRequestExportService>());
+        services.AddSingleton(bootstrapServices.GetRequiredService<IRequestCardExportService>());
+        services.AddSingleton(bootstrapServices.GetRequiredService<IPprWorkOrderExportService>());
+        services.AddSingleton(bootstrapServices.GetRequiredService<IMaintenanceScheduleExportService>());
 
         services.AddSingleton<IFilePickerService, FilePickerService>();
         services.AddSingleton<IDocumentSaveLocationService, DocumentSaveLocationService>();

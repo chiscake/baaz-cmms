@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +15,9 @@ using BAAZ.CMMS.App.Navigation;
 using BAAZ.CMMS.App.Pages.Admin.MaintenanceNorms;
 using BAAZ.CMMS.App.Pages.Dispatcher.MaterialRequisition;
 using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisition;
+using BAAZ.CMMS.App.Services;
 using BAAZ.CMMS.App.Services.Notifications;
+using BAAZ.CMMS.Core.Services.DocumentExport;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Realtime;
 using BAAZ.CMMS.Core.Repositories;
@@ -43,6 +46,10 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
     private readonly IRealtimeNotificationService _realtimeService;
     private readonly INavBadgeService _navBadgeService;
     private readonly ILocationTreeCache _locationTreeCache;
+    private readonly IDocumentSaveLocationService _saveLocationService;
+    private readonly IWindowsShellFileService _shellFileService;
+    private readonly IPprWorkOrderExportService _pprWorkOrderExportService;
+    private readonly IMaintenanceScheduleExportService _scheduleExportService;
 
     private bool _realtimeSubscribed;
     private int _realtimeReloadSuppressCount;
@@ -57,7 +64,11 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
         INavigationService navigationService,
         IRealtimeNotificationService realtimeService,
         INavBadgeService navBadgeService,
-        ILocationTreeCache locationTreeCache)
+        ILocationTreeCache locationTreeCache,
+        IDocumentSaveLocationService saveLocationService,
+        IWindowsShellFileService shellFileService,
+        IPprWorkOrderExportService pprWorkOrderExportService,
+        IMaintenanceScheduleExportService scheduleExportService)
     {
         _maintenanceService = maintenanceService;
         _assetRepository = assetRepository;
@@ -68,6 +79,10 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
         _realtimeService = realtimeService;
         _navBadgeService = navBadgeService;
         _locationTreeCache = locationTreeCache;
+        _saveLocationService = saveLocationService;
+        _shellFileService = shellFileService;
+        _pprWorkOrderExportService = pprWorkOrderExportService;
+        _scheduleExportService = scheduleExportService;
 
         _timelineScale = new ScheduleTimelineScale(ScheduleZoomPreset.Month, DateOnly.FromDateTime(DateTime.Today));
         RestorePrefs();
@@ -132,6 +147,8 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
     public string ActionGenerate => ResourceStrings.Get("MaintenanceSchedule_Action_Generate");
     public string ActionCancelAll => ResourceStrings.Get("MaintenanceSchedule_Action_CancelAll");
     public string ActionSubmitWorkReport => ResourceStrings.Get("MaintenanceSchedule_Action_SubmitWorkReport");
+    public string ActionExportPprWorkOrder => ResourceStrings.Get("MaintenanceSchedule_Action_ExportPprWorkOrder");
+    public string ActionExportExcel => ResourceStrings.Get("Common_Action_GenerateExcel");
 
     public string EmptyText => ResourceStrings.Get("MaintenanceSchedule_Empty");
 
@@ -320,6 +337,83 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
         _navigationService.NavigateTo(
             "ToolRequisition",
             new ToolRequisitionNavigationArgs { ScheduleId = row.Id });
+    }
+
+    [RelayCommand]
+    private async Task ExportPprWorkOrderAsync(MaintenanceScheduleRow? row)
+    {
+        if (row is null)
+            return;
+
+        var item = _allItems.FirstOrDefault(i => i.Id == row.Id);
+        if (item is null)
+            return;
+
+        var fileName =
+            $"Наряд-ППР_{SanitizeFileName(row.AssetNumber)}_{row.MaintenanceType}_{row.PlannedDate:yyyyMMdd}.docx";
+
+        await DocumentExportHelper.RunDocxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            fileName,
+            "DocumentExport_PprWorkOrder_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _pprWorkOrderExportService.ExportAsync(item, path));
+    }
+
+    [RelayCommand]
+    private async Task ExportScheduleExcelAsync()
+    {
+        var items = GetItemsForExport();
+        if (items.Count == 0)
+        {
+            InfoBanner.Report(ResourceStrings.Get("MaintenanceSchedule_Export_Empty"), InfoBarSeverity.Warning);
+            return;
+        }
+
+        var periodLabel = IsChartView
+            ? VisibleRangeText
+            : ResourceStrings.Get("MaintenanceSchedule_Export_Period_AllFiltered");
+
+        var fileName = BuildScheduleExcelFileName();
+        await DocumentExportHelper.RunXlsxExportAsync(
+            this,
+            _saveLocationService,
+            _shellFileService,
+            fileName,
+            "DocumentExport_ScheduleExcel_Success_Title",
+            "DocumentExport_Success_Message",
+            path => _scheduleExportService.ExportExcel(items, periodLabel, BuildFiltersSummary(), path));
+    }
+
+    private string BuildScheduleExcelFileName()
+    {
+        if (IsChartView)
+        {
+            return $"График-ППР_{VisibleRangeStart:yyyyMMdd}-{VisibleRangeEnd:yyyyMMdd}.xlsx";
+        }
+
+        return $"График-ППР_{DateTime.Today:yyyyMMdd}.xlsx";
+    }
+
+    private string? BuildFiltersSummary()
+    {
+        var parts = new List<string>();
+        if (GetSelectedStatus() is { } status)
+            parts.Add($"{FilterStatusLabel}: {MaintenanceTypeLabels.ScheduleStatus(status)}");
+
+        var needle = FilterText?.Trim();
+        if (!string.IsNullOrWhiteSpace(needle))
+            parts.Add($"{FilterSearchLabel}: {needle}");
+
+        return parts.Count == 0 ? null : string.Join("; ", parts);
+    }
+
+    private static string SanitizeFileName(string value)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        return string.Concat(value.Select(ch => invalid.Contains(ch) ? '_' : ch));
     }
 
     [RelayCommand]

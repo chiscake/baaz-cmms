@@ -143,6 +143,14 @@
                                                            Label="{x:Bind ViewModel.DetailStatusLabel, Mode=OneWay}"
                                                            BackgroundKey="{x:Bind ViewModel.DetailStatusBackgroundKey, Mode=OneWay}"
                                                            ForegroundKey="{x:Bind ViewModel.DetailStatusForegroundKey, Mode=OneWay}" />
+                                        <StackPanel Orientation="Horizontal"
+                                                    Spacing="8"
+                                                    Margin="0,8,0,0">
+                                            <Button Content="{x:Bind ViewModel.ActionExportRepairRequest, Mode=OneWay}"
+                                                    Command="{x:Bind ViewModel.ExportRepairRequestCommand}" />
+                                            <Button Content="{x:Bind ViewModel.ActionExportRequestCard, Mode=OneWay}"
+                                                    Command="{x:Bind ViewModel.ExportRequestCardCommand}" />
+                                        </StackPanel>
                                     </StackPanel>
 
                                     <TextBlock>
@@ -231,11 +239,8 @@
                                                         <Run Text=" — " />
                                                         <Run Text="{x:Bind ChangedByName}" />
                                                     </TextBlock>
-                                                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">
-                                                        <Run Text="{x:Bind OldStatusLabel}" />
-                                                        <Run Text=" → " />
-                                                        <Run Text="{x:Bind NewStatusLabel}" />
-                                                    </TextBlock>
+                                                    <TextBlock Text="{x:Bind StatusLineText}"
+                                                               Style="{ThemeResource BodyTextBlockStyle}" />
                                                     <TextBlock Text="{x:Bind Comment}"
                                                                Style="{ThemeResource CaptionTextBlockStyle}"
                                                                TextWrapping="WrapWholeWords" />

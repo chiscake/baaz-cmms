@@ -13,20 +13,31 @@ public sealed class RequestHistoryDisplayItem
 
     public required string NewStatusLabel { get; init; }
 
+    /// <summary>Текст перехода статуса: без стрелки, если «было» и «стало» совпадают.</summary>
+    public required string StatusLineText { get; init; }
+
     public required string ChangedByName { get; init; }
 
     public string? Comment { get; init; }
 
     public required string CreatedAtText { get; init; }
 
-    public static RequestHistoryDisplayItem From(RequestStatusHistoryItem item) => new()
+    public static RequestHistoryDisplayItem From(RequestStatusHistoryItem item)
     {
-        OldStatusLabel = RequestStatusHelper.GetLabel(item.OldStatus),
-        NewStatusLabel = RequestStatusHelper.GetLabel(item.NewStatus),
-        ChangedByName = item.ChangedByName,
-        Comment = FormatComment(item.Comment),
-        CreatedAtText = DateTimeDisplayHelper.Format(item.CreatedAt),
-    };
+        var oldLabel = RequestStatusHelper.GetLabel(item.OldStatus);
+        var newLabel = RequestStatusHelper.GetLabel(item.NewStatus);
+        var sameStatus = string.Equals(item.OldStatus, item.NewStatus, StringComparison.OrdinalIgnoreCase);
+
+        return new()
+        {
+            OldStatusLabel = oldLabel,
+            NewStatusLabel = newLabel,
+            StatusLineText = sameStatus ? newLabel : $"{oldLabel} → {newLabel}",
+            ChangedByName = item.ChangedByName,
+            Comment = FormatComment(item.Comment),
+            CreatedAtText = DateTimeDisplayHelper.Format(item.CreatedAt),
+        };
+    }
 
     private static string? FormatComment(string? comment)
     {

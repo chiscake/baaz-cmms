@@ -1,17 +1,24 @@
 using BAAZ.CMMS.Core.Data;
 using BAAZ.CMMS.Core.Repositories.Dtos;
 using BAAZ.CMMS.Core.Services;
+using System.Linq;
 
 namespace BAAZ.CMMS.Core.Repositories;
 
 public sealed class WorkReportRepository : IWorkReportRepository
 {
     private const string RowSelect =
-        "id,request_id,schedule_id,repair_department_id,maintenance_type,maintenance_types,work_performed,actual_duration_hours,defects_found,notes,created_at," +
+        "id,request_id,schedule_id,repair_department_id,maintenance_type,maintenance_types,work_performed,actual_duration_hours,parts_used,defects_found,notes,created_at," +
         "technicians(full_name),repair_departments(name)";
 
+    private const string ExportSelect =
+        "id,request_id,schedule_id,repair_department_id,maintenance_type,maintenance_types,work_performed,actual_duration_hours,parts_used,defects_found,notes,created_at," +
+        "technicians(full_name),repair_departments(name),profiles(full_name)," +
+        "requests(request_number,title,assets(name,asset_number))," +
+        "maintenance_schedule(maintenance_type,planned_date,assets(name,asset_number))";
+
     private const string ListSelect =
-        "id,request_id,schedule_id,repair_department_id,maintenance_type,work_performed,actual_duration_hours,defects_found,notes,created_at," +
+        "id,request_id,schedule_id,repair_department_id,maintenance_type,maintenance_types,work_performed,actual_duration_hours,parts_used,defects_found,notes,created_at," +
         "technicians(full_name),repair_departments(name)," +
         "requests(request_number)," +
         "maintenance_schedule(maintenance_type,assets(name,asset_number))";
@@ -96,6 +103,34 @@ public sealed class WorkReportRepository : IWorkReportRepository
             "&order=created_at.desc";
 
         return GetListResultAsync<WorkReportListRowDto>(path, cancellationToken);
+    }
+
+    public async Task<DataResult<WorkReportRowDto>> GetByIdAsync(
+        Guid workReportId,
+        CancellationToken cancellationToken = default)
+    {
+        var path =
+            "/rest/v1/work_reports" +
+            $"?id=eq.{workReportId:D}" +
+            $"&select={ExportSelect}" +
+            "&limit=1";
+
+        try
+        {
+            var rows = await SupabaseRestClient.GetListAsync<WorkReportRowDto>(
+                _clientProvider,
+                path,
+                cancellationToken);
+
+            var row = rows?.FirstOrDefault();
+            return row is null
+                ? DataResult<WorkReportRowDto>.Fail(DataError.NotFound("WorkReport_NotFound"))
+                : DataResult<WorkReportRowDto>.Ok(row);
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            return DataResult<WorkReportRowDto>.Fail(DataError.Network(ex.Message));
+        }
     }
 
     private async Task<DataResult<IReadOnlyList<T>>> GetListResultAsync<T>(
