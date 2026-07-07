@@ -1,3 +1,5 @@
 namespace BAAZ.CMMS.App.Pages.Requester.MyRequests;
 
-public sealed record MyRequestsNavigationArgs(System.Guid? SelectedRequestId);
+public sealed record MyRequestsNavigationArgs(
+    System.Guid? SelectedRequestId = null,
+    string? StatusFilter = null);

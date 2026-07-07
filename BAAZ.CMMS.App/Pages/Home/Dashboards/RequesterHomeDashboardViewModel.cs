@@ -7,6 +7,7 @@ using BAAZ.CMMS.App.Controls.Home;
 using BAAZ.CMMS.App.Helpers;
 using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.App.Navigation;
+using BAAZ.CMMS.App.Pages.Requester.MyRequests;
 using BAAZ.CMMS.App.Services.Notifications;
 using BAAZ.CMMS.Core.Services;
 using BAAZ.CMMS.Core.Services.Catalog;
@@ -76,7 +77,14 @@ public sealed class RequesterHomeDashboardViewModel : HomeDashboardSectionViewMo
 
             var row = BeginStatRow(4);
             AddStat(row, "Home_Stat_ActiveRequests", activeCount, "\uE8BD", StatusBadgeColorToken.BlueGrey);
-            AddStat(row, "Home_Stat_AwaitingAcceptance", awaitingCount, "\uE787", RequestColor("completed"));
+            AddStat(
+                row,
+                "Home_Stat_AwaitingAcceptance",
+                awaitingCount,
+                "\uE787",
+                RequestColor("completed"),
+                "MyRequests",
+                new MyRequestsNavigationArgs(StatusFilter: "completed"));
             AddStat(row, "Home_Stat_ScopedAssets", assetsResult.Value!.Count, "\uE115", AssetColor("active"));
             AddStat(row, "Home_Stat_StatusUpdates", statusUpdates, "\uE95E", StatusBadgeColorToken.BlueGrey);
         }

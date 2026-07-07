@@ -237,10 +237,15 @@ public sealed partial class MyRequestsViewModel : PageViewModelBase
 
         Guid? selectedId = null;
         if (navigationParameter is MyRequestsNavigationArgs args)
+        {
             selectedId = args.SelectedRequestId;
+            if (!string.IsNullOrWhiteSpace(args.StatusFilter))
+                _pendingStatusFilter = args.StatusFilter;
+        }
         else if (navigationParameter is Guid guid)
             selectedId = guid;
 
+        ApplyPendingStatusFilter();
         await LoadBrowseAsync(selectedId);
     }
 
@@ -360,6 +365,18 @@ public sealed partial class MyRequestsViewModel : PageViewModelBase
 
     private void OnTableAddRequested(object? sender, EventArgs e)
         => _navigationService.NavigateTo("NewRequest");
+
+    private void ApplyPendingStatusFilter()
+    {
+        if (string.IsNullOrWhiteSpace(_pendingStatusFilter))
+            return;
+
+        var index = Array.IndexOf(StatusFilterValues, _pendingStatusFilter);
+        if (index >= 0)
+            SelectedStatusIndex = index;
+
+        _pendingStatusFilter = null;
+    }
 
     private async Task LoadBrowseAsync(Guid? selectId = null)
     {
