@@ -1,0 +1,138 @@
+@startuml db-logical
+' BAAZ CMMS — логическая модель данных
+' auth.users + основные таблицы public.*
+' Junction-таблицы, audit_log, view и request_status_history не показаны.
+
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+}
+skinparam package {
+  BackgroundColor #F0F0F0
+  BorderColor #666666
+}
+
+entity "users" as auth_users {
+  email
+  password
+}
+
+entity profiles {
+  role
+  full_name
+  phone
+}
+
+entity locations {
+  name
+  is_active
+}
+
+entity repair_departments {
+  name
+  is_active
+}
+
+entity technicians {
+  full_name
+  specialty
+  is_active
+}
+
+entity equipment_categories {
+  description
+  is_active
+}
+
+entity assets {
+  name
+  manufacturer
+  model
+  serial_number
+  commissioning_date
+  status
+  description
+}
+
+entity category_maintenance_norms {
+  maintenance_type
+  interval_days
+  description
+}
+
+entity maintenance_norms {
+  maintenance_type
+  interval_days
+  description
+  override_departments
+}
+
+entity maintenance_schedule {
+  maintenance_type
+  planned_date
+  status
+  notify_dispatchers
+}
+
+entity requests {
+  type
+  location_description
+  title
+  description
+  priority
+  repair_zone
+  contractor_name
+  status
+}
+
+entity work_reports {
+  maintenance_type
+  maintenance_types
+  work_performed
+  actual_duration_hours
+  parts_used
+  defects_found
+  notes
+}
+
+' --- auth ---
+auth_users ||--|| profiles : расширяет
+
+' --- организация ---
+locations ||--o{ locations : parent
+locations ||--o{ profiles : место работы
+profiles }o--o{ locations : зона доступа
+locations ||--|{ assets : размещён в
+
+repair_departments ||--o{ profiles : диспетчер
+repair_departments ||--o{ technicians : состоит в
+repair_departments ||--o{ work_reports : сдаёт
+repair_departments }o--o{ requests : маршрут
+repair_departments }o--o{ category_maintenance_norms : ответственен
+repair_departments }o--o{ maintenance_norms : ответственен
+repair_departments }o--o{ maintenance_schedule : исполняет
+repair_departments ||--o{ requests : целевой отдел
+
+' --- оборудование и ППР ---
+equipment_categories ||--o{ assets : категория
+equipment_categories ||--o{ category_maintenance_norms : пресет
+category_maintenance_norms }o..o{ maintenance_norms : наследование
+
+assets ||--o{ maintenance_norms : override
+assets ||--|{ maintenance_schedule : график
+assets ||--o{ requests : объект
+
+maintenance_schedule ||--o{ work_reports : отчёты
+
+' --- заявки ---
+profiles ||--|{ requests : заявитель
+profiles ||--|{ work_reports : автор
+
+technicians }o--o{ requests : исполнитель
+technicians ||--|{ work_reports : выполнил
+
+requests ||--o{ work_reports : отчёты
+
+@enduml

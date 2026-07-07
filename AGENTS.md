@@ -487,16 +487,6 @@ Don't reimplement in page VM:
 4. **Consult docs before editing** external APIs — see below.
 5. Prefer **file references** over large inline code dumps in chat.
 
-### Manual verification checklists
-
-After implementing a **feature** or **bugfix**, end the message with a concise **manual testing checklist** (user runs parallel agent chats and uses checklists to recall what to verify).
-
-- **Planned / multi-step work** (followed a plan, large UC, cross-layer changes): longer checklist — key scenarios, affected pages/flows, and **roles** (`admin`, `dispatcher`, `requester`) where relevant.
-- **Small fix / quick change** (no plan, narrow scope): short checklist — 2–5 targeted steps for the changed behavior only.
-- Skip for pure Q&A, reviews, or docs-only edits with no runnable behavior change.
-
-**Completion criteria** defined by user during development — no fixed MVP checklist here.
-
 ## Git workflow
 
 - Primary branch: **`main`** (no multi-branch workflow).

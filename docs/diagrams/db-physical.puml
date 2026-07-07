@@ -1,0 +1,184 @@
+@startuml db-physical
+' BAAZ CMMS — физическая модель данных (PostgreSQL / Supabase)
+' auth.users + основные таблицы public.*
+' Junction-таблицы, audit_log, view и request_status_history не показаны.
+
+skinparam shadowing false
+skinparam linetype ortho
+skinparam entity {
+  BackgroundColor #FEFECE
+  BorderColor #A80036
+}
+skinparam package {
+  BackgroundColor #F0F0F0
+  BorderColor #666666
+}
+
+  entity "users" as auth_users {
+    * uuid id <<PK>>
+    --
+    text email <<UK>>
+    text encrypted_password
+  }
+
+  entity profiles {
+    * uuid id <<PK>> <<FK>>
+    * uuid location_id <<FK>>
+    * uuid repair_department_id <<FK>>
+    --
+    user_role role
+    text full_name
+    text phone
+  }
+
+  entity locations {
+    * uuid id <<PK>>
+    * uuid parent_id <<FK>>
+    * text code <<UK>>
+    --
+    text name
+    boolean is_active
+  }
+
+  entity repair_departments {
+    * uuid id <<PK>>
+    * text code <<UK>>
+    --
+    text name
+    boolean is_active
+  }
+
+  entity technicians {
+    * uuid id <<PK>>
+    * uuid repair_department_id <<FK>>
+    --
+    text full_name
+    text specialty
+    boolean is_active
+  }
+
+  entity equipment_categories {
+    * uuid id <<PK>>
+    * text name <<UK>>
+    --
+    text description
+    boolean is_active
+  }
+
+  entity assets {
+    * uuid id <<PK>>
+    * text asset_number <<UK>>
+    * uuid location_id <<FK>>
+    * uuid category_id <<FK>>
+    --
+    text name
+    text manufacturer
+    text model
+    text serial_number
+    date commissioning_date
+    asset_status status
+    text description
+  }
+
+  entity category_maintenance_norms {
+    * uuid id <<PK>>
+    * uuid category_id <<FK>> <<UK>>
+    * maintenance_type maintenance_type <<UK>>
+    --
+    integer interval_days
+    text description
+  }
+
+  entity maintenance_norms {
+    * uuid id <<PK>>
+    * uuid asset_id <<FK>> <<UK>>
+    * maintenance_type maintenance_type <<UK>>
+    --
+    integer interval_days
+    text description
+    boolean override_departments
+  }
+
+  entity maintenance_schedule {
+    * uuid id <<PK>>
+    * uuid asset_id <<FK>>
+    --
+    maintenance_type maintenance_type
+    date planned_date
+    schedule_status status
+    boolean notify_dispatchers
+  }
+
+  entity requests {
+    * uuid id <<PK>>
+    * text request_number <<UK>>
+    * uuid asset_id <<FK>>
+    * uuid requester_id <<FK>>
+    * uuid target_repair_department_id <<FK>>
+    --
+    request_type type
+    text location_description
+    text title
+    text description
+    request_priority priority
+    repair_zone repair_zone
+    text contractor_name
+    request_status status
+  }
+
+  entity work_reports {
+    * uuid id <<PK>>
+    * uuid request_id <<FK>> <<UK>>
+    * uuid schedule_id <<FK>> <<UK>>
+    * uuid repair_department_id <<FK>> <<UK>>
+    * uuid author_id <<FK>>
+    * uuid technician_id <<FK>>
+    --
+    maintenance_type maintenance_type
+    "maintenance_type[]" maintenance_types
+    text work_performed
+    numeric actual_duration_hours
+    jsonb parts_used
+    text defects_found
+    text notes
+  }
+
+' --- auth ---
+auth_users ||--|| profiles : id
+
+' --- организация ---
+locations ||--o{ locations : parent_id
+locations ||--o{ profiles : location_id
+profiles }o--o{ locations : зона доступа
+locations ||--|{ assets : location_id
+
+repair_departments ||--o{ profiles : repair_department_id
+repair_departments ||--o{ technicians : repair_department_id
+repair_departments ||--o{ work_reports : repair_department_id
+repair_departments }o--o{ requests : маршрут
+repair_departments }o--o{ category_maintenance_norms : ответственен
+repair_departments }o--o{ maintenance_norms : ответственен
+repair_departments }o--o{ maintenance_schedule : исполняет
+repair_departments ||--o{ requests : target_repair_department_id
+
+' --- оборудование и ППР ---
+equipment_categories ||--o{ assets : category_id
+equipment_categories ||--o{ category_maintenance_norms : category_id
+category_maintenance_norms }o..o{ maintenance_norms : наследование
+
+assets ||--o{ maintenance_norms : asset_id
+assets ||--|{ maintenance_schedule : asset_id
+assets ||--o{ requests : asset_id
+
+maintenance_schedule ||--o{ work_reports : schedule_id
+
+' --- заявки ---
+profiles ||--|{ requests : requester_id
+profiles ||--|{ work_reports : author_id
+
+technicians }o--o{ requests : исполнитель
+technicians ||--|{ work_reports : technician_id
+
+requests ||--o{ work_reports : request_id
+
+@enduml
