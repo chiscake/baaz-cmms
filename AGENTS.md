@@ -43,11 +43,12 @@ BAAZ.CMMS.App/                  # WinUI host app
   Program.cs               # Settings + language init before Application.Start
   Navigation/PageMap.cs    # Page key → Type map
   Pages/                   # Role / page_key / files (see § Pages layout)
-  Helpers/SettingsHelper/
+  Controls/CrudWorkbench/  # Grid framework: Abstractions/, Columns/, Grid/, Editor/, Shell/, ViewModels/, Wireup/
+  Helpers/                 # Status/, Theming/, Labels/, Display/, Window/, Export/, Validation/, Realtime/, Ui/; LocationHelpers/, RequestHelpers/, SettingsHelper/
   Strings/{en-US,ru-RU}/Resources.resw
 BAAZ.CMMS.Core/                 # UI-free logic (structure evolving)
   Data/                    # ISupabaseGateway, DataResult; PostgREST models in Data/Models/
-  Models/                  # UI/service DTOs (ListItem, EditInput, …)
+  Models/                  # UI/service DTOs — Auth/, Requests/, Maintenance/, Catalog/*, Requisitions/*, WorkReports/, Audit/; TmsIssuance/, DocumentExport/
   Services/
     Auth/                  # IAuthService
     Connection/            # IConnectionService
@@ -57,7 +58,7 @@ BAAZ.CMMS.Core/                 # UI-free logic (structure evolving)
     Requests/              # IRequestService
     Maintenance/           # IMaintenanceService
     ProfileAdmin/          # IProfileAdminService, AdminUsersFunctionClient
-  Repositories/
+  Repositories/            # Catalog/, Maintenance/, Requests/, Integrations/, Audit/, Shared/; Dtos/, Junction/
     Dtos/                  # REST embed DTOs (e.g. RequestRestDtos)
 scripts/
 supabase/
@@ -228,7 +229,7 @@ GROUP BY mn.id, mn.asset_id, mn.maintenance_type, mn.interval_days;
 
 - All Supabase access (NuGet **Supabase** client).
 - Domain models, services, repositories — **no** `Microsoft.UI.Xaml`, WinUI, or Windows App SDK.
-- Layout: `Models/`, `Services/`, `Repositories/` (names may evolve).
+- Layout: `Models/` (domain subfolders), `Services/` (domain subfolders), `Repositories/` (Catalog/, Maintenance/, …).
 
 ### WinUI.UtilsLibrary (submodule)
 
@@ -249,12 +250,12 @@ From submodule unless noted:
 ### Color and theming
 
 - **Палитра цветов (default):** `ThemeResource` / `StaticResource` — ключи кистей и темы WinUI/DevWinUI; не литералы `#RRGGBB`, `Color.FromArgb`, инлайн `SolidColorBrush` в XAML/code-behind, если нет веской причины.
-- **Status badges:** map status → brush keys via `StatusBadgeFactory` (Fluent `ThemeResource` keys only — `AccentFillColorDefaultBrush`, `SystemFillColorSuccessBrush`, …); control `Controls/StatusBadge/`.
+- **Status badges:** map status → brush keys via `StatusBadgeFactory` (`Helpers/Status/`); control `Controls/StatusBadge/`.
 - **New semantic colors:** add Fluent theme brush keys in `StatusBadgeFactory` (or app `Styles.xaml`), not scattered hex across pages.
 
 #### WinUI theming (code-behind)
 
-WinUI platform limits — not domain logic. Reference: `MaintenanceScheduleTimelineControl`, `AppThemeHelper`, `ThemeBrushResolver` (`BAAZ.CMMS.App/Helpers/`).
+WinUI platform limits — not domain logic. Reference: `MaintenanceScheduleTimelineControl`, `AppThemeHelper`, `ThemeBrushResolver` (`BAAZ.CMMS.App/Helpers/Theming/`).
 
 - **Не `Application.Current.Resources` для theme-aware кистей:** lookup игнорирует `RequestedTheme` элемента и не обновляется при смене темы (microsoft-ui-xaml#7663, #9464).
 - **Programmatic text:** XAML-стили с `{ThemeResource}` в `ResourceDictionary`; применять `Style` в code-behind (Microsoft workaround).
@@ -303,13 +304,13 @@ Reusable Supabase-style grid + filter + side editor: `BAAZ.CMMS.App/Controls/Cru
 
 | Component | Path | Purpose |
 |-----------|------|---------|
-| `CrudCatalogPageWireup` | `Controls/CrudWorkbench/CrudCatalogPageWireup.cs` | Context menu, archive/delete confirm, bulk actions — без дублирования в code-behind |
+| `CrudCatalogPageWireup` | `Controls/CrudWorkbench/Wireup/CrudCatalogPageWireup.cs` | Context menu, archive/delete confirm, bulk actions — без дублирования в code-behind |
 | `CrudCatalogPageOptions<TRow>` | same file | Callbacks: `ArchiveRowAsync`, `DeleteRowAsync`, custom bulk archive (Users) |
-| `CrudPageConfirmHelper` | `Controls/CrudWorkbench/CrudPageConfirmHelper.cs` | Стандартные confirm-диалоги по `{Entity}_*` resw |
+| `CrudPageConfirmHelper` | `Controls/CrudWorkbench/Editor/CrudPageConfirmHelper.cs` | Стандартные confirm-диалоги по `{Entity}_*` resw |
 | `LocationPickerEditorSync` | `Helpers/LocationHelpers/LocationPickerEditorSync.cs` | `AttachTree` + `SetSelection` для `LocationPicker` в редакторе |
 | `LocationScopePickerEditorSync` | `Helpers/LocationHelpers/LocationScopePickerEditorSync.cs` | `AttachTree` + `SetSelection` для `LocationScopePicker`; подавление обратной синхронизации при клике |
-| `CrudColumnTemplates` | `Controls/CrudWorkbench/CrudColumnTemplates.cs` | `CreateActiveBoolColumn`, `AppendAuditColumns`, `CreateHiddenUuidColumn` |
-| `ICrudWorkbenchViewModel` | `Controls/CrudWorkbench/ICrudWorkbenchViewModel.cs` | Typed contract для `CrudWorkbenchPage` (команды, editor state) — **без reflection** |
+| `CrudColumnTemplates` | `Controls/CrudWorkbench/Columns/CrudColumnTemplates.cs` | `CreateActiveBoolColumn`, `AppendAuditColumns`, `CreateHiddenUuidColumn` |
+| `ICrudWorkbenchViewModel` | `Controls/CrudWorkbench/Abstractions/ICrudWorkbenchViewModel.cs` | Typed contract для `CrudWorkbenchPage` (команды, editor state) — **без reflection** |
 
 **VM toolbar strings:** override `protected override string ToolbarResourcePrefix => "EntityName"` — base подставляет `{Prefix}_Toolbar_Add`, `_Filter_Placeholder`, …; `EditorSave`/`EditorCancel` — `CrudGrid_Save` / `CrudGrid_Cancel`. Archive label — `BuildToggleArchiveToolbarLabel(...)` в base.
 
@@ -448,8 +449,10 @@ Don't reimplement in page VM:
 
 ### CrudWorkbench internals (do not break)
 
-- **`CrudDataGrid`** — header/body column widths in sync. After layout, `SyncHeaderWithBody()` (scrollbar padding + copy header `ActualWidth` to rows). Live resize: `ResolveHeaderColumnWidth` — body gets **header actual width**, not raw drag (header enforces content minimum).
-- **`CrudWorkbenchPage`** — binds height to host `ScrollView` (minus padding). Required for paginator.
+Subfolders (namespace остаётся `BAAZ.CMMS.App.Controls.CrudWorkbench`): `Abstractions/` (interfaces), `Columns/` (definitions, filter bar, stores), `Grid/` (`CrudDataGrid`), `Editor/` (side panel, flyout), `Shell/` (`CrudWorkbenchPage`, paginator), `ViewModels/` (`CrudWorkbenchViewModelBase`), `Wireup/` (`CrudCatalogPageWireup`).
+
+- **`CrudDataGrid`** (`Grid/`) — header/body column widths in sync. After layout, `SyncHeaderWithBody()` (scrollbar padding + copy header `ActualWidth` to rows). Live resize: `ResolveHeaderColumnWidth` — body gets **header actual width**, not raw drag (header enforces content minimum).
+- **`CrudWorkbenchPage`** (`Shell/`) — binds height to host `ScrollView` (minus padding). Required for paginator.
 - **Editing `Controls/CrudWorkbench/`** — only cross-page grid/workbench behavior; page logic stays in VM/page.
 
 ### Common pitfalls
@@ -663,5 +666,5 @@ Stub implementations registered in `BAAZ.CMMS.App/App.xaml.cs` DI (no-op, no exc
 - WinUI `DataTemplate`: `ElementName` → page не работает (пустые Header/ComboBox); фикс — `UserControl` + `Row.Owner` на VM или code-behind (`MaterialRequisitionLineItemControl`, `IncomingRequestCard`)
 - UC-D7/D8: расходники и инструмент — `accepted`/`in_progress` (заявки) или `scheduled`/`overdue`/`in_progress` (ППР); политика `WorkOrderRequisitionPolicy`; TMS: `accepted`/`overdue` → `scheduled`
 - Workflow заявки UC-D2: assign/add dept — `accepted` или `in_progress` (assign только отделам без `work_reports`); zone/transfer — только `accepted`; `start_request_work` — `accepted` + все `rrd.assignee_id` заполнены (`ALL_DEPARTMENTS_NEED_ASSIGNEE`); после `work_reports` отдел locked (UI + `DEPARTMENT_ALREADY_REPORTED`); auto-`completed` — триггер NOT EXISTS по `rrd` без отчёта; admin `transfer_request_department` заменяет все `rrd`
-- WinUI code-behind theme: `AppThemeHelper` + `ThemeBrushResolver` в `BAAZ.CMMS.App/Helpers/`; см. § WinUI theming (code-behind)
+- WinUI code-behind theme: `AppThemeHelper` + `ThemeBrushResolver` в `BAAZ.CMMS.App/Helpers/Theming/`; см. § WinUI theming (code-behind)
 - TMS adjacent repo: own `AGENTS.md`; local Supabase port **55321** (TMS) vs **54321** (CMMS)
