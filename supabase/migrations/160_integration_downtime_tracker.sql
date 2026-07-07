@@ -19,7 +19,11 @@ select
   a.asset_number,
   a.name,
   l.code as location_code,
-  a.status::text as status
+  a.status::text as status,
+  a.manufacturer,
+  a.model,
+  a.serial_number,
+  a.commissioning_date
 from public.assets a
 inner join public.locations l on l.id = a.location_id
 where a.status <> 'decommissioned';

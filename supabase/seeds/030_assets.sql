@@ -123,3 +123,16 @@ update public.assets set category_id = 'f1000000-0000-4000-8000-000000000006' wh
 update public.assets set category_id = 'f1000000-0000-4000-8000-000000000005' where id = 'a1111111-1111-1111-1111-111111111109';
 update public.assets set category_id = 'f1000000-0000-4000-8000-000000000005' where id = 'a1111111-1111-1111-1111-11111111110a';
 update public.assets set category_id = 'f1000000-0000-4000-8000-000000000008' where id = 'a1111111-1111-1111-1111-11111111110b';
+
+-- Паспортные поля demo-станков интеграции DT (симметрия с Prostoi sql/000_base.sql)
+update public.assets set serial_number = 'SN789012', commissioning_date = '2020-03-15' where id = 'a1111111-1111-1111-1111-111111111101';
+update public.assets set serial_number = 'HA123456', commissioning_date = '2021-07-20' where id = 'a1111111-1111-1111-1111-111111111102';
+update public.assets set serial_number = 'SN456789', commissioning_date = '2018-11-05' where id = 'a1111111-1111-1111-1111-111111111103';
+update public.assets set serial_number = 'HA789012', commissioning_date = '2022-01-10' where id = 'a1111111-1111-1111-1111-111111111104';
+update public.assets set serial_number = 'SN345678', commissioning_date = '2019-05-30' where id = 'a1111111-1111-1111-1111-111111111105';
+update public.assets set serial_number = 'SN901234', commissioning_date = '2020-09-15' where id = 'a1111111-1111-1111-1111-111111111106';
+update public.assets set serial_number = 'TP123456', commissioning_date = '2021-11-20' where id = 'a1111111-1111-1111-1111-111111111107';
+update public.assets set serial_number = 'ZA789012', commissioning_date = '2020-04-05' where id = 'a1111111-1111-1111-1111-111111111108';
+update public.assets set serial_number = 'FA345678', commissioning_date = '2021-08-25' where id = 'a1111111-1111-1111-1111-111111111109';
+update public.assets set serial_number = 'KI901234', commissioning_date = '2019-12-10' where id = 'a1111111-1111-1111-1111-11111111110a';
+update public.assets set serial_number = 'CONV001', commissioning_date = '2020-06-01' where id = 'a1111111-1111-1111-1111-11111111110b';

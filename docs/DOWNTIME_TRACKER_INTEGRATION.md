@@ -17,6 +17,20 @@ Read-only API для учёта простоев. DT **не пишет** в CMMS
 | `v_work_reports_by_asset` | Отчёты по станку / заявке |
 | `v_request_departments` | Отделы маршрутизации заявки |
 
+### `v_assets_lookup`
+
+| Колонка | Описание |
+|---------|----------|
+| `asset_id` | UUID ОС в CMMS |
+| `asset_number` | Инвентарный номер (= `Equipment.InventoryNumber` в Prostoi) |
+| `name` | Наименование |
+| `location_code` | Код локации (`locations.code`) |
+| `status` | `active`, `maintenance` (без `decommissioned`) |
+| `manufacturer` | Производитель |
+| `model` | Модель |
+| `serial_number` | Заводской / серийный номер |
+| `commissioning_date` | Дата ввода в эксплуатацию |
+
 ### `v_requests_by_asset`
 
 | Колонка | Описание |
