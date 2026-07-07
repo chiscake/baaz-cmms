@@ -106,6 +106,7 @@ internal static class NavMenuRegistry
             Leaf(NavItemIds.AdminRepairDepartments, NavLeafCatalog.RepairDepartments),
             Leaf(NavItemIds.AdminMaintenanceNorms, NavLeafCatalog.MaintenanceNorms),
             Leaf(NavItemIds.AdminAllRequests, NavLeafCatalog.AllRequests),
+            Leaf(NavItemIds.AdminAuditLog, NavLeafCatalog.AuditLog),
             Group(
                 NavMenuTags.DispatcherGroup,
                 "Nav_Group_Dispatcher",

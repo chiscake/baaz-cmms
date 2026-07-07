@@ -2733,4 +2733,64 @@ HResult: {1}</value>
   <data name="Toast_Schedule_StatusChanged_Body" xml:space="preserve">
     <value>{0}: {1}</value>
   </data>
+  <data name="Nav_AuditLog" xml:space="preserve">
+    <value>Audit log</value>
+  </data>
+  <data name="AuditLog_Search_Placeholder" xml:space="preserve">
+    <value>Search table, record, user…</value>
+  </data>
+  <data name="AuditLog_Column_ChangedAt" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="AuditLog_Column_Actor" xml:space="preserve">
+    <value>Who</value>
+  </data>
+  <data name="AuditLog_Column_Operation" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="AuditLog_Column_TableName" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="AuditLog_Column_RecordKey" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="AuditLog_Operation_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="AuditLog_Operation_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="AuditLog_Operation_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="AuditLog_SystemActor" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="AuditLog_Detail_Actor" xml:space="preserve">
+    <value>Who</value>
+  </data>
+  <data name="AuditLog_Detail_ChangedAt" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="AuditLog_Detail_RecordKey" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="AuditLog_Detail_Changes" xml:space="preserve">
+    <value>Changes (JSON)</value>
+  </data>
+  <data name="AuditLog_Detail_OldData" xml:space="preserve">
+    <value>Before</value>
+  </data>
+  <data name="AuditLog_Detail_NewData" xml:space="preserve">
+    <value>After</value>
+  </data>
+  <data name="AuditLog_Empty_Selection" xml:space="preserve">
+    <value>Select a row in the table to view change details.</value>
+  </data>
+  <data name="AuditLog_Toolbar_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="AuditLog_Toolbar_Columns" xml:space="preserve">
+    <value>Columns</value>
+  </data>
 </root>

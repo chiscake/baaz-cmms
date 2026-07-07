@@ -2733,4 +2733,64 @@ HResult: {1}</value>
   <data name="Toast_Schedule_StatusChanged_Body" xml:space="preserve">
     <value>{0}: {1}</value>
   </data>
+  <data name="Nav_AuditLog" xml:space="preserve">
+    <value>Журнал изменений</value>
+  </data>
+  <data name="AuditLog_Search_Placeholder" xml:space="preserve">
+    <value>Поиск по таблице, записи, пользователю…</value>
+  </data>
+  <data name="AuditLog_Column_ChangedAt" xml:space="preserve">
+    <value>Когда</value>
+  </data>
+  <data name="AuditLog_Column_Actor" xml:space="preserve">
+    <value>Кто</value>
+  </data>
+  <data name="AuditLog_Column_Operation" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="AuditLog_Column_TableName" xml:space="preserve">
+    <value>Таблица</value>
+  </data>
+  <data name="AuditLog_Column_RecordKey" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="AuditLog_Operation_Create" xml:space="preserve">
+    <value>Создание</value>
+  </data>
+  <data name="AuditLog_Operation_Update" xml:space="preserve">
+    <value>Изменение</value>
+  </data>
+  <data name="AuditLog_Operation_Delete" xml:space="preserve">
+    <value>Удаление</value>
+  </data>
+  <data name="AuditLog_SystemActor" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="AuditLog_Detail_Actor" xml:space="preserve">
+    <value>Кто</value>
+  </data>
+  <data name="AuditLog_Detail_ChangedAt" xml:space="preserve">
+    <value>Когда</value>
+  </data>
+  <data name="AuditLog_Detail_RecordKey" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="AuditLog_Detail_Changes" xml:space="preserve">
+    <value>Изменения (JSON)</value>
+  </data>
+  <data name="AuditLog_Detail_OldData" xml:space="preserve">
+    <value>Было</value>
+  </data>
+  <data name="AuditLog_Detail_NewData" xml:space="preserve">
+    <value>Стало</value>
+  </data>
+  <data name="AuditLog_Empty_Selection" xml:space="preserve">
+    <value>Выберите запись в таблице, чтобы увидеть детали изменения.</value>
+  </data>
+  <data name="AuditLog_Toolbar_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="AuditLog_Toolbar_Columns" xml:space="preserve">
+    <value>Столбцы</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using BAAZ.CMMS.App.Pages.Admin.AllRequests;
 using BAAZ.CMMS.App.Pages.Admin.AssetRegistry;
+using BAAZ.CMMS.App.Pages.Admin.AuditLog;
 using BAAZ.CMMS.App.Pages.Admin.Locations;
 using BAAZ.CMMS.App.Pages.Admin.MaintenanceNorms;
 using BAAZ.CMMS.App.Pages.Admin.RepairDepartments;
@@ -56,6 +57,7 @@ internal static class PageMap
         ["RepairDepartments"] = typeof(RepairDepartmentsPage),
         ["Users"] = typeof(UsersPage),
         ["AllRequests"] = typeof(AllRequestsPage),
+        ["AuditLog"] = typeof(AuditLogPage),
         // Shell
         ["Settings"] = typeof(SettingsPage),
     };

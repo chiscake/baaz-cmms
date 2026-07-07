@@ -579,6 +579,7 @@ After non-trivial API usage, verify with **x64 build**.
 | `act.admin.assets` | UC-A4 | admin | `AssetRegistry` | `admin.equipment` | `IAssetCatalogService` | done |
 | `act.admin.maintenance_norms` | UC-A5 | admin | `MaintenanceNorms` | `admin.maintenanceNorms` | `IMaintenanceService` | done |
 | `act.admin.repair_departments` | UC-A6 | admin | `RepairDepartments` | `admin.repairDepartments` | `IRepairDepartmentCatalogService` | done |
+| `act.admin.audit_log` | UC-A7 | admin | `AuditLog` | `admin.auditLog` | `IAuditLogService` | done |
 
 **Navigation decisions (rationale):**
 - `RepairOrders` leaf removed — no UC in overview; will be re-added when a UC is defined.

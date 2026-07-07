@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="BAAZ.CMMS.App.Pages.Admin.AuditLog.AuditLogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
+      xmlns:crud="using:BAAZ.CMMS.App.Controls.CrudWorkbench"
+      mc:Ignorable="d">
+
+    <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
+                       State="{x:Bind ViewModel.TableViewModel.InfoBanner, Mode=OneWay}"
+                       VerticalScrollMode="Disabled">
+        <Grid VerticalAlignment="Stretch"
+              ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="360" />
+            </Grid.ColumnDefinitions>
+
+            <crud:CrudWorkbenchPage Grid.Column="0"
+                                    x:Name="Workbench"
+                                    VerticalAlignment="Stretch"
+                                    HasShowInactive="False"
+                                    DataContext="{x:Bind ViewModel.TableViewModel, Mode=OneWay}" />
+
+            <Border Grid.Column="1"
+                    VerticalAlignment="Stretch"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    Padding="16"
+                    CornerRadius="{ThemeResource OverlayCornerRadius}">
+                <Grid VerticalAlignment="Stretch">
+                    <TextBlock Text="{x:Bind ViewModel.EmptySelectionText, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               TextWrapping="WrapWholeWords"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Visibility="{x:Bind ViewModel.ShowEmptySelection, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                    <ScrollViewer VerticalAlignment="Stretch"
+                                  VerticalScrollBarVisibility="Auto"
+                                  Visibility="{x:Bind ViewModel.HasDetail, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <StackPanel Spacing="12">
+                            <TextBlock Text="{x:Bind ViewModel.DetailTitle, Mode=OneWay}"
+                                       Style="{ThemeResource SubtitleTextBlockStyle}"
+                                       TextWrapping="WrapWholeWords" />
+
+                            <TextBlock TextWrapping="WrapWholeWords">
+                                <Run FontWeight="SemiBold"
+                                     Text="{x:Bind ViewModel.DetailLabelActor, Mode=OneWay}" />
+                                <Run Text=": " />
+                                <Run Text="{x:Bind ViewModel.DetailActor, Mode=OneWay}" />
+                            </TextBlock>
+
+                            <TextBlock TextWrapping="WrapWholeWords">
+                                <Run FontWeight="SemiBold"
+                                     Text="{x:Bind ViewModel.DetailLabelChangedAt, Mode=OneWay}" />
+                                <Run Text=": " />
+                                <Run Text="{x:Bind ViewModel.DetailChangedAt, Mode=OneWay}" />
+                            </TextBlock>
+
+                            <TextBlock TextWrapping="WrapWholeWords">
+                                <Run FontWeight="SemiBold"
+                                     Text="{x:Bind ViewModel.DetailLabelRecordKey, Mode=OneWay}" />
+                                <Run Text=": " />
+                                <Run Text="{x:Bind ViewModel.DetailRecordKey, Mode=OneWay}" />
+                            </TextBlock>
+
+                            <StackPanel Spacing="4">
+                                <TextBlock Text="{x:Bind ViewModel.DetailLabelChanges, Mode=OneWay}"
+                                           FontWeight="SemiBold" />
+                                <TextBox IsReadOnly="True"
+                                         AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         FontFamily="Consolas"
+                                         MinHeight="240"
+                                         Text="{x:Bind ViewModel.DetailChangesJson, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </layout:PageLayout>
+</Page>

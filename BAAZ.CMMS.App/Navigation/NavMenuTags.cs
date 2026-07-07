@@ -20,6 +20,7 @@ internal static class NavMenuTags
     public const string MaterialRequisition = "MaterialRequisition";
     public const string ToolRequisition = "ToolRequisition";
     public const string ToolRequisitionHistory = "ToolRequisitionHistory";
+    public const string AuditLog = "AuditLog";
     public const string RequesterAssets = "RequesterAssets";
     public const string DispatcherGroup = "DispatcherGroup";
     public const string RequesterGroup = "RequesterGroup";
@@ -37,6 +38,7 @@ internal static class NavItemIds
     public const string AdminRepairDepartments = "admin.repairDepartments";
     public const string AdminMaintenanceNorms = "admin.maintenanceNorms";
     public const string AdminAllRequests = "admin.allRequests";
+    public const string AdminAuditLog = "admin.auditLog";
 
     public const string DispatcherHome = "dispatcher.home";
     public const string DispatcherPersonnel = "dispatcher.personnel";

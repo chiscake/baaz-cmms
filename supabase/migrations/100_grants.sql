@@ -74,6 +74,9 @@ grant select on table public.tms_tool_requisition_links to authenticated, servic
 grant insert, update on table public.tms_tool_requisition_links to authenticated, service_role;
 grant all on table public.tms_tool_requisition_links to service_role;
 
+grant select on table public.audit_log to authenticated, service_role;
+grant all on table public.audit_log to service_role;
+
 grant select on public.effective_maintenance_norms to authenticated, service_role;
 grant all on public.effective_maintenance_norms to service_role;
 

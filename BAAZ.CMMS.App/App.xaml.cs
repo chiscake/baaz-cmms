@@ -14,6 +14,7 @@ using BAAZ.CMMS.App.Services.Notifications;
 using BAAZ.CMMS.App.Pages;
 using BAAZ.CMMS.App.Pages.Admin.AllRequests;
 using BAAZ.CMMS.App.Pages.Admin.AssetRegistry;
+using BAAZ.CMMS.App.Pages.Admin.AuditLog;
 using BAAZ.CMMS.App.Pages.Admin.Locations;
 using BAAZ.CMMS.App.Pages.Admin.MaintenanceNorms;
 using BAAZ.CMMS.App.Pages.Admin.RepairDepartments;
@@ -47,6 +48,7 @@ using BAAZ.CMMS.Core.Realtime;
 using BAAZ.CMMS.Core.Repositories;
 using BAAZ.CMMS.Core.Repositories.Junction;
 using BAAZ.CMMS.Core.Services;
+using BAAZ.CMMS.Core.Services.AuditLog;
 using BAAZ.CMMS.Core.Services.TmsIssuance;
 using BAAZ.CMMS.Core.Services.Integrations;
 using BAAZ.CMMS.Core.Services.Catalog;
@@ -121,6 +123,8 @@ public partial class App : Application
         services.AddSingleton<ITmsToolRequisitionLinkRepository, TmsToolRequisitionLinkRepository>();
         services.AddSingleton<ITmsToolRequisitionService, TmsToolRequisitionService>();
         services.AddSingleton<IToolRequisitionService, ToolRequisitionService>();
+        services.AddSingleton<IAuditLogRepository, AuditLogRepository>();
+        services.AddSingleton<IAuditLogService, AuditLogService>();
         services.AddSingleton<IMaterialRequisitionDocxGenerator, MaterialRequisitionDocxGenerator>();
         services.AddSingleton<IWarehouseIntegration, DocxFileWarehouseIntegration>();
         services.AddSingleton<IMaterialRequisitionService, MaterialRequisitionService>();
@@ -169,6 +173,8 @@ public partial class App : Application
         services.AddSingleton(bootstrapServices.GetRequiredService<ITmsIssuanceClient>());
         services.AddSingleton(bootstrapServices.GetRequiredService<ITmsToolRequisitionLinkRepository>());
         services.AddSingleton(bootstrapServices.GetRequiredService<ITmsToolRequisitionService>());
+        services.AddSingleton(bootstrapServices.GetRequiredService<IAuditLogRepository>());
+        services.AddSingleton(bootstrapServices.GetRequiredService<IAuditLogService>());
         services.AddSingleton(bootstrapServices.GetRequiredService<IWarehouseIntegration>());
         services.AddSingleton(bootstrapServices.GetRequiredService<IDowntimeTrackerIntegration>());
         services.AddSingleton(bootstrapServices.GetRequiredService<IRealtimeNotificationService>());
@@ -222,6 +228,8 @@ public partial class App : Application
         services.AddTransient<RepairDepartmentsViewModel>();
         services.AddTransient<UsersViewModel>();
         services.AddTransient<AllRequestsViewModel>();
+        services.AddTransient<AuditLogViewModel>();
+        services.AddTransient<AuditLogTableViewModel>();
         // Shell
         services.AddTransient<SettingsViewModel>();
 

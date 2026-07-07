@@ -58,6 +58,12 @@ internal static class NavLeafCatalog
         TitleResourceKey: "Nav_AllRequests",
         Icon: Symbol.Document);
 
+    public static NavLeaf AuditLog { get; } = new(
+        NavMenuTags.AuditLog,
+        PageKey: "AuditLog",
+        TitleResourceKey: "Nav_AuditLog",
+        Icon: Symbol.Clock);
+
     public static NavLeaf RequestHistory { get; } = new(
         NavMenuTags.RequestHistory,
         PageKey: "RequestHistory",
@@ -129,6 +135,7 @@ internal static class NavLeafCatalog
         NavMenuTags.NewRequest => NewRequest.TitleResourceKey,
         NavMenuTags.MyRequests => MyRequests.TitleResourceKey,
         NavMenuTags.AllRequests => AllRequests.TitleResourceKey,
+        NavMenuTags.AuditLog => AuditLog.TitleResourceKey,
         NavMenuTags.RequestHistory => RequestHistory.TitleResourceKey,
         NavMenuTags.RequesterAssets => RequesterAssets.TitleResourceKey,
         NavMenuTags.Locations => Locations.TitleResourceKey,
