@@ -4,7 +4,7 @@ namespace BAAZ.CMMS.Core.Services;
 
 /// <summary>
 /// Справочники: оборудование, подразделения, персонал ТОиР.
-/// Покрывает UC-A1, UC-A3, UC-A4, UC-A6.
+/// Покрывает UC-A1, UC-A4, UC-A6, UC-D9.
 /// </summary>
 public interface ICatalogService
     : IAssetCatalogService,

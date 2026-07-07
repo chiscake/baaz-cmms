@@ -9,7 +9,7 @@
 | Роль | Основная зона ответственности |
 | --- | --- |
 | `requester` | Подача заявок, отслеживание и приёмка своих работ |
-| `dispatcher` | Обработка заявок, назначение исполнителей, отчёты, график ППР, снабжение (расходники, инструмент) |
+| `dispatcher` | Обработка заявок, назначение исполнителей, отчёты, график ППР, снабжение (расходники, инструмент), реестр персонала ТОиР |
 | `admin` | Справочники, пользователи, нормативы, реестр оборудования |
 
 ## Жизненный цикл заявки
@@ -149,6 +149,10 @@ flowchart TB
         UC-D8["UC-D8<br/>Получение инструментов"]
     end
 
+    subgraph personnel["Персонал"]
+        UC-D9["UC-D9<br/>Реестр персонала ТОиР"]
+    end
+
     Dispatcher --- UC-D1
     Dispatcher --- UC-D2
     Dispatcher --- UC-D3
@@ -157,6 +161,7 @@ flowchart TB
     Dispatcher --- UC-D6
     Dispatcher --- UC-D7
     Dispatcher --- UC-D8
+    Dispatcher --- UC-D9
 ```
 
 ### UC-D1 — Обработка и фильтрация входящих заявок
@@ -328,6 +333,27 @@ flowchart TB
 
 ---
 
+### UC-D9 — Ведение реестра персонала ТОиР
+
+**Action ID:** `act.dispatcher.personnel`
+
+**Актор:** `dispatcher`
+
+**Цель:** актуализировать справочник физических исполнителей без учётных записей в рамках своего ремонтного отдела.
+
+**Основной сценарий:**
+
+1. Диспетчер открывает страницу «Управление персоналом» (`PersonnelManagement`, CrudWorkbench).
+2. Видит техников своего `repair_department_id` (RLS); добавляет запись в `technicians`: `full_name`, `specialty`, отдел фиксирован.
+3. Архивация через `is_active` = false (история в `work_reports` и назначениях сохраняется).
+4. Администратор наследует функцию через группу «Диспетчер» и видит персонал всех отделов; может выбирать отдел при создании/редактировании.
+
+**Затронутые сущности:** `technicians`, `repair_departments`.
+
+**Реализация в BAAZ CMMS:** `ITechnicianCatalogService` + RLS на `technicians`.
+
+---
+
 ## Admin (администратор)
 
 ```mermaid
@@ -337,8 +363,7 @@ flowchart TB
     subgraph org["Организация и доступ"]
         UC-A1["UC-A1<br/>Структура предприятия"]
         UC-A2["UC-A2<br/>Учётные записи"]
-        UC-A3["UC-A3<br/>Реестр персонала ТОиР"]
-        UC-A6rd["UC-A6<br/>Отделы ремонта"]
+        UC-A6["UC-A6<br/>Отделы ремонта"]
     end
 
     subgraph assets["Оборудование и нормативы"]
@@ -353,8 +378,7 @@ flowchart TB
 
     Admin --- UC-A1
     Admin --- UC-A2
-    Admin --- UC-A3
-    Admin --- UC-A6rd
+    Admin --- UC-A6
     Admin --- UC-A4
     Admin --- UC-A5
     Admin -.- UC-A8
@@ -401,23 +425,6 @@ flowchart TB
 - Управление admin-учётками — Supabase Studio / `scripts/seed-test-users.mjs`.
 
 **Затронутые сущности:** `auth.users`, `profiles`, `locations`, `repair_departments`.
-
----
-
-### UC-A3 — Ведение реестра персонала ТОиР
-
-**Action ID:** `act.admin.personnel`
-
-**Актор:** `admin`
-
-**Цель:** актуализировать справочник физических исполнителей без учётных записей.
-
-**Основной сценарий:**
-
-1. Добавление записи в `technicians`: `full_name`, `specialty`.
-2. Архивация через `is_active` = false (история в `work_reports` и назначениях сохраняется).
-
-**Затронутые сущности:** `technicians`.
 
 ---
 

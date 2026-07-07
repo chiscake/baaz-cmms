@@ -5,7 +5,7 @@ namespace BAAZ.CMMS.Core.Services.Catalog;
 
 /// <summary>
 /// Фасад справочников: делегирует в доменные catalog-сервисы.
-/// Покрывает UC-A1, UC-A3, UC-A4, UC-A6.
+/// Покрывает UC-A1, UC-A4, UC-A6, UC-D9.
 /// </summary>
 public sealed class CatalogService : ICatalogService
 {

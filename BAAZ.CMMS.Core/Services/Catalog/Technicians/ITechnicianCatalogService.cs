@@ -3,7 +3,7 @@ using BAAZ.CMMS.Core.Models;
 
 namespace BAAZ.CMMS.Core.Services.Catalog;
 
-/// <summary>UC-A3 — персонал ТОиР.</summary>
+/// <summary>UC-D9 — персонал ТОиР.</summary>
 public interface ITechnicianCatalogService
 {
     Task<DataResult<IReadOnlyList<TechnicianListItem>>> GetTechniciansAsync(

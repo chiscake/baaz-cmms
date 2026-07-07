@@ -290,7 +290,7 @@ Reusable Supabase-style grid + filter + side editor: `BAAZ.CMMS.App/Controls/Cru
 
 | Page | UC | Folder | Core service | Data access |
 |------|-----|--------|--------------|-------------|
-| Personnel | UC-A3 | `Pages/Dispatcher/PersonnelManagement/` | `ITechnicianCatalogService` | Supabase REST / RLS (`technicians`) |
+| Personnel | UC-D9 | `Pages/Dispatcher/PersonnelManagement/` | `ITechnicianCatalogService` | Supabase REST / RLS (`technicians`) |
 | Users | UC-A2 | `Pages/Admin/Users/` | `IProfileAdminService` | Edge Function `admin-users` (auth admin API) |
 
 | RepairDepartments | UC-A6 | `Pages/Admin/RepairDepartments/` | `IRepairDepartmentCatalogService` | Supabase REST / RLS |
@@ -435,7 +435,7 @@ Don't reimplement in page VM:
 
 ### Personnel vs Users — pattern differences
 
-| Concern | Personnel (`UC-A3`) | Users (`UC-A2`) |
+| Concern | Personnel (`UC-D9`) | Users (`UC-A2`) |
 |---------|---------------------|-----------------|
 | Archive semantics | Deactivate technician (`SetTechnicianActiveAsync`) | Ban/unban via Edge Function |
 | `ShowInactive` label | «Показывать неактивных» | «Показывать заблокированных» |
@@ -575,7 +575,7 @@ After non-trivial API usage, verify with **x64 build**.
 | `act.tools.requisition` | UC-D8 | dispatcher, admin | `ToolRequisition` | `dispatcher.toolRequisition` (admin: via группа «Диспетчер») | `IToolRequisitionService` | done |
 | `act.admin.locations` | UC-A1 | admin | `Locations` | `admin.locations` | `ILocationCatalogService` | done |
 | `act.admin.users` | UC-A2 | admin | `Users` | `admin.users` | `IProfileAdminService` | done |
-| `act.admin.personnel` | UC-A3 | dispatcher, admin | `PersonnelManagement` | `dispatcher.personnel` | `ITechnicianCatalogService` | done |
+| `act.dispatcher.personnel` | UC-D9 | dispatcher, admin | `PersonnelManagement` | `dispatcher.personnel` | `ITechnicianCatalogService` | done |
 | `act.admin.assets` | UC-A4 | admin | `AssetRegistry` | `admin.equipment` | `IAssetCatalogService` | done |
 | `act.admin.maintenance_norms` | UC-A5 | admin | `MaintenanceNorms` | `admin.maintenanceNorms` | `IMaintenanceService` | done |
 | `act.admin.repair_departments` | UC-A6 | admin | `RepairDepartments` | `admin.repairDepartments` | `IRepairDepartmentCatalogService` | done |
@@ -595,10 +595,10 @@ After non-trivial API usage, verify with **x64 build**.
 |---|---|---|
 | `IRequestRepository` | `requests`, `request_status_history` | REST I/O, embed queries |
 | `IRequestService` | (оркестрация над репозиторием) | UC-R1…R4, UC-D1, UC-D2, UC-D6 |
-| `ICatalogService` | фасад: assets, locations, technicians, repair_departments | UC-A1, UC-A3, UC-A4, UC-A6 |
+| `ICatalogService` | фасад: assets, locations, technicians, repair_departments | UC-A1, UC-A4, UC-A6, UC-D9 |
 | `IAssetCatalogService` | `assets` | UC-A4 |
 | `ILocationCatalogService` | `locations` | UC-A1 |
-| `ITechnicianCatalogService` | `technicians` | UC-A3 |
+| `ITechnicianCatalogService` | `technicians` | UC-D9 |
 | `IRepairDepartmentCatalogService` | `repair_departments` | UC-A6 |
 | `IRequesterAssetCatalog` | (read: assets + scope) | NewRequest / RequesterAssets asset picker |
 | `IMaintenanceService` | `maintenance_schedule`, `maintenance_schedule_departments`, `maintenance_norms`, `maintenance_norms_departments`, `asset_maintenance_status`, `work_reports` | UC-D3…D5, UC-A5 |
