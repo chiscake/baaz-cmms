@@ -48,7 +48,6 @@
 
             <Button x:Name="OpenDialogButton"
                     Click="OpenDialogButton_Click"
-                    Style="{ThemeResource AccentButtonStyle}"
                     IsEnabled="{x:Bind IsDialogButtonEnabled, Mode=OneWay}"
                     HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal" Spacing="8">

@@ -3,6 +3,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="using:BAAZ.CMMS.App"
+        xmlns:marker="using:BAAZ.CMMS.App.Controls.StatusMarker"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d">
@@ -35,6 +36,44 @@
                                Text="{Binding DataContext.ProfileName, ElementName=rootGrid, Mode=OneWay}" />
                     <Button Click="SignOutButton_Click"
                             Content="{Binding DataContext.SignOutText, ElementName=rootGrid, Mode=OneWay}" />
+                    <DropDownButton x:Name="themeSwitcherButton"
+                                    VerticalAlignment="Center"
+                                    AutomationProperties.Name="{Binding DataContext.ThemeSwitcherTooltip, ElementName=rootGrid, Mode=OneWay}">
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="{Binding DataContext.ThemeSwitcherTooltip, ElementName=rootGrid, Mode=OneWay}" />
+                        </ToolTipService.ToolTip>
+                        <DropDownButton.Content>
+                            <FontIcon Glyph="{Binding DataContext.ThemeSwitcherGlyph, ElementName=rootGrid, Mode=OneWay}" />
+                        </DropDownButton.Content>
+                        <DropDownButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <RadioMenuFlyoutItem x:Name="themeLightItem"
+                                                     GroupName="AppTheme"
+                                                     Tag="Light"
+                                                     Click="ThemeMenuItem_Click">
+                                    <RadioMenuFlyoutItem.Icon>
+                                        <FontIcon Glyph="&#xE706;" />
+                                    </RadioMenuFlyoutItem.Icon>
+                                </RadioMenuFlyoutItem>
+                                <RadioMenuFlyoutItem x:Name="themeDarkItem"
+                                                     GroupName="AppTheme"
+                                                     Tag="Dark"
+                                                     Click="ThemeMenuItem_Click">
+                                    <RadioMenuFlyoutItem.Icon>
+                                        <FontIcon Glyph="&#xE708;" />
+                                    </RadioMenuFlyoutItem.Icon>
+                                </RadioMenuFlyoutItem>
+                                <RadioMenuFlyoutItem x:Name="themeDefaultItem"
+                                                     GroupName="AppTheme"
+                                                     Tag="Default"
+                                                     Click="ThemeMenuItem_Click">
+                                    <RadioMenuFlyoutItem.Icon>
+                                        <FontIcon Glyph="&#xE7F8;" />
+                                    </RadioMenuFlyoutItem.Icon>
+                                </RadioMenuFlyoutItem>
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
                 </StackPanel>
             </TitleBar.RightHeader>
         </TitleBar>
@@ -52,7 +91,33 @@
         <Border Grid.Row="2"
                 Padding="12,8"
                 Background="{ThemeResource SolidBackgroundFillColorBaseBrush}">
-            <TextBlock Text="{Binding DataContext.ConnectionStatusText, ElementName=rootGrid, Mode=OneWay}" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                    <marker:StatusMarker VerticalAlignment="Center"
+                                         ColorKey="{Binding DataContext.ConnectionMarkerColorKey, ElementName=rootGrid, Mode=OneWay}"
+                                         ToolTipText="{Binding DataContext.ConnectionMarkerTooltip, ElementName=rootGrid, Mode=OneWay}" />
+                    <TextBlock VerticalAlignment="Center"
+                               Text="{Binding DataContext.ConnectionOfflineLabel, ElementName=rootGrid, Mode=OneWay}"
+                               Visibility="{Binding DataContext.ShowConnectionOfflineLabel, ElementName=rootGrid, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <TextBlock VerticalAlignment="Center"
+                               Text="{Binding DataContext.ServerAddressText, ElementName=rootGrid, Mode=OneWay}"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+                <StackPanel x:Name="debugStatusPanel"
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            Visibility="Collapsed">
+                    <TextBlock Text="Debug"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Window>

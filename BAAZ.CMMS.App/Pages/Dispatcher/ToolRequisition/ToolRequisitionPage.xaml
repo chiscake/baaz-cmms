@@ -108,11 +108,11 @@
                              Severity="Warning"
                              IsClosable="False"
                              Message="{x:Bind ViewModel.TmsMockWarningText, Mode=OneWay}" />
-                    <TextBlock Text="{x:Bind ViewModel.TmsLiveModeHint, Mode=OneWay}"
+                    <!-- <TextBlock Text="{x:Bind ViewModel.TmsLiveModeHint, Mode=OneWay}"
                                Style="{ThemeResource CaptionTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                TextWrapping="WrapWholeWords"
-                               Visibility="{x:Bind ViewModel.IsTmsLiveIntegration, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                               Visibility="{x:Bind ViewModel.IsTmsLiveIntegration, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" /> -->
                     <TextBlock Text="{x:Bind ViewModel.SectionWarehouseTms, Mode=OneWay}"
                                Style="{ThemeResource BodyStrongTextBlockStyle}" />
                     <ComboBox Header="{x:Bind ViewModel.LabelTmsWarehouse, Mode=OneWay}"

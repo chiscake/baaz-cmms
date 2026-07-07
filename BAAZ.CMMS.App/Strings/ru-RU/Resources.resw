@@ -1904,6 +1904,15 @@
   <data name="Status_Disconnected" xml:space="preserve">
     <value>Подключение: нет связи</value>
   </data>
+  <data name="Status_Connected_Tooltip" xml:space="preserve">
+    <value>Сервер доступен</value>
+  </data>
+  <data name="Status_Disconnected_Tooltip" xml:space="preserve">
+    <value>Нет связи с сервером. Проверьте подключение или настройки.</value>
+  </data>
+  <data name="Status_Offline" xml:space="preserve">
+    <value>Оффлайн</value>
+  </data>
   <data name="App_Exception_Title" xml:space="preserve">
     <value>Произошло необработанное исключение.</value>
   </data>

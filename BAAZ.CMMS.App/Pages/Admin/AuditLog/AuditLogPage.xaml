@@ -6,16 +6,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:layout="using:WinUI.UtilsLibrary.Controls.PageLayout"
       xmlns:crud="using:BAAZ.CMMS.App.Controls.CrudWorkbench"
+      xmlns:sizers="using:CommunityToolkit.WinUI.Controls"
       mc:Ignorable="d">
 
     <layout:PageLayout Header="{x:Bind ViewModel.PageTitle, Mode=OneWay}"
                        State="{x:Bind ViewModel.TableViewModel.InfoBanner, Mode=OneWay}"
                        VerticalScrollMode="Disabled">
-        <Grid VerticalAlignment="Stretch"
-              ColumnSpacing="12">
+        <Grid VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="360" />
+                <ColumnDefinition Width="*"
+                                  MinWidth="400" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="380"
+                                  MinWidth="280" />
             </Grid.ColumnDefinitions>
 
             <crud:CrudWorkbenchPage Grid.Column="0"
@@ -24,7 +27,13 @@
                                     HasShowInactive="False"
                                     DataContext="{x:Bind ViewModel.TableViewModel, Mode=OneWay}" />
 
-            <Border Grid.Column="1"
+            <sizers:GridSplitter Grid.Column="1"
+                                 Width="8"
+                                 HorizontalAlignment="Stretch"
+                                 ResizeBehavior="PreviousAndNext"
+                                 ResizeDirection="Columns" />
+
+            <Border Grid.Column="2"
                     VerticalAlignment="Stretch"
                     Background="{ThemeResource LayerFillColorDefaultBrush}"
                     Padding="16"

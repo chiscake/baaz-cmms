@@ -21,7 +21,6 @@
             <!-- Кнопка «Открыть выбор»; кольцо — внутри, на фоне accent -->
             <Button x:Name="OpenDialogButton"
                     Click="OpenDialogButton_Click"
-                    Style="{ThemeResource AccentButtonStyle}"
                     IsEnabled="{x:Bind IsDialogButtonEnabled, Mode=OneWay}"
                     HorizontalAlignment="Left"
                     Visibility="{x:Bind ShowDialogButton, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">

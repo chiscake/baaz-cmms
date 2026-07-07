@@ -28,6 +28,7 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
     private INavigationService? _navigationService;
     private IAuthService? _authService;
     private IConnectionService? _connectionService;
+    private ISupabaseClientProvider? _supabaseClientProvider;
     private IRealtimeNotificationService? _realtimeService;
     private IShellNotificationPresenter? _shellPresenter;
     private INavBadgeService? _navBadgeService;
@@ -51,6 +52,10 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
     public string TitleBarTitle => ResourceStrings.Get("App_TitleBar");
 
     public string SignOutText => ResourceStrings.Get("Auth_SignOut");
+
+    public string ThemeSwitcherTooltip => ResourceStrings.Get("Settings_Theme_Header");
+
+    public string ThemeSwitcherGlyph => GetThemeGlyph(SettingsHelper.Current.SelectedAppTheme);
 
     public string ProfileName
     {
@@ -85,9 +90,24 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    public string ConnectionStatusText => _connectionService?.IsConnected == true
-        ? ResourceStrings.Get("Status_Connected")
-        : ResourceStrings.Get("Status_Disconnected");
+    public bool IsServerConnected => _connectionService?.IsConnected == true;
+
+    public string ConnectionMarkerColorKey => IsServerConnected
+        ? nameof(StatusBadgeColorToken.Green)
+        : nameof(StatusBadgeColorToken.Red);
+
+    public string ConnectionMarkerTooltip => IsServerConnected
+        ? ResourceStrings.Get("Status_Connected_Tooltip")
+        : ResourceStrings.Get("Status_Disconnected_Tooltip");
+
+    public string ConnectionOfflineLabel => ResourceStrings.Get("Status_Offline");
+
+    public bool ShowConnectionOfflineLabel => !IsServerConnected;
+
+    public string ServerAddressText =>
+        !string.IsNullOrWhiteSpace(_supabaseClientProvider?.SupabaseUrl)
+            ? _supabaseClientProvider.SupabaseUrl
+            : SettingsHelper.Current.SupabaseUrl;
 
     public MainWindow()
     {
@@ -112,6 +132,7 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
         _navigationService = services.GetRequiredService<INavigationService>();
         _authService = services.GetRequiredService<IAuthService>();
         _connectionService = services.GetRequiredService<IConnectionService>();
+        _supabaseClientProvider = services.GetRequiredService<ISupabaseClientProvider>();
         _realtimeService = services.GetRequiredService<IRealtimeNotificationService>();
         _shellPresenter = services.GetRequiredService<IShellNotificationPresenter>();
         _navBadgeService = services.GetRequiredService<INavBadgeService>();
@@ -137,6 +158,7 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
         _homePageKey = ResolveHomePageKey(_currentRole);
         NavMenuBuilder.ApplyRoleMenu(navView, _currentRole);
         NotifyConnectionStatusChanged();
+        NotifyServerAddressChanged();
     }
 
     private void OnWindowClosed(object sender, WindowEventArgs e)
@@ -170,6 +192,14 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
             var isLeftMode = SettingsHelper.Current.IsLeftMode;
             NavigationOrientationHelper.ApplyToNavigationView(navView, isLeftMode);
             titleBar.IsPaneToggleButtonVisible = isLeftMode;
+        }
+        else if (e.PropertyName is nameof(SettingsHelper.SupabaseUrl) or nameof(SettingsHelper.SupabaseAnonKey))
+        {
+            NotifyServerAddressChanged();
+        }
+        else if (e.PropertyName == nameof(SettingsHelper.SelectedAppTheme))
+        {
+            SyncThemeMenuSelection();
         }
     }
 
@@ -286,9 +316,55 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
         titleBar.IsPaneToggleButtonVisible = isLeftMode;
         TitleBarHelper.ApplySystemThemeToCaptionButtons(this, rootGrid.ActualTheme);
         BAAZ.CMMS.App.Helpers.WindowSizeDefaults.ApplyMainWindowMinSize(this);
+        InitializeThemeSwitcher();
+#if DEBUG
+        debugStatusPanel.Visibility = Visibility.Visible;
+#endif
         EnsureShellInitialized();
         Debug.WriteLine($"[MainWindow:{GetHashCode():X8}] Shell ready");
     }
+
+    private void InitializeThemeSwitcher()
+    {
+        themeLightItem.Text = ResourceStrings.Get("Settings_Theme_Light");
+        themeDarkItem.Text = ResourceStrings.Get("Settings_Theme_Dark");
+        themeDefaultItem.Text = ResourceStrings.Get("Settings_Theme_Default");
+        SyncThemeMenuSelection();
+    }
+
+    private void ThemeMenuItem_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not RadioMenuFlyoutItem item || item.Tag is not string tag)
+        {
+            return;
+        }
+
+        var theme = EnumHelper.GetEnum<ElementTheme>(tag);
+        if (SettingsHelper.Current.SelectedAppTheme == theme)
+        {
+            return;
+        }
+
+        SettingsHelper.Current.SelectedAppTheme = theme;
+        AppThemeHelper.Apply(theme);
+        SyncThemeMenuSelection();
+    }
+
+    private void SyncThemeMenuSelection()
+    {
+        var theme = SettingsHelper.Current.SelectedAppTheme;
+        themeLightItem.IsChecked = theme == ElementTheme.Light;
+        themeDarkItem.IsChecked = theme == ElementTheme.Dark;
+        themeDefaultItem.IsChecked = theme == ElementTheme.Default;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ThemeSwitcherGlyph)));
+    }
+
+    private static string GetThemeGlyph(ElementTheme theme) => theme switch
+    {
+        ElementTheme.Light => "\uE706",
+        ElementTheme.Dark => "\uE708",
+        _ => "\uE7F8",
+    };
 
     private async void SignOutButton_Click(object sender, RoutedEventArgs e)
     {
@@ -331,7 +407,18 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
     private void NotifyConnectionStatusChanged()
     {
         _uiDispatcherQueue?.TryEnqueue(() =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectionStatusText))));
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsServerConnected)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectionMarkerColorKey)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ConnectionMarkerTooltip)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowConnectionOfflineLabel)));
+        });
+    }
+
+    private void NotifyServerAddressChanged()
+    {
+        _uiDispatcherQueue?.TryEnqueue(() =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ServerAddressText))));
     }
 
     private void OnProfileChanged(object? sender, UserProfile? profile)
