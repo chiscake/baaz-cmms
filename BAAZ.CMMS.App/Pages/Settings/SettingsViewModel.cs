@@ -195,7 +195,7 @@ public partial class SettingsViewModel : PageViewModelBase
             SettingsHelper.Current.AppLanguage = newTag;
             _selectedLanguageIndex = value;
             OnPropertyChanged(nameof(SelectedLanguageIndex));
-            AppRestartHelper.RestartApp();
+            AppSingleInstanceHelper.RestartApp();
         }
     }
 
@@ -203,7 +203,7 @@ public partial class SettingsViewModel : PageViewModelBase
     private void ResetSettings()
     {
         SettingsHelper.Current.ClearAllSettings();
-        AppRestartHelper.RestartApp();
+        AppSingleInstanceHelper.RestartApp();
     }
 
     public string SupabaseUrl

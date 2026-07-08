@@ -1,13 +1,24 @@
 using System;
 using System.Diagnostics;
 
+using BAAZ.CMMS.App.Helpers;
 using BAAZ.CMMS.App.Localization;
 
-using Microsoft.Windows.AppNotifications;
-using Microsoft.Windows.AppNotifications.Builder;
+using DevWinUI;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml;
 
 namespace BAAZ.CMMS.App.Services.Notifications;
 
+/// <summary>
+/// In-app уведомления (DevWinUI Growl, глобальное floating-окно) — замена системных Windows toast.
+/// Windows AppNotificationManager.Register() не работает в self-contained unpackaged деплое
+/// (отсутствует Microsoft.WindowsAppRuntime.Insights.Resource.dll, WindowsAppSDK #6071/#6387),
+/// поэтому клик по toast не активировал приложение и не навигировал. Growl работает полностью
+/// в процессе — без COM-активации и системных ретраев.
+/// </summary>
 public sealed class WindowsToastService : IWindowsToastService
 {
     public void ShowRequestNew(Guid requestId, string requestNumber)
@@ -39,23 +50,48 @@ public sealed class WindowsToastService : IWindowsToastService
 
     private static void Show(string title, string? body, string pageKey, Guid? requestId)
     {
-        try
+        var dispatcher = App.MainWindow?.DispatcherQueue ?? DispatcherQueue.GetForCurrentThread();
+
+        void ShowGrowl()
         {
-            var builder = new AppNotificationBuilder().AddText(title);
-
-            if (!string.IsNullOrEmpty(body))
-                builder.AddText(body);
-
-            builder.AddArgument("page", pageKey);
-
-            if (requestId is { } id)
-                builder.AddArgument("requestId", id.ToString("D"));
-
-            AppNotificationManager.Default.Show(builder.BuildNotification());
+            try
+            {
+                Growl.InfoGlobal(new GrowlInfo
+                {
+                    Title = title,
+                    Message = body,
+                    ShowDateTime = true,
+                    StaysOpen = false,
+                    WaitTime = TimeSpan.FromSeconds(8),
+                    IsClosable = true,
+                    UseBlueColorForInfo = true,
+                    ShowCloseButton = true,
+                    ShowConfirmButton = true,
+                    ConfirmButtonText = ResourceStrings.Get("Toast_Action_Open"),
+                    ConfirmButtonClicked = (_, _) =>
+                    {
+                        NavigateFromGrowl(pageKey, requestId);
+                        return true;
+                    },
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[Toast] Growl show failed ({ex.GetType().Name}): {ex.Message}");
+            }
         }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"[Toast] Show failed ({ex.GetType().Name}): {ex.Message}");
-        }
+
+        if (dispatcher.HasThreadAccess)
+            ShowGrowl();
+        else
+            dispatcher.TryEnqueue(DispatcherQueuePriority.High, ShowGrowl);
+    }
+
+    private static void NavigateFromGrowl(string pageKey, Guid? requestId)
+    {
+        MainWindowActivationHelper.BringToForeground(App.MainWindow);
+
+        if (App.Services.GetService<IShellNotificationPresenter>() is { } presenter)
+            presenter.NavigateFromToast(pageKey, requestId);
     }
 }

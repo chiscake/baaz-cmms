@@ -2784,6 +2784,9 @@ HResult: {1}</value>
   <data name="Toast_Schedule_StatusChanged_Body" xml:space="preserve">
     <value>{0}: {1}</value>
   </data>
+  <data name="Toast_Action_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
   <data name="Nav_AuditLog" xml:space="preserve">
     <value>Audit log</value>
   </data>

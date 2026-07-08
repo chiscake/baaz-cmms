@@ -142,11 +142,6 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
         _navBadgeService.Attach(navView);
         _navBadgeService.BadgesChanged += (_, _) => _navBadgeService.ApplyToNavigationView();
 
-        if (AppNotificationActivation.TryConsume(out var pageKey, out var requestId))
-        {
-            MainWindowActivationHelper.BringToForeground(this);
-            _shellPresenter.NavigateFromToast(pageKey, requestId);
-        }
         _navigationService.CanGoBackChanged += (_, _) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CanNavigateBack)));
         _navigationService.Navigated += OnNavigationServiceNavigated;
@@ -384,7 +379,7 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
         }
         finally
         {
-            global::Helpers.AppRestartHelper.RestartApp();
+            AppSingleInstanceHelper.RestartApp();
         }
     }
 

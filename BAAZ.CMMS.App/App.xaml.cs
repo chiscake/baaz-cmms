@@ -56,7 +56,6 @@ using BAAZ.CMMS.Core.Services.AuditLog;
 using BAAZ.CMMS.Core.Services.TmsIssuance;
 using BAAZ.CMMS.Core.Services.Integrations;
 using BAAZ.CMMS.Core.Services.Catalog;
-using Microsoft.Windows.AppNotifications;
 using WinUI.UtilsLibrary.Contracts;
 using WinUI.UtilsLibrary.Services;
 
@@ -383,14 +382,6 @@ public partial class App : Application
             presenter.Stop();
         }
 
-        try
-        {
-            AppNotificationManager.Default.Unregister();
-        }
-        catch
-        {
-            // Игнорируем при аварийном завершении.
-        }
 
         MainWindow = null;
         Current.Exit();
