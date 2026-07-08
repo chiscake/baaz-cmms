@@ -658,14 +658,13 @@ Stub implementations registered in `BAAZ.CMMS.App/App.xaml.cs` DI (no-op, no exc
 
 - Seed UUID только hex (0-9, a-f); demo `maintenance_schedule` — префикс `51000000-...`, не `s...`
 - Просрочка графика ППР: `mark_overdue_schedule_items` при загрузке списка и в начале `generate_ppr_schedule`, не только nightly pg_cron
-- Статус-бейджи: `StatusBadgeFactory` → Fluent ThemeResource-ключи; контрол `Controls/StatusBadge/` — не submodule
-- `requests.contractor_name` — без CHECK в DDL; инвариант «только при external» — RPC `update_request_repair_zone`. `target_repair_department_id` ≠ маршрутизация (`request_repair_departments`); после accept — смена отдела только через RPC на `RequestDetail`
-- Интеграция Prostoi/DT: `Equipment.InventoryNumber` (MySQL) ↔ `assets.asset_number` (PostgreSQL)
 - Demo auth: не INSERT в `auth.users` в seed.sql; аккаунты через `scripts/seed-test-users.mjs`
 - Cloud Supabase + Supabase C# SDK 1.1.1: do **not** set `Headers["apikey"]` in `InvokeFunctionOptions` for `client.Functions.Invoke()` — SDK merges publishable key from `Client`; duplicate `apikey` → `401` on cloud (`AdminUsersFunctionClient`)
 - WinUI `DataTemplate`: `ElementName` → page не работает (пустые Header/ComboBox); фикс — `UserControl` + `Row.Owner` на VM или code-behind (`MaterialRequisitionLineItemControl`, `IncomingRequestCard`)
+- `requests.contractor_name` — без CHECK в DDL; инвариант «только при external» — RPC `update_request_repair_zone`. `target_repair_department_id` ≠ маршрутизация (`request_repair_departments`); после accept — смена отдела только через RPC на `RequestDetail`
 - UC-D7/D8: расходники и инструмент — `accepted`/`in_progress` (заявки) или `scheduled`/`overdue`/`in_progress` (ППР); политика `WorkOrderRequisitionPolicy`; TMS: `accepted`/`overdue` → `scheduled`
 - Workflow заявки UC-D2: assign/add dept — `accepted` или `in_progress` (assign только отделам без `work_reports`); zone/transfer — только `accepted`; `start_request_work` — `accepted` + все `rrd.assignee_id` заполнены (`ALL_DEPARTMENTS_NEED_ASSIGNEE`); после `work_reports` отдел locked (UI + `DEPARTMENT_ALREADY_REPORTED`); auto-`completed` — триггер NOT EXISTS по `rrd` без отчёта; admin `transfer_request_department` заменяет все `rrd`
-- WinUI code-behind theme: `AppThemeHelper` + `ThemeBrushResolver` в `BAAZ.CMMS.App/Helpers/Theming/`; см. § WinUI theming (code-behind)
-- TMS adjacent repo: own `AGENTS.md`; local Supabase port **55321** (TMS) vs **54321** (CMMS)
-- TMS tool requisition status: ISS-EVT-1 (`integration-tms-tool-requisition-status`) TMS→CMMS push; Realtime на `tms_tool_requisition_links`; toast при `partially_reserved`/`ready_for_issue`; отмена диспетчером до `ready_for_issue` — ISS-API-2 + UI `ToolRequisitionHistory`
+- Windows toast: single-instance (`AppSingleInstanceHelper` в `Program.cs` до `Application.Start`); клик — `AppNotificationRouter`; рестарт `--baaz-cmms-restart` + `UnregisterKey` обходит redirect (выход/язык/настройки)
+- CrudCatalogPageWireup: дефолт archive-ключи `*_Context_Archive` — при `*_ArchiveRow`/`*_RestoreRow` задавать `GetArchiveContextMenuLabel` (Personnel, Users, Assets, Locations)
+- LoginWindow/ConnectionErrorWindow: смена Supabase URL + publishable key до входа (как Settings); persists в `SettingsHelper`
+- TMS tool requisition status: ISS-EVT-1 push + ISS-API-5 pull; Realtime на `tms_tool_requisition_links` + `REPLICA IDENTITY FULL`; парсер — `Payload.Data.Record`, не `change.Json`; toast/Growl при `partially_reserved`/`ready_for_issue`; отмена до `ready_for_issue` — ISS-API-2 + `ToolRequisitionHistory`; Growl на History подавлен

@@ -115,3 +115,30 @@ Release exe **требует установленный .NET 10 Desktop Runtime*
 - WinAppSDK тащит **onnx/DirectML** (~40 MB) даже без ML-фич — безопасно выкинуть post-build, если не используете.  
 - `SelfContained` для WinUI лучше задавать через **MSBuild target до `ProcessFrameworkReferences`**, не только через PropertyGroup.  
 - Размер output: `Get-ChildItem … -Recurse -File | Measure-Object Length -Sum`; группировать по префиксам (`onnx`, `PresentationFramework`, `Windows.Forms`, `Microsoft.ui.xaml`).
+
+---
+
+## Windows toast: single-instance и foreground
+
+**Статус:** применено (`AppSingleInstanceHelper`, `AppNotificationRouter`, `MainWindowActivationHelper`).
+
+### Симптом
+
+Клик по Windows toast при открытом CMMS запускал **второй процесс** вместо навигации в текущем окне. После фикса single-instance — окно не выходило на передний план; сломался авторестарт при выходе/смене языка.
+
+### Root cause
+
+WinUI 3 по умолчанию **multi-instance**; COM-активация toast = новый процесс. `AppRestartHelper.RestartApp()` после single-instance redirect уходил в старый процесс.
+
+### Fix
+
+| Компонент | Назначение |
+|-----------|------------|
+| `AppSingleInstanceHelper` | `FindOrRegisterForKey` + `RedirectActivationToAsync` до `Application.Start` |
+| `AppNotificationRouter` | единая навигация по toast (ППР, заявки, статусы) |
+| `MainWindowActivationHelper.BringToForeground` | `AppWindow.Show`, restore, `AllowSetForegroundWindow`, topmost workaround |
+| `RestartApp()` | `UnregisterKey` + exe с `--baaz-cmms-restart` — bypass redirect |
+
+`AppNotificationManager.Register()` — **до** `GetActivatedEventArgs()` (требование WinAppSDK).
+
+Файлы: `Program.cs`, `Helpers/Window/AppSingleInstanceHelper.cs`, `Services/Notifications/AppNotificationRouter.cs`, `Helpers/Window/MainWindowActivationHelper.cs`.
