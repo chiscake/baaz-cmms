@@ -140,6 +140,70 @@ public sealed partial class MaintenanceScheduleViewModel
         SyncTimelineFromScale();
     }
 
+    public MaintenanceScheduleNavigationArgs CaptureNavigationContext() =>
+        new(
+            SelectedViewIndex,
+            SelectedStatusFilterIndex,
+            FilterText,
+            GetSelectedAssetId(),
+            GetSelectedMaintenanceType(),
+            IsAdmin ? GetSelectedDepartmentId() : null,
+            SelectedSortIndex,
+            SelectedZoomPreset,
+            VisibleRangeStart,
+            VisibleRangeEnd,
+            SplitPaneStarWeight,
+            _collapsedLocationIds.ToList(),
+            HighlightedRowId);
+
+    public void ApplyNavigationContext(MaintenanceScheduleNavigationArgs args)
+    {
+        SelectedViewIndex = args.SelectedViewIndex is >= 0 and <= 1 ? args.SelectedViewIndex : 0;
+        SelectedStatusFilterIndex = args.SelectedStatusFilterIndex;
+        FilterText = args.FilterText;
+        SelectedMaintenanceTypeFilterIndex = FindMaintenanceTypeFilterIndex(args.SelectedMaintenanceType);
+        SelectedSortIndex = args.SelectedSortIndex;
+        SelectedZoomPreset = args.SelectedZoomPreset;
+        SplitPaneStarWeight = args.SplitPaneStarWeight > 0 ? args.SplitPaneStarWeight : 1.5;
+        HighlightedRowId = args.HighlightedRowId;
+
+        _collapsedLocationIds.Clear();
+        foreach (var id in args.CollapsedLocationIds)
+            _collapsedLocationIds.Add(id);
+
+        _pendingAssetFilterId = args.SelectedAssetId;
+        _pendingDepartmentFilterId = args.SelectedDepartmentId;
+
+        _timelineScale = new ScheduleTimelineScale(SelectedZoomPreset, DateOnly.FromDateTime(DateTime.Today));
+        _timelineScale.SetVisibleRange(args.VisibleRangeStart, args.VisibleRangeEnd);
+        SyncTimelineFromScale();
+
+        MaintenanceSchedulePrefsStore.Update(p =>
+        {
+            p.SelectedViewIndex = SelectedViewIndex;
+            p.ZoomPreset = (int)SelectedZoomPreset;
+            p.SplitPaneStarWeight = SplitPaneStarWeight;
+            p.CollapsedLocationIds = _collapsedLocationIds.ToList();
+        });
+    }
+
+    private int FindMaintenanceTypeFilterIndex(string? maintenanceType)
+    {
+        if (maintenanceType is null)
+            return 0;
+
+        for (var i = 0; i < MaintenanceTypeFilterOptions.Count; i++)
+        {
+            if (string.Equals(
+                    MaintenanceTypeFilterOptions[i].MaintenanceType,
+                    maintenanceType,
+                    StringComparison.Ordinal))
+                return i;
+        }
+
+        return 0;
+    }
+
     public void SaveSplitPaneWeight(double starWeight)
     {
         SplitPaneStarWeight = starWeight;

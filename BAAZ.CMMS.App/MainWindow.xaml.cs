@@ -9,6 +9,7 @@ using Helpers.Settings;
 using BAAZ.CMMS.App.Helpers;
 using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.App.Navigation;
+using BAAZ.CMMS.App.Pages.Dispatcher.MaintenanceSchedule;
 using BAAZ.CMMS.App.Services.Notifications;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Realtime;
@@ -343,6 +344,22 @@ public sealed partial class MainWindow : Window, INotifyPropertyChanged
         SettingsHelper.Current.SelectedAppTheme = theme;
         AppThemeHelper.Apply(theme);
         SyncThemeMenuSelection();
+        ReloadMaintenanceSchedulePageIfActive();
+    }
+
+    private void ReloadMaintenanceSchedulePageIfActive()
+    {
+        if (_navigationService is null
+            || !string.Equals(_navigationService.CurrentPageKey, "MaintenanceSchedule", StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        if (navFrame.Content is not MaintenanceSchedulePage page)
+            return;
+
+        var context = page.ViewModel.CaptureNavigationContext();
+        _navigationService.NavigateToReplace("MaintenanceSchedule", context);
     }
 
     private void SyncThemeMenuSelection()

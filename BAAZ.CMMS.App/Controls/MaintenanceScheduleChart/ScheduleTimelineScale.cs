@@ -76,6 +76,12 @@ public sealed class ScheduleTimelineScale
         RangeEnd = RangeEnd.AddDays(shift);
     }
 
+    public void SetVisibleRange(DateOnly rangeStart, DateOnly rangeEnd)
+    {
+        RangeStart = rangeStart;
+        RangeEnd = rangeEnd;
+    }
+
     public double ToX(DateOnly date)
     {
         var index = date.DayNumber - RangeStart.DayNumber;

@@ -53,6 +53,8 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
 
     private bool _realtimeSubscribed;
     private int _realtimeReloadSuppressCount;
+    private Guid? _pendingAssetFilterId;
+    private Guid? _pendingDepartmentFilterId;
     private IReadOnlyList<MaintenanceScheduleItem> _allItems = [];
 
     public MaintenanceScheduleViewModel(
@@ -1028,6 +1030,7 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
         await RunDataRefreshAsync(async cancellationToken =>
         {
             _allItems = await _maintenanceService.GetScheduleAsync(cancellationToken, markOverdue);
+            ApplyPendingFilterSelections();
             RebuildAssetFilterOptions();
             RebuildDepartmentFilterOptions();
             ApplyFiltersAndSort(rebuildChart: false);
@@ -1231,6 +1234,21 @@ public sealed partial class MaintenanceScheduleViewModel : PageViewModelBase
         }
 
         return 0;
+    }
+
+    private void ApplyPendingFilterSelections()
+    {
+        if (_pendingAssetFilterId is Guid assetId)
+        {
+            SelectedAssetFilterIndex = FindAssetFilterIndex(assetId);
+            _pendingAssetFilterId = null;
+        }
+
+        if (_pendingDepartmentFilterId is Guid departmentId)
+        {
+            SelectedDepartmentFilterIndex = FindDepartmentFilterIndex(departmentId);
+            _pendingDepartmentFilterId = null;
+        }
     }
 
     private static int StatusSortKey(string status) => status switch

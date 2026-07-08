@@ -21,7 +21,11 @@ public sealed partial class MaintenanceSchedulePage : Page
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
-        ViewModel.RestorePrefs();
+        if (e.Parameter is MaintenanceScheduleNavigationArgs args)
+            ViewModel.ApplyNavigationContext(args);
+        else
+            ViewModel.RestorePrefs();
+
         SyncViewSelectorFromViewModel();
         await ViewModel.OnPageLoadedAsync();
     }
