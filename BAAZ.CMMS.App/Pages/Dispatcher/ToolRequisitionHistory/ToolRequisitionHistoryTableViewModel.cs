@@ -138,6 +138,7 @@ public sealed class ToolRequisitionHistoryTableViewModel : CrudWorkbenchViewMode
 
     protected override async Task LoadDataAsync(CancellationToken ct)
     {
+        await _tmsToolRequisitionService.RefreshAllLocalAsync(ToolRequisitionHistoryViewModel.BrowseLimit, ct);
         var result = await _tmsToolRequisitionService.ListAllLocalAsync(ToolRequisitionHistoryViewModel.BrowseLimit, ct);
         _allRows.Clear();
         if (!result.IsSuccess || result.Value is null)

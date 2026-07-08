@@ -15,6 +15,7 @@ using BAAZ.CMMS.Core.Data;
 using BAAZ.CMMS.Core.Integrations.ToolTracker;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Models.TmsIssuance;
+using BAAZ.CMMS.Core.Realtime;
 using BAAZ.CMMS.Core.Services;
 using BAAZ.CMMS.Core.Services.Catalog;
 using BAAZ.CMMS.Core.Services.Requisitions;
@@ -43,6 +44,8 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
     private readonly IAuthService _authService;
     private readonly IDocumentSaveLocationService _saveLocationService;
     private readonly IWindowsShellFileService _shellFileService;
+    private readonly IRealtimeNotificationService _realtimeService;
+    private bool _realtimeSubscribed;
 
     private Guid? _lockedRequestId;
     private Guid? _lockedScheduleId;
@@ -58,7 +61,8 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         ITechnicianCatalogService technicianCatalogService,
         IAuthService authService,
         IDocumentSaveLocationService saveLocationService,
-        IWindowsShellFileService shellFileService)
+        IWindowsShellFileService shellFileService,
+        IRealtimeNotificationService realtimeService)
     {
         _toolRequisitionService = toolRequisitionService;
         _tmsIssuanceClient = tmsIssuanceClient;
@@ -69,6 +73,7 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
         _authService = authService;
         _saveLocationService = saveLocationService;
         _shellFileService = shellFileService;
+        _realtimeService = realtimeService;
 
         AttachLine(new ToolRequisitionLineRow());
         WarehouseName = ResourceStrings.Get("ToolRequisition_Default_WarehouseName");
@@ -766,5 +771,31 @@ public sealed partial class ToolRequisitionViewModel : PageViewModelBase
             return error.Detail;
 
         return ResourceStrings.Get("ToolRequisition_Error_SaveFailed");
+    }
+
+    public void SubscribeRealtime()
+    {
+        if (_realtimeSubscribed)
+            return;
+
+        _realtimeService.EventReceived += OnRealtimeEvent;
+        _realtimeSubscribed = true;
+    }
+
+    public void UnsubscribeRealtime()
+    {
+        if (!_realtimeSubscribed)
+            return;
+
+        _realtimeService.EventReceived -= OnRealtimeEvent;
+        _realtimeSubscribed = false;
+    }
+
+    private void OnRealtimeEvent(object? sender, RealtimeEvent e)
+    {
+        if (e.Table is not "tms_tool_requisition_links")
+            return;
+
+        RealtimeUiRefresh.EnqueueDebounced("tool-requisition-form-links", RefreshTmsLinksAsync);
     }
 }

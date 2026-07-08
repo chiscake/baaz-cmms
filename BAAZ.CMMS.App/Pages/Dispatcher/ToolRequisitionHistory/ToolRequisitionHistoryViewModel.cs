@@ -8,6 +8,7 @@ using BAAZ.CMMS.App.Helpers;
 using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.Core.Data.Models;
 using BAAZ.CMMS.Core.Models.TmsIssuance;
+using BAAZ.CMMS.Core.Realtime;
 using BAAZ.CMMS.Core.Services;
 using BAAZ.CMMS.Core.Services.TmsIssuance;
 
@@ -39,20 +40,26 @@ public sealed partial class ToolRequisitionHistoryViewModel : PageViewModelBase
     private readonly ITmsToolRequisitionService _tmsToolRequisitionService;
     private readonly IRequestService _requestService;
     private readonly IMaintenanceService _maintenanceService;
+    private readonly IRealtimeNotificationService _realtimeService;
 
     private List<TmsToolRequisitionLinkModel> _browseSource = [];
     private Guid? _selectedLinkId;
     private string? _pendingStatusFilter;
+    private Guid? _pendingLinkId;
+    private string? _detailLastKnownStatus;
+    private bool _realtimeSubscribed;
 
     public ToolRequisitionHistoryViewModel(
         ITmsToolRequisitionService tmsToolRequisitionService,
         IRequestService requestService,
         IMaintenanceService maintenanceService,
+        IRealtimeNotificationService realtimeService,
         ToolRequisitionHistoryTableViewModel tableViewModel)
     {
         _tmsToolRequisitionService = tmsToolRequisitionService;
         _requestService = requestService;
         _maintenanceService = maintenanceService;
+        _realtimeService = realtimeService;
         TableViewModel = tableViewModel;
         TableViewModel.RecordPicked += OnTableRecordPicked;
     }
@@ -77,6 +84,11 @@ public sealed partial class ToolRequisitionHistoryViewModel : PageViewModelBase
     public string DetailLabelCreatedAt => ResourceStrings.Get("MyRequests_Detail_CreatedAt");
     public string DetailLabelUpdatedAt => ResourceStrings.Get("MyRequests_Detail_UpdatedAt");
     public string DetailLabelLastSyncedAt => ResourceStrings.Get("ToolRequisitionHistory_Detail_LastSyncedAt");
+    public string CancelDetailLabel => ResourceStrings.Get("ToolRequisitionHistory_Action_Cancel");
+
+    public bool CanCancelDetail =>
+        _selectedLinkId is not null
+        && TmsRequisitionStatuses.IsCancellable(_detailLastKnownStatus);
 
     public IReadOnlyList<string> StatusFilterLabels { get; } =
     [
@@ -168,14 +180,17 @@ public sealed partial class ToolRequisitionHistoryViewModel : PageViewModelBase
 
     public async Task OnPageLoadedAsync(object? parameter = null)
     {
-        if (parameter is ToolRequisitionHistoryNavigationArgs args
-            && !string.IsNullOrWhiteSpace(args.StatusFilter))
+        if (parameter is ToolRequisitionHistoryNavigationArgs args)
         {
-            _pendingStatusFilter = args.StatusFilter;
+            if (!string.IsNullOrWhiteSpace(args.StatusFilter))
+                _pendingStatusFilter = args.StatusFilter;
+            if (args.LinkId is Guid linkId)
+                _pendingLinkId = linkId;
         }
 
         ApplyPendingStatusFilter();
-        await LoadBrowseAsync();
+        await LoadBrowseAsync(_pendingLinkId);
+        _pendingLinkId = null;
     }
 
     partial void OnSearchTextChanged(string value) => ApplyBrowseFilter();
@@ -192,6 +207,71 @@ public sealed partial class ToolRequisitionHistoryViewModel : PageViewModelBase
 
     [RelayCommand]
     private void BackToList() => IsTableView = false;
+
+    [RelayCommand]
+    private async Task CancelDetailAsync()
+    {
+        if (_selectedLinkId is not Guid linkId || !CanCancelDetail)
+            return;
+
+        var confirmed = await AppDialogHelper.ConfirmAsync(
+            ResourceStrings.Get("ToolRequisitionHistory_Cancel_Confirm_Title"),
+            ResourceStrings.Get("ToolRequisitionHistory_Cancel_Confirm_Message"));
+        if (!confirmed)
+            return;
+
+        try
+        {
+            var result = await _tmsToolRequisitionService.CancelRequisitionAsync(linkId);
+            if (!result.IsSuccess || result.Value is null)
+            {
+                var key = result.Error?.MessageKey ?? "ToolRequisitionHistory_Cancel_Failed";
+                var message = ResourceStrings.Get(key);
+                if (message == key)
+                    message = ResourceStrings.Get("ToolRequisitionHistory_Cancel_Failed");
+
+                InfoBanner.Report(message, InfoBarSeverity.Error);
+                return;
+            }
+
+            InfoBanner.Report(
+                ResourceStrings.Get("ToolRequisitionHistory_Cancel_Success"),
+                InfoBarSeverity.Success);
+            await LoadBrowseAsync(linkId);
+        }
+        catch
+        {
+            InfoBanner.Report(
+                ResourceStrings.Get("ToolRequisitionHistory_Cancel_Failed"),
+                InfoBarSeverity.Error);
+        }
+    }
+
+    public void SubscribeRealtime()
+    {
+        if (_realtimeSubscribed)
+            return;
+
+        _realtimeService.EventReceived += OnRealtimeEvent;
+        _realtimeSubscribed = true;
+    }
+
+    public void UnsubscribeRealtime()
+    {
+        if (!_realtimeSubscribed)
+            return;
+
+        _realtimeService.EventReceived -= OnRealtimeEvent;
+        _realtimeSubscribed = false;
+    }
+
+    private void OnRealtimeEvent(object? sender, RealtimeEvent e)
+    {
+        if (e.Table is not "tms_tool_requisition_links")
+            return;
+
+        RealtimeUiRefresh.EnqueueDebounced("tool-requisition-history", () => LoadBrowseAsync(_selectedLinkId));
+    }
 
     [RelayCommand]
     private async Task SelectItemAsync(ToolRequisitionBrowseItem? item)
@@ -227,6 +307,7 @@ public sealed partial class ToolRequisitionHistoryViewModel : PageViewModelBase
 
         try
         {
+            await _tmsToolRequisitionService.RefreshAllLocalAsync(BrowseLimit);
             var result = await _tmsToolRequisitionService.ListAllLocalAsync(BrowseLimit);
             if (!result.IsSuccess || result.Value is null)
             {
@@ -395,7 +476,9 @@ public sealed partial class ToolRequisitionHistoryViewModel : PageViewModelBase
             DetailUpdatedAt = DateTimeDisplayHelper.Format(link.UpdatedAt);
             DetailLastSyncedAt = DateTimeDisplayHelper.Format(link.LastSyncedAt);
             HasLastSyncedAt = link.LastSyncedAt is not null;
+            _detailLastKnownStatus = link.LastKnownStatus;
             HasDetail = true;
+            OnPropertyChanged(nameof(CanCancelDetail));
         }
         catch
         {
@@ -443,6 +526,8 @@ public sealed partial class ToolRequisitionHistoryViewModel : PageViewModelBase
         DetailTitle = string.Empty;
         HasDetailNotes = false;
         HasLastSyncedAt = false;
+        _detailLastKnownStatus = null;
+        OnPropertyChanged(nameof(CanCancelDetail));
         NotifyEmptyStates();
     }
 

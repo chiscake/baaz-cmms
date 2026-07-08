@@ -18,6 +18,13 @@ public sealed partial class AdminHomePage : Page
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        ViewModel.SubscribeRealtime();
         await ViewModel.LoadAsync();
+    }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        ViewModel.UnsubscribeRealtime();
+        base.OnNavigatedFrom(e);
     }
 }

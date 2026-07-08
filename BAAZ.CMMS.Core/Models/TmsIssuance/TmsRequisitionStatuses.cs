@@ -16,6 +16,12 @@ public static class TmsRequisitionStatuses
         => !string.IsNullOrWhiteSpace(status)
            && !string.Equals(status, Cancelled, StringComparison.Ordinal)
            && !string.Equals(status, Returned, StringComparison.Ordinal);
+
+    /// <summary>Диспетчер может отменить заявку до выдачи (ISS-API-2).</summary>
+    public static bool IsCancellable(string? status)
+        => string.Equals(status, New, StringComparison.Ordinal)
+           || string.Equals(status, PartiallyReserved, StringComparison.Ordinal)
+           || string.Equals(status, ReadyForIssue, StringComparison.Ordinal);
 }
 
 public static class TmsLineStatuses

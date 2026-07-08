@@ -74,6 +74,22 @@ public sealed class MockTmsIssuanceClient(ITmsIssuanceOutboundSender outboundSen
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
+
+        if (input.RequisitionIds is { Count: > 0 })
+        {
+            return Task.FromResult(DataResult<TmsCancelRequisitionsResult>.Ok(new TmsCancelRequisitionsResult
+            {
+                Cancelled = input.RequisitionIds
+                    .Select(id => new TmsCancelRequisitionOutcome
+                    {
+                        RequisitionId = id,
+                        Status = TmsRequisitionStatuses.Cancelled,
+                    })
+                    .ToList(),
+                Skipped = [],
+            }));
+        }
+
         var fixture = TmsFixtureLoader.Load<TmsCancelRequisitionsResult>("cancel_tool_requisitions_response.json");
         return Task.FromResult(DataResult<TmsCancelRequisitionsResult>.Ok(fixture));
     }

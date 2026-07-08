@@ -48,7 +48,17 @@ public sealed class WindowsToastService : IWindowsToastService
             requestId: null);
     }
 
-    private static void Show(string title, string? body, string pageKey, Guid? requestId)
+    public void ShowToolRequisitionReady(Guid linkId, string requisitionNumber, string statusLabel)
+    {
+        Show(
+            ResourceStrings.Get("Notification_ToolRequisition_Ready_Title"),
+            string.Format(ResourceStrings.Get("Notification_ToolRequisition_Ready_Message"), requisitionNumber, statusLabel),
+            "ToolRequisitionHistory",
+            requestId: null,
+            linkId: linkId);
+    }
+
+    private static void Show(string title, string? body, string pageKey, Guid? requestId, Guid? linkId = null)
     {
         var dispatcher = App.MainWindow?.DispatcherQueue ?? DispatcherQueue.GetForCurrentThread();
 
@@ -70,7 +80,7 @@ public sealed class WindowsToastService : IWindowsToastService
                     ConfirmButtonText = ResourceStrings.Get("Toast_Action_Open"),
                     ConfirmButtonClicked = (_, _) =>
                     {
-                        NavigateFromGrowl(pageKey, requestId);
+                        NavigateFromGrowl(pageKey, requestId, linkId);
                         return true;
                     },
                 });
@@ -87,11 +97,11 @@ public sealed class WindowsToastService : IWindowsToastService
             dispatcher.TryEnqueue(DispatcherQueuePriority.High, ShowGrowl);
     }
 
-    private static void NavigateFromGrowl(string pageKey, Guid? requestId)
+    private static void NavigateFromGrowl(string pageKey, Guid? requestId, Guid? linkId = null)
     {
         MainWindowActivationHelper.BringToForeground(App.MainWindow);
 
         if (App.Services.GetService<IShellNotificationPresenter>() is { } presenter)
-            presenter.NavigateFromToast(pageKey, requestId);
+            presenter.NavigateFromToast(pageKey, requestId, linkId);
     }
 }

@@ -31,6 +31,7 @@ public sealed class RealtimeNotificationService : IRealtimeNotificationService, 
         "maintenance_schedule",
         "work_reports",
         "request_repair_departments",
+        "tms_tool_requisition_links",
     ];
 
     private readonly ISupabaseClientProvider _clientProvider;
@@ -288,6 +289,8 @@ public sealed class RealtimeNotificationService : IRealtimeNotificationService, 
             return "work_reports";
         if (TryModel<RequestRepairDepartmentModel>(change))
             return "request_repair_departments";
+        if (TryModel<TmsToolRequisitionLinkModel>(change))
+            return "tms_tool_requisition_links";
 
         return null;
     }
@@ -328,6 +331,9 @@ public sealed class RealtimeNotificationService : IRealtimeNotificationService, 
                 "maintenance_schedule" => FromModel(change.Model<MaintenanceScheduleModel>(), m => m.Id),
                 "work_reports" => FromModel(change.Model<WorkReportModel>(), m => m.Id),
                 "request_repair_departments" => FromJunction(change.Model<RequestRepairDepartmentModel>()),
+                "tms_tool_requisition_links" => FromModel(
+                    RealtimeRecordParser.TryParseTmsToolLink(change),
+                    m => m.Id),
                 _ => (null, null),
             };
         }

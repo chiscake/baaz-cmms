@@ -18,8 +18,15 @@ public sealed partial class ToolRequisitionPage : Page
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        ViewModel.SubscribeRealtime();
         await ViewModel.OnPageLoadedAsync(e.Parameter);
         SyncChannelSelector();
+    }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        ViewModel.UnsubscribeRealtime();
+        base.OnNavigatedFrom(e);
     }
 
     private void ChannelSelector_SelectionChanged(SelectorBar sender, SelectorBarSelectionChangedEventArgs args)

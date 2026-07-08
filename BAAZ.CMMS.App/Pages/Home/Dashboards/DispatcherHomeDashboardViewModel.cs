@@ -81,6 +81,7 @@ public sealed class DispatcherHomeDashboardViewModel : HomeDashboardSectionViewM
                 && s.PlannedDate == today);
             var scheduleInProgressCount = schedule.Count(s => string.Equals(s.Status, "in_progress", StringComparison.Ordinal));
 
+            await _tmsToolRequisitionService.RefreshAllLocalAsync(cancellationToken: cancellationToken);
             var toolLinksResult = await _tmsToolRequisitionService.ListAllLocalAsync(cancellationToken: cancellationToken);
             var readyForIssueCount = toolLinksResult.IsSuccess && toolLinksResult.Value is not null
                 ? toolLinksResult.Value.Count(link =>

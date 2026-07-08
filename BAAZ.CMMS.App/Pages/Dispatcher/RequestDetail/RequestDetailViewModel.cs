@@ -14,6 +14,7 @@ using BAAZ.CMMS.App.Pages.Requester.MyRequests;
 using BAAZ.CMMS.App.Pages.Dispatcher.MaterialRequisition;
 using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisition;
 using BAAZ.CMMS.Core.Data;
+using BAAZ.CMMS.Core.Data.Models;
 using BAAZ.CMMS.Core.Models;
 using BAAZ.CMMS.Core.Models.TmsIssuance;
 using BAAZ.CMMS.Core.Realtime;
@@ -1079,10 +1080,34 @@ public sealed partial class RequestDetailViewModel : PageViewModelBase
 
     private void OnRealtimeEvent(object? sender, RealtimeEvent e)
     {
-        if (e.Table is not "requests" and not "request_repair_departments" and not "work_reports")
+        if (e.Table is "requests" or "request_repair_departments" or "work_reports")
+        {
+            RealtimeUiRefresh.Enqueue(LoadAsync);
             return;
+        }
 
-        RealtimeUiRefresh.Enqueue(LoadAsync);
+        if (e.Table is "tms_tool_requisition_links")
+        {
+            if (e.Payload is TmsToolRequisitionLinkModel link
+                && link.CmmsRequestId == _requestId)
+            {
+                RealtimeUiRefresh.Enqueue(LoadToolRequisitionLinksAsync);
+                return;
+            }
+
+            if (e.RecordId is Guid linkId)
+            {
+                RealtimeUiRefresh.Enqueue(async () =>
+                {
+                    var fetched = await _tmsToolRequisitionService.GetLocalByIdAsync(linkId);
+                    if (fetched.IsSuccess
+                        && fetched.Value?.CmmsRequestId == _requestId)
+                    {
+                        await LoadToolRequisitionLinksAsync();
+                    }
+                });
+            }
+        }
     }
 
     private static string FormatInventoryHandoff(string? mode) => mode switch

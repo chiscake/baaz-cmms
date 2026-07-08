@@ -31,7 +31,7 @@ Update as project evolves.
 
 **Connectivity:** online-only. Supabase unreachable → dialog + error + **retry** — no offline cache or local DB fallback.
 
-**Notifications:** **no** `notifications` table. **Supabase Realtime** — канал `public-cmms`, таблицы `requests`, `maintenance_schedule`, `work_reports`, `request_repair_departments` (publication `150_realtime_publication.sql`). `RealtimeNotificationService` (Core) — дедуп страниц `(table|type|id|minute)`; reconnect при `IConnectionService.ConnectionStateChanged`. App: `ShellNotificationPresenter` → Windows toasts (`AppNotificationManager.Register` в `Program.cs`, unpackaged) + `INavBadgeService` (`dispatcher.incomingRequests`, `requester.myRequests`); дедуп toast — `HashSet<Guid>` в presenter. Страницы: `EventReceived` + `UnsubscribeRealtime` при уходе. Без polling.
+**Notifications:** **no** `notifications` table. **Supabase Realtime** — канал `public-cmms`, таблицы `requests`, `maintenance_schedule`, `work_reports`, `request_repair_departments`, `tms_tool_requisition_links` (publication `150_realtime_publication.sql`). `RealtimeNotificationService` (Core) — дедуп страниц `(table|type|id|minute)`; reconnect при `IConnectionService.ConnectionStateChanged`. App: `ShellNotificationPresenter` → Windows toasts (`AppNotificationManager.Register` в `Program.cs`, unpackaged) + `INavBadgeService` (`dispatcher.incomingRequests`, `requester.myRequests`, `dispatcher.toolRequisitionHistory` для `ready_for_issue`); дедуп toast — `HashSet<Guid>` в presenter. Страницы: `EventReceived` + `UnsubscribeRealtime` при уходе. Статусы заявок TMS: push ISS-EVT-1 + pull ISS-API-5 fallback.
 
 ## Repository layout
 
@@ -668,3 +668,4 @@ Stub implementations registered in `BAAZ.CMMS.App/App.xaml.cs` DI (no-op, no exc
 - Workflow заявки UC-D2: assign/add dept — `accepted` или `in_progress` (assign только отделам без `work_reports`); zone/transfer — только `accepted`; `start_request_work` — `accepted` + все `rrd.assignee_id` заполнены (`ALL_DEPARTMENTS_NEED_ASSIGNEE`); после `work_reports` отдел locked (UI + `DEPARTMENT_ALREADY_REPORTED`); auto-`completed` — триггер NOT EXISTS по `rrd` без отчёта; admin `transfer_request_department` заменяет все `rrd`
 - WinUI code-behind theme: `AppThemeHelper` + `ThemeBrushResolver` в `BAAZ.CMMS.App/Helpers/Theming/`; см. § WinUI theming (code-behind)
 - TMS adjacent repo: own `AGENTS.md`; local Supabase port **55321** (TMS) vs **54321** (CMMS)
+- TMS tool requisition status: ISS-EVT-1 (`integration-tms-tool-requisition-status`) TMS→CMMS push; Realtime на `tms_tool_requisition_links`; toast при `partially_reserved`/`ready_for_issue`; отмена диспетчером до `ready_for_issue` — ISS-API-2 + UI `ToolRequisitionHistory`

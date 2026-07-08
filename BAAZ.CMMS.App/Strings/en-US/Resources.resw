@@ -2283,6 +2283,33 @@ HResult: {1}</value>
   <data name="ToolRequisitionHistory_Detail_LastSyncedAt" xml:space="preserve">
     <value>Last synced</value>
   </data>
+  <data name="ToolRequisitionHistory_Action_Cancel" xml:space="preserve">
+    <value>Cancel requisition</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Confirm_Title" xml:space="preserve">
+    <value>Cancel tool requisition?</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Confirm_Message" xml:space="preserve">
+    <value>The requisition will be cancelled in TMS. This cannot be undone.</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Success" xml:space="preserve">
+    <value>Requisition cancelled</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Failed" xml:space="preserve">
+    <value>Failed to cancel requisition</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_NotAllowed" xml:space="preserve">
+    <value>Cancellation is not allowed for the current requisition status</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_NotApplied" xml:space="preserve">
+    <value>TMS did not confirm the requisition cancellation</value>
+  </data>
+  <data name="Notification_ToolRequisition_Ready_Title" xml:space="preserve">
+    <value>Tool requisition</value>
+  </data>
+  <data name="Notification_ToolRequisition_Ready_Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="ToolRequisitionHistory_UnknownWarehouse" xml:space="preserve">
     <value>Warehouse not specified</value>
   </data>

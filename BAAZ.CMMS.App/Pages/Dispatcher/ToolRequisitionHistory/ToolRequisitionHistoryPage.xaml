@@ -183,6 +183,10 @@
                                         <Run Text=": " />
                                         <Run Text="{x:Bind ViewModel.DetailLastSyncedAt, Mode=OneWay}" />
                                     </TextBlock>
+                                    <Button HorizontalAlignment="Left"
+                                            Command="{x:Bind ViewModel.CancelDetailCommand}"
+                                            Content="{x:Bind ViewModel.CancelDetailLabel, Mode=OneWay}"
+                                            Visibility="{x:Bind ViewModel.CanCancelDetail, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
                                 </StackPanel>
                             </StackPanel>
                         </ScrollViewer>

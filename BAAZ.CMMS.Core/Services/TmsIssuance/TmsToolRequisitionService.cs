@@ -130,15 +130,50 @@ public sealed class TmsToolRequisitionService(
                 continue;
             }
 
-            await _linkRepository.UpdateSyncStateAsync(
+            var update = await _linkRepository.UpdateSyncStateAsync(
                 link.Id,
                 item.Status,
                 remote.Value.ETag,
                 syncedAt,
                 cancellationToken);
+
+            if (!update.IsSuccess)
+            {
+                return DataResult<TmsRequisitionListResult>.Fail(
+                    update.Error ?? DataError.Unknown("Не удалось обновить локальный статус TMS"));
+            }
         }
 
         return remote;
+    }
+
+    public async Task<DataResult> RefreshAllLocalAsync(
+        int limit = 500,
+        CancellationToken cancellationToken = default)
+    {
+        var local = await _linkRepository.ListAllAsync(limit, cancellationToken);
+        if (!local.IsSuccess || local.Value is null)
+            return DataResult.Fail(local.Error ?? DataError.Unknown("Не удалось загрузить локальные ссылки"));
+
+        var workOrders = local.Value
+            .Select(link => new TmsWorkOrderRef
+            {
+                Kind = link.WorkOrderKind == "schedule" ? TmsWorkOrderKind.Schedule : TmsWorkOrderKind.Request,
+                Id = link.CmmsRequestId ?? link.CmmsScheduleId ?? Guid.Empty,
+            })
+            .Where(wo => wo.Id != Guid.Empty)
+            .GroupBy(wo => (wo.Kind, wo.Id))
+            .Select(g => g.First())
+            .ToList();
+
+        foreach (var workOrder in workOrders)
+        {
+            var refresh = await RefreshWorkOrderStatusAsync(workOrder, cancellationToken: cancellationToken);
+            if (!refresh.IsSuccess)
+                return DataResult.Fail(refresh.Error ?? DataError.Unknown("Не удалось обновить статусы TMS"));
+        }
+
+        return DataResult.Ok();
     }
 
     public async Task<DataResult<TmsCancelRequisitionsResult>> CancelForWorkOrderAsync(
@@ -158,6 +193,69 @@ public sealed class TmsToolRequisitionService(
             return result;
 
         await _linkRepository.UpdateStatusByWorkOrderAsync(workOrder, TmsRequisitionStatuses.Cancelled, cancellationToken);
+        return result;
+    }
+
+    public async Task<DataResult<TmsCancelRequisitionsResult>> CancelRequisitionAsync(
+        Guid linkId,
+        string? reason = null,
+        CancellationToken cancellationToken = default)
+    {
+        var linkResult = await _linkRepository.GetByIdAsync(linkId, cancellationToken);
+        if (!linkResult.IsSuccess || linkResult.Value is null)
+            return DataResult<TmsCancelRequisitionsResult>.Fail(linkResult.Error ?? DataError.Unknown("Заявка не найдена"));
+
+        var link = linkResult.Value;
+        if (!TmsRequisitionStatuses.IsCancellable(link.LastKnownStatus))
+        {
+            return DataResult<TmsCancelRequisitionsResult>.Fail(
+                DataError.Validation("ToolRequisitionHistory_Cancel_NotAllowed"));
+        }
+
+        var input = new TmsCancelRequisitionsInput
+        {
+            RequisitionIds = [link.TmsRequisitionId],
+            Reason = reason ?? "dispatcher_cancelled",
+        };
+
+        var result = await _issuanceClient.CancelRequisitionsAsync(input, cancellationToken);
+        if (!result.IsSuccess || result.Value is null)
+            return result;
+
+        var outcome = result.Value;
+        var wasCancelled = outcome.Cancelled.Any(c => c.RequisitionId == link.TmsRequisitionId);
+        var wasAlreadyCancelled = outcome.Skipped.Any(s =>
+            s.RequisitionId == link.TmsRequisitionId
+            && string.Equals(s.SkipReason, "already_cancelled", StringComparison.Ordinal));
+        var wasAlreadyIssued = outcome.Skipped.Any(s =>
+            s.RequisitionId == link.TmsRequisitionId
+            && string.Equals(s.SkipReason, "already_issued", StringComparison.Ordinal));
+
+        if (wasAlreadyIssued)
+        {
+            return DataResult<TmsCancelRequisitionsResult>.Fail(
+                DataError.Validation("ToolRequisitionHistory_Cancel_NotAllowed"));
+        }
+
+        if (!wasCancelled && !wasAlreadyCancelled)
+        {
+            return DataResult<TmsCancelRequisitionsResult>.Fail(
+                DataError.Validation("ToolRequisitionHistory_Cancel_NotApplied"));
+        }
+
+        var update = await _linkRepository.UpdateSyncStateAsync(
+            link.Id,
+            TmsRequisitionStatuses.Cancelled,
+            link.SyncEtag,
+            DateTimeOffset.UtcNow,
+            cancellationToken);
+
+        if (!update.IsSuccess)
+        {
+            return DataResult<TmsCancelRequisitionsResult>.Fail(
+                update.Error ?? DataError.Unknown("Не удалось обновить локальный статус TMS"));
+        }
+
         return result;
     }
 

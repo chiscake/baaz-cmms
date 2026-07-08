@@ -9,4 +9,6 @@ public interface IWindowsToastService
     void ShowRequestStatusChanged(Guid requestId, string requestNumber, string statusLabel);
 
     void ShowScheduleUpdated();
+
+    void ShowToolRequisitionReady(Guid linkId, string requisitionNumber, string statusLabel);
 }

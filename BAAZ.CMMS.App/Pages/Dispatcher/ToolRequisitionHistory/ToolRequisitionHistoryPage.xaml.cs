@@ -17,7 +17,14 @@ public sealed partial class ToolRequisitionHistoryPage : Page
     protected override async void OnNavigatedTo(NavigationEventArgs e)
     {
         base.OnNavigatedTo(e);
+        ViewModel.SubscribeRealtime();
         await ViewModel.OnPageLoadedAsync(e.Parameter);
+    }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs e)
+    {
+        ViewModel.UnsubscribeRealtime();
+        base.OnNavigatedFrom(e);
     }
 
     private void BrowseList_ItemClick(object sender, ItemClickEventArgs e)

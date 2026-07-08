@@ -398,6 +398,9 @@ verify_jwt = false
 [functions.integration-tms-inventory-received]
 verify_jwt = false
 
+[functions.integration-tms-tool-requisition-status]
+verify_jwt = false
+
 [analytics]
 enabled = true
 port = 54327

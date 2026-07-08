@@ -11,5 +11,5 @@ public interface IShellNotificationPresenter
 
     Task SyncInitialBadgesAsync();
 
-    void NavigateFromToast(string? pageKey, Guid? requestId);
+    void NavigateFromToast(string? pageKey, Guid? requestId, Guid? linkId = null);
 }

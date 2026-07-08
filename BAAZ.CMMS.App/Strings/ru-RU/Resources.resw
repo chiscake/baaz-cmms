@@ -2283,6 +2283,33 @@ HResult: {1}</value>
   <data name="ToolRequisitionHistory_Detail_LastSyncedAt" xml:space="preserve">
     <value>Последняя синхронизация</value>
   </data>
+  <data name="ToolRequisitionHistory_Action_Cancel" xml:space="preserve">
+    <value>Отменить заявку</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Confirm_Title" xml:space="preserve">
+    <value>Отменить заявку на инструменты?</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Confirm_Message" xml:space="preserve">
+    <value>Заявка будет отменена в TMS. Это действие нельзя отменить.</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Success" xml:space="preserve">
+    <value>Заявка отменена</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_Failed" xml:space="preserve">
+    <value>Не удалось отменить заявку</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_NotAllowed" xml:space="preserve">
+    <value>Отмена недоступна для текущего статуса заявки</value>
+  </data>
+  <data name="ToolRequisitionHistory_Cancel_NotApplied" xml:space="preserve">
+    <value>TMS не подтвердил отмену заявки</value>
+  </data>
+  <data name="Notification_ToolRequisition_Ready_Title" xml:space="preserve">
+    <value>Заявка на инструменты</value>
+  </data>
+  <data name="Notification_ToolRequisition_Ready_Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
   <data name="ToolRequisitionHistory_UnknownWarehouse" xml:space="preserve">
     <value>Склад не указан</value>
   </data>

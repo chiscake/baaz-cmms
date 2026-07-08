@@ -9,11 +9,14 @@ using BAAZ.CMMS.App.Helpers;
 using BAAZ.CMMS.App.Localization;
 using BAAZ.CMMS.App.Navigation;
 using BAAZ.CMMS.App.Pages.Dispatcher.RequestDetail;
+using BAAZ.CMMS.App.Pages.Dispatcher.ToolRequisitionHistory;
 using BAAZ.CMMS.App.Pages.Requester.MyRequests;
 using BAAZ.CMMS.Core.Data.Models;
 using BAAZ.CMMS.Core.Models;
+using BAAZ.CMMS.Core.Models.TmsIssuance;
 using BAAZ.CMMS.Core.Realtime;
 using BAAZ.CMMS.Core.Services;
+using BAAZ.CMMS.Core.Services.TmsIssuance;
 
 using Microsoft.UI.Xaml;
 
@@ -32,9 +35,11 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
     private readonly INavBadgeService _navBadgeService;
     private readonly IRequestService _requestService;
     private readonly IMaintenanceService _maintenanceService;
+    private readonly ITmsToolRequisitionService _tmsToolRequisitionService;
     private readonly IWindowProvider _windowProvider;
 
     private readonly HashSet<Guid> _toastedRecordIds = [];
+    private readonly HashSet<string> _toolRequisitionToastKeys = [];
     private readonly HashSet<long> _scheduleToastMinuteBuckets = [];
     private bool _started;
 
@@ -46,6 +51,7 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
         INavBadgeService navBadgeService,
         IRequestService requestService,
         IMaintenanceService maintenanceService,
+        ITmsToolRequisitionService tmsToolRequisitionService,
         IWindowProvider windowProvider)
     {
         _realtimeService = realtimeService;
@@ -55,6 +61,7 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
         _navBadgeService = navBadgeService;
         _requestService = requestService;
         _maintenanceService = maintenanceService;
+        _tmsToolRequisitionService = tmsToolRequisitionService;
         _windowProvider = windowProvider;
     }
 
@@ -76,6 +83,7 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
         _realtimeService.EventReceived -= OnRealtimeEvent;
         _toastedRecordIds.Clear();
         _scheduleToastMinuteBuckets.Clear();
+        _toolRequisitionToastKeys.Clear();
         _started = false;
     }
 
@@ -107,10 +115,19 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
             {
                 Debug.WriteLine($"[ShellNotify] Initial schedule badge sync failed: {ex.Message}");
             }
+
+            try
+            {
+                await SyncToolRequisitionBadgeAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[ShellNotify] Initial tool requisition badge sync failed: {ex.Message}");
+            }
         }
     }
 
-    public void NavigateFromToast(string? pageKey, Guid? requestId)
+    public void NavigateFromToast(string? pageKey, Guid? requestId, Guid? linkId = null)
     {
         if (string.IsNullOrWhiteSpace(pageKey))
             return;
@@ -121,6 +138,8 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
                 => new RequestDetailNavigationArgs { RequestId = id },
             "MyRequests" when requestId is { } myId
                 => new MyRequestsNavigationArgs(myId),
+            "ToolRequisitionHistory" when linkId is { } toolLinkId
+                => new ToolRequisitionHistoryNavigationArgs { LinkId = toolLinkId },
             _ => null,
         };
 
@@ -138,6 +157,9 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
                     break;
                 case "maintenance_schedule":
                     HandleScheduleEvent(e);
+                    break;
+                case "tms_tool_requisition_links":
+                    HandleToolRequisitionLinkEvent(e);
                     break;
             }
         }
@@ -241,6 +263,66 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
         return true;
     }
 
+    private void HandleToolRequisitionLinkEvent(RealtimeEvent e)
+    {
+        var profile = _authService.CurrentProfile;
+        if (profile is null || profile.Role is not (UserRole.Dispatcher or UserRole.Admin))
+            return;
+
+        if (e.EventType != RealtimeEventType.Update)
+            return;
+
+        RealtimeUiRefresh.EnqueueDebounced("tool-requisition-nav-badge", SyncToolRequisitionBadgeAsync);
+        RealtimeUiRefresh.Enqueue(() => HandleToolRequisitionToastAsync(e));
+    }
+
+    private async Task HandleToolRequisitionToastAsync(RealtimeEvent e)
+    {
+        var link = e.Payload as TmsToolRequisitionLinkModel;
+        if (link is null && e.RecordId is Guid linkId)
+        {
+            var fetched = await _tmsToolRequisitionService.GetLocalByIdAsync(linkId);
+            if (fetched.IsSuccess)
+                link = fetched.Value;
+        }
+
+        if (link is null)
+            return;
+
+        var status = link.LastKnownStatus ?? string.Empty;
+        if (!string.Equals(status, TmsRequisitionStatuses.PartiallyReserved, StringComparison.Ordinal)
+            && !string.Equals(status, TmsRequisitionStatuses.ReadyForIssue, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        if (!ShouldShowToast(
+                suppressWhenFocusedOnPage: "ToolRequisitionHistory",
+                recordId: link.Id,
+                pageKey: "ToolRequisitionHistory"))
+            return;
+
+        if (!TryAcquireToolRequisitionToast(link.Id, status))
+            return;
+
+        var number = TmsRequisitionDisplayNumber.Format(link.TmsRequisitionId);
+        var statusLabel = ToolRequisitionLabels.FormatTmsStatus(status);
+        _toastService.ShowToolRequisitionReady(link.Id, number, statusLabel);
+    }
+
+    private bool TryAcquireToolRequisitionToast(Guid linkId, string status)
+    {
+        var bucket = DateTimeOffset.UtcNow.ToUnixTimeSeconds() / 60;
+        var key = $"{linkId}|{status}|{bucket}";
+        if (!_toolRequisitionToastKeys.Add(key))
+            return false;
+
+        if (_toolRequisitionToastKeys.Count > 1000)
+            _toolRequisitionToastKeys.Clear();
+
+        return true;
+    }
+
     private async Task SyncIncomingBadgeAsync()
     {
         try
@@ -265,6 +347,23 @@ public sealed class ShellNotificationPresenter : IShellNotificationPresenter
         catch (Exception ex)
         {
             Debug.WriteLine($"[ShellNotify] SyncScheduleBadge failed: {ex.Message}");
+        }
+    }
+
+    private async Task SyncToolRequisitionBadgeAsync()
+    {
+        try
+        {
+            var links = await _tmsToolRequisitionService.ListAllLocalAsync();
+            var readyCount = links.IsSuccess && links.Value is not null
+                ? links.Value.Count(l =>
+                    string.Equals(l.LastKnownStatus, TmsRequisitionStatuses.ReadyForIssue, StringComparison.Ordinal))
+                : 0;
+            _navBadgeService.SetCount(NavItemIds.DispatcherToolRequisitionHistory, readyCount);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[ShellNotify] SyncToolRequisitionBadge failed: {ex.Message}");
         }
     }
 

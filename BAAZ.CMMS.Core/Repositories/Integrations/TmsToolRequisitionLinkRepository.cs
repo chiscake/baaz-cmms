@@ -160,20 +160,30 @@ public sealed class TmsToolRequisitionLinkRepository : ITmsToolRequisitionLinkRe
     {
         try
         {
-            var patch = new TmsToolRequisitionLinkModel
+            var query = _gateway.From<TmsToolRequisitionLinkModel>()
+                .Filter("id", Operator.Equals, id.ToString())
+                .Set(x => x.LastKnownStatus, lastKnownStatus)
+                .Set(x => x.LastSyncedAt, syncedAt);
+
+            if (syncEtag is not null)
+                query = query.Set(x => x.SyncEtag, syncEtag);
+
+            await query.Update();
+
+            var refreshed = await GetByIdAsync(id, ct);
+            if (!refreshed.IsSuccess)
             {
-                Id = id,
-                LastKnownStatus = lastKnownStatus,
-                SyncEtag = syncEtag,
-                LastSyncedAt = syncedAt,
-            };
+                return DataResult<TmsToolRequisitionLinkModel>.Fail(
+                    refreshed.Error ?? DataError.Unknown("Не удалось прочитать обновлённую запись"));
+            }
 
-            var response = await _gateway.From<TmsToolRequisitionLinkModel>().Update(patch);
-            var updated = response.Models?.FirstOrDefault();
-            if (updated is null)
-                return DataResult<TmsToolRequisitionLinkModel>.Fail(DataError.Unknown("Сервер не вернул обновлённую запись"));
+            if (refreshed.Value is null)
+            {
+                return DataResult<TmsToolRequisitionLinkModel>.Fail(
+                    DataError.Unknown("Запись не найдена после обновления"));
+            }
 
-            return DataResult<TmsToolRequisitionLinkModel>.Ok(updated);
+            return DataResult<TmsToolRequisitionLinkModel>.Ok(refreshed.Value);
         }
         catch (Supabase.Postgrest.Exceptions.PostgrestException ex)
         {

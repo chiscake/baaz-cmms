@@ -11,6 +11,7 @@ Use-cases: [docs/use-cases/tool-tracker.md](use-cases/tool-tracker.md).
 | **А — ремонт инструмента** | TMS → CMMS  | Edge Function `integration-tms-create-request`; read `integration.v_inventory_*` |
 | **Б — выдача на наряд**    | CMMS → TMS  | HTTP FastAPI `/api/v1/integration/cmms/*`                                        |
 | **REP-EVT-1**              | CMMS → TMS  | Webhook `/api/v1/integration/cmms/repair-request-status`                         |
+| **ISS-EVT-1**              | TMS → CMMS  | Edge Function `integration-tms-tool-requisition-status`                         |
 
 ## Объект заявки CMMS (контур А)
 
@@ -48,6 +49,7 @@ PostgREST: `Accept-Profile: integration`.
 | ------- | -- | ---------- |
 | `integration-tms-create-request/` | REP-API-1 | Создание inventory-заявки |
 | `integration-tms-inventory-received/` | REP-API-2 | Подтверждение передачи (deliver) → `in_progress` |
+| `integration-tms-tool-requisition-status/` | ISS-EVT-1 | Обновление `tms_tool_requisition_links.last_known_status` из TMS |
 
 Auth: `CMMS_INTEGRATION_SECRET`. RPC `confirm_inventory_received` — также из UI CMMS (pickup).
 
@@ -205,7 +207,8 @@ Demo UUID: tool `d1000000-0000-4000-8000-000000000001`, CMMS request repair `b22
 4. **Контур А (pickup):** send → TMS `pending_repair` → CMMS accept + assign → «Инструмент получен» → `in_progress` / TMS `maintenance`.
 5. **Контур А (deliver):** send deliver → «Передан в отдел» → `in_progress` без клика диспетчера.
 6. **Контур Б:** CMMS ToolRequisition → ISS-API-1 → статус в RequestDetail.
-7. **REP-EVT-1:** закрыть inventory-заявку → TMS `pending_return` → «Принят на склад» → `available`.
+7. **ISS-EVT-1:** clerk reserve/issue в TMS → CMMS toast «зарезервирована» / «готова к выдаче» без ручного refresh; история заявок обновляется через Realtime на `tms_tool_requisition_links`.
+8. **REP-EVT-1:** закрыть inventory-заявку → TMS `pending_return` → «Принят на склад» → `available`.
 
 ## Синхронизация документации
 

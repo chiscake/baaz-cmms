@@ -30,9 +30,20 @@ public interface ITmsToolRequisitionService
         string? ifNoneMatch = null,
         CancellationToken cancellationToken = default);
 
+    /// <summary>ISS-API-5 poll для всех локальных ссылок (группировка по наряду).</summary>
+    Task<DataResult> RefreshAllLocalAsync(
+        int limit = 500,
+        CancellationToken cancellationToken = default);
+
     /// <summary>TMS-API-2 batch + локальное обновление отменённых заявок.</summary>
     Task<DataResult<TmsCancelRequisitionsResult>> CancelForWorkOrderAsync(
         TmsWorkOrderRef workOrder,
+        string? reason = null,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>Отмена одной заявки TMS (ISS-API-2 по <c>requisition_ids</c>).</summary>
+    Task<DataResult<TmsCancelRequisitionsResult>> CancelRequisitionAsync(
+        Guid linkId,
         string? reason = null,
         CancellationToken cancellationToken = default);
 }
