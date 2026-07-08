@@ -124,6 +124,54 @@ update public.assets set category_id = 'f1000000-0000-4000-8000-000000000005' wh
 update public.assets set category_id = 'f1000000-0000-4000-8000-000000000005' where id = 'a1111111-1111-1111-1111-11111111110a';
 update public.assets set category_id = 'f1000000-0000-4000-8000-000000000008' where id = 'a1111111-1111-1111-1111-11111111110b';
 
+-- Паспортные поля (серийный номер / дата ввода в эксплуатацию)
+-- Большинство заполнено; часть — только серийник, только дата или оба NULL (демо неполных карточек).
+update public.assets set serial_number = 'КП-16К20-78432', commissioning_date = '1987-06-12' where id = 'c3000000-0000-4000-8000-000000000001';
+update public.assets set serial_number = 'BY-P6330-11984', commissioning_date = '1992-03-20' where id = 'c3000000-0000-4000-8000-000000000002';
+update public.assets set serial_number = 'ACP-GA37-8812034' where id = 'c3000000-0000-4000-8000-000000000003';
+update public.assets set serial_number = '6Р82-45231', commissioning_date = '1985-11-08' where id = 'c3000000-0000-4000-8000-000000000004';
+update public.assets set serial_number = '1К62-32891', commissioning_date = '1979-04-15' where id = 'c3000000-0000-4000-8000-000000000005';
+update public.assets set serial_number = 'ЗТО-ТМ630-7721' where id = 'c3000000-0000-4000-8000-000000000006';
+update public.assets set serial_number = '3М151-66102', commissioning_date = '1983-09-22' where id = 'c3000000-0000-4000-8000-000000000008';
+update public.assets set serial_number = 'КМ5-16-90441', commissioning_date = '1990-07-01' where id = 'c3000000-0000-4000-8000-000000000009';
+update public.assets set serial_number = 'СНО-3.6.4-12088', commissioning_date = '1988-12-05' where id = 'c3000000-0000-4000-8000-000000000010';
+update public.assets set serial_number = 'ГВ1200-0045', commissioning_date = '1995-02-18' where id = 'c3000000-0000-4000-8000-000000000011';
+update public.assets set serial_number = 'КД2126-55213', commissioning_date = '1986-08-30' where id = 'c3000000-0000-4000-8000-000000000012';
+update public.assets set serial_number = 'ЛП150-8834', commissioning_date = '2001-05-14' where id = 'c3000000-0000-4000-8000-000000000013';
+update public.assets set serial_number = 'СТ400-0012', commissioning_date = '2012-10-01' where id = 'c3000000-0000-4000-8000-000000000014';
+update public.assets set serial_number = 'BY-P6322-22109', commissioning_date = '1991-01-25' where id = 'c3000000-0000-4000-8000-000000000015';
+update public.assets set serial_number = 'DMG-CMX600V-904521', commissioning_date = '2019-08-15' where id = 'c3000000-0000-4000-8000-000000000016';
+update public.assets set serial_number = '1М63-44102', commissioning_date = '1976-03-10' where id = 'c3000000-0000-4000-8000-000000000017';
+update public.assets set serial_number = '6Т83-77821', commissioning_date = '1982-07-19' where id = 'c3000000-0000-4000-8000-000000000018';
+update public.assets set serial_number = '2А622-33018', commissioning_date = '1980-11-02' where id = 'c3000000-0000-4000-8000-000000000019';
+update public.assets set serial_number = '2Е440А-11876', commissioning_date = '1984-04-28' where id = 'c3000000-0000-4000-8000-000000000020';
+update public.assets set serial_number = '2620В-20543', commissioning_date = '1981-09-14' where id = 'c3000000-0000-4000-8000-000000000021';
+update public.assets set commissioning_date = '1975-02-01' where id = 'c3000000-0000-4000-8000-000000000022';
+update public.assets set serial_number = 'HAAS-ST20-1123456', commissioning_date = '2018-03-22' where id = 'c3000000-0000-4000-8000-000000000023';
+update public.assets set serial_number = 'HAAS-VF2-1123457', commissioning_date = '2018-03-22' where id = 'c3000000-0000-4000-8000-000000000024';
+update public.assets set serial_number = 'FANUC-AM120iB-004521', commissioning_date = '2020-11-10' where id = 'c3000000-0000-4000-8000-000000000025';
+update public.assets set serial_number = 'КИМ1200-88134', commissioning_date = '1998-06-08' where id = 'c3000000-0000-4000-8000-000000000026';
+update public.assets set serial_number = 'HYP-PMX105-774411', commissioning_date = '2016-04-05' where id = 'c3000000-0000-4000-8000-000000000027';
+update public.assets set serial_number = 'БААЗ-КК10-003', commissioning_date = '2008-09-12' where id = 'c3000000-0000-4000-8000-000000000028';
+update public.assets set serial_number = 'БААЗ-ЛС200-001', commissioning_date = '2014-06-01' where id = 'c3000000-0000-4000-8000-000000000029';
+update public.assets set serial_number = 'БААЗ-ИС50-002', commissioning_date = '2014-06-01' where id = 'c3000000-0000-4000-8000-000000000030';
+update public.assets set commissioning_date = '2015-11-20' where id = 'c3000000-0000-4000-8000-000000000031';
+update public.assets set serial_number = 'ЗА200-55832', commissioning_date = '1989-10-03' where id = 'c3000000-0000-4000-8000-000000000032';
+update public.assets set serial_number = 'СН612-22741', commissioning_date = '1992-01-17' where id = 'c3000000-0000-4000-8000-000000000033';
+update public.assets set serial_number = 'TY-8FG25-45210', commissioning_date = '2017-08-08' where id = 'c3000000-0000-4000-8000-000000000034';
+update public.assets set serial_number = 'JH-ETV216-883421', commissioning_date = '2019-02-14' where id = 'c3000000-0000-4000-8000-000000000035';
+update public.assets set serial_number = 'КП-16К20-78431', commissioning_date = '1987-06-12' where id = 'c3000000-0000-4000-8000-000000000037';
+update public.assets set serial_number = 'КП-16К20-55201' where id = 'c3000000-0000-4000-8000-000000000038';
+update public.assets set commissioning_date = '2013-05-10' where id = 'c3000000-0000-4000-8000-000000000039';
+update public.assets set serial_number = 'КД2338-66782', commissioning_date = '1987-12-20' where id = 'c3000000-0000-4000-8000-000000000040';
+update public.assets set serial_number = 'BY-P6323-33451', commissioning_date = '1993-08-11' where id = 'c3000000-0000-4000-8000-000000000041';
+update public.assets set serial_number = 'ЛП200-9912' where id = 'c3000000-0000-4000-8000-000000000042';
+update public.assets set serial_number = '1512-88103', commissioning_date = '1978-05-22' where id = 'c3000000-0000-4000-8000-000000000043';
+update public.assets set serial_number = '5В312-99234', commissioning_date = '1984-02-16' where id = 'c3000000-0000-4000-8000-000000000045';
+update public.assets set serial_number = 'ACP-GA22-9918234', commissioning_date = '2018-01-09' where id = 'c3000000-0000-4000-8000-000000000047';
+update public.assets set commissioning_date = '2005-04-18' where id = 'c3000000-0000-4000-8000-000000000048';
+-- Без паспортных полей (демо неполных карточек): 036, 044, 046, 049, 050
+
 -- Паспортные поля demo-станков интеграции DT (симметрия с Prostoi sql/000_base.sql)
 update public.assets set serial_number = 'SN789012', commissioning_date = '2020-03-15' where id = 'a1111111-1111-1111-1111-111111111101';
 update public.assets set serial_number = 'HA123456', commissioning_date = '2021-07-20' where id = 'a1111111-1111-1111-1111-111111111102';

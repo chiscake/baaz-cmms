@@ -559,6 +559,89 @@ for (const [id, , , , , , , , cat] of dtAssets) {
   if (cat) assetSql.push(`update public.assets set category_id = '${catId(cat)}' where id = '${id}';`);
 }
 
+/** @type {Record<number, { serial?: string, date?: string }>} */
+const assetPassport = {
+  1: { serial: "КП-16К20-78432", date: "1987-06-12" },
+  2: { serial: "BY-P6330-11984", date: "1992-03-20" },
+  3: { serial: "ACP-GA37-8812034" },
+  4: { serial: "6Р82-45231", date: "1985-11-08" },
+  5: { serial: "1К62-32891", date: "1979-04-15" },
+  6: { serial: "ЗТО-ТМ630-7721" },
+  8: { serial: "3М151-66102", date: "1983-09-22" },
+  9: { serial: "КМ5-16-90441", date: "1990-07-01" },
+  10: { serial: "СНО-3.6.4-12088", date: "1988-12-05" },
+  11: { serial: "ГВ1200-0045", date: "1995-02-18" },
+  12: { serial: "КД2126-55213", date: "1986-08-30" },
+  13: { serial: "ЛП150-8834", date: "2001-05-14" },
+  14: { serial: "СТ400-0012", date: "2012-10-01" },
+  15: { serial: "BY-P6322-22109", date: "1991-01-25" },
+  16: { serial: "DMG-CMX600V-904521", date: "2019-08-15" },
+  17: { serial: "1М63-44102", date: "1976-03-10" },
+  18: { serial: "6Т83-77821", date: "1982-07-19" },
+  19: { serial: "2А622-33018", date: "1980-11-02" },
+  20: { serial: "2Е440А-11876", date: "1984-04-28" },
+  21: { serial: "2620В-20543", date: "1981-09-14" },
+  22: { date: "1975-02-01" },
+  23: { serial: "HAAS-ST20-1123456", date: "2018-03-22" },
+  24: { serial: "HAAS-VF2-1123457", date: "2018-03-22" },
+  25: { serial: "FANUC-AM120iB-004521", date: "2020-11-10" },
+  26: { serial: "КИМ1200-88134", date: "1998-06-08" },
+  27: { serial: "HYP-PMX105-774411", date: "2016-04-05" },
+  28: { serial: "БААЗ-КК10-003", date: "2008-09-12" },
+  29: { serial: "БААЗ-ЛС200-001", date: "2014-06-01" },
+  30: { serial: "БААЗ-ИС50-002", date: "2014-06-01" },
+  31: { date: "2015-11-20" },
+  32: { serial: "ЗА200-55832", date: "1989-10-03" },
+  33: { serial: "СН612-22741", date: "1992-01-17" },
+  34: { serial: "TY-8FG25-45210", date: "2017-08-08" },
+  35: { serial: "JH-ETV216-883421", date: "2019-02-14" },
+  37: { serial: "КП-16К20-78431", date: "1987-06-12" },
+  38: { serial: "КП-16К20-55201" },
+  39: { date: "2013-05-10" },
+  40: { serial: "КД2338-66782", date: "1987-12-20" },
+  41: { serial: "BY-P6323-33451", date: "1993-08-11" },
+  42: { serial: "ЛП200-9912" },
+  43: { serial: "1512-88103", date: "1978-05-22" },
+  45: { serial: "5В312-99234", date: "1984-02-16" },
+  47: { serial: "ACP-GA22-9918234", date: "2018-01-09" },
+  48: { date: "2005-04-18" },
+};
+
+/** @type {Record<string, { serial?: string, date?: string }>} */
+const dtAssetPassport = {
+  "a1111111-1111-1111-1111-111111111101": { serial: "SN789012", date: "2020-03-15" },
+  "a1111111-1111-1111-1111-111111111102": { serial: "HA123456", date: "2021-07-20" },
+  "a1111111-1111-1111-1111-111111111103": { serial: "SN456789", date: "2018-11-05" },
+  "a1111111-1111-1111-1111-111111111104": { serial: "HA789012", date: "2022-01-10" },
+  "a1111111-1111-1111-1111-111111111105": { serial: "SN345678", date: "2019-05-30" },
+  "a1111111-1111-1111-1111-111111111106": { serial: "SN901234", date: "2020-09-15" },
+  "a1111111-1111-1111-1111-111111111107": { serial: "TP123456", date: "2021-11-20" },
+  "a1111111-1111-1111-1111-111111111108": { serial: "ZA789012", date: "2020-04-05" },
+  "a1111111-1111-1111-1111-111111111109": { serial: "FA345678", date: "2021-08-25" },
+  "a1111111-1111-1111-1111-11111111110a": { serial: "KI901234", date: "2019-12-10" },
+  "a1111111-1111-1111-1111-11111111110b": { serial: "CONV001", date: "2020-06-01" },
+};
+
+function pushAssetPassportUpdates(targetSql, id, passport) {
+  const sets = [];
+  if (passport.serial) sets.push(`serial_number = '${passport.serial}'`);
+  if (passport.date) sets.push(`commissioning_date = '${passport.date}'`);
+  if (sets.length === 0) return;
+  targetSql.push(`update public.assets set ${sets.join(", ")} where id = '${id}';`);
+}
+
+assetSql.push(``);
+assetSql.push(`-- Паспортные поля (серийный номер / дата ввода в эксплуатацию)`);
+assetSql.push(`-- Большинство заполнено; часть — только серийник, только дата или оба NULL (демо неполных карточек).`);
+for (const [n, passport] of Object.entries(assetPassport)) {
+  pushAssetPassportUpdates(assetSql, assetId(Number(n)), passport);
+}
+assetSql.push(``);
+assetSql.push(`-- Паспортные поля demo-станков интеграции DT (симметрия с Prostoi sql/000_base.sql)`);
+for (const [id, passport] of Object.entries(dtAssetPassport)) {
+  pushAssetPassportUpdates(assetSql, id, passport);
+}
+
 writeFileSync(join(root, "030_assets.sql"), assetSql.join("\n") + "\n");
 
 // --- Maintenance norms (standalone + overrides) ---
