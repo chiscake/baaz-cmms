@@ -498,3 +498,6 @@ temp/
 # Large docs
 *.docx
 *.pdf
+
+# Debug panel
+!scripts/debug/

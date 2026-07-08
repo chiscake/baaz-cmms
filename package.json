@@ -14,7 +14,7 @@
     "fn:serve:ps1": "pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/serve-edge-functions.ps1",
     "fn:deploy": "supabase functions deploy admin-users",
     "fn:logs": "supabase functions logs admin-users",
-    "debug:panel": "pnpm dlx serve scripts/debug -p 5173",
+    "debug:panel": "pnpm dlx serve scripts/debug -p 5599",
     "generate:secret": "python -c \"import secrets; print(secrets.token_urlsafe(32))\""
   },
   "keywords": [],

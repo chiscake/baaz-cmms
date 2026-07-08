@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CMMS Debug Panel</title>
+    <link rel="stylesheet" href="./css/app.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar panel">
+        <div class="sidebar-header">
+          <h1>CMMS Debug</h1>
+          <p class="subtitle">Локальная отладка Supabase</p>
+        </div>
+
+        <section class="sidebar-section">
+          <h2>Вход</h2>
+          <form id="login-form" class="stack compact">
+            <div class="field">
+              <label for="cfg-url">Supabase URL</label>
+              <input id="cfg-url" type="url" required autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="cfg-key">Publishable key</label>
+              <input id="cfg-key" type="text" required autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="cfg-email">E-mail</label>
+              <input id="cfg-email" type="email" required autocomplete="username" />
+            </div>
+            <div class="field">
+              <label for="cfg-password">Пароль</label>
+              <input id="cfg-password" type="password" required autocomplete="current-password" />
+            </div>
+            <button type="submit">Подключиться и войти</button>
+          </form>
+          <div class="session-row">
+            <span id="session-info">Не авторизован</span>
+            <button type="button" id="btn-sign-out" class="secondary">Выйти</button>
+          </div>
+        </section>
+
+        <nav id="app-nav" class="sidebar-nav" aria-label="Разделы отладки"></nav>
+      </aside>
+
+      <div class="main-column">
+        <main id="app-content" class="content panel app-locked"></main>
+
+        <section class="panel log-panel">
+          <h2>Журнал</h2>
+          <div id="log-output"></div>
+        </section>
+      </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
