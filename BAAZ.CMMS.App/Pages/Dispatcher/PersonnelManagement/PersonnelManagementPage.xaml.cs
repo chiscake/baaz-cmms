@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
 using BAAZ.CMMS.App.Controls.CrudWorkbench;
+using BAAZ.CMMS.App.Localization;
 
 namespace BAAZ.CMMS.App.Pages.Dispatcher.PersonnelManagement;
 
@@ -30,6 +31,9 @@ public sealed partial class PersonnelManagementPage : Page
                 ArchiveRowAsync = row => ViewModel.SetRowActiveAsync(row, !row.IsActive),
                 DeleteRowAsync = row => ViewModel.DeleteRowAsync(row),
                 GetRowDisplayName = row => row.FullName,
+                GetArchiveContextMenuLabel = row => row.IsActive
+                    ? ResourceStrings.Get("Personnel_Context_ArchiveRow")
+                    : ResourceStrings.Get("Personnel_Context_RestoreRow"),
             });
         _crud.Wire();
     }
